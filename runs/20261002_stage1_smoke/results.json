@@ -1,0 +1,30 @@
+{
+  "sanity_accuracy_training_release": 0.02666666666666667,
+  "sanity_accuracy_label": "accuracy on the GTSRB training release (backbone fine-tuned on the official test release); NOT test accuracy",
+  "frames_evaluated": 600,
+  "worst_5_classes": {
+    "0": 0.0,
+    "1": 0.041025641025641026
+  },
+  "best_epoch": 2,
+  "best_val_acc_optimistic": 0.1388888888888889,
+  "epochs_run": 2,
+  "n_pool": 1000,
+  "n_excluded": 26,
+  "n_train": 892,
+  "n_val": 108,
+  "checkpoint": "runs\\20261002_stage1_smoke\\best.pt",
+  "checkpoint_sha256": "831b0b92e551f719e903239b2eeb5f0b8abedbf94eb46bca1b22b6a2e03f4ba6",
+  "config_sha256": "aab81e1122d49eaf2be722a25a9c9361ea9cc5e50acdf88d5314874ee1fb249a",
+  "seed": 0,
+  "device": "cuda",
+  "amp": true,
+  "smoke": true,
+  "versions": {
+    "python": "3.12.10",
+    "torch": "2.14.1+cu132",
+    "torchvision": "0.29.1+cu132",
+    "numpy": "2.5.2"
+  },
+  "gpu": "NVIDIA GeForce RTX 5050 Laptop GPU"
+}

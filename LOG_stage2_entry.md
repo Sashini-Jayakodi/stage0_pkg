@@ -1,0 +1,17 @@
+## 2026-10-03 | Stage 2 | embeddings from the frozen backbone (run tag 20261003_stage1)
+- Checkpoint hash checked before running (equals the frozen value, script stops otherwise): 86527359bc61a5fbc4d48b7744e049b5ca3ff81cb016fb237298d0c007140bcc ; git commit: ______________
+- What was done: ResNet-18 in eval mode, fp32, no augmentation, over (a) the 11,344 fine-tune-train frames (official test release; split recomputed with the Stage 1 code and seed, counts matched Stage 1: pool 12,604 / train 11,344 / val 1,260) and (b) all 39,209 training-release frames. Saved 512-d l2-normalised embeddings, raw 512-d features, 43 logits, class / track / frame indices to runs/20261003_stage1/embeddings/. Raw features were saved so that plan Stage 3 mitigation 2 does not need a re-run.
+- Checks (all PASS):
+  - Row counts match the metadata: ft_train 11,344; train_release 39,209.
+  - No NaN / inf.
+  - Max |norm - 1|: ft_train 1.1e-08, train_release 1.3e-08 (limit 1e-5).
+  - Feature really is the input of the last layer (logits = fc(feature)): max difference 2.5e-06 (ft_train), 3.3e-06 (train_release).
+  - argmax of the logits reproduces Stage 1 exactly: train-release accuracy 0.918998 = the logged Stage 1 value 0.9190 (identical predictions to the Stage 1 evaluation function, 0 differing frames).
+- Accuracy on the frames the head will be fitted on (ft_train; the backbone was trained on these): 0.9996. Accuracy on the training release: 0.9190.
+- Output file SHA-256 (embeddings_summary.json `files_sha256`):
+  - ft_train.npz a0c15f7d59f893a13794517c610bdcc320917eccc9990423a9577e96f654fdf7
+  - train_release.npz 228fe5b2ee29f59d5e3fac7e5b81ffd8b1a9b1f6b5747756f88711345034d380
+- Threat to validity (plan-frozen, so only logged): the head is fitted on embeddings of frames the backbone was trained on (99.96% accurate) while it will be applied to frames at 91.9% accuracy. Those clusters can be tighter than for unseen frames, which could make distances and the open-set gate look sharper than they are. Stage 3 head-vs-softmax agreement on the training release will show whether this matters. The plan rule is not changed because of it.
+- Environment: Python 3.12.10, torch 2.14.1+cu132, numpy 2.5.2, device cuda (RTX 5050 Laptop GPU). The Stage 0 lock file (3.11.9) had numpy 2.4.6; the cache hashes still matched, so no effect on results.
+- Deviation from R6? No design change.
+- Next step: backup runs/20261003_stage1/embeddings next to the checkpoint, then Stage 3 (tied-Gaussian head, epsilon table, confusability atlas).

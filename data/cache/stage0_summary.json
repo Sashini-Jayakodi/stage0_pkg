@@ -1,0 +1,9 @@
+{
+  "train_images": 39209,
+  "train_tracks": 1307,
+  "test_images": 12630,
+  "image_size": 112,
+  "near_dup_pairs": 449,
+  "test_images_with_near_dup": 205,
+  "test_dup_fraction": 0.01623119556611243
+}

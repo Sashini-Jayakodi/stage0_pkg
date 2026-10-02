@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Raw datasets
+data/raw/*.zip
+
+# Large generated caches
+data/cache/*.npy
+
+# Generated experiment outputs / model files
+runs/**/*.pt
+runs/**/*.npz
+
+# Keep generated run metadata/results, but ignore temporary files
+*.tmp
+*.log
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

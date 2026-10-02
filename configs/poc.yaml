@@ -1,0 +1,48 @@
+# POC constants (frozen design R6). Stage 0 only reads the `data` and `phash` blocks.
+# Why a config file: every number lives in ONE place, so nobody changes a constant
+# silently inside code (the plan forbids changing frozen rules after seeing data).
+data:
+  raw_dir: data/raw                  # original zips; read-only, never modified
+  cache_dir: data/cache              # decoded 112x112 arrays + metadata tables go here
+  train_zip: GTSRB_Final_Training_Images.zip
+  test_zip: GTSRB_Final_Test_Images.zip
+  test_gt: GT-final_test.csv         # labelled test CSV (a GT zip containing it also works)
+  image_size: 112                    # backbone input size; whole image resized, no ROI crop
+  expected:                          # known-good numbers; Stage 0 FAILS if the data differs
+    train_images: 39209
+    train_tracks: 1307
+    train_frame_counts: {30: 1306, 29: 1}   # 1306 tracks of 30 frames, one of 29
+    test_images: 12630
+    n_classes: 43
+phash:
+  enabled: true
+  near_dup_hamming: 2   # two images "match" if their 64-bit pHash differs in <= 2 bits
+seed: 0                 # used only for choosing which tracks appear in the preview strips
+
+# ---- Stage 1: one-time backbone fine-tune (plan section 5) ----------------------------
+train:
+  exclude_file: data/cache/finetune_exclude_final.csv   # 26 duplicate test images, written by inspect_dups.py
+  val_fraction: 0.10        # early-stopping split of the fine-tune pool (stratified by class; optimistic, never reported)
+  epochs: 20                # upper bound; early stopping usually ends sooner
+  patience: 5               # stop after this many epochs without a better val accuracy
+  batch_size: 128
+  lr_backbone: 0.0002       # lower LR for pretrained layers ...
+  lr_head: 0.001            # ... higher LR for the new 43-way layer
+  weight_decay: 0.0001
+  warmup_epochs: 1          # linear LR warm-up, then cosine decay
+  amp: true                 # mixed precision, only used on a CUDA GPU
+  run_dir: runs
+  aug:                      # LIGHT augmentation only (see LOG.md for the reasons)
+    crop_area_scale: [0.85, 1.0]   # small random crop (fraction of image area kept)
+    crop_aspect: [0.9, 1.1]        # aspect ratio near 1
+    rotation_deg: 10
+    contrast: 0.2                  # mild contrast jitter (+-20%)
+    brightness: 0.0                # DROPPED: overlaps the "night" scenario; set e.g. 0.2 to enable
+    # Never used: flips (left/right signs), blur, fog, rain, noise, perspective, shear (= the stress tests)
+
+# ---- Stage 2: embeddings from the FROZEN backbone (plan section 6) ---------------------
+embed:
+  # Stage 2 refuses to run unless best.pt has exactly this SHA-256 (the value logged in LOG.md after Stage 1).
+  expected_checkpoint_sha256: 86527359bc61a5fbc4d48b7744e049b5ca3ff81cb016fb237298d0c007140bcc
+  batch_size: 512           # same batch size as Stage 1's evaluation, so predictions reproduce exactly
+  norm_tol: 1.0e-5          # every l2-normalised embedding must have norm 1 within this

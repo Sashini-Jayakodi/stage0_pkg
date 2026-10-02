@@ -1,0 +1,28 @@
+amp: true
+device: cuda
+image_size: 112
+pretrained: false
+seed: 0
+smoke: true
+train:
+  amp: true
+  aug:
+    brightness: 0.0
+    contrast: 0.2
+    crop_area_scale:
+    - 0.85
+    - 1.0
+    crop_aspect:
+    - 0.9
+    - 1.1
+    rotation_deg: 10
+  batch_size: 128
+  epochs: 2
+  exclude_file: data/cache/finetune_exclude_final.csv
+  lr_backbone: 0.0002
+  lr_head: 0.001
+  patience: 5
+  run_dir: runs
+  val_fraction: 0.1
+  warmup_epochs: 1
+  weight_decay: 0.0001

@@ -1,0 +1,30 @@
+{
+  "checkpoint_sha256": "86527359bc61a5fbc4d48b7744e049b5ca3ff81cb016fb237298d0c007140bcc",
+  "n_ft_train": 11344,
+  "n_train_release": 39209,
+  "checks": {
+    "ft_train": {
+      "rows": 11344,
+      "max_norm_error": 1.1003478794791022e-08,
+      "max_fc_consistency_error": 2.5353495640700885e-06,
+      "accuracy": 0.9996473906911142
+    },
+    "train_release": {
+      "rows": 39209,
+      "max_norm_error": 1.3361473816253522e-08,
+      "max_fc_consistency_error": 3.3211205554550816e-06,
+      "accuracy": 0.9189981891912571
+    }
+  },
+  "stage1_accuracy_reproduced_exactly": true,
+  "files_sha256": {
+    "ft_train.npz": "a0c15f7d59f893a13794517c610bdcc320917eccc9990423a9577e96f654fdf7",
+    "train_release.npz": "228fe5b2ee29f59d5e3fac7e5b81ffd8b1a9b1f6b5747756f88711345034d380"
+  },
+  "device": "cuda",
+  "versions": {
+    "python": "3.12.10",
+    "torch": "2.14.1+cu132",
+    "numpy": "2.5.2"
+  }
+}
