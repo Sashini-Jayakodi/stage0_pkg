@@ -30,7 +30,14 @@ Items 6-7 were added on 2026-10-10 after the Stage 4 Fit numbers were seen (disc
 
 7. Disclosure of what was seen before this commit: the Stage 4 Fit-only results (no Cert or Test error has been computed). The eps hard-minus-easy gap on Fit is small (mean +0.51 pp per-track, +0.44 pp pooled; 4 of 5 seeds positive under both definitions); the eps3 gap is larger (+1.08 pp per-track). c*, delta = 0.1, beta = 5%, strata, reshuffles (seeds 0-4) and severities were NOT changed after seeing these numbers, and the choice in item 6 was made with both definitions showing the same sign count for eps.
 
-Frozen at git commit: ______________
+Frozen at git commit: 45a4d41ab9e8d3b1f877555f58c4fd991804cdfe (2026-10-10; the pre-registration text as it stands in that commit is the frozen version. Any later change must be a dated addendum, committed before Stage 5.)
+
+ADDENDA (dated, added AFTER the freeze commit above and committed before the diagnostic below was run and before Stage 5; the frozen text above is unchanged)
+
+* Addendum A (2026-10-10): disagreement rule for item 6. If G1(i) passes under the per-track mean but fails under the pooled rate (or the reverse), both results are reported with that caveat. The per-track result stays the pre-registered primary.
+
+* Addendum B (2026-10-10): the Fit-only diagnostic (src/fitdiag.py: track-cluster bootstrap of the hard-minus-easy gap on Fit, and error by confusability slice on Fit) is information only. It uses Fit frames only. No frozen rule (c*, delta, beta, strata, seeds, base-error definition, G1 aggregation) will be changed because of its output. Any different design would be a separate, declared revision (R7), written in this file and committed BEFORE Stage 5, with the leakage caveat that Fit sets rotate across the five reshuffles.
+
 
 ---
 
@@ -38,7 +45,7 @@ Frozen at git commit: ______________
 
 * Environment: Python 3.11.9; numpy 2.4.6, pandas 3.0.6, pillow 12.3.0, scipy 1.17.1, pyyaml 6.0.3, tqdm 4.70.1, matplotlib 3.11.2 (requirements-lock.txt; Stage 0 only, re-freeze after Stage 1)
 
-* Git commit: ______________
+* Git commit: 45a4d41ab9e8d3b1f877555f58c4fd991804cdfe (2026-10-10 snapshot that includes this stage)
 
 * Data: GTSRB_Final_Training_Images.zip, GTSRB_Final_Test_Images.zip, GT-final_test.csv (labelled; used instead of the GT zip, same file)
 
@@ -132,7 +139,7 @@ Frozen at git commit: ______________
 
 * Checkpoint hash checked before running (equals the frozen value; script stops otherwise): 86527359bc61a5fbc4d48b7744e049b5ca3ff81cb016fb237298d0c007140bcc
 
-* Git commit: ______________
+* Git commit: 45a4d41ab9e8d3b1f877555f58c4fd991804cdfe (2026-10-10 snapshot that includes this stage)
 
 * What was done: ResNet-18 in eval mode, fp32, no augmentation, over (a) the 11,344 fine-tune-train frames (official test release; split recomputed with the Stage 1 code and seed, counts matched Stage 1: pool 12,604 / train 11,344 / val 1,260) and (b) all 39,209 training-release frames. Saved 512-d l2-normalised embeddings, raw 512-d features, 43 logits, class / track / frame indices to `runs/20261003_stage1/embeddings/`. Raw features were saved so that plan Stage 3 mitigation 2 does not need a re-run.
 
@@ -162,7 +169,7 @@ Frozen at git commit: ______________
 ---
 
 ## 2026-10-10 | Stage 3 | tied-Gaussian head, epsilon table, confusability atlas (run tag 20261003_stage1)
-* Inputs: Stage 2 embeddings (script checked them against the frozen checkpoint hash 86527359bc61a5fbc4d48b7744e049b5ca3ff81cb016fb237298d0c007140bcc and the Stage 2 file hashes) ; git commit: ______________
+* Inputs: Stage 2 embeddings (script checked them against the frozen checkpoint hash 86527359bc61a5fbc4d48b7744e049b5ca3ff81cb016fb237298d0c007140bcc and the Stage 2 file hashes) ; git commit: 45a4d41ab9e8d3b1f877555f58c4fd991804cdfe (2026-10-10 snapshot that includes this stage)
 * Features used: l2-normalised (emb), the plan default. Output folder: runs/20261003_stage1/head_emb/
 * What was done: 43 class means + one pooled within-class covariance (Ledoit-Wolf) fitted on the 11,344 fine-tune-train embeddings only; empirical class priors; label = top-1 posterior; margin = top-1 minus top-2 log-posterior; OOD score s(x) = min Mahalanobis distance; eps_ij = Phi(-Delta_ij/2) stored as log eps (equal priors).
 * Covariance: Ledoit-Wolf shrinkage 0.0208 ; condition number 151 (eigenvalues 2.3e-05 to 3.5e-03) ; finite: PASS
@@ -190,7 +197,7 @@ Frozen at git commit: ______________
 ---
 
 ## 2026-10-10 | Stage 4 | reshuffles and Fit-side calibration (run tag 20261003_stage1)
-* Config / code / checkpoint / git commit: constants = the `constants_used` block of stage4_summary.json (plan section 1 values, code defaults; no `splits:` block was added to poc.yaml) ; code = src/splits.py SHA-256 065e7047308a163c8baacd3a5030f766c6ac25d49aed75a1bcb0a7c348e3a1d7 (checked on the author's machine with Get-FileHash: identical) ; checkpoint 86527359bc61a5fbc4d48b7744e049b5ca3ff81cb016fb237298d0c007140bcc (verified by the script, which also verified the Stage 2 and Stage 3 file hashes) ; git commit: ______________
+* Config / code / checkpoint / git commit: constants = the `constants_used` block of stage4_summary.json (plan section 1 values, code defaults; no `splits:` block was added to poc.yaml) ; code = src/splits.py SHA-256 065e7047308a163c8baacd3a5030f766c6ac25d49aed75a1bcb0a7c348e3a1d7 (checked on the author's machine with Get-FileHash: identical) ; checkpoint 86527359bc61a5fbc4d48b7744e049b5ca3ff81cb016fb237298d0c007140bcc (verified by the script, which also verified the Stage 2 and Stage 3 file hashes) ; git commit: 45a4d41ab9e8d3b1f877555f58c4fd991804cdfe (2026-10-10 snapshot that includes this stage)
 * What was done: `py -3.12 -m src.splits --run runs/20261003_stage1`. Track-level splits Fit/Cert/Test = 261/784/262 (seeds 0-4), open-set gate tau, cut-point c*, Fit base errors, 50-point margin grids and the plan 6.3 testing order, for eps (primary) and eps3 (first fallback). Output folder: runs/20261003_stage1/splits/.
 * Not done on purpose: no Cert or Test error rate of any kind was computed.
 * Two runs, one code change (read this):
@@ -271,7 +278,7 @@ Fit-based testing order: the start index (of 50 grid points) is 6-23 depending o
 
 * Decision taken and why: keep c*, delta, beta, strata, reshuffles and ordering exactly as defined (plan section 6, Stage 4 and 6.3). Nothing re-tuned despite the small Fit gap.
 * Deviation from R6? No. The per-track definition is an interpretation of an undefined plan term, not a design change.
-* Next step: read and accept (or edit) the PRE-REGISTRATION block at the top of LOG.md, commit it, record the hash there and here: ______________. Then Stage 5.
+* Next step: the pre-registration block was committed at 45a4d41ab9e8d3b1f877555f58c4fd991804cdfe before any Cert or Test error was computed. Stage 5 (G1(i)/(ii), rho and ICC, rank-of-error, eps3 ablation) may start. Optional beforehand, Fit only: track-cluster bootstrap of the hard-minus-easy gap and an error-by-eps-octile table (diagnostics; they change nothing that is frozen).
 
 
 ---

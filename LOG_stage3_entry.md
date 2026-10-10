@@ -1,5 +1,5 @@
 ## 2026-10-10 | Stage 3 | tied-Gaussian head, epsilon table, confusability atlas (run tag 20261003_stage1)
-- Inputs: Stage 2 embeddings (script checked them against the frozen checkpoint hash 86527359bc61a5fbc4d48b7744e049b5ca3ff81cb016fb237298d0c007140bcc and the Stage 2 file hashes) ; git commit: ______________
+- Inputs: Stage 2 embeddings (script checked them against the frozen checkpoint hash 86527359bc61a5fbc4d48b7744e049b5ca3ff81cb016fb237298d0c007140bcc and the Stage 2 file hashes) ; git commit: 45a4d41ab9e8d3b1f877555f58c4fd991804cdfe (2026-10-10 snapshot that includes this stage)
 - Features used: l2-normalised (emb), the plan default. Output folder: runs/20261003_stage1/head_emb/
 - What was done: 43 class means + one pooled within-class covariance (Ledoit-Wolf) fitted on the 11,344 fine-tune-train embeddings only; empirical class priors; label = top-1 posterior; margin = top-1 minus top-2 log-posterior; OOD score s(x) = min Mahalanobis distance; eps_ij = Phi(-Delta_ij/2) stored as log eps (equal priors).
 - Covariance: Ledoit-Wolf shrinkage 0.0208 ; condition number 151 (eigenvalues 2.3e-05 to 3.5e-03) ; finite: PASS

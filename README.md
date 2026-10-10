@@ -15,7 +15,8 @@ src/train.py                  Stage 1: ResNet-18 fine-tune, run ONCE
 src/embed.py                  Stage 2: embeddings from the frozen checkpoint
 src/head.py                   Stage 3: tied-Gaussian head, eps table, confusability atlas
 src/splits.py                 Stage 4: reshuffles, gate, cut-point c*, Fit-side calibration
-tests/test_stage0.py ... test_stage4.py   synthetic-data tests
+src/fitdiag.py                Stage 4 add-on: Fit-only diagnostic (gap noise, error by eps slice); information only
+tests/test_stage0.py ... test_fitdiag.py   synthetic-data tests
 data/raw/                     the zips and GT-final_test.csv (read-only, never modified)
 data/cache/                   decoded 112x112 arrays + metadata tables
 runs/20261003_stage1/         checkpoint, embeddings/, head_emb/, splits/
@@ -28,7 +29,7 @@ README_stage3.md, README_stage4.md   per-stage run notes
 Python 3.12 (`py -3.12`), torch 2.14.1+cu132 and torchvision 0.29.1+cu132 (the RTX 5050 needs a CUDA 12.8+ build). Python 3.11 was abandoned because Windows Application Control blocked torch's DLLs. The Stage 0 cache hashes are identical under 3.11, 3.12 and 3.13.
 
 ## Tests
-`py -3.12 -m pytest tests -q` gives 41 passed with the current test files (the Stage 3 Ledoit-Wolf test is skipped if scikit-learn is not installed). If you see 39, your `tests/test_stage1.py` is an older copy; use the one in this package.
+`py -3.12 -m pytest tests -q` gives 48 passed with the current test files (the Stage 3 Ledoit-Wolf test is skipped if scikit-learn is not installed). If you see fewer, one of your test files is an older copy.
 
 ## Stage 0: data
 1. Put `GTSRB_Final_Training_Images.zip`, `GTSRB_Final_Test_Images.zip` and the labelled `GT-final_test.csv` in `data/raw/`.

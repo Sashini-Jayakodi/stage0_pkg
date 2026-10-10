@@ -1,5 +1,5 @@
 ## 2026-10-03 | Stage 2 | embeddings from the frozen backbone (run tag 20261003_stage1)
-- Checkpoint hash checked before running (equals the frozen value, script stops otherwise): 86527359bc61a5fbc4d48b7744e049b5ca3ff81cb016fb237298d0c007140bcc ; git commit: ______________
+- Checkpoint hash checked before running (equals the frozen value, script stops otherwise): 86527359bc61a5fbc4d48b7744e049b5ca3ff81cb016fb237298d0c007140bcc ; git commit: 45a4d41ab9e8d3b1f877555f58c4fd991804cdfe (2026-10-10 snapshot that includes this stage)
 - What was done: ResNet-18 in eval mode, fp32, no augmentation, over (a) the 11,344 fine-tune-train frames (official test release; split recomputed with the Stage 1 code and seed, counts matched Stage 1: pool 12,604 / train 11,344 / val 1,260) and (b) all 39,209 training-release frames. Saved 512-d l2-normalised embeddings, raw 512-d features, 43 logits, class / track / frame indices to runs/20261003_stage1/embeddings/. Raw features were saved so that plan Stage 3 mitigation 2 does not need a re-run.
 - Checks (all PASS):
   - Row counts match the metadata: ft_train 11,344; train_release 39,209.
