@@ -1,0 +1,13 @@
+# OPTIONAL. Append this block to configs/poc.yaml. The code already uses these exact numbers as defaults,
+# so skipping it changes nothing; adding it just keeps "every constant in one place" true.
+# Frozen by the plan (section 1). Do not change after seeing data.
+splits:
+  sizes: [261, 784, 262]        # Fit / Cert / Test tracks (must add up to 1,307)
+  fractions: [0.2, 0.6, 0.2]    # target share per class; at least 1 track per class per split
+  seeds: [0, 1, 2, 3, 4]
+  beta: 0.05                    # gate: tau = ceil((n+1)(1-beta))-th smallest score = 249th of 261
+  delta: 0.1
+  alpha_grid: [0.01, 0.02, 0.03, 0.05]
+  alpha_rel_base: 0.5           # also try alpha = 0.5 x Fit base error of each stratum
+  margin_points: 50
+  margin_top_quantile: 0.98
