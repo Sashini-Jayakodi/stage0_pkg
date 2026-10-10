@@ -1,4 +1,4 @@
-# FYP POC: project README (Stages 0-4)
+# FYP POC: project README (Stages 0-5)
 
 One folder, files are added stage by stage. Run everything from the project folder with `py -3.12`.
 
@@ -16,20 +16,22 @@ src/embed.py                  Stage 2: embeddings from the frozen checkpoint
 src/head.py                   Stage 3: tied-Gaussian head, eps table, confusability atlas
 src/splits.py                 Stage 4: reshuffles, gate, cut-point c*, Fit-side calibration
 src/fitdiag.py                Stage 4 add-on: Fit-only diagnostic (gap noise, error by eps slice); information only
-tests/test_stage0.py ... test_fitdiag.py   synthetic-data tests
+src/util.py                   torch-free sha256_file (CPU-only stages import this, so a blocked torch cannot stop them)
+src/stage5.py                 Stage 5: G1(i), G1(ii), rho/ICC, rank-of-error, eps3, fragment counts (first stage that reads Cert labels)
+tests/test_stage0.py ... test_stage5.py   synthetic-data tests
 data/raw/                     the zips and GT-final_test.csv (read-only, never modified)
 data/cache/                   decoded 112x112 arrays + metadata tables
 runs/20261003_stage1/         checkpoint, embeddings/, head_emb/, splits/
 LOG.md                        decision and result log (pre-registration block at the top)
 LOG_stageN_entry.md           the same entries as separate files
-README_stage3.md, README_stage4.md   per-stage run notes
+README_stage3.md, README_stage4.md, README_stage5.md   per-stage run notes
 ```
 
 ## Environment
 Python 3.12 (`py -3.12`), torch 2.14.1+cu132 and torchvision 0.29.1+cu132 (the RTX 5050 needs a CUDA 12.8+ build). Python 3.11 was abandoned because Windows Application Control blocked torch's DLLs. The Stage 0 cache hashes are identical under 3.11, 3.12 and 3.13.
 
 ## Tests
-`py -3.12 -m pytest tests -q` gives 48 passed with the current test files (the Stage 3 Ledoit-Wolf test is skipped if scikit-learn is not installed). If you see fewer, one of your test files is an older copy.
+`py -3.12 -m pytest tests -q` gives 63 passed with the current test files when torch loads (the Stage 3 Ledoit-Wolf test is skipped if scikit-learn is not installed). If Windows blocks torch (WinError 4551), the Stage 1 and Stage 3 test files skip themselves and you see 48 passed, 2 skipped; Stages 4 to 6 still run. If you see fewer, one of your test files is an older copy.
 
 ## Stage 0: data
 1. Put `GTSRB_Final_Training_Images.zip`, `GTSRB_Final_Test_Images.zip` and the labelled `GT-final_test.csv` in `data/raw/`.

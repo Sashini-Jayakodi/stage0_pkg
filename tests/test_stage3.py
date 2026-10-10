@@ -9,8 +9,11 @@ import pytest
 import yaml
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from src import head as H  # noqa: E402
-from src.train import sha256_file  # noqa: E402
+from src.util import sha256_file  # noqa: E402
+try:
+    from src import head as H  # noqa: E402   (head.py imports src.train, which imports torch)
+except (ImportError, OSError) as e:       # e.g. WinError 4551: Application Control blocked torch's DLLs
+    pytest.skip(f"torch cannot be loaded here ({type(e).__name__}); Stage 3 tests skipped", allow_module_level=True)
 
 D = 24
 

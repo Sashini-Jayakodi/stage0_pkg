@@ -10,7 +10,7 @@ import yaml
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from src import splits as S  # noqa: E402
-from src.train import sha256_file  # noqa: E402
+from src.util import sha256_file  # noqa: E402
 
 K = S.K
 

@@ -12,8 +12,11 @@ import pandas as pd
 import pytest
 import yaml
 
-torch = pytest.importorskip("torch")
-pytest.importorskip("torchvision")
+try:
+    torch = pytest.importorskip("torch")
+    pytest.importorskip("torchvision")
+except OSError as e:                      # e.g. WinError 4551: Application Control blocked torch's DLLs (importorskip only catches ImportError)
+    pytest.skip(f"torch cannot be loaded here ({type(e).__name__}); Stage 1 tests skipped", allow_module_level=True)
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from src import train as T  # noqa: E402

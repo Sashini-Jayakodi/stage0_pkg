@@ -28,7 +28,7 @@ import yaml
 from scipy.stats import binom, norm, spearmanr
 
 from src import splits as S
-from src.train import sha256_file
+from src.util import sha256_file
 
 N_SLICES = 8
 

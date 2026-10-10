@@ -22,7 +22,7 @@ from pathlib import Path
 import numpy as np
 import yaml
 
-from src.train import sha256_file
+from src.util import sha256_file
 
 K = 43
 SPLIT_NAMES = ["fit", "cert", "test"]
