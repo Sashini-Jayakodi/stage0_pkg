@@ -1,0 +1,138 @@
+g2_frozen: true
+frozen_on: '2026-10-15'
+run: 20261003_stage1
+checkpoint_sha256: 86527359bc61a5fbc4d48b7744e049b5ca3ff81cb016fb237298d0c007140bcc
+calibrated_on:
+  split: Fit
+  reshuffle_seed: 0
+  frame_stride: 3
+  frames: 2610
+  tracks: 261
+  clean_accuracy_pct: 93.10344827586206
+bands_pp:
+  mild:
+  - 3.0
+  - 8.0
+  severe:
+  - 15.0
+  - 30.0
+selection_rule: closest to the band midpoint among grid levels inside the band; severe
+  falls back to the recognisability cap; recertification cells = the two of the ten
+  with the largest Fit error increase
+scenarios:
+  rain:
+    mild:
+      severity: 1.25
+      fit_drop_pp: 4.980842911877395
+      band_reached: true
+      nominal_parameters:
+        drop_length: 8
+        drop_width: 1
+        blur: 3
+        brightness: 0.975
+        drop_gray: 21
+        rain_type: default
+      fit_sample_sha256: 6c4347ee942794d278c6bf5fcf70eadad99e56c76cdc41725427e0ba5054ac91
+    severe:
+      severity: 3.0
+      fit_drop_pp: 23.026819923371647
+      band_reached: true
+      nominal_parameters:
+        drop_length: 12
+        drop_width: 1
+        blur: 3
+        brightness: 0.94
+        drop_gray: 80
+        rain_type: default
+      fit_sample_sha256: 30ae1638f220c4ddbad7b85f94bfec197bc4ffa53c3fbf7037b850868884e60b
+  fog:
+    mild:
+      severity: 0.3
+      fit_drop_pp: 5.78544061302682
+      band_reached: true
+      nominal_parameters:
+        amount: 0.44999999999999996
+        decay: 2.0
+      fit_sample_sha256: 7a78d7abee7f26ecedcccbd2548211fc89fb47b1030fcc3a8d93fc391236af87
+    severe:
+      severity: 0.75
+      fit_drop_pp: 19.846743295019156
+      band_reached: true
+      nominal_parameters:
+        amount: 1.125
+        decay: 2.0
+      fit_sample_sha256: d5ff168100a02c07effae4238d98ece403b3b901e5b72d71ea5dff714ccf7d0d
+  night:
+    mild:
+      severity: 0.75
+      fit_drop_pp: 6.551724137931035
+      band_reached: true
+      nominal_parameters:
+        gamma: 1.225
+        brightness: 0.8875
+        noise: 0.015
+      fit_sample_sha256: bdaa04bf05a5362f285b7f3b4dec2e24c03d738302766b2de69c59735504344a
+    severe:
+      severity: 1.75
+      fit_drop_pp: 20.49808429118774
+      band_reached: true
+      nominal_parameters:
+        gamma: 1.5250000000000001
+        brightness: 0.7374999999999999
+        noise: 0.0275
+      fit_sample_sha256: e61adac2c6df3f84f30e0cf93b971c8e40f143b6d1e5ed0cce174b7bb15d6643
+  side_view:
+    mild:
+      severity: 2.25
+      fit_drop_pp: 5.823754789272031
+      band_reached: true
+      nominal_parameters:
+        scale_x: 0.775
+        shear_deg: 11.25
+      fit_sample_sha256: 9e91745e94c8a591706e8b55af76840040510f064cead15a4c2530ec8400fd51
+    severe:
+      severity: 4.0
+      fit_drop_pp: 21.877394636015325
+      band_reached: true
+      nominal_parameters:
+        scale_x: 0.6
+        shear_deg: 20.0
+      fit_sample_sha256: 01d47e355002aef5e3c0bdac212a5e9c8da62cdbebfe79fb1c44934201e03c09
+  motion_blur:
+    mild:
+      severity: 4.0
+      fit_drop_pp: 6.781609195402299
+      band_reached: true
+      nominal_parameters:
+        radius: 8
+        sigma: 6.0
+      fit_sample_sha256: 2471b30ede6ffabf2bfbbbd99e1a7c53ade7415e58cefd62a234861d3ffdd2c3
+    severe:
+      severity: 5.0
+      fit_drop_pp: 10.53639846743295
+      band_reached: false
+      nominal_parameters:
+        radius: 10
+        sigma: 7.5
+      fit_sample_sha256: b7ed5561ad98763e36c42ad8708c150e3eb215f70eb189da4ed5fb5f10fc2c1f
+recertification_cells:
+- scenario: rain
+  level: severe
+  severity: 3.0
+  fit_drop_pp: 23.026819923371647
+- scenario: side_view
+  level: severe
+  severity: 4.0
+  fit_drop_pp: 21.877394636015325
+seeding: per track (track name, scenario, severity) and per frame (track name, frame
+  index, scenario, severity), SHA-256 of a text key; see src/scenarios.py
+pins:
+  albumentations: 2.0.8
+  imagecorruptions: 1.1.2 (fog and motion_blur vendored in src/scenarios.py)
+versions_at_calibration:
+  numpy: 2.5.2
+  scipy: 1.18.1
+  albumentations: 2.0.8
+  opencv: 5.0.0
+scenarios_py_sha256: 819de3660923be68b2624ac70438b1a3e00402f5cc192334f06686ff420bbe7b
+stage7_results_sha256: 390acf7069b6b77b12e6cf550073886664aded1491afa947b736753868bbcb11
