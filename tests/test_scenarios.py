@@ -101,7 +101,7 @@ def test_grid_and_caps():
     for sc in SC.SCENARIOS:
         g = SC.grid_for(sc)
         assert g == [s for s in SC.GRID if s <= SC.CAP[sc]] and g[-1] == SC.CAP[sc]
-    assert SC.CAP["rain"] == 4.0 and SC.CAP["night"] == 4.0 and SC.CAP["fog"] == 5.0           # set from the synthetic sheet, before any accuracy was measured
+    assert SC.CAP["rain"] == 4.0 and SC.CAP["night"] == 4.0 and SC.CAP["fog"] == 4.0   # rain/night from the synthetic sheet; fog 5 -> 4 after the real smoke sheet; all before any accuracy was measured
 
 
 def test_nominal_parameters_hit_the_anchors_and_interpolate():

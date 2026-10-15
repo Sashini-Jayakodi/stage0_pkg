@@ -33,7 +33,7 @@ import numpy as np
 
 SCENARIOS = ["rain", "fog", "night", "side_view", "motion_blur"]          # fixed order (also the tie-break order in Stage 7)
 GRID = [0.1, 0.2, 0.3, 0.4, 0.5] + [round(0.75 + 0.25 * i, 2) for i in range(18)]   # calibration grid: 0.1 ... 0.5 (fine, fog and rain bite early), then 0.75 ... 5.0
-CAP = {"rain": 4.0, "fog": 5.0, "night": 4.0, "side_view": 5.0, "motion_blur": 5.0}  # strongest level a human can still recognise the sign at, set from the
+CAP = {"rain": 4.0, "fog": 4.0, "night": 4.0, "side_view": 5.0, "motion_blur": 5.0}  # strongest level a human can still recognise the sign at, set from the
                                                                                       # contact sheet BEFORE any accuracy was measured (plan 7: "cap at the strongest human-recognisable level")
 
 

@@ -474,3 +474,5 @@ eps3 (first fallback):
 
 ---
 
+
+- AMENDMENT to Stage 7 Part A (2026-10-15, after the smoke contact sheet, BEFORE any accuracy was measured): fog cap lowered 5.0 -> 4.0 because at s=5 several signs (30, 100, 80) are not recognisable on the real Fit sheet. Rain 4.0, night 4.0, side_view 5.0, motion_blur 5.0 unchanged. No other rule changed.
