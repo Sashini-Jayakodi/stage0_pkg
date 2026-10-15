@@ -41,7 +41,7 @@ If the calibration crashes or the laptop sleeps, run the same command again: fin
 
 ## What step 1 (smoke) shows
 
-20 Fit images from 20 different classes, rows = clean + each scenario at strengths 1, 2.5 and the cap (rain 4, night 4, others 5), `contact_sheet.png`. It also re-renders every cell with the images in a different order and requires identical bytes (`smoke.json` has the hashes).
+20 Fit images from 20 different classes, rows = clean + each scenario at strengths 1, 2.5 and the cap (rain 5, fog 4, night 4, others 5), `contact_sheet.png`. It also re-renders every cell with the images in a different order and requires identical bytes (`smoke.json` has the hashes).
 
 **Look for:** each row looks like its name; the sign is still recognisable to you at the cap. If a row is already unrecognisable at s = 2.5 or the cap looks destroyed, **tell me before step 2**: the plan's rule is to cap a scenario at the strongest human-recognisable level and log that, and that decision must be made before any accuracy is measured, not after. (I set the current caps from synthetic sign images, before touching your data; your real sheet is the first real look.)
 
@@ -69,7 +69,7 @@ Checks `stage7_results.json` exists, every scenario has mild < severe, and `src/
 
 1. **`fog` and `motion_blur` are vendored** from imagecorruptions 1.1.2 (Apache-2.0), as plan Stage 7 step 1 allows: `np.float_` became `float` and the global random state became an explicit generator. I verified the vendored functions return the same pixels as the original code (maximum absolute difference 0.0 at severities 1-5, run on a patched import). `imagecorruptions==1.1.2` itself is not installed.
 2. **One continuous strength axis `s` in [0, 5]** with a grid, because the plan asks for a sweep over "a small range of parameter values" and imagecorruptions only takes the integers 1-5. For fog and motion blur the anchors s = 1..5 are the five imagecorruptions severities; the motion-blur radius and sigma are halved because our images are 112 px, not 224. For rain, night and side view the anchors are mine. They only shape the axis: the levels that get frozen are chosen from the Fit accuracy drops.
-3. **Caps** rain = 4.0 and night = 4.0 (others 5.0), set from synthetic sign images before any accuracy was measured, because torrential rain at s = 5 destroyed the sign.
+3. **Caps** rain = 5.0, fog = 4.0, night = 4.0, side view and motion blur 5.0. Night was set from synthetic sign images and fog (5 -> 4) from the real smoke sheet, both before any accuracy was measured. **Amendment 2:** after the first Fit sweep the rain axis (fixed 200-gray drops, integer blur steps) was found unusable (every level >= 31 pp drop, non-monotone); rain strength is now the drop brightness (drop_gray 0..200), constant drop count and blur, cap 4 -> 5. Run 1 results are kept as evidence; nothing on Cert or Test was touched.
 4. **Head accuracy, not softmax accuracy**, and **every 3rd frame**, to keep the sweep to minutes. The stride is recorded in the results and in the freeze file.
 5. Night overlaps the brightness augmentation (already declared in Stage 1; brightness jitter was dropped, so there is no overlap in this checkpoint).
 

@@ -229,10 +229,11 @@ def run_calibration(run, cfg_all, c7, device_arg, out):
         det[sc] = {"severity": s_cap, "frames_rechecked": int(len(sel)), "identical": True}
     cache_file = out / "sweep_cache.jsonl"
     done = {}
+    code_sha = sha256_file(Path(SC.__file__))                                  # cached results are only reused for the exact same scenarios.py
     if cache_file.exists():                                                   # resume after a crash: results are deterministic
         for line in cache_file.read_text().splitlines():
             r = json.loads(line)
-            if r["stride"] == c7["stride"] and r["n_frames"] == len(y) and r["pipeline"] == [ck_sha, device]:
+            if r["stride"] == c7["stride"] and r["n_frames"] == len(y) and r["pipeline"] == [ck_sha, device] and r.get("scenarios_py") == code_sha:
                 done[(r["scenario"], r["severity"])] = r
     out.mkdir(parents=True, exist_ok=True)
     for sc in SC.SCENARIOS:
@@ -248,7 +249,7 @@ def run_calibration(run, cfg_all, c7, device_arg, out):
                 corr = np.bincount(tl, weights=(pred == y).astype(float), minlength=len(n_t))
                 with open(cache_file, "a") as fh:
                     fh.write(json.dumps({"scenario": sc, "severity": s, "stride": c7["stride"], "n_frames": int(len(y)), "pipeline": [ck_sha, device],
-                                         "correct_per_track": corr.tolist()}) + "\n")
+                                         "scenarios_py": code_sha, "correct_per_track": corr.tolist()}) + "\n")
             drop, se, _, acc_c = drop_stats(n_t, corr_clean, corr, c7["boot"], rng)
             rec["acc"].append(acc_c); rec["drop_pp"].append(drop); rec["drop_se_pp"].append(se)
             print(f"  {sc:<12} s={s:<5} accuracy {acc_c:6.2f}%  drop {drop:6.2f} pp (se {se:.2f})", flush=True)

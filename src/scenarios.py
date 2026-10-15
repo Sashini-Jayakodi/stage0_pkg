@@ -33,7 +33,7 @@ import numpy as np
 
 SCENARIOS = ["rain", "fog", "night", "side_view", "motion_blur"]          # fixed order (also the tie-break order in Stage 7)
 GRID = [0.1, 0.2, 0.3, 0.4, 0.5] + [round(0.75 + 0.25 * i, 2) for i in range(18)]   # calibration grid: 0.1 ... 0.5 (fine, fog and rain bite early), then 0.75 ... 5.0
-CAP = {"rain": 4.0, "fog": 4.0, "night": 4.0, "side_view": 5.0, "motion_blur": 5.0}  # strongest level a human can still recognise the sign at, set from the
+CAP = {"rain": 5.0, "fog": 4.0, "night": 4.0, "side_view": 5.0, "motion_blur": 5.0}  # strongest level a human can still recognise the sign at, set from the
                                                                                       # contact sheet BEFORE any accuracy was measured (plan 7: "cap at the strongest human-recognisable level")
 
 
@@ -41,15 +41,18 @@ def grid_for(scenario):
     return [g for g in GRID if g <= CAP[scenario] + 1e-9]
 ANCHOR_S = [0, 1, 2, 3, 4, 5]
 ANCHORS = {                                                               # value at s = 0 (identity), then s = 1..5
-    "rain": {"drop_length": [4, 8, 12, 16, 22, 28], "drop_width": [1, 1, 1, 1, 1, 2],
-             "brightness": [1.0, 0.97, 0.94, 0.9, 0.86, 0.82], "blur": [1, 3, 3, 3, 3, 5]},
+    # rain axis v2 (amendment 2, after the first Fit sweep): the strength is the BRIGHTNESS of the drops (albumentations drop_color), because with a fixed
+    # 200-gray drop even the faintest level cost 30-65 pp and the integer blur_value steps made the curve jump (v1: drop 65 pp at s=0.1, 31 pp at s=1).
+    # Blur is constant, the number of drops is constant (rain_type "default" = 37 drops at 112 px).
+    "rain": {"drop_length": [8, 8, 10, 12, 14, 16], "drop_width": [1, 1, 1, 1, 1, 1], "blur": [3, 3, 3, 3, 3, 3],
+             "brightness": [1.0, 0.98, 0.96, 0.94, 0.92, 0.9], "drop_gray": [0, 15, 40, 80, 140, 200]},
     "fog": {"amount": [0.0, 1.5, 2.0, 2.5, 2.5, 3.0], "decay": [2.0, 2.0, 2.0, 1.7, 1.5, 1.4]},
     "night": {"gamma": [1.0, 1.3, 1.6, 2.0, 2.4, 2.8], "brightness": [1.0, 0.85, 0.7, 0.55, 0.42, 0.3],
               "noise": [0.0, 0.02, 0.03, 0.04, 0.055, 0.07]},
     "side_view": {"scale_x": [1.0, 0.9, 0.8, 0.7, 0.6, 0.5], "shear_deg": [0.0, 5, 10, 15, 20, 25]},
     "motion_blur": {"radius": [0.0, 5.0, 7.5, 7.5, 7.5, 10.0], "sigma": [1.0, 1.5, 2.5, 4.0, 6.0, 7.5]},
 }
-RAIN_TYPE_EDGES = [(1.5, "drizzle"), (2.5, "default")]                    # s below the edge -> that type; else "heavy" (albumentations: 28 / 37 / 112 drops at 112 px)
+RAIN_TYPE = "default"                                                     # albumentations: 37 drops at 112 px, the same for every severity (v1 switched type at s = 1.5 and 2.5)
 JITTER = {"fog_amount": (0.85, 1.15), "night_gamma": (0.9, 1.1), "night_brightness": (0.9, 1.1), "side_shear": (0.9, 1.1),
           "rain_slant": (-10.0, 10.0), "blur_angle": (-45.0, 45.0)}      # per-track U(a, b) draws (a multiplier, or degrees/pixels for slant and angle)
 
@@ -77,8 +80,9 @@ def nominal(scenario, s):
     assert scenario in ANCHORS and 0 <= s <= 5, (scenario, s)
     p = {k: float(np.interp(s, ANCHOR_S, v)) for k, v in ANCHORS[scenario].items()}
     if scenario == "rain":
-        p["rain_type"] = next((t for edge, t in RAIN_TYPE_EDGES if s < edge), "heavy")
+        p["rain_type"] = RAIN_TYPE
         p["drop_length"], p["drop_width"], p["blur"] = int(round(p["drop_length"])), int(round(p["drop_width"])), int(round(p["blur"]))
+        p["drop_gray"] = int(round(p["drop_gray"]))
     if scenario == "motion_blur":
         p["radius"] = int(round(p["radius"]))
     return p
@@ -220,7 +224,7 @@ def _alb():
 def _rain_transform(p):
     A, _ = _alb()
     return A.RandomRain(slant_range=(p["slant"], p["slant"]), drop_length=p["drop_length"], drop_width=p["drop_width"],
-                        drop_color=(200, 200, 200), blur_value=p["blur"], brightness_coefficient=p["brightness"],
+                        drop_color=(p["drop_gray"],) * 3, blur_value=p["blur"], brightness_coefficient=p["brightness"],
                         rain_type=p["rain_type"], p=1.0)
 
 

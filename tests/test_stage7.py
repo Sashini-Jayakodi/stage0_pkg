@@ -298,3 +298,21 @@ def test_calibration_resume_uses_the_cache(tmp_path, monkeypatch):
     # only the determinism checks (5 x 2), the chosen-level fingerprints (10) and the sheet (10) are recomputed: no sweep level (that would be 100+)
     assert calls["n"] == 30, calls["n"]
     assert b["determinism_check"] == a["determinism_check"]
+
+
+def test_cached_sweep_is_not_reused_when_scenarios_py_changed(tmp_path, monkeypatch):
+    try:
+        import torch  # noqa: F401
+        import torchvision  # noqa: F401
+    except (ImportError, OSError) as e:
+        pytest.skip(f"torch cannot be loaded here ({type(e).__name__})")
+    run, cfgp, cfg = _fake_run(tmp_path)
+    out = tmp_path / "s7"
+    S7.main(["--run", str(run), "--config", str(cfgp), "--device", "cpu", "--out", str(out)])
+    f = out / "sweep_cache.jsonl"
+    f.write_text("\n".join(json.dumps({**json.loads(l), "scenarios_py": "stale"}) for l in f.read_text().splitlines()) + "\n")   # as if made by older code
+    calls = {"n": 0}
+    real = SC.corrupt_batch
+    monkeypatch.setattr(SC, "corrupt_batch", lambda *a, **k: (calls.__setitem__("n", calls["n"] + 1), real(*a, **k))[1])
+    S7.main(["--run", str(run), "--config", str(cfgp), "--device", "cpu", "--out", str(out)])
+    assert calls["n"] > 100                                                 # the whole sweep was recomputed

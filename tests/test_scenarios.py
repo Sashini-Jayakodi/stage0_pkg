@@ -101,7 +101,7 @@ def test_grid_and_caps():
     for sc in SC.SCENARIOS:
         g = SC.grid_for(sc)
         assert g == [s for s in SC.GRID if s <= SC.CAP[sc]] and g[-1] == SC.CAP[sc]
-    assert SC.CAP["rain"] == 4.0 and SC.CAP["night"] == 4.0 and SC.CAP["fog"] == 4.0   # rain/night from the synthetic sheet; fog 5 -> 4 after the real smoke sheet; all before any accuracy was measured
+    assert SC.CAP["rain"] == 5.0 and SC.CAP["night"] == 4.0 and SC.CAP["fog"] == 4.0   # night from the synthetic sheet; fog 5 -> 4 after the real smoke sheet (before any accuracy); rain 4 -> 5 with the v2 rain axis (amendment 2)
 
 
 def test_nominal_parameters_hit_the_anchors_and_interpolate():
@@ -110,7 +110,9 @@ def test_nominal_parameters_hit_the_anchors_and_interpolate():
             p = SC.nominal(sc, float(s))
             for k, v in anchors.items():
                 assert abs(p[k] - v[s]) < 1e-9 or isinstance(p[k], int) and abs(p[k] - v[s]) <= 0.5, (sc, k, s)
-    assert SC.nominal("rain", 1.0)["rain_type"] == "drizzle" and SC.nominal("rain", 4.0)["rain_type"] == "heavy"
+    assert SC.nominal("rain", 1.0)["rain_type"] == SC.nominal("rain", 4.0)["rain_type"] == "default"          # the number of drops never changes with s
+    g = [SC.nominal("rain", x)["drop_gray"] for x in (0.1, 0.5, 1.0, 2.0, 3.0, 4.0, 5.0)]
+    assert g == sorted(g) and g[0] <= 2 and g[-1] == 200 and len({SC.nominal("rain", x)["blur"] for x in (0.1, 2.0, 5.0)}) == 1
     mid = SC.nominal("night", 1.5)["gamma"]
     assert SC.ANCHORS["night"]["gamma"][1] < mid < SC.ANCHORS["night"]["gamma"][2]
 
