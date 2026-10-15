@@ -451,3 +451,26 @@ eps3 (first fallback):
 * Deviation from R6? yes/no (what, why):
 
 * Next step:
+
+---
+## Stage 7, PART A: PRE-REGISTRATION (paste into LOG.md and COMMIT before running the calibration; the smoke test measures no accuracy and may come before or after)
+
+- **Date / stage / run tag:** ____ / Stage 7 (G2) / 20261003_stage1
+- **Git commit of this pre-registration (and of the Stage 7 code):** ____
+- **Bands (already item 4 of the pre-registration, restated):** mild = 3-8 pp drop in Fit accuracy, severe = 15-30 pp. Metric: top-1 accuracy of the tied-Gaussian head on the frames of the Fit tracks of reshuffle seed 0 (261 tracks), clean minus corrupted, same frames, every 3rd frame (`frame_idx % 3 == 0`, about 2,600 frames). Cert and Test pixels are not read in this stage.
+- **Strength axis and grid:** continuous severity s in [0, 5] (s = 0 identity). Grid 0.1, 0.2, 0.3, 0.4, 0.5, 0.75, 1.0, 1.25, ..., 5.0 (23 levels). Caps (strongest level a human still recognises, set from synthetic sign images BEFORE any accuracy was measured): rain 4.0, night 4.0, fog 5.0, side_view 5.0, motion_blur 5.0.
+- **Selection rule (fixed now, constants in `src/stage7.py`):**
+  1. mild = the level with drop closest to 5.5 pp among levels with drop in [3, 8]; severe = closest to 22.5 pp among levels with drop in [15, 30]. Ties go to the smaller strength.
+  2. No level in the band: mild takes the closest level overall; severe takes the strongest level allowed by the cap if no level reaches 15 pp, else the closest to 22.5 pp. Both are logged as "band not reached" (plan section 7: cap at the strongest human-recognisable level and log it). No rule is changed after seeing numbers.
+  3. Recertification cells = the two of the ten (5 scenarios x mild/severe) with the largest Fit drop. Ties: scenario order rain, fog, night, side_view, motion_blur, then severe before mild.
+  4. Human check on the contact sheets (plan checks): every chosen severe level and side view at mild still recognisable. Failing it means the scenario is capped and logged, not a rule change.
+- **Determinism rule:** per-track parameters seeded by (track, scenario, severity); per-frame randomness by (track, frame, scenario, severity); SHA-256 text keys. Re-rendering in another order must give identical bytes (checked by the smoke test and at the start of the calibration).
+- **Declared deviations from the plan:**
+  1. `fog` and `motion_blur` vendored from imagecorruptions 1.1.2 (cannot be imported on the current stack, plan risk R7; plan step 1 allows vendoring). Edits: `np.float_` -> `float`, global RNG -> explicit generator. Checked numerically equal to the original at severities 1-5 (max abs difference 0.0). Motion-blur radius and sigma halved for 112 px images.
+  2. Continuous severity axis; anchors for rain, night and side view are my choice (they only shape the axis; frozen levels come from Fit accuracy drops).
+  3. Head accuracy (not softmax) and every 3rd frame, for speed.
+  4. Pins: albumentations 2.0.8 (RandomRain for rain, Affine with anisotropic scale and shear for side view); imagecorruptions not installed.
+- **Predictions written before running (do not edit afterwards):** [Likely] fog, night and motion blur reach the severe band inside their caps. [Guessing ~50%] side view and rain do not reach 15 pp, and are logged as "band not reached". ____ (add your own)
+
+---
+
