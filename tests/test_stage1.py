@@ -12,8 +12,11 @@ import pandas as pd
 import pytest
 import yaml
 
-torch = pytest.importorskip("torch")
-pytest.importorskip("torchvision")
+try:
+    torch = pytest.importorskip("torch")
+    pytest.importorskip("torchvision")
+except OSError as e:                      # e.g. WinError 4551: Application Control blocked torch's DLLs (importorskip only catches ImportError)
+    pytest.skip(f"torch cannot be loaded here ({type(e).__name__}); Stage 1 tests skipped", allow_module_level=True)
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from src import train as T  # noqa: E402
@@ -122,3 +125,51 @@ def test_bad_exclusion_list_is_rejected(tmp_path):
     pd.DataFrame({"test_idx": [1, 1]}).to_csv(c["train"]["exclude_file"], index=False)  # duplicate rows
     with pytest.raises(AssertionError):
         T.main(["--config", str(cfg), "--smoke", "--no-pretrained", "--device", "cpu", "--tag", "x"])
+
+
+def test_diagnostics_script_runs_on_smoke_checkpoint(tmp_path):
+    # Read-only diagnostics must run on a real checkpoint and write their tables.
+    cfg = _fake_cache(tmp_path)
+    T.main(["--config", str(cfg), "--smoke", "--no-pretrained", "--device", "cpu",
+            "--smoke-n", "200", "--tag", "d"])
+    cache = tmp_path / "cache"
+    n = 120
+    cls = np.arange(n) % T.N_CLASSES
+    pd.DataFrame({"class_id": cls, "width": 20 + np.arange(n) % 60, "height": 25 + np.arange(n) % 50,
+                  "frame_idx": np.arange(n) % 30, "track_id": [f"{c:02d}_{i // 30:05d}" for i, c in enumerate(cls)]}
+                 ).to_csv(cache / "train_meta.csv", index=False)
+    pd.DataFrame({"class_id": cls, "width": 30, "height": 30}).to_csv(cache / "test_meta.csv", index=False)
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
+    import stage1_diagnostics as D
+    D.main(["--run", str(tmp_path / "runs" / "d_smoke"), "--config", str(cfg), "--device", "cpu"])
+    out = json.loads((tmp_path / "runs" / "d_smoke" / "diagnostics.json").read_text())
+    assert 0 <= out["overall"] <= 1 and out["tracks_total"] >= 1
+    assert (tmp_path / "runs" / "d_smoke" / "diagnostics_by_size.csv").exists()
+
+
+def test_stage2_embeddings_checks_and_hash_guard(tmp_path):
+    # Full Stage 1 (tiny, real mode) -> Stage 2. Checks the plan's Stage 2 checks and the hash guard.
+    from src import embed as E
+    cfg = _fake_cache(tmp_path)
+    c = yaml.safe_load(cfg.read_text())
+    cache = tmp_path / "cache"
+    n = 120
+    cls = np.arange(n) % T.N_CLASSES
+    pd.DataFrame({"class_id": cls, "width": 40, "height": 40, "frame_idx": np.arange(n) % 30,
+                  "track_id": [f"{k:02d}_{i // 30:05d}" for i, k in enumerate(cls)]}).to_csv(cache / "train_meta.csv", index=False)
+    T.main(["--config", str(cfg), "--no-pretrained", "--device", "cpu", "--epochs", "1", "--tag", "e"])
+    run = tmp_path / "runs" / "e"
+    sha = T.sha256_file(run / "best.pt")
+    c["embed"] = {"expected_checkpoint_sha256": sha, "batch_size": 64, "norm_tol": 1e-5}
+    cfg.write_text(yaml.safe_dump(c))
+    s = E.main(["--run", str(run), "--config", str(cfg), "--device", "cpu"])
+    z = np.load(run / "embeddings" / "train_release.npz")
+    assert z["emb"].shape == (120, 512) and z["logits"].shape == (120, 43) and len(z["track"]) == 120
+    assert np.abs(np.linalg.norm(z["emb"].astype(np.float64), axis=1) - 1).max() < 1e-5
+    f = np.load(run / "embeddings" / "ft_train.npz")
+    assert len(f["emb"]) == s["n_ft_train"] and (f["y"] == pd.read_csv(cache / "test_meta.csv")["class_id"].to_numpy()[f["test_row"]]).all()
+    # a wrong frozen hash must stop everything
+    c["embed"]["expected_checkpoint_sha256"] = "0" * 64
+    cfg.write_text(yaml.safe_dump(c))
+    with pytest.raises(AssertionError):
+        E.main(["--run", str(run), "--config", str(cfg), "--device", "cpu"])

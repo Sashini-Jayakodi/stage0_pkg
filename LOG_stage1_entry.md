@@ -1,5 +1,5 @@
 ## 2026-10-02 | Stage 1 | backbone fine-tune (run tag 20261003_stage1)
-- Config hash (results.json config_sha256): 6c7404a0e7e3300de840d798dc2e0cb569aa199f6447dbbfb2d3ed7ea79356eb ; git commit: ______________
+- Config hash (results.json config_sha256): 6c7404a0e7e3300de840d798dc2e0cb569aa199f6447dbbfb2d3ed7ea79356eb ; git commit (post-run snapshot): 6a0dbc25a0ff86bc1982f2581e68602991c7f46b
 - Checkpoint: runs/20261003_stage1/best.pt (epoch 4), SHA-256 86527359bc61a5fbc4d48b7744e049b5ca3ff81cb016fb237298d0c007140bcc
 - Data: official test release (12,630) minus 26 duplicate-list images = 12,604; stratified 90/10 by class -> train 11,344 / val 1,260 (seed 0).
 - Model: ImageNet ResNet-18, new 43-way fc, 112x112, AdamW (backbone 2e-4, head 1e-3, wd 1e-4), 1 epoch warm-up + cosine, batch 128, AMP (CUDA), plain cross-entropy (no label smoothing), early stopping patience 5 on val accuracy.
@@ -21,4 +21,3 @@
 - Environment: Python 3.12 (patch version: 3.12.10), torch 2.14.1+cu132, torchvision 0.29.1+cu132, numpy 2.5.2 ; GPU NVIDIA GeForce RTX 5050 Laptop GPU (see results.json versions).
 - Deviation from R6? No design change. Process notes: first smoke run used random weights (2.7% accuracy on 600 frames is expected); brightness-jitter drop is my recommendation, accepted by running with the config default.
 - Next step: Stage 2 (512-d l2-normalised embeddings in fp32; must reproduce Stage 1 predictions exactly; refuses to run if the checkpoint hash differs from the one above).
-

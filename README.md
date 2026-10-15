@@ -1,47 +1,66 @@
-# Stage 0 package
+# FYP POC: project README (Stages 0-5)
+
+One folder, files are added stage by stage. Run everything from the project folder with `py -3.12`.
 
 ```
-configs/poc.yaml        constants + expected GTSRB counts (single source of truth)
-scripts/check_zips.py   FIRST STEP: counts images/tracks in your zips (stdlib only, seconds)
-src/data.py             metadata, 112x112 cache, assertions, preview strips, pHash
-src/stage0.py           full Stage 0 run (needs train zip, test zip, labelled GT csv)
-scripts/inspect_dups.py checks whether pHash near-duplicates are real (pixel-level) + writes exclusion lists
-tests/test_stage0.py    synthetic-data tests (pip install pytest pandas pillow scipy pyyaml tqdm matplotlib numpy)
-data/raw/               put the zips here
+configs/poc.yaml              every constant (single source of truth); you edit it, packages never overwrite it
+configs/poc_stage4_snippet.yaml   optional `splits:` block for poc.yaml (same numbers as the code defaults)
+scripts/check_zips.py         Stage 0: counts images/tracks in the zips (stdlib only)
+scripts/inspect_dups.py       Stage 0: are the pHash near-duplicates real? writes exclusion lists
+scripts/verify_exact_copies.py  Stage 0: byte-level proof of the exact copies
+scripts/stage1_diagnostics.py Stage 1: read-only accuracy by size / frame position / class pair
+scripts/stage3_pair_ranks.py  Stage 3: where do real confusions fall in the eps ranking (descriptive)
+src/data.py, src/stage0.py    Stage 0: metadata, 112x112 cache, assertions, pHash
+src/train.py                  Stage 1: ResNet-18 fine-tune, run ONCE
+src/embed.py                  Stage 2: embeddings from the frozen checkpoint
+src/head.py                   Stage 3: tied-Gaussian head, eps table, confusability atlas
+src/splits.py                 Stage 4: reshuffles, gate, cut-point c*, Fit-side calibration
+src/fitdiag.py                Stage 4 add-on: Fit-only diagnostic (gap noise, error by eps slice); information only
+src/util.py                   torch-free sha256_file (CPU-only stages import this, so a blocked torch cannot stop them)
+src/stage5.py                 Stage 5: G1(i), G1(ii), rho/ICC, rank-of-error, eps3, fragment counts (first stage that reads Cert labels)
+tests/test_stage0.py ... test_stage5.py   synthetic-data tests
+data/raw/                     the zips and GT-final_test.csv (read-only, never modified)
+data/cache/                   decoded 112x112 arrays + metadata tables
+runs/20261003_stage1/         checkpoint, embeddings/, head_emb/, splits/
+LOG.md                        decision and result log (pre-registration block at the top)
+LOG_stageN_entry.md           the same entries as separate files
+README_stage3.md, README_stage4.md, README_stage5.md   per-stage run notes
 ```
 
-## Step 1: check your two zips
-1. Copy `GTSRB_Final_Training_Images.zip` and `GTSRB_Final_Test_Images.zip` into `data/raw/`.
-2. Also copy `GT-final_test.csv` (labelled test CSV) into `data/raw/`.
-3. `python scripts/check_zips.py`
-4. Expected: train 39,209 images / 1,307 tracks / frames {30: 1306, 29: 1} / 43 classes; test 12,630 images.
-   Every line should say PASS (now includes 4 checks on the CSV). Send me the full printout.
+## Environment
+Python 3.12 (`py -3.12`), torch 2.14.1+cu132 and torchvision 0.29.1+cu132 (the RTX 5050 needs a CUDA 12.8+ build). Python 3.11 was abandoned because Windows Application Control blocked torch's DLLs. The Stage 0 cache hashes are identical under 3.11, 3.12 and 3.13.
 
-## Step 2 (later): full Stage 0
-Needs the labelled `GT-final_test.csv` in `data/raw/` (a GT zip containing it also works), then
-`python -m src.stage0`.
+## Tests
+`py -3.12 -m pytest tests -q` gives 63 passed with the current test files when torch loads (the Stage 3 Ledoit-Wolf test is skipped if scikit-learn is not installed). If Windows blocks torch (WinError 4551), the Stage 1 and Stage 3 test files skip themselves and you see 48 passed, 2 skipped; Stages 4 to 6 still run. If you see fewer, one of your test files is an older copy.
 
-## Run the tests
-`python -m pytest tests -q`
+## Stage 0: data
+1. Put `GTSRB_Final_Training_Images.zip`, `GTSRB_Final_Test_Images.zip` and the labelled `GT-final_test.csv` in `data/raw/`.
+2. `py -3.12 scripts/check_zips.py` (expect train 39,209 images / 1,307 tracks / frames {30: 1306, 29: 1} / 43 classes; test 12,630 images; every line PASS).
+3. `py -3.12 -m src.stage0` builds the cache and runs the assertions.
+4. If it prints the >1% near-duplicate warning: `py -3.12 scripts/inspect_dups.py`, then `py -3.12 scripts/verify_exact_copies.py` (add `--max-mad 5` for the gray zone).
 
-## Step 3: near-duplicate diagnosis (after `python -m src.stage0` printed the >1% warning)
-`python scripts/inspect_dups.py` then open `data/cache/near_dup_check.png` and send me the printout.
+## Stage 1: fine-tune ResNet-18 once
+1. Pipeline check, about a minute, random weights: `py -3.12 -m src.train --smoke --no-pretrained`
+2. Real run (downloads ImageNet weights once): `py -3.12 -m src.train --tag 20261003_stage1`
+3. Crashed? `py -3.12 -m src.train --tag 20261003_stage1 --resume`
+4. Optional read-only diagnostics: `py -3.12 scripts/stage1_diagnostics.py --run runs/20261003_stage1`
 
-## Step 4: independent proof of the exact copies
-`py -3.11 scripts/verify_exact_copies.py` compares the raw bytes of each flagged pair in the original zips (no cache, no hashing, no resizing).
+Sanity number on the training release, by the PLAN's rule: below 90% = bug, stop; above 99.5% = suspect leakage and investigate, do not weaken the model. (The "95-99%" range in earlier versions of this README was only a guess, not a plan rule. The real run gave 91.9%, which passes.) The validation accuracy in the log is optimistic and only for early stopping; never quote it. Always label the number "backbone fine-tuned on the official test release", never "test accuracy".
 
-## Stage 1: fine-tune ResNet-18 once (plan section 5)
-Files: `src/train.py`, `train:` block in `configs/poc.yaml`, `tests/test_stage1.py`, `LOG_stage1_entry.md` (paste into your LOG.md).
+The checkpoint `runs/20261003_stage1/best.pt` is FROZEN (SHA-256 in LOG.md and `embed.expected_checkpoint_sha256` in poc.yaml). Do not re-run Stage 1.
 
-1. Install PyTorch (not in your lock file yet).
-   - NVIDIA GPU: open https://pytorch.org/get-started/locally/ , pick Windows / Pip / Python / your CUDA version, run the command it shows with `py -3.11 -m` in front.
-   - No GPU: `py -3.11 -m pip install torch torchvision` (CPU only; a full run will be slow).
-   - Check: `py -3.11 -c "import torch; print(torch.__version__, torch.cuda.is_available())"`
-2. Pipeline check (about a minute, random weights, no download): `py -3.11 -m src.train --smoke --no-pretrained`
-3. Real run (downloads ImageNet ResNet-18 weights once, so needs internet): `py -3.11 -m src.train --tag 20261003_stage1`
-4. Crashed or closed the window? `py -3.11 -m src.train --tag 20261003_stage1 --resume`
-5. Then `py -3.11 -m pip freeze > requirements-lock.txt` again (now includes torch) and send me the printed summary plus `runs/<tag>/results.json` and `curves.png`.
+## Stage 2: embeddings
+`py -3.12 -m src.embed --run runs/20261003_stage1` refuses to run if the checkpoint hash differs from the frozen one. It must reproduce the Stage 1 accuracy exactly. Output: `runs/20261003_stage1/embeddings/`. See LOG_stage2_entry.md.
 
-Expected sanity number: about 95-99% on the training release. Below 90% = bug, stop. Above 99.5% = tell me, do not weaken the model.
-The validation accuracy in the log is optimistic (the test release has no track IDs) and is only for early stopping; never quote it.
-Colab: upload the folder, set `train.run_dir` to a Google Drive path so checkpoints survive a disconnect.
+## Stage 3: head, epsilon table, atlas
+See `README_stage3.md`.
+
+## Stage 4: reshuffles and Fit-side calibration
+See `README_stage4.md`. After Stage 4, write and COMMIT the pre-registration block at the top of LOG.md before Stage 5.
+
+## Rules that stay frozen
+- Never change c*'s rule, delta = 0.1, beta = 5%, the strata, the reshuffles (seeds 0-4) or the severities after seeing data.
+- No re-tuning of the backbone or head after seeing results. A new design would be a separate revision (R7).
+- eps is used only as a RANK, never as an error probability.
+- No Cert or Test error is looked at before the pre-registration commit.
+- Back up `runs/20261003_stage1` (checkpoint, embeddings, head_emb, splits) after each stage.
