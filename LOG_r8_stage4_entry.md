@@ -69,7 +69,25 @@ tracks, same Test metrics as (d). Gate-failing frames never give a label.
 (h) **Integrity.** Stage 4 changes no frozen value. Failed checks and pass levels are reported as failed.
 
 #### B2, B3, B4 values (from the design-set script, design set only)
-____
+Computed 2026-11-14 after Amendment 1 (6db7d4b), with `src/r8_stage4_baselines_design.py` committed first (a74a164;
+SHA-256 d0ca321e7b7f3141a2e1247b12864c63d08cd63dc573ff1769452ae939a8d1c3). Output
+`runs/20261003_stage1/poc2/stage4/baselines_design.json` SHA-256 80fef0be5ac04f0fb911f20752b8efebdeffc7254d7c3e0e47a9c23ca99ad580.
+Files opened: seed0.npz, train_release.npz, scores_train_release.npz, frame_evidence.npz, head.npz,
+track_table_design.npz (not track_table_pool.npz). Thresholds below are rounded for reading; the exact values are in
+the JSON, which the Stage 4 code reads and hash-checks.
+  - **B2** (random passing frame): labelled tracks 261/261; design error committing every labelled track 6.51%.
+    Working grid 21 points (the whole useful range), candidate indices 134 to 154, thresholds 285.851 to 461.744;
+    design coverage 86.97% to 72.03%, error 0.881% to 0.000%. Start at working position 13 (threshold 390.400,
+    c 80.46%, e 0.000%), then relax to 0.
+  - **B3** (last frame): labelled tracks 250/261 (11 last frames fail the gate); design error committing every
+    labelled track 3.60%. Working grid 30 points, candidate indices 88 to 136, thresholds 217.421 to 486.576;
+    coverage 90.04% to 70.11%, error 0.426% to 0.000%. Start at working position 15 (threshold 330.761, c 83.14%,
+    e 0.000%), then relax to 0.
+  - **B4** (majority vote, margin in votes): labelled tracks 261/261; design error committing every labelled track
+    2.30%. Working grid 30 points, candidate indices 45 to 192, thresholds 5.015 to 27.921; coverage 96.93% to
+    72.41%, error 0.791% to 0.000%. Start at working position 26 (threshold 23.434, c 83.14%, e 0.000%), then relax
+    to 0. The vote margin is a whole number, so neighbouring thresholds between the same two integers make the same
+    decisions; the rules are applied as written.
 
 ### Part B: results (fill from the printout after the run)
 - Date: ____ / Stage: R8 Stage 4 / Run tag: runs/20261003_stage1/poc2/stage4
