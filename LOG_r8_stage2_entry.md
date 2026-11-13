@@ -91,6 +91,7 @@ or the stage stops.
 - Certificate B preview: min p = ____ -> predicted certifiable YES / NO (risk R6)
 - P2 c_min: ____
 - Checks: ____ — ALL PASS: ____
+- Tests: first run 3 Stage 2 test failures, caused by the fake-table helper making every track commit at lambda = 0; fixed in tests/test_r8_stage2.py only, src/r8_stage2.py unchanged; second run 197 passed, 1 known sklearn failure.
 - Decision: ____
 - Deviation from the plan? ____
 - Next step: the author reviews the D-gate; F1 (frozen_r8.yaml and the pre-registration block) only after that.
