@@ -1,0 +1,108 @@
+# POC-2 (R8) freeze, gate F1 (plan section 8). Nothing in this file changes after the commit that adds it.
+# Every value was chosen on the 261 design tracks only. No Cert or Test outcome existed when it was written.
+# The commit hash of this file and its SHA-256 are recorded in LOG.md and docs/HANDOFF.md.
+r8_frozen: true
+frozen_on: '2026-11-14'
+run: 20261003_stage1
+
+provenance:
+  plan_file: docs/poc2-implementation-plan-r8.md
+  plan_sha256: b0ad6292138732f40639753b6e5b76d050cfc30da137cc2b1d8f0c0e85174bd2   # working-copy bytes on the author's machine
+  plan_git_blob: 51d0aa50ce4486b851f3ec8d5b95e1281a6b1359                       # line-ending independent
+  plan_note: >-
+    The plan file is frozen from the F1 commit on. Baselines (section 9) and fallbacks (section 11) are referenced
+    by section, so any later edit to the plan file breaks this freeze.
+  checkpoint_sha256: 86527359bc61a5fbc4d48b7744e049b5ca3ff81cb016fb237298d0c007140bcc
+  stage1_summary_sha256: bfe2c26973727c5cc84cce61f150fbe8cbfb919cadb12ea6a5cc93a52c423882
+  stage2_summary_sha256: 332964ba26a977dda167d194e6954bca627a82eaebeec8825a66b270c4f96e74
+  track_table_design_sha256: ad6fa0c59f65697f107b0cb6b3dbef25b4b6680f8618fe38c50bd770d1f2b391
+  r8_stage1_py_sha256: 2fa0576485d57608e55fc841d0ad1095b7471783e010ffd774f0a99d5964bffc
+  r8_stage2_py_sha256: bff522fcadbecf7126b9b861d305358d281c4c88d0ed88475bcf0c0f3b417fa6
+  certify_py_sha256: 9c4f96278bc7f61b46f28f4b5e8b38e8641aa95f862470c29dd45a643b7148d4
+  frozen_g2_yaml_sha256: b6c11ebadd66e3d89ebe7ea98647d3f12c1f61a96bdb98f956acd9f0f959c667
+  stage2_definitions_commits: [f19cbfb, ccc400a]   # LOG_r8_stage2_entry.md Part A and Amendment 1
+  stage2_code_commit: fe62b23
+
+splits:
+  design_set: seed-0 Fit split of POC-1 (track_split == 0 in splits/seed0.npz), 261 tracks, never in Cert or Test
+  pool_tracks: 1046
+  cert_tracks: 784
+  test_tracks: 262
+  split_rule: by track, stratified by class, pool tracks only
+  resplit_seeds: [0, 1, 2, 3, 4]
+
+fixed_in_every_phase:
+  delta: 0.1
+  beta: 0.05
+
+gate:
+  tau: 43.84354019165039          # POC-1 seed-0 value, fitted on the design set (one random frame per track, beta 5%)
+  rule: a frame passes if sqrt(min_k squared Mahalanobis distance) <= tau; failing frames add no evidence
+
+commit_rule:
+  variant: V1                     # sum of per-frame log-likelihoods plus log prior, passing frames only
+  margin: largest minus second-largest accumulated score
+  commit: first frame (in frame-index order) with margin >= lambda
+  no_evidence_before_first_passing_frame: true
+  roi_size: min(roi_x2 - roi_x1, roi_y2 - roi_y1), original pixels
+  rejected_tracks: no passing frame -> rejected as unknown, counted as not committed in both certificates
+
+lambda_grid:
+  source: Stage 1 V1 grid (track_table_design.npz, V1_grid), thinned by LOG_r8_stage2_entry.md Part A rule (h)
+  stage1_indices: [132, 133, 134, 136, 137, 138, 139, 140, 142, 143, 144, 145, 146, 148, 149, 150, 151, 153, 154, 155,
+                   156, 157, 159, 160, 161, 162, 163, 165, 166, 167]
+  values: [3723.69556630391, 3858.252797774572, 3997.672308725031, 4291.807319740116, 4446.893497078445,
+           4607.583775581983, 4774.080661692047, 4946.593979501359, 5310.547390958386, 5502.446149006001,
+           5701.279245574516, 5907.297255765159, 6120.759809310851, 6571.104313537233, 6808.553801120379,
+           7054.583621089574, 7309.503827193937, 7847.312037245088, 8130.877802334254, 8424.69032997714,
+           8729.119891044771, 9044.550136294485, 9710.017100197256, 10060.892459170867, 10424.44683984593,
+           10801.138403752442, 11191.441868270884, 12014.869759049765, 12449.031892465771, 12898.882648552946]
+
+certificate_A:
+  promise: with probability >= 1 - delta over the Cert draw, P(wrong | committed) <= alpha
+  per_track_loss: L_i = wrong_i - alpha * committed_i + alpha, computed per lambda (tracks-by-lambdas table)
+  p_value: src.certify.hb_pvalue(mean L, n_cert, alpha)   # H0: E[L] >= alpha
+  threshold_order:
+    start_position: 18            # working-grid position (0-based); lambda 8130.877802334254
+    order_positions: [18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+    rule: test in this order at level delta; stop at the first p > delta; certified = last threshold that passed
+  alpha_grid: [0.005, 0.01, 0.02, 0.03, 0.05]
+  primary_alpha: 0.01
+
+certificate_B:
+  gamma: 0.10
+  s: not certifiable at n = 784
+  status: >-
+    No s was predicted certifiable on the design set (best plug-in p 0.241 against 0.01). Stage 5 reports
+    "not certifiable at n = 784" with the descriptive commit-fraction-vs-size curve. gamma and s do not change.
+  late_definition: late_i(s) = 1 - committed_i * [ROI size at commit <= s]
+
+adverse_cells:
+  severities_from: configs/frozen_g2.yaml (commit 00e1664), unchanged
+  selection_rule: >-
+    Keep every scenario whose severe band was reached at G2, plus the mild level of the two frozen recertification
+    scenarios (plan section 4). Motion blur's severe band was not reached, so it is dropped.
+  cells:
+    - {scenario: rain, level: severe, severity: 3.0}
+    - {scenario: side_view, level: severe, severity: 4.0}
+    - {scenario: fog, level: severe, severity: 0.75}
+    - {scenario: night, level: severe, severity: 1.75}
+    - {scenario: rain, level: mild, severity: 1.25}
+    - {scenario: side_view, level: mild, severity: 2.25}
+  recertification_cells: [rain severe, side_view severe]
+
+pass_levels:
+  P1: track-level violation rate upper Clopper-Pearson bound <= delta + 0.02; frame-level lower bound > delta (plan section 8)
+  P2: {rule: primary alpha certified and Test sign coverage >= c_min, c_min: 0.79272030651341, c_min_display: "79.27%",
+       resplits_required: 4, of: 5}
+  P3: {rule: at the primary alpha, commit-rule Test coverage > one-random-frame-per-track (B2) coverage, resplits_required: 4, of: 5}
+  P4: {rule: median commit frame is before the last frame, resplits_required: 4, of: 5}
+
+baselines: B1 to B6 exactly as in plan section 9 (plan file hash above)
+fallbacks: as in plan section 11 (plan file hash above)
+
+design_phase_checks:
+  D1: {result: FAIL, track_error: 0.0230, cp_upper: 0.0494, frame_error_passing: 0.0454,
+       note: author override for D1 only, before any Cert or Test track was touched (LOG_r8_stage2_entry.md Part B)}
+  D2: {result: PASS, variant: V1, alpha: 0.01, plugin_p: 0.0054}
+  dropped_claim: accumulating evidence lowers error compared with a single frame
