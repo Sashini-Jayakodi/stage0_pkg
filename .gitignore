@@ -28,3 +28,5 @@ runs/**/*.npz
 Thumbs.db
 .vscode/
 .idea/
+
+CLAUDE.local.md
