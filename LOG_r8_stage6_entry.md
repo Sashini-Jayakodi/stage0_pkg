@@ -151,3 +151,16 @@ ____
 - Decision: ____
 - Deviation from the plan? ____
 - Next step: Stage 7 only after the author reviews Stage 6.
+
+### Amendment 1 to Stage 6 Part A (2026-11-14, before the design script was written or run)
+Made after the author's review of Part A (2127a4b); no B5, B5c or B6 number and no Stage 6 design-set value existed.
+Replaces the "Data roles, design set only" item of (e). Everything else in (e) is unchanged.
+- **B6 gets the same calibration budget as the other methods.** In each Stage 4 re-split, the 784 Cert tracks are
+  permuted with `np.random.default_rng([20261118, seed])` and split into three disjoint parts of 261, 261 and 262 tracks
+  (in that order): ICP calibration (nonconformity scores of the true class), ECDF calibration (the combined null
+  p-values for [BK] eq. 22), and selection of a, b and theta. Only gate-passing frames are used. Test is never used.
+- Reason: under the original (e) B6 had about a third of the calibration data the other methods get (87 design tracks
+  per role), which would weaken it for reasons unrelated to the method.
+- What is still fixed without Cert data: nothing in B6 is fitted on the design set. The (a, b) grid (step 0.1 over
+  [-1, 1]), the window sizes K = 5 and 9, and the split seed are constants stated in Part A, not fitted. The only
+  design-set quantity left in Stage 6 is the B5/B5c score transform of (b) (design ECDF of the V1 margin).
