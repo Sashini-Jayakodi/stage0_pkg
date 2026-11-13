@@ -42,3 +42,6 @@ CLAUDE.local.md
 !env_*.txt
 !configs/**
 !docs/**
+
+# Third-party papers: kept locally, not redistributed (citations, URLs and SHA-256 in LOG_r8_stage6_entry.md)
+docs/papers/
