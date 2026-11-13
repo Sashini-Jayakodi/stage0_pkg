@@ -683,3 +683,7 @@ Plan section 11 fallback 1 (V2/V3, higher alpha) cannot change D1. The author ov
 because D2 passed, before any Cert or Test track is touched. Hard rule 5 and plan section 8 are unchanged. The claim
 "accumulating evidence lowers error compared with a single frame" is dropped from all write-ups; D1 is reported in the
 paper as a pre-specified check that failed.
+
+- **F1 record (2026-11-14):** F1 commit 3de4cb99cfb0658e9d659bb1e31171e3187ff87c. `configs/frozen_r8.yaml` SHA-256
+  4f7a79156a4486b6b5f97515457513e6df2a2bfeed2a41b6fa05936bd1141d24 (working-copy bytes), git blob
+  4797e118953a96f0d7f8bc951f8c8ae356028558. Stage 3 onward must check this hash before reading the file.

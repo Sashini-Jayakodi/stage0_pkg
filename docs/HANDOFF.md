@@ -17,8 +17,9 @@
 | Stage | Status |
 |---|---|
 | 1 Accumulation and track table | **Done (13 Nov 2026). ALL PASS: True** (C1a to C6). Run on real data; entry appended to `LOG.md`. Outputs in `runs/20261003_stage1/poc2/stage1/`. |
-| 2 Design phase and D-gate | Run 13 Nov 2026 (code `fe62b23`, definitions `f19cbfb` + `ccc400a`). D1 FAIL, D2 PASS (V1, alpha 1%). Certificate B: no s certifiable at gamma 10%. Details in `LOG_r8_stage2_entry.md` Part B. F1 not yet done. |
-| 3 onward | Not started. |
+| 2 Design phase and D-gate | Run 13 Nov 2026 (code `fe62b23`, definitions `f19cbfb` + `ccc400a`). D1 FAIL, D2 PASS (V1, alpha 1%). Certificate B: no s certifiable at gamma 10%. Details in `LOG_r8_stage2_entry.md` Part B. |
+| F1 freeze | **Done 14 Nov 2026.** Commit `3de4cb99cfb0658e9d659bb1e31171e3187ff87c`. `configs/frozen_r8.yaml` SHA-256 `4f7a79156a4486b6b5f97515457513e6df2a2bfeed2a41b6fa05936bd1141d24`. Pre-registration block in `LOG.md`. Nothing frozen changes from here on; the plan file is frozen too (SHA-256 `b0ad6292...174bd2`). |
+| 3 onward | Not started. Every confirm-phase script checks the frozen_r8.yaml hash before reading it. |
 
 Stage 2 status: checks not all passed (D1 FAIL, D2 PASS). Hard rule 5 and plan section 8 require all checks to pass; the author overrides this for D1 only, for the reasons in the Decision above, before any Cert or Test track is touched. Hard rule 5 itself is unchanged.
 (The "Decision above" is the Decision line in `LOG_r8_stage2_entry.md` Part B.)
