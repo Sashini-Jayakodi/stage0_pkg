@@ -77,7 +77,18 @@ the violation rate:
 stage3b_summary.json, each with the hashes of what it read.
 
 #### B1 values (from `src/r8_stage3_b1design.py`, design set only)
-____
+Computed 2026-11-14 after the Part A rules commit (eb4c332). Script SHA-256 a7084123571bc872c7bb08a3981bfe9ab1d72f5a56c5e37103ccfdf53f2a45bd;
+output `runs/20261003_stage1/poc2/stage3/b1_design.json` SHA-256 8fb7e1c534ce1d923595e18794327afa70d654f033d4b55196a4dc2a169d22c9.
+Files opened: seed0.npz, train_release.npz, scores_train_release.npz, frame_evidence.npz, head.npz,
+track_table_design.npz (not track_table_pool.npz). 7,830 design frames of 261 tracks; 326 fail the gate (never accepted).
+  - Working grid: 20 points (the useful range has 20 candidate points, so all are kept), candidate indices 131 to 150,
+    thresholds 276.6808200078421, 283.49861752219556, 290.4844149830051, 297.64235214096715, 304.9766707559528,
+    312.49171711065424, 320.19194458617164, 328.08191630106586, 336.1663078154409, 344.44990990165866,
+    352.9376313833293, 361.634502044255, 370.5456756090572, 379.67643279725064, 389.03218445257073,
+    398.61847474941555, 408.440984478297, 418.5055344122509, 428.8180887561991, 439.38475868130973.
+  - Design-set frame coverage 83.19% (position 0) to 70.74% (position 19); frame selective error 0.921% to 0.253%.
+  - Order: start at working position 19 (threshold 439.38475868130973; mean L 0.471% at 1%), then relax to position 0:
+    [19, 18, ..., 0]. The start is the top of the working grid: rule (h)'s 70% coverage floor ends the range there.
 
 ### Part B: results (fill from the printout after the run)
 - Date: ____ / Stage: R8 Stage 3 / Run tag: runs/20261003_stage1/poc2/stage3
