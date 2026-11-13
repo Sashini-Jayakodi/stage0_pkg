@@ -1,0 +1,112 @@
+{
+  "hardware": {
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.12.10",
+    "cpu": "13th Gen Intel(R) Core(TM) i7-13650HX",
+    "logical_cpus": 20,
+    "numpy": "2.5.2",
+    "thread_env": {
+      "OMP_NUM_THREADS": null,
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1"
+    },
+    "scipy": "1.18.1",
+    "torch": "2.14.1+cu132",
+    "torch_default_threads": 1,
+    "cuda": true,
+    "gpu": "NVIDIA GeForce RTX 5050 Laptop GPU"
+  },
+  "checkpoint_sha256": "86527359bc61a5fbc4d48b7744e049b5ca3ff81cb016fb237298d0c007140bcc",
+  "image_size": 112,
+  "input": "1 x 3 x 112 x 112, batch 1",
+  "rows": {
+    "cpu_1_thread": {
+      "threads": 1,
+      "backbone_forward": {
+        "n": 500,
+        "median_ms": 23.1894,
+        "p95_ms": 26.698409999999996,
+        "p99_ms": 28.522021999999993,
+        "mean_ms": 23.5410198,
+        "max_ms": 43.4415,
+        "min_ms": 21.3986,
+        "std_ms": 1.7854807676060087
+      },
+      "end_to_end_image_to_decision": {
+        "n": 500,
+        "median_ms": 25.0915,
+        "p95_ms": 28.000854999999998,
+        "p99_ms": 29.803434999999997,
+        "mean_ms": 25.309196,
+        "max_ms": 32.4248,
+        "min_ms": 22.3488,
+        "std_ms": 1.5364990804398109
+      },
+      "end_to_end_breakdown_median_ms": {
+        "preprocess": 0.62925,
+        "backbone_and_feature_copy": 24.184649999999998,
+        "decision_layer": 0.24235
+      }
+    },
+    "cpu_1_threads": {
+      "threads": 1,
+      "backbone_forward": {
+        "n": 500,
+        "median_ms": 24.14405,
+        "p95_ms": 27.202765,
+        "p99_ms": 29.063103999999996,
+        "mean_ms": 23.637431,
+        "max_ms": 42.8037,
+        "min_ms": 12.2913,
+        "std_ms": 3.4164320750082666
+      },
+      "end_to_end_image_to_decision": {
+        "n": 500,
+        "median_ms": 102.09985,
+        "p95_ms": 112.027705,
+        "p99_ms": 116.759999,
+        "mean_ms": 84.8909264,
+        "max_ms": 129.4522,
+        "min_ms": 22.6505,
+        "std_ms": 33.68541545156586
+      },
+      "end_to_end_breakdown_median_ms": {
+        "preprocess": 1.9181,
+        "backbone_and_feature_copy": 99.33670000000001,
+        "decision_layer": 0.72185
+      }
+    },
+    "gpu": {
+      "backbone_forward": {
+        "n": 1000,
+        "median_ms": 3.8543000000000003,
+        "p95_ms": 16.393614999999993,
+        "p99_ms": 19.210771,
+        "mean_ms": 5.2745894,
+        "max_ms": 27.0059,
+        "min_ms": 3.2574,
+        "std_ms": 3.74031664360413
+      },
+      "end_to_end_image_to_decision": {
+        "n": 1000,
+        "median_ms": 17.11005,
+        "p95_ms": 22.854484999999997,
+        "p99_ms": 27.78905,
+        "mean_ms": 16.0195168,
+        "max_ms": 40.9027,
+        "min_ms": 3.8926,
+        "std_ms": 5.3840014296499055
+      },
+      "end_to_end_breakdown_median_ms": {
+        "preprocess": 1.1757,
+        "backbone_and_feature_copy": 15.0948,
+        "decision_layer": 0.64695
+      }
+    }
+  },
+  "earlier_estimate_under_50ms_end_to_end_cpu": {
+    "median_ms_all_threads": 102.09985,
+    "holds": false
+  },
+  "code_sha256": "9559af10a5ccfa9053eee15bd5aab1ddac662e20f2f0079ea60d0de7c1be3611"
+}

@@ -1,0 +1,50 @@
+{
+  "images": 20,
+  "classes": [
+    1,
+    4,
+    6,
+    7,
+    9,
+    13,
+    15,
+    18,
+    20,
+    24,
+    27,
+    28,
+    30,
+    31,
+    33,
+    35,
+    36,
+    38,
+    40,
+    41
+  ],
+  "deterministic_under_reordering": true,
+  "sha256_by_cell": {
+    "rain@1": "bb139d12d728043db1eaccb1f47f517b0dd888aa88b6e83585c320a02ec5de03",
+    "rain@2.5": "a6059b2efb07b8e85bcb05cfe4eab9abe724fc69c3d003b23c154a72fe4df929",
+    "rain@4": "b920041bdfbd82d2ae7a8eccfab7117fd8a5bc0d3c6dda24a9676f8bcfb8ec85",
+    "fog@1": "fa5cfa53cd5eea7075277859293198a7d2f730d7422b787c58373aa2fb698824",
+    "fog@2.5": "628c922e34ff2bf8c1d3ed09a1bbc332183de6a8cb932c15745bf69d66a8c1b9",
+    "fog@5": "f7131be53b7ac911d7d5be17ddd3d991ea0f7f3bd86b1bd9b3953a64d4775076",
+    "night@1": "d0bd0bee99a372a9844305ae8565cdb73f72dcbeadf1c69b31c35d4aa844a434",
+    "night@2.5": "048a2c579e472844f83fbc67b159f35516df06dc3deae995584d4eb36cc35b85",
+    "night@4": "dedf59d6056ea0a879324fb9966587956602361c1e7b5fe9d0607ba654e41b5b",
+    "side_view@1": "4a23a127dc1a28e9e67a1c08afcd0da671adbe353c726ec15b8036c03cb68d6e",
+    "side_view@2.5": "7714779bfb240a2f41ceab30452eb72d79245228c77dc8aa0695c56551b97ce6",
+    "side_view@5": "5acf88ecb2032c7f19c56eb1e0d92f9ad3af6cbd8650e2ad619aeefb25e4c4e0",
+    "motion_blur@1": "1827ca96b5a77d6c5bf9af264db6f017cc53b93c8e475c23dacc139986f6edfe",
+    "motion_blur@2.5": "4e2248346a1303270028ed28ef3f3a4d4e0ad031da8d9a009b591948df529eaa",
+    "motion_blur@5": "cc43b4d7d3e3ca68b7aa75b737915a5e802561783ec4dc445ee4576babcca976"
+  },
+  "versions": {
+    "numpy": "2.5.2",
+    "scipy": "1.18.1",
+    "albumentations": "2.0.8",
+    "opencv": "5.0.0"
+  },
+  "scenarios_py_sha256": "adb738572274c4c838d1f06e2307aa877c80fa9576b62680a038ef3539d6342d"
+}

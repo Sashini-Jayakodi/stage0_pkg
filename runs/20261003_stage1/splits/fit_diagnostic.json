@@ -1,0 +1,1310 @@
+{
+  "bootstrap_draws": 2000,
+  "note": "FIT split only. Information, not tuning. Nothing frozen was changed.",
+  "rough_g1i": {
+    "eps2": {
+      "mean_gap": 0.005127638637559655,
+      "mean_se_cert_rough": 0.010283394399868976,
+      "p_single_reshuffle": 0.07195736044642256,
+      "p_at_least_4_of_5": 0.00012633448021029083
+    },
+    "eps3": {
+      "mean_gap": 0.01080775379870855,
+      "mean_se_cert_rough": 0.012623439614616858,
+      "p_single_reshuffle": 0.13483247339687815,
+      "p_at_least_4_of_5": 0.0014742736768250829
+    }
+  },
+  "seeds": [
+    {
+      "seed": 0,
+      "tau": 43.84354019165039,
+      "eps2": {
+        "c_star": -230.74285888671875,
+        "fit_easy_mass_fraction": 0.5073294243070413,
+        "gap": {
+          "per_track": {
+            "easy": 0.05505102920885838,
+            "hard": 0.05936371510995189,
+            "gap": 0.004312685901093509,
+            "boot_se": 0.0176386542982065,
+            "ci95": [
+              -0.032656948770289795,
+              0.03875876108754627
+            ],
+            "frac_boot_gap_positive": 0.6055,
+            "se_cert_rough": 0.010177185039847865,
+            "gap_needed_rough": 0.019947282678101814,
+            "gap_over_se_cert": 0.4237601934334072,
+            "rough_pass_probability": 0.06223978819604266
+          },
+          "pooled": {
+            "easy": 0.04517993170475439,
+            "hard": 0.04571274005950771,
+            "gap": 0.0005328083547533197,
+            "boot_se": 0.014271006045308062,
+            "ci95": [
+              -0.028481425139571324,
+              0.026653152837445154
+            ],
+            "frac_boot_gap_positive": 0.5405,
+            "se_cert_rough": 0.008234112805456792,
+            "gap_needed_rough": 0.01613886109869531,
+            "gap_over_se_cert": 0.06470743932488084,
+            "rough_pass_probability": 0.029026826605053957
+          }
+        },
+        "slices": [
+          {
+            "slice": 0,
+            "frames": 891,
+            "tracks": 60,
+            "mass_share": 0.11873667377398721,
+            "log_eps_min": -434.6019592285156,
+            "log_eps_max": -291.8511047363281,
+            "err_per_track": 0.04416819291819292,
+            "err_pooled": 0.04377104377104378,
+            "share_of_fit_errors": 0.11436950146627566
+          },
+          {
+            "slice": 1,
+            "frames": 1020,
+            "tracks": 64,
+            "mass_share": 0.13592750533049042,
+            "log_eps_min": -291.1022033691406,
+            "log_eps_max": -266.3491516113281,
+            "err_per_track": 0.12643903122843342,
+            "err_pooled": 0.03627450980392157,
+            "share_of_fit_errors": 0.10850439882697947
+          },
+          {
+            "slice": 2,
+            "frames": 969,
+            "tracks": 71,
+            "mass_share": 0.1291311300639659,
+            "log_eps_min": -265.8438720703125,
+            "log_eps_max": -247.67066955566406,
+            "err_per_track": 0.1319584171696848,
+            "err_pooled": 0.05469556243550052,
+            "share_of_fit_errors": 0.15542521994134897
+          },
+          {
+            "slice": 3,
+            "frames": 927,
+            "tracks": 67,
+            "mass_share": 0.12353411513859276,
+            "log_eps_min": -247.51429748535156,
+            "log_eps_max": -230.74285888671875,
+            "err_per_track": 0.06494236552042487,
+            "err_pooled": 0.04638619201725998,
+            "share_of_fit_errors": 0.12609970674486803
+          },
+          {
+            "slice": 4,
+            "frames": 758,
+            "tracks": 62,
+            "mass_share": 0.10101279317697227,
+            "log_eps_min": -230.03115844726562,
+            "log_eps_max": -196.30563354492188,
+            "err_per_track": 0.08374986155853788,
+            "err_pooled": 0.026385224274406333,
+            "share_of_fit_errors": 0.05865102639296188
+          },
+          {
+            "slice": 5,
+            "frames": 958,
+            "tracks": 69,
+            "mass_share": 0.12766524520255865,
+            "log_eps_min": -194.66807556152344,
+            "log_eps_max": -156.72607421875,
+            "err_per_track": 0.14952651826879187,
+            "err_pooled": 0.053235908141962406,
+            "share_of_fit_errors": 0.1495601173020528
+          },
+          {
+            "slice": 6,
+            "frames": 1189,
+            "tracks": 66,
+            "mass_share": 0.1584488272921109,
+            "log_eps_min": -155.99635314941406,
+            "log_eps_max": -129.9666290283203,
+            "err_per_track": 0.09749237681317097,
+            "err_pooled": 0.054667788057190914,
+            "share_of_fit_errors": 0.1906158357771261
+          },
+          {
+            "slice": 7,
+            "frames": 792,
+            "tracks": 32,
+            "mass_share": 0.10554371002132197,
+            "log_eps_min": -128.41278076171875,
+            "log_eps_max": -124.47171020507812,
+            "err_per_track": 0.06801434915659053,
+            "err_pooled": 0.04166666666666667,
+            "share_of_fit_errors": 0.0967741935483871
+          }
+        ],
+        "slice_spearman_err_vs_slice": 0.1666666666666667
+      },
+      "eps3": {
+        "c_star": -224.77131030213044,
+        "fit_easy_mass_fraction": 0.4981343283582141,
+        "gap": {
+          "per_track": {
+            "easy": 0.06293273457066559,
+            "hard": 0.07568873192883696,
+            "gap": 0.012755997358171373,
+            "boot_se": 0.02256096846826705,
+            "ci95": [
+              -0.030350131820368432,
+              0.055577575969360436
+            ],
+            "frac_boot_gap_positive": 0.7145,
+            "se_cert_rough": 0.013017271436805316,
+            "gap_needed_rough": 0.02551385201613842,
+            "gap_over_se_cert": 0.9799286601725756,
+            "rough_pass_probability": 0.1635254525967207
+          },
+          "pooled": {
+            "easy": 0.04467629748528625,
+            "hard": 0.046202867764206054,
+            "gap": 0.0015265702789198018,
+            "boot_se": 0.014067131682999558,
+            "ci95": [
+              -0.02674879824949046,
+              0.029168558793724222
+            ],
+            "frac_boot_gap_positive": 0.5405,
+            "se_cert_rough": 0.008116480979637427,
+            "gap_needed_rough": 0.01590830272008936,
+            "gap_over_se_cert": 0.1880827766059763,
+            "rough_pass_probability": 0.038204149464982864
+          }
+        },
+        "slices": [
+          {
+            "slice": 0,
+            "frames": 1106,
+            "tracks": 43,
+            "mass_share": 0.14738805970149252,
+            "log_eps_min": -359.2456903645175,
+            "log_eps_max": -291.1021792575586,
+            "err_per_track": 0.046511627906976744,
+            "err_pooled": 0.0216998191681736,
+            "share_of_fit_errors": 0.07038123167155426
+          },
+          {
+            "slice": 1,
+            "frames": 769,
+            "tracks": 54,
+            "mass_share": 0.10247867803837954,
+            "log_eps_min": -291.10216808444767,
+            "log_eps_max": -256.4309706629727,
+            "err_per_track": 0.12222623055956389,
+            "err_pooled": 0.058517555266579965,
+            "share_of_fit_errors": 0.13196480938416422
+          },
+          {
+            "slice": 2,
+            "frames": 916,
+            "tracks": 58,
+            "mass_share": 0.12206823027718551,
+            "log_eps_min": -256.42988760406865,
+            "log_eps_max": -242.73482529263106,
+            "err_per_track": 0.10446507515473033,
+            "err_pooled": 0.06331877729257643,
+            "share_of_fit_errors": 0.17008797653958943
+          },
+          {
+            "slice": 3,
+            "frames": 947,
+            "tracks": 52,
+            "mass_share": 0.1261993603411514,
+            "log_eps_min": -242.73455979256843,
+            "log_eps_max": -224.77131030213044,
+            "err_per_track": 0.0826881519304793,
+            "err_pooled": 0.042238648363252376,
+            "share_of_fit_errors": 0.11730205278592376
+          },
+          {
+            "slice": 4,
+            "frames": 998,
+            "tracks": 53,
+            "mass_share": 0.1329957356076759,
+            "log_eps_min": -224.77131025322268,
+            "log_eps_max": -194.66807556152327,
+            "err_per_track": 0.06429841682932118,
+            "err_pooled": 0.01402805611222445,
+            "share_of_fit_errors": 0.04105571847507331
+          },
+          {
+            "slice": 5,
+            "frames": 936,
+            "tracks": 59,
+            "mass_share": 0.12473347547974414,
+            "log_eps_min": -194.66807556152315,
+            "log_eps_max": -155.99632552847694,
+            "err_per_track": 0.22740684828106772,
+            "err_pooled": 0.039529914529914535,
+            "share_of_fit_errors": 0.10850439882697947
+          },
+          {
+            "slice": 6,
+            "frames": 906,
+            "tracks": 52,
+            "mass_share": 0.12073560767590619,
+            "log_eps_min": -155.99631903813602,
+            "log_eps_max": -129.96662895587215,
+            "err_per_track": 0.20805604406400163,
+            "err_pooled": 0.08057395143487858,
+            "share_of_fit_errors": 0.21407624633431085
+          },
+          {
+            "slice": 7,
+            "frames": 926,
+            "tracks": 41,
+            "mass_share": 0.12340085287846482,
+            "log_eps_min": -128.41278076171875,
+            "log_eps_max": -124.45246566997893,
+            "err_per_track": 0.2700889102487084,
+            "err_pooled": 0.05399568034557235,
+            "share_of_fit_errors": 0.1466275659824047
+          }
+        ],
+        "slice_spearman_err_vs_slice": 0.7380952380952381
+      }
+    },
+    {
+      "seed": 1,
+      "tau": 41.492164611816406,
+      "eps2": {
+        "c_star": -231.2112274169922,
+        "fit_easy_mass_fraction": 0.49542786952368484,
+        "gap": {
+          "per_track": {
+            "easy": 0.05982056790327468,
+            "hard": 0.06590396634198113,
+            "gap": 0.00608339843870645,
+            "boot_se": 0.018519091220290884,
+            "ci95": [
+              -0.0319155589030263,
+              0.04112154388831722
+            ],
+            "frac_boot_gap_positive": 0.603,
+            "se_cert_rough": 0.01068518124638829,
+            "gap_needed_rough": 0.020942955242921047,
+            "gap_over_se_cert": 0.5693303930396788,
+            "rough_pass_probability": 0.08216281902327366
+          },
+          "pooled": {
+            "easy": 0.03884297520661157,
+            "hard": 0.05328644847173384,
+            "gap": 0.01444347326512227,
+            "boot_se": 0.017183506907727304,
+            "ci95": [
+              -0.019149179879805245,
+              0.04804209520210998
+            ],
+            "frac_boot_gap_positive": 0.7975,
+            "se_cert_rough": 0.009914573213854899,
+            "gap_needed_rough": 0.019432563499155602,
+            "gap_over_se_cert": 1.456792234378638,
+            "rough_pass_probability": 0.30740910279171924
+          }
+        },
+        "slices": [
+          {
+            "slice": 0,
+            "frames": 794,
+            "tracks": 53,
+            "mass_share": 0.10836631636413266,
+            "log_eps_min": -416.1767272949219,
+            "log_eps_max": -291.8511047363281,
+            "err_per_track": 0.038364779874213835,
+            "err_pooled": 0.012594458438287152,
+            "share_of_fit_errors": 0.029585798816568046
+          },
+          {
+            "slice": 1,
+            "frames": 1058,
+            "tracks": 72,
+            "mass_share": 0.144397434147673,
+            "log_eps_min": -291.1022033691406,
+            "log_eps_max": -266.3491516113281,
+            "err_per_track": 0.07769516111907417,
+            "err_pooled": 0.06427221172022685,
+            "share_of_fit_errors": 0.20118343195266272
+          },
+          {
+            "slice": 2,
+            "frames": 841,
+            "tracks": 65,
+            "mass_share": 0.11478094718165688,
+            "log_eps_min": -265.8438720703125,
+            "log_eps_max": -248.4605255126953,
+            "err_per_track": 0.1123076923076923,
+            "err_pooled": 0.027348394768133173,
+            "share_of_fit_errors": 0.06804733727810651
+          },
+          {
+            "slice": 3,
+            "frames": 937,
+            "tracks": 78,
+            "mass_share": 0.127883171830217,
+            "log_eps_min": -247.67066955566406,
+            "log_eps_max": -231.2112274169922,
+            "err_per_track": 0.06903011518396134,
+            "err_pooled": 0.04268943436499466,
+            "share_of_fit_errors": 0.11834319526627218
+          },
+          {
+            "slice": 4,
+            "frames": 827,
+            "tracks": 64,
+            "mass_share": 0.1128702060870752,
+            "log_eps_min": -230.74285888671875,
+            "log_eps_max": -196.30563354492188,
+            "err_per_track": 0.09266493055555555,
+            "err_pooled": 0.05078597339782347,
+            "share_of_fit_errors": 0.1242603550295858
+          },
+          {
+            "slice": 5,
+            "frames": 998,
+            "tracks": 74,
+            "mass_share": 0.1362085437423229,
+            "log_eps_min": -194.66807556152344,
+            "log_eps_max": -156.72607421875,
+            "err_per_track": 0.10966015082147806,
+            "err_pooled": 0.06613226452905813,
+            "share_of_fit_errors": 0.1952662721893491
+          },
+          {
+            "slice": 6,
+            "frames": 1131,
+            "tracks": 63,
+            "mass_share": 0.1543605841408489,
+            "log_eps_min": -155.99635314941406,
+            "log_eps_max": -129.9666290283203,
+            "err_per_track": 0.0807261253508718,
+            "err_pooled": 0.04686118479221927,
+            "share_of_fit_errors": 0.15680473372781065
+          },
+          {
+            "slice": 7,
+            "frames": 741,
+            "tracks": 34,
+            "mass_share": 0.10113279650607342,
+            "log_eps_min": -128.41278076171875,
+            "log_eps_max": -124.47171020507812,
+            "err_per_track": 0.1116373822256175,
+            "err_pooled": 0.048582995951417,
+            "share_of_fit_errors": 0.10650887573964497
+          }
+        ],
+        "slice_spearman_err_vs_slice": 0.523809523809524
+      },
+      "eps3": {
+        "c_star": -224.77131651877096,
+        "fit_easy_mass_fraction": 0.4992493517128482,
+        "gap": {
+          "per_track": {
+            "easy": 0.058457359151302915,
+            "hard": 0.06973093385565363,
+            "gap": 0.011273574704350711,
+            "boot_se": 0.02056468243323017,
+            "ci95": [
+              -0.028863148938221367,
+              0.05294563966377741
+            ],
+            "frac_boot_gap_positive": 0.7155,
+            "se_cert_rough": 0.011865450440285173,
+            "gap_needed_rough": 0.023256282862958937,
+            "gap_over_se_cert": 0.9501177187572294,
+            "rough_pass_probability": 0.15627584635518582
+          },
+          "pooled": {
+            "easy": 0.03745215965008201,
+            "hard": 0.05478331970564187,
+            "gap": 0.01733116005555986,
+            "boot_se": 0.017734609906371678,
+            "ci95": [
+              -0.01837298087358777,
+              0.05263432910330112
+            ],
+            "frac_boot_gap_positive": 0.8415,
+            "se_cert_rough": 0.010232549693148395,
+            "gap_needed_rough": 0.020055797398570854,
+            "gap_over_se_cert": 1.6937284035048097,
+            "rough_pass_probability": 0.39501502320458803
+          }
+        },
+        "slices": [
+          {
+            "slice": 0,
+            "frames": 1035,
+            "tracks": 42,
+            "mass_share": 0.1412583594922888,
+            "log_eps_min": -354.36659142696425,
+            "log_eps_max": -291.1021792575586,
+            "err_per_track": 0.047619047619047616,
+            "err_pooled": 0.001932367149758454,
+            "share_of_fit_errors": 0.005917159763313609
+          },
+          {
+            "slice": 1,
+            "frames": 792,
+            "tracks": 53,
+            "mass_share": 0.108093353350621,
+            "log_eps_min": -291.10216808444767,
+            "log_eps_max": -261.41057475180804,
+            "err_per_track": 0.1001231527093596,
+            "err_pooled": 0.0946969696969697,
+            "share_of_fit_errors": 0.22189349112426035
+          },
+          {
+            "slice": 2,
+            "frames": 920,
+            "tracks": 61,
+            "mass_share": 0.12556298621536782,
+            "log_eps_min": -261.41057212711326,
+            "log_eps_max": -242.7348252926634,
+            "err_per_track": 0.10967993754878999,
+            "err_pooled": 0.03152173913043478,
+            "share_of_fit_errors": 0.08579881656804733
+          },
+          {
+            "slice": 3,
+            "frames": 911,
+            "tracks": 55,
+            "mass_share": 0.12433465265456528,
+            "log_eps_min": -242.7348251177283,
+            "log_eps_max": -224.77131651877096,
+            "err_per_track": 0.10575757575757576,
+            "err_pooled": 0.03402854006586168,
+            "share_of_fit_errors": 0.09171597633136094
+          },
+          {
+            "slice": 4,
+            "frames": 985,
+            "tracks": 50,
+            "mass_share": 0.13443428415449704,
+            "log_eps_min": -224.77131646986308,
+            "log_eps_max": -194.66807556152327,
+            "err_per_track": 0.0726588762115078,
+            "err_pooled": 0.04060913705583757,
+            "share_of_fit_errors": 0.11834319526627218
+          },
+          {
+            "slice": 5,
+            "frames": 829,
+            "tracks": 59,
+            "mass_share": 0.11314316910058686,
+            "log_eps_min": -194.66807556152315,
+            "log_eps_max": -155.99632552847694,
+            "err_per_track": 0.2194451129370509,
+            "err_pooled": 0.04945717732207479,
+            "share_of_fit_errors": 0.12130177514792899
+          },
+          {
+            "slice": 6,
+            "frames": 935,
+            "tracks": 55,
+            "mass_share": 0.12761020881670534,
+            "log_eps_min": -155.99631903813602,
+            "log_eps_max": -129.96662895587215,
+            "err_per_track": 0.138632646486674,
+            "err_pooled": 0.06631016042780746,
+            "share_of_fit_errors": 0.1834319526627219
+          },
+          {
+            "slice": 7,
+            "frames": 920,
+            "tracks": 41,
+            "mass_share": 0.12556298621536782,
+            "log_eps_min": -128.41278076171875,
+            "log_eps_max": -124.45246566997893,
+            "err_per_track": 0.25929680076021544,
+            "err_pooled": 0.06304347826086958,
+            "share_of_fit_errors": 0.17159763313609466
+          }
+        ],
+        "slice_spearman_err_vs_slice": 0.8095238095238096
+      }
+    },
+    {
+      "seed": 2,
+      "tau": 44.45423126220703,
+      "eps2": {
+        "c_star": -232.8485565185547,
+        "fit_easy_mass_fraction": 0.49350475425204754,
+        "gap": {
+          "per_track": {
+            "easy": 0.0794664605207443,
+            "hard": 0.08318784923510338,
+            "gap": 0.003721388714359078,
+            "boot_se": 0.019432706542741086,
+            "ci95": [
+              -0.033815922490747254,
+              0.04253765517837575
+            ],
+            "frac_boot_gap_positive": 0.5815,
+            "se_cert_rough": 0.01121232079085804,
+            "gap_needed_rough": 0.021976148750081758,
+            "gap_over_se_cert": 0.33190173415242546,
+            "rough_pass_probability": 0.051752025604649775
+          },
+          "pooled": {
+            "easy": 0.05888738127544097,
+            "hard": 0.05314648334214701,
+            "gap": -0.005740897933293958,
+            "boot_se": 0.016563746838159206,
+            "ci95": [
+              -0.039303571079418814,
+              0.02503828087590547
+            ],
+            "frac_boot_gap_positive": 0.37,
+            "se_cert_rough": 0.009556982844336467,
+            "gap_needed_rough": 0.018731686374899477,
+            "gap_over_se_cert": -0.60070191887977,
+            "rough_pass_probability": 0.005223047026961151
+          }
+        },
+        "slices": [
+          {
+            "slice": 0,
+            "frames": 930,
+            "tracks": 55,
+            "mass_share": 0.12454801124949778,
+            "log_eps_min": -420.8626403808594,
+            "log_eps_max": -291.8511047363281,
+            "err_per_track": 0.10315901063982905,
+            "err_pooled": 0.05161290322580645,
+            "share_of_fit_errors": 0.11483253588516747
+          },
+          {
+            "slice": 1,
+            "frames": 900,
+            "tracks": 63,
+            "mass_share": 0.12053033346725592,
+            "log_eps_min": -291.1022033691406,
+            "log_eps_max": -268.4858703613281,
+            "err_per_track": 0.11484533984533984,
+            "err_pooled": 0.07111111111111112,
+            "share_of_fit_errors": 0.15311004784688995
+          },
+          {
+            "slice": 2,
+            "frames": 918,
+            "tracks": 63,
+            "mass_share": 0.12294094013660105,
+            "log_eps_min": -266.3491516113281,
+            "log_eps_max": -248.4605255126953,
+            "err_per_track": 0.11584260779663079,
+            "err_pooled": 0.0718954248366013,
+            "share_of_fit_errors": 0.15789473684210525
+          },
+          {
+            "slice": 3,
+            "frames": 937,
+            "tracks": 87,
+            "mass_share": 0.12548546939868757,
+            "log_eps_min": -247.67066955566406,
+            "log_eps_max": -232.8485565185547,
+            "err_per_track": 0.08704809451935888,
+            "err_pooled": 0.0416221985058698,
+            "share_of_fit_errors": 0.09330143540669857
+          },
+          {
+            "slice": 4,
+            "frames": 915,
+            "tracks": 78,
+            "mass_share": 0.12253917235837686,
+            "log_eps_min": -231.2201690673828,
+            "log_eps_max": -196.30563354492188,
+            "err_per_track": 0.12637131387131387,
+            "err_pooled": 0.05792349726775956,
+            "share_of_fit_errors": 0.12679425837320574
+          },
+          {
+            "slice": 5,
+            "frames": 992,
+            "tracks": 75,
+            "mass_share": 0.1328512119994643,
+            "log_eps_min": -194.66807556152344,
+            "log_eps_max": -156.72607421875,
+            "err_per_track": 0.0904294532627866,
+            "err_pooled": 0.04637096774193549,
+            "share_of_fit_errors": 0.11004784688995216
+          },
+          {
+            "slice": 6,
+            "frames": 1144,
+            "tracks": 63,
+            "mass_share": 0.1532074460961564,
+            "log_eps_min": -155.99635314941406,
+            "log_eps_max": -129.9666290283203,
+            "err_per_track": 0.09787253669975475,
+            "err_pooled": 0.06993006993006992,
+            "share_of_fit_errors": 0.19138755980861244
+          },
+          {
+            "slice": 7,
+            "frames": 731,
+            "tracks": 32,
+            "mass_share": 0.09789741529396011,
+            "log_eps_min": -128.41278076171875,
+            "log_eps_max": -124.47171020507812,
+            "err_per_track": 0.09249211436711438,
+            "err_pooled": 0.030095759233926125,
+            "share_of_fit_errors": 0.05263157894736842
+          }
+        ],
+        "slice_spearman_err_vs_slice": -0.38095238095238104
+      },
+      "eps3": {
+        "c_star": -224.77131651877096,
+        "fit_easy_mass_fraction": 0.5002008838891172,
+        "gap": {
+          "per_track": {
+            "easy": 0.09582064505018541,
+            "hard": 0.09064689100671108,
+            "gap": -0.005173754043474324,
+            "boot_se": 0.022670858970409723,
+            "ci95": [
+              -0.05082528255396099,
+              0.038915189763460055
+            ],
+            "frac_boot_gap_positive": 0.421,
+            "se_cert_rough": 0.013080676272317144,
+            "gap_needed_rough": 0.0256381254937416,
+            "gap_over_se_cert": -0.3955264954017421,
+            "rough_pass_probability": 0.009248238962789538
+          },
+          "pooled": {
+            "easy": 0.057831325301204814,
+            "hard": 0.05412647374062165,
+            "gap": -0.0037048515605831653,
+            "boot_se": 0.016994764325353025,
+            "ci95": [
+              -0.036497260122803625,
+              0.028274052542146818
+            ],
+            "frac_boot_gap_positive": 0.4005,
+            "se_cert_rough": 0.009805672151832435,
+            "gap_needed_rough": 0.019219117417591573,
+            "gap_over_se_cert": -0.37782739451377856,
+            "rough_pass_probability": 0.009698101952428873
+          }
+        },
+        "slices": [
+          {
+            "slice": 0,
+            "frames": 1113,
+            "tracks": 45,
+            "mass_share": 0.14905584572117314,
+            "log_eps_min": -384.9892606408138,
+            "log_eps_max": -291.1021792575586,
+            "err_per_track": 0.07156862745098039,
+            "err_pooled": 0.013477088948787061,
+            "share_of_fit_errors": 0.03588516746411483
+          },
+          {
+            "slice": 1,
+            "frames": 754,
+            "tracks": 56,
+            "mass_share": 0.10097763492701219,
+            "log_eps_min": -291.10216808444767,
+            "log_eps_max": -261.5270764469601,
+            "err_per_track": 0.1317238858640855,
+            "err_pooled": 0.12201591511936337,
+            "share_of_fit_errors": 0.22009569377990432
+          },
+          {
+            "slice": 2,
+            "frames": 933,
+            "tracks": 58,
+            "mass_share": 0.12494977902772196,
+            "log_eps_min": -261.527073553064,
+            "log_eps_max": -242.73483276338217,
+            "err_per_track": 0.1642241379310345,
+            "err_pooled": 0.04715969989281886,
+            "share_of_fit_errors": 0.10526315789473684
+          },
+          {
+            "slice": 3,
+            "frames": 935,
+            "tracks": 58,
+            "mass_share": 0.12521762421320476,
+            "log_eps_min": -242.73483258847992,
+            "log_eps_max": -224.77131651877096,
+            "err_per_track": 0.1675879577860763,
+            "err_pooled": 0.06951871657754012,
+            "share_of_fit_errors": 0.15550239234449761
+          },
+          {
+            "slice": 4,
+            "frames": 857,
+            "tracks": 53,
+            "mass_share": 0.11477166197937591,
+            "log_eps_min": -224.77131646986308,
+            "log_eps_max": -194.66807556152344,
+            "err_per_track": 0.12846021902625676,
+            "err_pooled": 0.04550758459743291,
+            "share_of_fit_errors": 0.09330143540669857
+          },
+          {
+            "slice": 5,
+            "frames": 1052,
+            "tracks": 52,
+            "mass_share": 0.14088656756394807,
+            "log_eps_min": -194.66807556152327,
+            "log_eps_max": -155.99632552847694,
+            "err_per_track": 0.12376373626373627,
+            "err_pooled": 0.033269961977186305,
+            "share_of_fit_errors": 0.08373205741626795
+          },
+          {
+            "slice": 6,
+            "frames": 918,
+            "tracks": 51,
+            "mass_share": 0.12294094013660105,
+            "log_eps_min": -155.99631903813602,
+            "log_eps_max": -129.96662895587215,
+            "err_per_track": 0.22316735927283596,
+            "err_pooled": 0.10021786492374726,
+            "share_of_fit_errors": 0.22009569377990432
+          },
+          {
+            "slice": 7,
+            "frames": 905,
+            "tracks": 41,
+            "mass_share": 0.12119994643096291,
+            "log_eps_min": -128.41278076171875,
+            "log_eps_max": -124.45246566997893,
+            "err_per_track": 0.2589991589571068,
+            "err_pooled": 0.03977900552486188,
+            "share_of_fit_errors": 0.0861244019138756
+          }
+        ],
+        "slice_spearman_err_vs_slice": 0.6190476190476191
+      }
+    },
+    {
+      "seed": 3,
+      "tau": 42.97504425048828,
+      "eps2": {
+        "c_star": -230.03115844726562,
+        "fit_easy_mass_fraction": 0.495698924731188,
+        "gap": {
+          "per_track": {
+            "easy": 0.05580467040437548,
+            "hard": 0.05230233300118358,
+            "gap": -0.0035023374031918977,
+            "boot_se": 0.01661019382403117,
+            "ci95": [
+              -0.037337029490293314,
+              0.029966011801807944
+            ],
+            "frac_boot_gap_positive": 0.405,
+            "se_cert_rough": 0.009583781916520236,
+            "gap_needed_rough": 0.018784212556379663,
+            "gap_over_se_cert": -0.36544418828590763,
+            "rough_pass_probability": 0.010024110492680798
+          },
+          "pooled": {
+            "easy": 0.036605206073752714,
+            "hard": 0.0423773987206823,
+            "gap": 0.005772192646929589,
+            "boot_se": 0.014171629294608842,
+            "ci95": [
+              -0.02271653213457195,
+              0.0333957122997186
+            ],
+            "frac_boot_gap_positive": 0.652,
+            "se_cert_rough": 0.008176774214687562,
+            "gap_needed_rough": 0.01602647746078762,
+            "gap_over_se_cert": 0.7059254047349461,
+            "rough_pass_probability": 0.1049074466560963
+          }
+        },
+        "slices": [
+          {
+            "slice": 0,
+            "frames": 911,
+            "tracks": 59,
+            "mass_share": 0.12244623655913978,
+            "log_eps_min": -420.8626403808594,
+            "log_eps_max": -291.8511047363281,
+            "err_per_track": 0.06590098126672614,
+            "err_pooled": 0.030735455543358946,
+            "share_of_fit_errors": 0.09523809523809523
+          },
+          {
+            "slice": 1,
+            "frames": 981,
+            "tracks": 70,
+            "mass_share": 0.13185483870967743,
+            "log_eps_min": -291.1022033691406,
+            "log_eps_max": -266.3491516113281,
+            "err_per_track": 0.05439106077213494,
+            "err_pooled": 0.04077471967380224,
+            "share_of_fit_errors": 0.1360544217687075
+          },
+          {
+            "slice": 2,
+            "frames": 980,
+            "tracks": 60,
+            "mass_share": 0.13172043010752688,
+            "log_eps_min": -265.8438720703125,
+            "log_eps_max": -247.67066955566406,
+            "err_per_track": 0.0919973544973545,
+            "err_pooled": 0.03469387755102041,
+            "share_of_fit_errors": 0.11564625850340136
+          },
+          {
+            "slice": 3,
+            "frames": 816,
+            "tracks": 71,
+            "mass_share": 0.1096774193548387,
+            "log_eps_min": -247.51429748535156,
+            "log_eps_max": -230.03115844726562,
+            "err_per_track": 0.12253421989958858,
+            "err_pooled": 0.04044117647058823,
+            "share_of_fit_errors": 0.11224489795918367
+          },
+          {
+            "slice": 4,
+            "frames": 820,
+            "tracks": 66,
+            "mass_share": 0.11021505376344086,
+            "log_eps_min": -226.4757080078125,
+            "log_eps_max": -196.30563354492188,
+            "err_per_track": 0.08936988936988938,
+            "err_pooled": 0.030487804878048776,
+            "share_of_fit_errors": 0.08503401360544217
+          },
+          {
+            "slice": 5,
+            "frames": 989,
+            "tracks": 72,
+            "mass_share": 0.13293010752688172,
+            "log_eps_min": -194.66807556152344,
+            "log_eps_max": -156.72607421875,
+            "err_per_track": 0.09063270161774219,
+            "err_pooled": 0.05055611729019211,
+            "share_of_fit_errors": 0.17006802721088435
+          },
+          {
+            "slice": 6,
+            "frames": 1224,
+            "tracks": 69,
+            "mass_share": 0.16451612903225807,
+            "log_eps_min": -155.99635314941406,
+            "log_eps_max": -129.9666290283203,
+            "err_per_track": 0.12217971996816555,
+            "err_pooled": 0.05555555555555556,
+            "share_of_fit_errors": 0.23129251700680273
+          },
+          {
+            "slice": 7,
+            "frames": 719,
+            "tracks": 34,
+            "mass_share": 0.09663978494623655,
+            "log_eps_min": -128.41278076171875,
+            "log_eps_max": -124.47171020507812,
+            "err_per_track": 0.07758620689655171,
+            "err_pooled": 0.022253129346314328,
+            "share_of_fit_errors": 0.05442176870748299
+          }
+        ],
+        "slice_spearman_err_vs_slice": 0.3571428571428572
+      },
+      "eps3": {
+        "c_star": -224.77126664089198,
+        "fit_easy_mass_fraction": 0.4944892473118332,
+        "gap": {
+          "per_track": {
+            "easy": 0.05381754665546185,
+            "hard": 0.07052899620766297,
+            "gap": 0.016711449552201114,
+            "boot_se": 0.021988089424527547,
+            "ci95": [
+              -0.02404281886002329,
+              0.059490690688928864
+            ],
+            "frac_boot_gap_positive": 0.7775,
+            "se_cert_rough": 0.01268673057268844,
+            "gap_needed_rough": 0.02486599192246934,
+            "gap_over_se_cert": 1.3172384686860894,
+            "rough_pass_probability": 0.26018942400561723
+          },
+          "pooled": {
+            "easy": 0.0342484370752922,
+            "hard": 0.04466897101834619,
+            "gap": 0.010420533943053985,
+            "boot_se": 0.014130863575961548,
+            "ci95": [
+              -0.01811785464317495,
+              0.03704625819785102
+            ],
+            "frac_boot_gap_positive": 0.7715,
+            "se_cert_rough": 0.008153253131109317,
+            "gap_needed_rough": 0.015980376136974263,
+            "gap_over_se_cert": 1.2780829658401867,
+            "rough_pass_probability": 0.24764570681926196
+          }
+        },
+        "slices": [
+          {
+            "slice": 0,
+            "frames": 1070,
+            "tracks": 45,
+            "mass_share": 0.1438172043010753,
+            "log_eps_min": -384.9892606408138,
+            "log_eps_max": -291.1021792575586,
+            "err_per_track": 0.050175438596491234,
+            "err_pooled": 0.005607476635514018,
+            "share_of_fit_errors": 0.02040816326530612
+          },
+          {
+            "slice": 1,
+            "frames": 794,
+            "tracks": 54,
+            "mass_share": 0.10672043010752688,
+            "log_eps_min": -291.10216808444767,
+            "log_eps_max": -258.45992025520707,
+            "err_per_track": 0.0604613918790164,
+            "err_pooled": 0.06045340050377834,
+            "share_of_fit_errors": 0.16326530612244897
+          },
+          {
+            "slice": 2,
+            "frames": 926,
+            "tracks": 59,
+            "mass_share": 0.12446236559139785,
+            "log_eps_min": -258.4599179699195,
+            "log_eps_max": -239.29357908980458,
+            "err_per_track": 0.06554384465650667,
+            "err_pooled": 0.04859611231101512,
+            "share_of_fit_errors": 0.15306122448979592
+          },
+          {
+            "slice": 3,
+            "frames": 889,
+            "tracks": 53,
+            "mass_share": 0.11948924731182796,
+            "log_eps_min": -239.29357279166334,
+            "log_eps_max": -224.77126664089198,
+            "err_per_track": 0.1410709943566157,
+            "err_pooled": 0.030371203599550055,
+            "share_of_fit_errors": 0.09183673469387756
+          },
+          {
+            "slice": 4,
+            "frames": 971,
+            "tracks": 57,
+            "mass_share": 0.13051075268817203,
+            "log_eps_min": -224.76613388736422,
+            "log_eps_max": -194.66807556152327,
+            "err_per_track": 0.09160151841592284,
+            "err_pooled": 0.028836251287332644,
+            "share_of_fit_errors": 0.09523809523809523
+          },
+          {
+            "slice": 5,
+            "frames": 926,
+            "tracks": 55,
+            "mass_share": 0.12446236559139785,
+            "log_eps_min": -194.66807556152315,
+            "log_eps_max": -155.99632552847694,
+            "err_per_track": 0.15385433792957307,
+            "err_pooled": 0.036717062634989195,
+            "share_of_fit_errors": 0.11564625850340136
+          },
+          {
+            "slice": 6,
+            "frames": 950,
+            "tracks": 55,
+            "mass_share": 0.12768817204301075,
+            "log_eps_min": -155.99631903813602,
+            "log_eps_max": -129.96662895587215,
+            "err_per_track": 0.21038679305136984,
+            "err_pooled": 0.07263157894736841,
+            "share_of_fit_errors": 0.23469387755102042
+          },
+          {
+            "slice": 7,
+            "frames": 914,
+            "tracks": 43,
+            "mass_share": 0.12284946236559141,
+            "log_eps_min": -128.41278076171875,
+            "log_eps_max": -124.45246566997893,
+            "err_per_track": 0.26986731792666036,
+            "err_pooled": 0.04048140043763676,
+            "share_of_fit_errors": 0.12585034013605442
+          }
+        ],
+        "slice_spearman_err_vs_slice": 0.9761904761904763
+      }
+    },
+    {
+      "seed": 4,
+      "tau": 44.12971878051758,
+      "eps2": {
+        "c_star": -230.74285888671875,
+        "fit_easy_mass_fraction": 0.4989998666488916,
+        "gap": {
+          "per_track": {
+            "easy": 0.05111376111493004,
+            "hard": 0.06613681865176117,
+            "gap": 0.015023057536831134,
+            "boot_se": 0.01691301281367501,
+            "ci95": [
+              -0.018071848455543778,
+              0.04793356656388087
+            ],
+            "frac_boot_gap_positive": 0.8055,
+            "se_cert_rough": 0.009758503005730454,
+            "gap_needed_rough": 0.01912666589123169,
+            "gap_over_se_cert": 1.5394838253376766,
+            "rough_pass_probability": 0.3370542079554816
+          },
+          "pooled": {
+            "easy": 0.0510422234099412,
+            "hard": 0.05802501996273622,
+            "gap": 0.0069827965527950245,
+            "boot_se": 0.016609732732179045,
+            "ci95": [
+              -0.026369948499448775,
+              0.0376593094690027
+            ],
+            "frac_boot_gap_positive": 0.6715,
+            "se_cert_rough": 0.00958351587484721,
+            "gap_needed_rough": 0.01878369111470053,
+            "gap_over_se_cert": 0.7286257615664827,
+            "rough_pass_probability": 0.10909146374030076
+          }
+        },
+        "slices": [
+          {
+            "slice": 0,
+            "frames": 887,
+            "tracks": 58,
+            "mass_share": 0.11828243765835444,
+            "log_eps_min": -420.8626403808594,
+            "log_eps_max": -291.8511047363281,
+            "err_per_track": 0.039504619699719516,
+            "err_pooled": 0.016910935738444197,
+            "share_of_fit_errors": 0.03667481662591687
+          },
+          {
+            "slice": 1,
+            "frames": 988,
+            "tracks": 65,
+            "mass_share": 0.131750900120016,
+            "log_eps_min": -291.1022033691406,
+            "log_eps_max": -264.69696044921875,
+            "err_per_track": 0.08585630743525481,
+            "err_pooled": 0.06983805668016196,
+            "share_of_fit_errors": 0.1687041564792176
+          },
+          {
+            "slice": 2,
+            "frames": 973,
+            "tracks": 67,
+            "mass_share": 0.12975063341778903,
+            "log_eps_min": -263.9267883300781,
+            "log_eps_max": -247.67066955566406,
+            "err_per_track": 0.1434467274019513,
+            "err_pooled": 0.054470709146968145,
+            "share_of_fit_errors": 0.1295843520782396
+          },
+          {
+            "slice": 3,
+            "frames": 894,
+            "tracks": 67,
+            "mass_share": 0.11921589545272702,
+            "log_eps_min": -247.51429748535156,
+            "log_eps_max": -230.74285888671875,
+            "err_per_track": 0.04483672510390027,
+            "err_pooled": 0.06040268456375837,
+            "share_of_fit_errors": 0.13202933985330073
+          },
+          {
+            "slice": 4,
+            "frames": 865,
+            "tracks": 64,
+            "mass_share": 0.11534871316175489,
+            "log_eps_min": -230.03115844726562,
+            "log_eps_max": -196.30563354492188,
+            "err_per_track": 0.0998360101943076,
+            "err_pooled": 0.03468208092485549,
+            "share_of_fit_errors": 0.07334963325183375
+          },
+          {
+            "slice": 5,
+            "frames": 983,
+            "tracks": 72,
+            "mass_share": 0.13108414455260703,
+            "log_eps_min": -194.66807556152344,
+            "log_eps_max": -156.72607421875,
+            "err_per_track": 0.20146325125491793,
+            "err_pooled": 0.06205493387589013,
+            "share_of_fit_errors": 0.1491442542787286
+          },
+          {
+            "slice": 6,
+            "frames": 814,
+            "tracks": 52,
+            "mass_share": 0.10854780637418322,
+            "log_eps_min": -155.99635314941406,
+            "log_eps_max": -146.03648376464844,
+            "err_per_track": 0.21826167959976056,
+            "err_pooled": 0.07002457002457002,
+            "share_of_fit_errors": 0.1393643031784841
+          },
+          {
+            "slice": 7,
+            "frames": 1095,
+            "tracks": 51,
+            "mass_share": 0.14601946926256837,
+            "log_eps_min": -129.9666290283203,
+            "log_eps_max": -124.47171020507812,
+            "err_per_track": 0.15165655328323127,
+            "err_pooled": 0.06392694063926942,
+            "share_of_fit_errors": 0.17114914425427874
+          }
+        ],
+        "slice_spearman_err_vs_slice": 0.8095238095238096
+      },
+      "eps3": {
+        "c_star": -224.77131014943768,
+        "fit_easy_mass_fraction": 0.49859981330844627,
+        "gap": {
+          "per_track": {
+            "easy": 0.06740311800094409,
+            "hard": 0.08587461942323797,
+            "gap": 0.01847150142229388,
+            "boot_se": 0.0216073821526128,
+            "ci95": [
+              -0.024440787506012265,
+              0.06069639217420349
+            ],
+            "frac_boot_gap_positive": 0.801,
+            "se_cert_rough": 0.01246706935098821,
+            "gap_needed_rough": 0.024435455927936892,
+            "gap_over_se_cert": 1.4816233793413307,
+            "rough_pass_probability": 0.31619108535246593
+          },
+          "pooled": {
+            "easy": 0.048676116608718914,
+            "hard": 0.06037234042553191,
+            "gap": 0.011696223816812998,
+            "boot_se": 0.016840253789325393,
+            "ci95": [
+              -0.023188700432549766,
+              0.04315330553848815
+            ],
+            "frac_boot_gap_positive": 0.766,
+            "se_cert_rough": 0.009716522362445204,
+            "gap_needed_rough": 0.0190443838303926,
+            "gap_over_se_cert": 1.2037458856699006,
+            "rough_pass_probability": 0.22474842678590506
+          }
+        },
+        "slices": [
+          {
+            "slice": 0,
+            "frames": 1024,
+            "tracks": 44,
+            "mass_share": 0.13655154020536073,
+            "log_eps_min": -384.9892606408138,
+            "log_eps_max": -291.1021792575586,
+            "err_per_track": 0.04772727272727273,
+            "err_pooled": 0.0029296875,
+            "share_of_fit_errors": 0.007334963325183374
+          },
+          {
+            "slice": 1,
+            "frames": 847,
+            "tracks": 55,
+            "mass_share": 0.11294839311908253,
+            "log_eps_min": -291.10216808444767,
+            "log_eps_max": -256.31045823408033,
+            "err_per_track": 0.12239860811075204,
+            "err_pooled": 0.10271546635183,
+            "share_of_fit_errors": 0.21271393643031786
+          },
+          {
+            "slice": 2,
+            "frames": 942,
+            "tracks": 64,
+            "mass_share": 0.12561674889985333,
+            "log_eps_min": -256.31045022073545,
+            "log_eps_max": -239.57727482614413,
+            "err_per_track": 0.07269345238095237,
+            "err_pooled": 0.05095541401273885,
+            "share_of_fit_errors": 0.11735941320293398
+          },
+          {
+            "slice": 3,
+            "frames": 926,
+            "tracks": 52,
+            "mass_share": 0.12348313108414455,
+            "log_eps_min": -239.2935815345992,
+            "log_eps_max": -224.77131014943768,
+            "err_per_track": 0.15081982513016995,
+            "err_pooled": 0.047516198704103674,
+            "share_of_fit_errors": 0.10757946210268948
+          },
+          {
+            "slice": 4,
+            "frames": 979,
+            "tracks": 55,
+            "mass_share": 0.1305507400986798,
+            "log_eps_min": -224.771272857452,
+            "log_eps_max": -194.66807556152327,
+            "err_per_track": 0.10459010164339318,
+            "err_pooled": 0.02860061287027579,
+            "share_of_fit_errors": 0.06845965770171149
+          },
+          {
+            "slice": 5,
+            "frames": 908,
+            "tracks": 58,
+            "mass_share": 0.1210828110414722,
+            "log_eps_min": -194.66807556152315,
+            "log_eps_max": -155.99632552847694,
+            "err_per_track": 0.2402267272956928,
+            "err_pooled": 0.03744493392070484,
+            "share_of_fit_errors": 0.08312958435207823
+          },
+          {
+            "slice": 6,
+            "frames": 936,
+            "tracks": 56,
+            "mass_share": 0.12481664221896252,
+            "log_eps_min": -155.99631903813602,
+            "log_eps_max": -129.96662895587215,
+            "err_per_track": 0.2681172980795491,
+            "err_pooled": 0.094017094017094,
+            "share_of_fit_errors": 0.21515892420537897
+          },
+          {
+            "slice": 7,
+            "frames": 937,
+            "tracks": 47,
+            "mass_share": 0.12494999333244433,
+            "log_eps_min": -128.41278076171875,
+            "log_eps_max": -124.45246566997893,
+            "err_per_track": 0.35247132259604746,
+            "err_pooled": 0.08217716115261471,
+            "share_of_fit_errors": 0.1882640586797066
+          }
+        ],
+        "slice_spearman_err_vs_slice": 0.880952380952381
+      }
+    }
+  ]
+}

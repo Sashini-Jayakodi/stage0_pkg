@@ -1,0 +1,32 @@
+{
+  "features": "emb",
+  "shrinkage": 0.02078234197667993,
+  "cov_condition_number": 151.0024836000315,
+  "cov_eig_min": 2.3205700442254825e-05,
+  "cov_eig_max": 0.0035041184004588276,
+  "n_pairs_where_plain_eps_underflows_to_0": 0,
+  "log_eps_min": -508.5368672348422,
+  "log_eps_max": -124.4717067057773,
+  "ft_train": {
+    "head_accuracy": 1.0,
+    "softmax_accuracy": 0.9996473906911142,
+    "label_agreement": 0.9996473906911142,
+    "gap_pp_softmax_minus_head": -0.035260930888580955
+  },
+  "train_release": {
+    "head_accuracy": 0.9259863806779056,
+    "softmax_accuracy": 0.9189981891912571,
+    "label_agreement": 0.9650590425667577,
+    "gap_pp_softmax_minus_head": -0.6988191486648532
+  },
+  "head_gap_over_2pp": false,
+  "spearman_all_903": 0.4344867818219328,
+  "spearman_nonzero_pairs": 0.2848028739015004,
+  "n_pairs_with_zero_confusion": 707,
+  "top10_empirical_in_top20_eps": 0,
+  "files_sha256": {
+    "head.npz": "5e85b1b0ca9ee45b86bcf20fcf4fce454128f8b292d454b84da42fe12ff0a5c2",
+    "scores_train_release.npz": "0be15ed0b850e24ddc69a7395e954372f127ae6a2387369d0e812f082f3ceaac",
+    "scores_ft_train.npz": "5f538d97be01dbcab863ac24ce7f95ee0538ec6ce084b016275d5358c141a5bd"
+  }
+}
