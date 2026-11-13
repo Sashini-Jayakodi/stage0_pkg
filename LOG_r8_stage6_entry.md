@@ -151,15 +151,72 @@ head.npz, track_table_design.npz (not track_table_pool.npz).
   - B6: nothing fitted on the design set (Amendment 1).
 
 ### Part B: results (fill from the printout after the run)
-- Date: ____ / Stage: R8 Stage 6 / Run tag: runs/20261003_stage1/poc2/stage6
-- Git commit of Part A: ____ | Git commit of the code: ____
-- B5 / B5c at 1% and 2%: ____
-- B6 (4 variants) at 1% and 2%: ____
-- Stage 6 checks: ____
-- Comparison table: ____
-- Checks: ____ — ALL PASS: ____
-- Decision: ____
-- Deviation from the plan? ____
+- Date: 2026-11-14 / Stage: R8 Stage 6 / Run tag: runs/20261003_stage1/poc2/stage6
+- Git commit of Part A: 2127a4b (rules), 12d6bdb (Amendment 1), d1b6a9f (design-set values) | Git commit of the code:
+  167557b (src/r8_stage6.py SHA-256 87a4afe1047fffd6df87ac01568d7c68435bb257270f4b50d7715e0f4bdeb507;
+  src/r8_stage6_methods.py 2b4fbdad8eae0daef7b3ddc22208b789a9cd1275d6bdc5ab36a97c3481c31ab4)
+- Output: stage6_summary.json SHA-256 59ef05a43e43963bc3cf5a7911b7d262234005df1d4cc8909f5f5e18e9d1c25c (28.2 s). All
+  Stage 4 Test coverages reproduced from the regenerated splits; both paper hashes checked.
+- **B6 exceeds the commit rule on coverage and earliness at both alphas.** At 1% the commit rule certifies nothing
+  (0/5) while B6 (K = 5) covers 92.7% of Test signs (median; ECDF sum 92.4-95.8%, ECDF min 92.7-95.4%) at median frame
+  5 and 22-24 px. At 2% B6 (K = 5) covers 95.8% (sum 93.9-96.9%, min 94.7-97.7%) at frame 5 and 22-24 px, against the
+  commit rule's 92.7% (91.2-93.5%) at frame 10 (10-11) and 27 px (26-28). B6 gives no certificate.
+- **B6 Test error above its target r** (error among committed Test signs, seeds 0-4):
+  - r = 1%: ECDF sum K5 1.24, 0.82, 0.81, 1.59, 1.23% (3/5 above 1%); ECDF min K5 1.23, 0.82, 0.81, 0.80, 2.06% (2/5);
+    ECDF sum K9 1.23, 0.82, 0.41, 1.20, 0.41% (2/5); ECDF min K9 1.21, 1.21, 0.82, 2.78, 0.83% (3/5).
+  - r = 2%: ECDF sum K5 1.63, 1.20, 1.59, 1.57, 4.78% (1/5); ECDF min K5 1.61, 1.59, 1.20, 1.95, 3.98% (1/5);
+    ECDF sum K9 1.61, 1.59, 1.57, 2.75, 5.58% (2/5); ECDF min K9 1.21, 1.62, 1.98, 3.16, 5.18% (2/5).
+  - For comparison, the commit rule's Test error where certified (2%) is 0.41-1.22%. These are Test descriptions over
+    five re-splits, not violation rates like Stage 3.
+- **B5 / B5c real error vs their gap target** (alpha = gap tolerance; seeds 0-4):
+  - alpha 1%: B5 Test gap 0.76, 0.38, 0.38, 1.15, 2.29% but real error among committed 3.09, 2.30, 2.30, 3.44, 4.98%;
+    B5c gap 0.00, 0.76, 0.38, 0.00, 0.00% but real error 2.32, 2.68, 2.30, 2.29, 2.68%.
+  - alpha 2%: B5 gap 0.76, 1.53, 0.38, 1.53, 3.82%, real error 3.09, 3.45, 2.30, 3.82, 6.51%; B5c gap 0.76, 1.53, 0.38,
+    1.53, 1.15%, real error 3.09, 3.45, 2.30, 3.82, 3.83%.
+  - Controlling the gap to the full-sequence answer does not control the real error (plan section 9: B5 bounds a gap,
+    not the real error). B5/B5c cover 98.9-100% (they never escalate). B5c stops late where few thresholds are finite
+    (2/30 finite in seeds 3 and 4 at 1%: median frame 29, 64-67 px).
+- **Stage 6 checks** (Part A (g), alpha 1%, >= 4 of 5):
+  - B5 own target (Test marginal gap <= 1%): PASS, PASS, PASS, fail, fail -> 3/5 -> **FAIL**.
+  - B5c own target (gap over the 20% earliest, the 50% earliest, and marginal, all <= 1%): **PASS 5/5**.
+  - B6 calibration direction (ECE of ECDF sum and ECDF min, K = 5, below single-frame ICP): **PASS 5/5**
+    (e.g. seed 0: 0.0422 -> 0.0170 / 0.0148). Reported, not scored: the arithmetic-mean merge (x2) is worse than single
+    ICP in every re-split (ECE 0.066-0.082 vs 0.021-0.053); K = 9 also improves with ECDF sum and min.
+- **Comparison table, alpha 1% (primary), B6 K = 5; median (min to max) over 5 re-splits:**
+  - Promise: Ours, B2, B3, B4 certified real error; B1 certified per-frame error (frames assumed independent); B5 gap,
+    marginal; B5c gap, conditional on halt time; B6 none.
+  - Valid on linked frames: Ours 3b 1.4% [0.9, 2.0], 3a rho .45 0.2%; B1 3b 20.0% [18.3, 21.8], 3a rho .45 4.8% (delta
+    10%); B2-B4 valid by construction, not measured; B5, B5c valid for own target, not measured; B6 no promise.
+  - Coverage: Ours 0.0% (0/5 certified); B1 n/a; B2 0.0% (0/5); B3 88.2% (87.0-90.5); B4 82.4% (81.3-84.0); B5 99.6%
+    (98.9-100.0); B5c 99.6% (98.9-100.0); B6 sum 92.7% (92.4-95.8); B6 min 92.7% (92.7-95.4).
+  - Error among committed: Ours n/a; B2 n/a; B3 0.43% (0.00-1.27); B4 0.00% (0.00-0.45); B5 3.09% (2.30-4.98); B5c
+    2.32% (2.29-2.68); B6 sum 1.23% (0.81-1.59); B6 min 0.82% (0.80-2.06).
+  - Smallest certifiable alpha (n = 784): Ours 2.0%; B1 0.5% (3b rule); B2 2.0% (2.0-3.0); B3 1.0%; B4 1.0%; B5, B5c,
+    B6 n/a.
+  - Median commit frame: B3 30; B4 30; B5 7 (5-8); B5c 19 (8-29); B6 5. Median size px: B3 75 (70-81); B4 76 (72-81);
+    B5 24 (22-25); B5c 35 (26-67); B6 sum 24 (22-24); B6 min 23.5 (22-24). Ours, B2: n/a (not certified).
+  - Can escalate: yes for all except B5 and B5c.
+- **Comparison table, alpha 2% (declared extra), B6 K = 5:** coverage Ours 92.7% (91.2-93.5, 5/5); B2 81.3%
+  (0.0-82.1, 3/5); B3 90.1% (89.3-90.8); B4 90.1% (87.8-91.2); B5 99.6%; B5c 99.6%; B6 sum 95.8% (93.9-96.9); B6 min
+  95.8% (94.7-97.7). Error: Ours 0.82% (0.41-1.22); B2 0.94% (0.93-2.33); B3 0.85% (0.42-1.26); B4 0.43% (0.00-1.27);
+  B5 3.45% (2.30-6.51); B5c 3.45% (2.30-3.83); B6 sum 1.59% (1.20-4.78); B6 min 1.61% (1.20-3.98). Frame: Ours 10
+  (10-11); B2 16 (16-17); B3 30; B4 30; B5 5 (4-5); B5c 11 (2-18); B6 5. Size px: Ours 27 (26-28); B2 32 (31-34); B3
+  74.5 (70-81); B4 75 (70-81); B5 23 (21-23); B5c 26 (22-34); B6 23. Row 2 at 2%: Ours and B1 3b 0.0% [0.0, 0.2].
+- **K = 9 tables** (both alphas) are in stage6_summary.json (tables "K9_0.01" and "K9_0.02"): B6 coverage 93.5-96.2%
+  (medians) at frame 9 and 25-26 px; errors as listed above.
+- **Two cells that could be misread:**
+  - B1 "smallest certifiable alpha 0.5%" follows the Part A rule (certified in at least half of the 3b draws: 60.0%),
+    but B1 broke its promise in 17.0% of the 3b draws at 0.5% (delta 10%); its certificate at 0.5% is not trustworthy.
+  - Row 2 at 2% shows 0.0% violations for both Ours and B1 because every threshold certified at 2% in 3b had true risk
+    below 2%; it does not show B1 is valid at 2% in general.
+- Checks: frozen_grid_matches_stage1_grid, gate_flags_reproduce, pool_commit_table_reproduces, b1_top_equals_stored_top1,
+  meta_roi_matches_stage1_sizes, b2_frames_all_pass_gate, stage4_coverages_reproduce all PASS — ALL PASS (checks): True.
+  Stage 6 checks: B5 FAIL (3/5), B5c PASS, B6 calibration direction PASS.
+- Decision: results reported as measured; nothing frozen changed. In the write-up, the commit rule's edge over B6 is
+  the certificate (a promise on real error that held where certified), not coverage or earliness.
+- Deviation from the plan? Declared in Part A and Amendment 1: B5c and the K = 9 B6 variants added; B6 reads the plan's
+  "arithmetic mean" as [BK]'s merge (calibration check only); score transform for B5/B5c; per-track adaptation of B6;
+  B6 calibrated on Cert thirds. No other.
 - Next step: Stage 7 only after the author reviews Stage 6.
 
 ### Amendment 1 to Stage 6 Part A (2026-11-14, before the design script was written or run)
