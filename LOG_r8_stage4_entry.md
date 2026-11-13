@@ -90,15 +90,46 @@ the JSON, which the Stage 4 code reads and hash-checks.
     decisions; the rules are applied as written.
 
 ### Part B: results (fill from the printout after the run)
-- Date: ____ / Stage: R8 Stage 4 / Run tag: runs/20261003_stage1/poc2/stage4
-- Git commit of Part A: ____ | Git commit of the code: ____
-- Per re-split at 1%: certified ____ ; Test coverage ____ ; error among committed ____ ; median commit frame / size ____
-- Smallest certified alpha per re-split: ____ ; curve against n: ____
-- P2 ____ ; P3 ____ ; P4 ____
-- Baselines B2 / B3 / B4 at 1%: ____
-- Checks: ____ — ALL PASS: ____
-- Decision: ____
-- Deviation from the plan? ____
+- Date: 2026-11-14 / Stage: R8 Stage 4 / Run tag: runs/20261003_stage1/poc2/stage4
+- Git commit of Part A: 690713e (rules), 6db7d4b (Amendment 1), 2a22adb (B2/B3/B4 values), 4631b32 (Amendment 2) |
+  Git commit of the code: e31dff2 (src/r8_stage4.py SHA-256 fae67390a488b44c57f1386c9b256cb0fbbcf2444282f5724c2580aa3e6445c2)
+- Output: stage4_summary.json SHA-256 e66e45f210ebae5e6d21a4d8247584e1affc2d9691a760427814c821b164d2cc (2.0 s).
+  train_meta.csv SHA-256 4c06c3ad07a3b3b89faabcd49b26e8f6dbfff6460f25bf5b66730140de6a132e (no earlier record; its ROI
+  boxes were cross-checked against the Stage 1 sizes, check PASS).
+- Per re-split at 1%: commit rule certified in 0 of 5 (Test coverage 0% in every re-split, so no error, frame or size).
+  B2 certified in 0 of 5. B3 certified in 5 of 5 (coverage 87.02, 88.55, 87.40, 90.46, 88.17%; error 0.00 to 1.27%;
+  frame 30, 70 to 81 px). B4 certified in 5 of 5 (coverage 83.97, 82.06, 82.44, 82.44, 81.30%; error 0.00 to 0.45%;
+  frame 30, 72 to 81 px).
+- P2, P3, P4 all FAIL (0/5), because the commit rule was not certified at the primary alpha 1% in any re-split while
+  B3 and B4 were.
+- Certifiability curve (smallest certified alpha, n = 784): commit rule 2% in all five re-splits; B2 2% (seeds 0, 1, 4)
+  and 3% (seeds 2, 3); B3 and B4 1% in all five. Commit rule against n (n = 100 / 200 / 400 / 784): seed 0 5/3/2/2%;
+  seed 1 5/2/1/2%; seed 2 none/5/3/2%; seed 3 none/3/2/2%; seed 4 none/5/2/2%. Not monotone in n for seed 1 (the
+  nested 400-track subsample certifies 1%, the full 784 does not): the curve is noisy at these sizes.
+- 2% table (Test; coverage / error among committed / median commit frame / median size px):
+  - seed 0: commit 93.51 / 1.22 / 10 / 26; B2 82.06 / 2.33 / 16 / 32; B3 89.31 / 0.43 / 30 / 70; B4 90.08 / 1.27 / 30 / 70
+  - seed 1: commit 92.37 / 0.41 / 10 / 28; B2 82.06 / 0.93 / 16 / 34; B3 90.46 / 0.42 / 30 / 81; B4 89.31 / 0.00 / 30 / 81
+  - seed 2: commit 93.51 / 1.22 / 10 / 27; B2 not certified; B3 90.08 / 0.85 / 30 / 75; B4 90.08 / 0.42 / 30 / 75
+  - seed 3: commit 92.75 / 0.82 / 10 / 28; B2 not certified; B3 90.84 / 1.26 / 30 / 74.5; B4 91.22 / 0.84 / 30 / 75
+  - seed 4: commit 91.22 / 0.42 / 11 / 26; B2 81.30 / 0.94 / 17 / 31; B3 90.08 / 0.85 / 30 / 71; B4 87.79 / 0.43 / 30 / 72
+  Wherever the commit rule was certified (2%, 3%, 5%), its Test error among committed signs stayed below alpha
+  (at most 1.22% at 2%, at most 2.01% at 3% and 5%).
+- Amendment 2, descriptive only (not scored): at the smallest alpha certified by both the commit rule and B2 (2% for
+  seeds 0, 1, 4; 3% for seeds 2, 3), the commit rule is ahead of B2 by 10 to 14 points (93.51 vs 82.06, 92.37 vs 82.06,
+  95.04 vs 80.92, 95.04 vs 81.68, 91.22 vs 81.30%) at median commit frames 8 to 11, in every re-split.
+- Limitation (noted, not changed): the frozen working grid did not reach thresholds conservative enough to approach
+  last-frame behaviour. Its strictest point (lambda 12898.9) has a design-set median commit frame of 18, and the frozen
+  order starts at working position 18 (lambda 8130.9) and only relaxes toward smaller lambda, so positions 19 to 29
+  are never tested. The commit rule therefore always commits early (median frame 8 to 11 where certified), where the
+  confidently wrong tracks make the 1% test fail, while B3 and B4 decide at frame 30.
+- Track-level false-rejection rate (Test): 1.15, 0.38, 0.38, 0.00, 0.38% (seeds 0 to 4).
+- Checks: frozen_grid_matches_stage1_grid, gate_flags_reproduce, pool_commit_table_reproduces, b1_top_equals_stored_top1,
+  meta_roi_matches_stage1_sizes, b2_frames_all_pass_gate, pool_size_matches_frozen, splits_valid all PASS — ALL PASS
+  (checks): True. P2, P3, P4 (pass levels) FAIL.
+- Decision: P2, P3 and P4 reported as FAIL (0/5). Nothing frozen changed; the primary alpha stays 1%. Per plan section
+  11, P2's failure is reported with the certifiability curve; P3's and P4's failures are reported as they are.
+- Deviation from the plan? Declared in Part A: B2, B3, B4 definitions, grids and orders specified after F1 from design
+  data only (Part A (e), Amendment 1); descriptive comparison added before any Stage 4 number (Amendment 2). No other.
 - Next step: Stage 5 only after the author reviews Stage 4.
 
 ### Amendment 1 to Stage 4 Part A (2026-11-14, before any Stage 4 number existed)

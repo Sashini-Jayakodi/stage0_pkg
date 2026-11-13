@@ -1,0 +1,1188 @@
+{
+  "plan": "poc2-implementation-plan-r8 Stage 4",
+  "frozen_r8_sha256": "4f7a79156a4486b6b5f97515457513e6df2a2bfeed2a41b6fa05936bd1141d24",
+  "code_sha256": {
+    "r8_stage4.py": "fae67390a488b44c57f1386c9b256cb0fbbcf2444282f5724c2580aa3e6445c2"
+  },
+  "inputs_sha256": {
+    "checkpoint": "86527359bc61a5fbc4d48b7744e049b5ca3ff81cb016fb237298d0c007140bcc",
+    "train_release.npz": "228fe5b2ee29f59d5e3fac7e5b81ffd8b1a9b1f6b5747756f88711345034d380",
+    "head.npz": "5e85b1b0ca9ee45b86bcf20fcf4fce454128f8b292d454b84da42fe12ff0a5c2",
+    "seed0.npz": "397611c5538cc9ebe7a0be768ada29cb0afa7c89bdc53511df3a2403001fea49",
+    "track_table_pool.npz": "0afb7e89052c393d695a8cb7e5796e4e811b1ff9c3c6bd392bf3cd10742250db",
+    "frame_evidence.npz": "f79033e8cee5ba73a6b22d1d33b91227ff7cf628d95dc616a28824ad68a0e960",
+    "scores_train_release.npz": "0be15ed0b850e24ddc69a7395e954372f127ae6a2387369d0e812f082f3ceaac",
+    "b1_design.json": "8fb7e1c534ce1d923595e18794327afa70d654f033d4b55196a4dc2a169d22c9",
+    "baselines_design.json": "80fef0be5ac04f0fb911f20752b8efebdeffc7254d7c3e0e47a9c23ca99ad580",
+    "train_meta.csv": "4c06c3ad07a3b3b89faabcd49b26e8f6dbfff6460f25bf5b66730140de6a132e"
+  },
+  "config": {
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "split_salt": 20261114,
+    "curve_salt": 20261115,
+    "curve_n": [
+      100,
+      200,
+      400,
+      784
+    ],
+    "alphas": [
+      0.005,
+      0.01,
+      0.02,
+      0.03,
+      0.05
+    ],
+    "primary": 0.01,
+    "delta": 0.1,
+    "c_min": 0.79272030651341
+  },
+  "per_seed": [
+    {
+      "seed": 0,
+      "n_cert": 784,
+      "n_test": 262,
+      "false_rejection_rate": 0.011450381679389313,
+      "alphas": {
+        "0.005": {
+          "commit": {
+            "certified": false,
+            "grid_position": null,
+            "coverage": 0.0,
+            "error_committed": null,
+            "median_commit_frame": null,
+            "median_size": null,
+            "committed": 0
+          },
+          "B2": {
+            "certified": false,
+            "grid_position": null,
+            "coverage": 0.0,
+            "error_committed": null,
+            "median_commit_frame": null,
+            "median_size": null,
+            "committed": 0
+          },
+          "B3": {
+            "certified": false,
+            "grid_position": null,
+            "coverage": 0.0,
+            "error_committed": null,
+            "median_commit_frame": null,
+            "median_size": null,
+            "committed": 0
+          },
+          "B4": {
+            "certified": false,
+            "grid_position": null,
+            "coverage": 0.0,
+            "error_committed": null,
+            "median_commit_frame": null,
+            "median_size": null,
+            "committed": 0
+          }
+        },
+        "0.01": {
+          "commit": {
+            "certified": false,
+            "grid_position": null,
+            "coverage": 0.0,
+            "error_committed": null,
+            "median_commit_frame": null,
+            "median_size": null,
+            "committed": 0
+          },
+          "B2": {
+            "certified": false,
+            "grid_position": null,
+            "coverage": 0.0,
+            "error_committed": null,
+            "median_commit_frame": null,
+            "median_size": null,
+            "committed": 0
+          },
+          "B3": {
+            "certified": true,
+            "grid_position": 9,
+            "coverage": 0.8702290076335878,
+            "error_committed": 0.0,
+            "median_commit_frame": 30.0,
+            "median_size": 70.0,
+            "committed": 228
+          },
+          "B4": {
+            "certified": true,
+            "grid_position": 25,
+            "coverage": 0.8396946564885496,
+            "error_committed": 0.004545454545454545,
+            "median_commit_frame": 30.0,
+            "median_size": 72.0,
+            "committed": 220
+          }
+        },
+        "0.02": {
+          "commit": {
+            "certified": true,
+            "grid_position": 7,
+            "coverage": 0.9351145038167938,
+            "error_committed": 0.012244897959183673,
+            "median_commit_frame": 10.0,
+            "median_size": 26.0,
+            "committed": 245
+          },
+          "B2": {
+            "certified": true,
+            "grid_position": 4,
+            "coverage": 0.8206106870229007,
+            "error_committed": 0.023255813953488372,
+            "median_commit_frame": 16.0,
+            "median_size": 32.0,
+            "committed": 215
+          },
+          "B3": {
+            "certified": true,
+            "grid_position": 0,
+            "coverage": 0.8931297709923665,
+            "error_committed": 0.004273504273504274,
+            "median_commit_frame": 30.0,
+            "median_size": 70.0,
+            "committed": 234
+          },
+          "B4": {
+            "certified": true,
+            "grid_position": 20,
+            "coverage": 0.9007633587786259,
+            "error_committed": 0.012711864406779662,
+            "median_commit_frame": 30.0,
+            "median_size": 70.0,
+            "committed": 236
+          }
+        },
+        "0.03": {
+          "commit": {
+            "certified": true,
+            "grid_position": 0,
+            "coverage": 0.9541984732824428,
+            "error_committed": 0.016,
+            "median_commit_frame": 8.0,
+            "median_size": 25.0,
+            "committed": 250
+          },
+          "B2": {
+            "certified": true,
+            "grid_position": 0,
+            "coverage": 0.8320610687022901,
+            "error_committed": 0.022935779816513763,
+            "median_commit_frame": 16.0,
+            "median_size": 31.0,
+            "committed": 218
+          },
+          "B3": {
+            "certified": true,
+            "grid_position": 0,
+            "coverage": 0.8931297709923665,
+            "error_committed": 0.004273504273504274,
+            "median_commit_frame": 30.0,
+            "median_size": 70.0,
+            "committed": 234
+          },
+          "B4": {
+            "certified": true,
+            "grid_position": 12,
+            "coverage": 0.9541984732824428,
+            "error_committed": 0.02,
+            "median_commit_frame": 30.0,
+            "median_size": 70.0,
+            "committed": 250
+          }
+        },
+        "0.05": {
+          "commit": {
+            "certified": true,
+            "grid_position": 0,
+            "coverage": 0.9541984732824428,
+            "error_committed": 0.016,
+            "median_commit_frame": 8.0,
+            "median_size": 25.0,
+            "committed": 250
+          },
+          "B2": {
+            "certified": true,
+            "grid_position": 0,
+            "coverage": 0.8320610687022901,
+            "error_committed": 0.022935779816513763,
+            "median_commit_frame": 16.0,
+            "median_size": 31.0,
+            "committed": 218
+          },
+          "B3": {
+            "certified": true,
+            "grid_position": 0,
+            "coverage": 0.8931297709923665,
+            "error_committed": 0.004273504273504274,
+            "median_commit_frame": 30.0,
+            "median_size": 70.0,
+            "committed": 234
+          },
+          "B4": {
+            "certified": true,
+            "grid_position": 0,
+            "coverage": 0.9694656488549618,
+            "error_committed": 0.023622047244094488,
+            "median_commit_frame": 30.0,
+            "median_size": 70.0,
+            "committed": 254
+          }
+        }
+      },
+      "smallest_certified": {
+        "commit": 0.02,
+        "B2": 0.02,
+        "B3": 0.01,
+        "B4": 0.01
+      },
+      "curve_vs_n": {
+        "100": 0.05,
+        "200": 0.03,
+        "400": 0.02,
+        "784": 0.02
+      },
+      "descriptive_common_alpha": {
+        "alpha": 0.02,
+        "commit_coverage": 0.9351145038167938,
+        "b2_coverage": 0.8206106870229007,
+        "p3_holds": true,
+        "median_commit_frame": 10.0,
+        "p4_holds": true
+      }
+    },
+    {
+      "seed": 1,
+      "n_cert": 784,
+      "n_test": 262,
+      "false_rejection_rate": 0.003816793893129771,
+      "alphas": {
+        "0.005": {
+          "commit": {
+            "certified": false,
+            "grid_position": null,
+            "coverage": 0.0,
+            "error_committed": null,
+            "median_commit_frame": null,
+            "median_size": null,
+            "committed": 0
+          },
+          "B2": {
+            "certified": false,
+            "grid_position": null,
+            "coverage": 0.0,
+            "error_committed": null,
+            "median_commit_frame": null,
+            "median_size": null,
+            "committed": 0
+          },
+          "B3": {
+            "certified": false,
+            "grid_position": null,
+            "coverage": 0.0,
+            "error_committed": null,
+            "median_commit_frame": null,
+            "median_size": null,
+            "committed": 0
+          },
+          "B4": {
+            "certified": false,
+            "grid_position": null,
+            "coverage": 0.0,
+            "error_committed": null,
+            "median_commit_frame": null,
+            "median_size": null,
+            "committed": 0
+          }
+        },
+        "0.01": {
+          "commit": {
+            "certified": false,
+            "grid_position": null,
+            "coverage": 0.0,
+            "error_committed": null,
+            "median_commit_frame": null,
+            "median_size": null,
+            "committed": 0
+          },
+          "B2": {
+            "certified": false,
+            "grid_position": null,
+            "coverage": 0.0,
+            "error_committed": null,
+            "median_commit_frame": null,
+            "median_size": null,
+            "committed": 0
+          },
+          "B3": {
+            "certified": true,
+            "grid_position": 9,
+            "coverage": 0.8854961832061069,
+            "error_committed": 0.0,
+            "median_commit_frame": 30.0,
+            "median_size": 81.0,
+            "committed": 232
+          },
+          "B4": {
+            "certified": true,
+            "grid_position": 26,
+            "coverage": 0.8206106870229007,
+            "error_committed": 0.0,
+            "median_commit_frame": 30.0,
+            "median_size": 81.0,
+            "committed": 215
+          }
+        },
+        "0.02": {
+          "commit": {
+            "certified": true,
+            "grid_position": 9,
+            "coverage": 0.9236641221374046,
+            "error_committed": 0.004132231404958678,
+            "median_commit_frame": 10.0,
+            "median_size": 28.0,
+            "committed": 242
+          },
+          "B2": {
+            "certified": true,
+            "grid_position": 7,
+            "coverage": 0.8206106870229007,
+            "error_committed": 0.009302325581395349,
+            "median_commit_frame": 16.0,
+            "median_size": 34.0,
+            "committed": 215
+          },
+          "B3": {
+            "certified": true,
+            "grid_position": 0,
+            "coverage": 0.9045801526717557,
+            "error_committed": 0.004219409282700422,
+            "median_commit_frame": 30.0,
+            "median_size": 81.0,
+            "committed": 237
+          },
+          "B4": {
+            "certified": true,
+            "grid_position": 21,
+            "coverage": 0.8931297709923665,
+            "error_committed": 0.0,
+            "median_commit_frame": 30.0,
+            "median_size": 81.0,
+            "committed": 234
+          }
+        },
+        "0.03": {
+          "commit": {
+            "certified": true,
+            "grid_position": 1,
+            "coverage": 0.9427480916030534,
+            "error_committed": 0.008097165991902834,
+            "median_commit_frame": 8.0,
+            "median_size": 25.0,
+            "committed": 247
+          },
+          "B2": {
+            "certified": true,
+            "grid_position": 0,
+            "coverage": 0.851145038167939,
+            "error_committed": 0.017937219730941704,
+            "median_commit_frame": 16.0,
+            "median_size": 34.0,
+            "committed": 223
+          },
+          "B3": {
+            "certified": true,
+            "grid_position": 0,
+            "coverage": 0.9045801526717557,
+            "error_committed": 0.004219409282700422,
+            "median_commit_frame": 30.0,
+            "median_size": 81.0,
+            "committed": 237
+          },
+          "B4": {
+            "certified": true,
+            "grid_position": 17,
+            "coverage": 0.9427480916030534,
+            "error_committed": 0.008097165991902834,
+            "median_commit_frame": 30.0,
+            "median_size": 81.0,
+            "committed": 247
+          }
+        },
+        "0.05": {
+          "commit": {
+            "certified": true,
+            "grid_position": 0,
+            "coverage": 0.9465648854961832,
+            "error_committed": 0.008064516129032258,
+            "median_commit_frame": 8.0,
+            "median_size": 25.0,
+            "committed": 248
+          },
+          "B2": {
+            "certified": true,
+            "grid_position": 0,
+            "coverage": 0.851145038167939,
+            "error_committed": 0.017937219730941704,
+            "median_commit_frame": 16.0,
+            "median_size": 34.0,
+            "committed": 223
+          },
+          "B3": {
+            "certified": true,
+            "grid_position": 0,
+            "coverage": 0.9045801526717557,
+            "error_committed": 0.004219409282700422,
+            "median_commit_frame": 30.0,
+            "median_size": 81.0,
+            "committed": 237
+          },
+          "B4": {
+            "certified": true,
+            "grid_position": 0,
+            "coverage": 0.9732824427480916,
+            "error_committed": 0.01568627450980392,
+            "median_commit_frame": 30.0,
+            "median_size": 81.0,
+            "committed": 255
+          }
+        }
+      },
+      "smallest_certified": {
+        "commit": 0.02,
+        "B2": 0.02,
+        "B3": 0.01,
+        "B4": 0.01
+      },
+      "curve_vs_n": {
+        "100": 0.05,
+        "200": 0.02,
+        "400": 0.01,
+        "784": 0.02
+      },
+      "descriptive_common_alpha": {
+        "alpha": 0.02,
+        "commit_coverage": 0.9236641221374046,
+        "b2_coverage": 0.8206106870229007,
+        "p3_holds": true,
+        "median_commit_frame": 10.0,
+        "p4_holds": true
+      }
+    },
+    {
+      "seed": 2,
+      "n_cert": 784,
+      "n_test": 262,
+      "false_rejection_rate": 0.003816793893129771,
+      "alphas": {
+        "0.005": {
+          "commit": {
+            "certified": false,
+            "grid_position": null,
+            "coverage": 0.0,
+            "error_committed": null,
+            "median_commit_frame": null,
+            "median_size": null,
+            "committed": 0
+          },
+          "B2": {
+            "certified": false,
+            "grid_position": null,
+            "coverage": 0.0,
+            "error_committed": null,
+            "median_commit_frame": null,
+            "median_size": null,
+            "committed": 0
+          },
+          "B3": {
+            "certified": false,
+            "grid_position": null,
+            "coverage": 0.0,
+            "error_committed": null,
+            "median_commit_frame": null,
+            "median_size": null,
+            "committed": 0
+          },
+          "B4": {
+            "certified": false,
+            "grid_position": null,
+            "coverage": 0.0,
+            "error_committed": null,
+            "median_commit_frame": null,
+            "median_size": null,
+            "committed": 0
+          }
+        },
+        "0.01": {
+          "commit": {
+            "certified": false,
+            "grid_position": null,
+            "coverage": 0.0,
+            "error_committed": null,
+            "median_commit_frame": null,
+            "median_size": null,
+            "committed": 0
+          },
+          "B2": {
+            "certified": false,
+            "grid_position": null,
+            "coverage": 0.0,
+            "error_committed": null,
+            "median_commit_frame": null,
+            "median_size": null,
+            "committed": 0
+          },
+          "B3": {
+            "certified": true,
+            "grid_position": 7,
+            "coverage": 0.8740458015267175,
+            "error_committed": 0.004366812227074236,
+            "median_commit_frame": 30.0,
+            "median_size": 75.0,
+            "committed": 229
+          },
+          "B4": {
+            "certified": true,
+            "grid_position": 26,
+            "coverage": 0.8244274809160306,
+            "error_committed": 0.0,
+            "median_commit_frame": 30.0,
+            "median_size": 76.0,
+            "committed": 216
+          }
+        },
+        "0.02": {
+          "commit": {
+            "certified": true,
+            "grid_position": 7,
+            "coverage": 0.9351145038167938,
+            "error_committed": 0.012244897959183673,
+            "median_commit_frame": 10.0,
+            "median_size": 27.0,
+            "committed": 245
+          },
+          "B2": {
+            "certified": false,
+            "grid_position": null,
+            "coverage": 0.0,
+            "error_committed": null,
+            "median_commit_frame": null,
+            "median_size": null,
+            "committed": 0
+          },
+          "B3": {
+            "certified": true,
+            "grid_position": 0,
+            "coverage": 0.9007633587786259,
+            "error_committed": 0.00847457627118644,
+            "median_commit_frame": 30.0,
+            "median_size": 75.0,
+            "committed": 236
+          },
+          "B4": {
+            "certified": true,
+            "grid_position": 21,
+            "coverage": 0.9007633587786259,
+            "error_committed": 0.00423728813559322,
+            "median_commit_frame": 30.0,
+            "median_size": 75.0,
+            "committed": 236
+          }
+        },
+        "0.03": {
+          "commit": {
+            "certified": true,
+            "grid_position": 1,
+            "coverage": 0.950381679389313,
+            "error_committed": 0.012048192771084338,
+            "median_commit_frame": 8.0,
+            "median_size": 25.0,
+            "committed": 249
+          },
+          "B2": {
+            "certified": true,
+            "grid_position": 3,
+            "coverage": 0.8091603053435115,
+            "error_committed": 0.0047169811320754715,
+            "median_commit_frame": 16.0,
+            "median_size": 32.5,
+            "committed": 212
+          },
+          "B3": {
+            "certified": true,
+            "grid_position": 0,
+            "coverage": 0.9007633587786259,
+            "error_committed": 0.00847457627118644,
+            "median_commit_frame": 30.0,
+            "median_size": 75.0,
+            "committed": 236
+          },
+          "B4": {
+            "certified": true,
+            "grid_position": 15,
+            "coverage": 0.9465648854961832,
+            "error_committed": 0.012096774193548387,
+            "median_commit_frame": 30.0,
+            "median_size": 75.0,
+            "committed": 248
+          }
+        },
+        "0.05": {
+          "commit": {
+            "certified": true,
+            "grid_position": 0,
+            "coverage": 0.9541984732824428,
+            "error_committed": 0.012,
+            "median_commit_frame": 8.0,
+            "median_size": 25.0,
+            "committed": 250
+          },
+          "B2": {
+            "certified": true,
+            "grid_position": 0,
+            "coverage": 0.8320610687022901,
+            "error_committed": 0.009174311926605505,
+            "median_commit_frame": 16.0,
+            "median_size": 32.0,
+            "committed": 218
+          },
+          "B3": {
+            "certified": true,
+            "grid_position": 0,
+            "coverage": 0.9007633587786259,
+            "error_committed": 0.00847457627118644,
+            "median_commit_frame": 30.0,
+            "median_size": 75.0,
+            "committed": 236
+          },
+          "B4": {
+            "certified": true,
+            "grid_position": 0,
+            "coverage": 0.9770992366412213,
+            "error_committed": 0.015625,
+            "median_commit_frame": 30.0,
+            "median_size": 75.0,
+            "committed": 256
+          }
+        }
+      },
+      "smallest_certified": {
+        "commit": 0.02,
+        "B2": 0.03,
+        "B3": 0.01,
+        "B4": 0.01
+      },
+      "curve_vs_n": {
+        "100": null,
+        "200": 0.05,
+        "400": 0.03,
+        "784": 0.02
+      },
+      "descriptive_common_alpha": {
+        "alpha": 0.03,
+        "commit_coverage": 0.950381679389313,
+        "b2_coverage": 0.8091603053435115,
+        "p3_holds": true,
+        "median_commit_frame": 8.0,
+        "p4_holds": true
+      }
+    },
+    {
+      "seed": 3,
+      "n_cert": 784,
+      "n_test": 262,
+      "false_rejection_rate": 0.0,
+      "alphas": {
+        "0.005": {
+          "commit": {
+            "certified": false,
+            "grid_position": null,
+            "coverage": 0.0,
+            "error_committed": null,
+            "median_commit_frame": null,
+            "median_size": null,
+            "committed": 0
+          },
+          "B2": {
+            "certified": false,
+            "grid_position": null,
+            "coverage": 0.0,
+            "error_committed": null,
+            "median_commit_frame": null,
+            "median_size": null,
+            "committed": 0
+          },
+          "B3": {
+            "certified": false,
+            "grid_position": null,
+            "coverage": 0.0,
+            "error_committed": null,
+            "median_commit_frame": null,
+            "median_size": null,
+            "committed": 0
+          },
+          "B4": {
+            "certified": false,
+            "grid_position": null,
+            "coverage": 0.0,
+            "error_committed": null,
+            "median_commit_frame": null,
+            "median_size": null,
+            "committed": 0
+          }
+        },
+        "0.01": {
+          "commit": {
+            "certified": false,
+            "grid_position": null,
+            "coverage": 0.0,
+            "error_committed": null,
+            "median_commit_frame": null,
+            "median_size": null,
+            "committed": 0
+          },
+          "B2": {
+            "certified": false,
+            "grid_position": null,
+            "coverage": 0.0,
+            "error_committed": null,
+            "median_commit_frame": null,
+            "median_size": null,
+            "committed": 0
+          },
+          "B3": {
+            "certified": true,
+            "grid_position": 3,
+            "coverage": 0.9045801526717557,
+            "error_committed": 0.012658227848101266,
+            "median_commit_frame": 30.0,
+            "median_size": 75.0,
+            "committed": 237
+          },
+          "B4": {
+            "certified": true,
+            "grid_position": 26,
+            "coverage": 0.8244274809160306,
+            "error_committed": 0.0,
+            "median_commit_frame": 30.0,
+            "median_size": 76.0,
+            "committed": 216
+          }
+        },
+        "0.02": {
+          "commit": {
+            "certified": true,
+            "grid_position": 8,
+            "coverage": 0.9274809160305344,
+            "error_committed": 0.00823045267489712,
+            "median_commit_frame": 10.0,
+            "median_size": 28.0,
+            "committed": 243
+          },
+          "B2": {
+            "certified": false,
+            "grid_position": null,
+            "coverage": 0.0,
+            "error_committed": null,
+            "median_commit_frame": null,
+            "median_size": null,
+            "committed": 0
+          },
+          "B3": {
+            "certified": true,
+            "grid_position": 0,
+            "coverage": 0.9083969465648855,
+            "error_committed": 0.012605042016806723,
+            "median_commit_frame": 30.0,
+            "median_size": 74.5,
+            "committed": 238
+          },
+          "B4": {
+            "certified": true,
+            "grid_position": 20,
+            "coverage": 0.9122137404580153,
+            "error_committed": 0.008368200836820083,
+            "median_commit_frame": 30.0,
+            "median_size": 75.0,
+            "committed": 239
+          }
+        },
+        "0.03": {
+          "commit": {
+            "certified": true,
+            "grid_position": 0,
+            "coverage": 0.950381679389313,
+            "error_committed": 0.020080321285140562,
+            "median_commit_frame": 8.0,
+            "median_size": 26.0,
+            "committed": 249
+          },
+          "B2": {
+            "certified": true,
+            "grid_position": 4,
+            "coverage": 0.816793893129771,
+            "error_committed": 0.0,
+            "median_commit_frame": 17.0,
+            "median_size": 33.0,
+            "committed": 214
+          },
+          "B3": {
+            "certified": true,
+            "grid_position": 0,
+            "coverage": 0.9083969465648855,
+            "error_committed": 0.012605042016806723,
+            "median_commit_frame": 30.0,
+            "median_size": 74.5,
+            "committed": 238
+          },
+          "B4": {
+            "certified": true,
+            "grid_position": 15,
+            "coverage": 0.9351145038167938,
+            "error_committed": 0.012244897959183673,
+            "median_commit_frame": 30.0,
+            "median_size": 75.0,
+            "committed": 245
+          }
+        },
+        "0.05": {
+          "commit": {
+            "certified": true,
+            "grid_position": 0,
+            "coverage": 0.950381679389313,
+            "error_committed": 0.020080321285140562,
+            "median_commit_frame": 8.0,
+            "median_size": 26.0,
+            "committed": 249
+          },
+          "B2": {
+            "certified": true,
+            "grid_position": 0,
+            "coverage": 0.8358778625954199,
+            "error_committed": 0.0091324200913242,
+            "median_commit_frame": 17.0,
+            "median_size": 33.0,
+            "committed": 219
+          },
+          "B3": {
+            "certified": true,
+            "grid_position": 0,
+            "coverage": 0.9083969465648855,
+            "error_committed": 0.012605042016806723,
+            "median_commit_frame": 30.0,
+            "median_size": 74.5,
+            "committed": 238
+          },
+          "B4": {
+            "certified": true,
+            "grid_position": 0,
+            "coverage": 0.9694656488549618,
+            "error_committed": 0.015748031496062992,
+            "median_commit_frame": 30.0,
+            "median_size": 74.0,
+            "committed": 254
+          }
+        }
+      },
+      "smallest_certified": {
+        "commit": 0.02,
+        "B2": 0.03,
+        "B3": 0.01,
+        "B4": 0.01
+      },
+      "curve_vs_n": {
+        "100": null,
+        "200": 0.03,
+        "400": 0.02,
+        "784": 0.02
+      },
+      "descriptive_common_alpha": {
+        "alpha": 0.03,
+        "commit_coverage": 0.950381679389313,
+        "b2_coverage": 0.816793893129771,
+        "p3_holds": true,
+        "median_commit_frame": 8.0,
+        "p4_holds": true
+      }
+    },
+    {
+      "seed": 4,
+      "n_cert": 784,
+      "n_test": 262,
+      "false_rejection_rate": 0.003816793893129771,
+      "alphas": {
+        "0.005": {
+          "commit": {
+            "certified": false,
+            "grid_position": null,
+            "coverage": 0.0,
+            "error_committed": null,
+            "median_commit_frame": null,
+            "median_size": null,
+            "committed": 0
+          },
+          "B2": {
+            "certified": false,
+            "grid_position": null,
+            "coverage": 0.0,
+            "error_committed": null,
+            "median_commit_frame": null,
+            "median_size": null,
+            "committed": 0
+          },
+          "B3": {
+            "certified": false,
+            "grid_position": null,
+            "coverage": 0.0,
+            "error_committed": null,
+            "median_commit_frame": null,
+            "median_size": null,
+            "committed": 0
+          },
+          "B4": {
+            "certified": false,
+            "grid_position": null,
+            "coverage": 0.0,
+            "error_committed": null,
+            "median_commit_frame": null,
+            "median_size": null,
+            "committed": 0
+          }
+        },
+        "0.01": {
+          "commit": {
+            "certified": false,
+            "grid_position": null,
+            "coverage": 0.0,
+            "error_committed": null,
+            "median_commit_frame": null,
+            "median_size": null,
+            "committed": 0
+          },
+          "B2": {
+            "certified": false,
+            "grid_position": null,
+            "coverage": 0.0,
+            "error_committed": null,
+            "median_commit_frame": null,
+            "median_size": null,
+            "committed": 0
+          },
+          "B3": {
+            "certified": true,
+            "grid_position": 7,
+            "coverage": 0.8816793893129771,
+            "error_committed": 0.004329004329004329,
+            "median_commit_frame": 30.0,
+            "median_size": 71.0,
+            "committed": 231
+          },
+          "B4": {
+            "certified": true,
+            "grid_position": 26,
+            "coverage": 0.8129770992366412,
+            "error_committed": 0.0,
+            "median_commit_frame": 30.0,
+            "median_size": 72.0,
+            "committed": 213
+          }
+        },
+        "0.02": {
+          "commit": {
+            "certified": true,
+            "grid_position": 9,
+            "coverage": 0.9122137404580153,
+            "error_committed": 0.0041841004184100415,
+            "median_commit_frame": 11.0,
+            "median_size": 26.0,
+            "committed": 239
+          },
+          "B2": {
+            "certified": true,
+            "grid_position": 5,
+            "coverage": 0.8129770992366412,
+            "error_committed": 0.009389671361502348,
+            "median_commit_frame": 17.0,
+            "median_size": 31.0,
+            "committed": 213
+          },
+          "B3": {
+            "certified": true,
+            "grid_position": 0,
+            "coverage": 0.9007633587786259,
+            "error_committed": 0.00847457627118644,
+            "median_commit_frame": 30.0,
+            "median_size": 71.0,
+            "committed": 236
+          },
+          "B4": {
+            "certified": true,
+            "grid_position": 21,
+            "coverage": 0.8778625954198473,
+            "error_committed": 0.004347826086956522,
+            "median_commit_frame": 30.0,
+            "median_size": 72.0,
+            "committed": 230
+          }
+        },
+        "0.03": {
+          "commit": {
+            "certified": true,
+            "grid_position": 0,
+            "coverage": 0.9236641221374046,
+            "error_committed": 0.01652892561983471,
+            "median_commit_frame": 8.0,
+            "median_size": 23.0,
+            "committed": 242
+          },
+          "B2": {
+            "certified": true,
+            "grid_position": 0,
+            "coverage": 0.8396946564885496,
+            "error_committed": 0.022727272727272728,
+            "median_commit_frame": 16.5,
+            "median_size": 31.0,
+            "committed": 220
+          },
+          "B3": {
+            "certified": true,
+            "grid_position": 0,
+            "coverage": 0.9007633587786259,
+            "error_committed": 0.00847457627118644,
+            "median_commit_frame": 30.0,
+            "median_size": 71.0,
+            "committed": 236
+          },
+          "B4": {
+            "certified": true,
+            "grid_position": 17,
+            "coverage": 0.9045801526717557,
+            "error_committed": 0.004219409282700422,
+            "median_commit_frame": 30.0,
+            "median_size": 72.0,
+            "committed": 237
+          }
+        },
+        "0.05": {
+          "commit": {
+            "certified": true,
+            "grid_position": 0,
+            "coverage": 0.9236641221374046,
+            "error_committed": 0.01652892561983471,
+            "median_commit_frame": 8.0,
+            "median_size": 23.0,
+            "committed": 242
+          },
+          "B2": {
+            "certified": true,
+            "grid_position": 0,
+            "coverage": 0.8396946564885496,
+            "error_committed": 0.022727272727272728,
+            "median_commit_frame": 16.5,
+            "median_size": 31.0,
+            "committed": 220
+          },
+          "B3": {
+            "certified": true,
+            "grid_position": 0,
+            "coverage": 0.9007633587786259,
+            "error_committed": 0.00847457627118644,
+            "median_commit_frame": 30.0,
+            "median_size": 71.0,
+            "committed": 236
+          },
+          "B4": {
+            "certified": true,
+            "grid_position": 0,
+            "coverage": 0.9580152671755725,
+            "error_committed": 0.0199203187250996,
+            "median_commit_frame": 30.0,
+            "median_size": 71.0,
+            "committed": 251
+          }
+        }
+      },
+      "smallest_certified": {
+        "commit": 0.02,
+        "B2": 0.02,
+        "B3": 0.01,
+        "B4": 0.01
+      },
+      "curve_vs_n": {
+        "100": null,
+        "200": 0.05,
+        "400": 0.02,
+        "784": 0.02
+      },
+      "descriptive_common_alpha": {
+        "alpha": 0.02,
+        "commit_coverage": 0.9122137404580153,
+        "b2_coverage": 0.8129770992366412,
+        "p3_holds": true,
+        "median_commit_frame": 11.0,
+        "p4_holds": true
+      }
+    }
+  ],
+  "pass_levels": {
+    "P2": {
+      "per_seed": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "count": 0,
+      "required": 4,
+      "pass": false
+    },
+    "P3": {
+      "per_seed": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "count": 0,
+      "required": 4,
+      "pass": false
+    },
+    "P4": {
+      "per_seed": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "count": 0,
+      "required": 4,
+      "pass": false
+    }
+  },
+  "checks": {
+    "frozen_grid_matches_stage1_grid": true,
+    "gate_flags_reproduce": true,
+    "pool_commit_table_reproduces": true,
+    "b1_top_equals_stored_top1": true,
+    "meta_roi_matches_stage1_sizes": true,
+    "b2_frames_all_pass_gate": true,
+    "pool_size_matches_frozen": true,
+    "splits_valid": true
+  },
+  "all_pass": true,
+  "seconds": 2.0
+}
