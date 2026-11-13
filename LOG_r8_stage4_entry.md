@@ -82,3 +82,14 @@ ____
 - Decision: ____
 - Deviation from the plan? ____
 - Next step: Stage 5 only after the author reviews Stage 4.
+
+### Amendment 1 to Stage 4 Part A (2026-11-14, before any Stage 4 number existed)
+Made after the author's review of Part A (690713e) and before the B2/B3/B4 design script was run; no Stage 4 number,
+design-set baseline number or pool outcome for Stage 4 existed. B3, P4 and the certifiability curve are unchanged.
+(1) **B2** picks its one frame uniformly at random among the track's gate-passing frames: u_i =
+`np.random.default_rng(20261114).random(1307)` in track-code order (same seed as before), and the chosen frame is the
+passing frame at position floor(u_i * number of passing frames) in frame order. A track with no passing frame is
+rejected as unknown (not committed), as for the commit rule. Commit frame = the chosen frame's position in the track.
+Reason: a fair baseline; picking gated-out frames would lower B2's coverage artificially and bias P3.
+(2) **B4** counts votes over gate-passing frames only; ties to the smaller class id. This confirms the rule already
+written in Part A (e); it is not a change.
