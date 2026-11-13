@@ -80,20 +80,46 @@ before any computation. The design commit table recomputed in Stage 2 must equal
 or the stage stops.
 
 ### Part B: results (fill from the printout after the run)
-- Date: ____ / Stage: R8 Stage 2 / Run tag: runs/20261003_stage1/poc2/stage2
-- Git commit of Part A: ____ | Git commit of the code: ____
-- Input hashes checked against stage1_summary.json: ____
-- D1: track error at last frame ____ (upper CP bound ____) vs single-frame error ____ -> PASS / FAIL
-- D2: predicted-certifiable (variant, alpha) pairs: ____ -> PASS / FAIL
-- D3: tracks wrong on >= 25 frames: ____ ; their last-frame margins: ____
-- Primary alpha: ____ | Variant: ____ | Working grid: ____ points, lambda ____ to ____
-- Start threshold: ____ (c = ____, e = ____) | s = ____ px, gamma = 10%
-- Certificate B preview: min p = ____ -> predicted certifiable YES / NO (risk R6)
-- P2 c_min: ____
-- Checks: ____ — ALL PASS: ____
+- Date: 2026-11-13 / Stage: R8 Stage 2 / Run tag: runs/20261003_stage1/poc2/stage2
+- Git commit of Part A: f19cbfb (Amendment 1 to (d): ccc400a) | Git commit of the code: fe62b23
+  (src/r8_stage2.py SHA-256 bff522fcadbecf7126b9b861d305358d281c4c88d0ed88475bcf0c0f3b417fa6)
+- Output: stage2_summary.json SHA-256 332964ba26a977dda167d194e6954bca627a82eaebeec8825a66b270c4f96e74
+- Input hashes checked against stage1_summary.json: all match. checkpoint 86527359...0bcc, train_release.npz 228fe5b2...d380,
+  head.npz 5e85b1b0...a5c2, seed0.npz 397611c5...ea49, scores_train_release.npz 0be15ed0...eaac (vs head_summary.json),
+  track_table_design.npz ad6fa0c5...b391, frame_evidence.npz f79033e8...e960. Files opened: seed0.npz, train_release.npz,
+  scores_train_release.npz, frame_evidence.npz, head.npz, track_table_design.npz (track_table_pool.npz not opened).
+- D1: track error at last frame 2.30% (6/261; 0 tracks with no passing frame) (upper CP bound 4.94%) vs single-frame
+  error 4.54% (passing frames; all frames 6.33%, reference only) -> FAIL
+- D2: predicted-certifiable (variant, alpha) pairs: V1 at 1, 2, 3, 5%; V2 at 5%; V3 at 2, 3, 5% -> PASS
+  (V1 at 1%: lambda 7574, c 89.66%, e 0.00%, plug-in p 0.0054)
+- D3: tracks wrong on >= 25 frames: 4 (19_00000 30/30, 39_00006 30/30, 40_00001 28/30, 41_00005 30/30); their V1
+  last-frame margins: 2615.5, 671.9, 565.5, 7366.8 (all four wrong at the last frame in V1, V2 and V3)
+- Error-vs-frame curve (V1, commit everything): 13.04% at frame 1, 8.14% at frame 10, 4.60% at frame 20, 2.30% at
+  frame 30. V2 is identical to V1 at every frame (dividing all class scores by the same count does not change the
+  top class). V3 ends at 2.30%.
+- Primary alpha: 1% | Variant: V1 (only V1 is predicted certifiable at 1%; commit count at e <= alpha/2: 240) |
+  Working grid: 30 points, lambda 3723.7 to 12898.9 (Stage 1 indices 132 to 167)
+- Start threshold: working position 18, lambda 8130.9 (c = 89.27%, e = 0.00%; median commit frame 14, median size 29 px) |
+  s = not certifiable at n = 784, gamma = 10%
+- Note: the D2 best V1 lambda (7574, c 89.66%) is one of the 6 useful Stage 1 points dropped when rule (h) thins 36
+  points to 30, so the start is 8130.9. This follows the committed rule; reported, not changed.
+- Certificate B preview: min p = 0.241 -> predicted certifiable NO (risk R6)
+- P2 c_min: 79.27% (predicted coverage 89.27%: the fixed-sequence walk at delta stops at working position 17)
+- Checks: S1 PASS S2 PASS S3 PASS S4 PASS S5 PASS D1 FAIL D2 PASS — ALL PASS: False
 - Tests: first run 3 Stage 2 test failures, caused by the fake-table helper making every track commit at lambda = 0; fixed in tests/test_r8_stage2.py only, src/r8_stage2.py unchanged; second run 197 passed, 1 known sklearn failure.
-- Decision: ____
-- Deviation from the plan? ____
+- Decision: D1 FAILED (track error 2.30%, 6/261; upper 95% CP 4.94% vs passing-frame error 4.54%). D2 PASSED (V1,
+  alpha 1%, plug-in p 0.0054). Plan section 11 fallback 1 offers V2/V3 and a higher alpha, but neither can change D1
+  (D1 is defined on V1 at the last frame; V2 and V3 have the same 2.30%). Declared deviation, made before any Cert or
+  Test track is touched: proceed to F1 because D2 passed. The claim "accumulating evidence lowers error compared with
+  a single frame" is dropped from all write-ups; D1 is reported in the paper as a pre-specified check that failed.
+- Certificate B: no s is certifiable at gamma = 10% (best plug-in p 0.24). At the start threshold about 11% of tracks
+  never commit, so the late fraction there is above gamma; at the lower thresholds where enough tracks commit (up to
+  93.5%), the error part fails (plug-in p_error >= 0.24). gamma stays 10%. Stage 5 reports "not certifiable at
+  n = 784" with the descriptive commit-fraction-vs-size curve. No amendment.
+- Deviation from the plan? Yes. (1) Proceeding to F1 with D1 failed (plan section 8: "Do not go past it until D1 and
+  D2 pass"); see Decision. (2) Part A (d) s rule and Amendment 1 (smallest certifiable s, no fallback) instead of the
+  plan's median rule; declared before the run.
+- Stage 2 status: checks not all passed (D1 FAIL, D2 PASS). Hard rule 5 and plan section 8 require all checks to pass; the author overrides this for D1 only, for the reasons in the Decision above, before any Cert or Test track is touched. Hard rule 5 itself is unchanged.
 - Next step: the author reviews the D-gate; F1 (frozen_r8.yaml and the pre-registration block) only after that.
 
 ### Amendment 1 to Part A (d) (2026-11-13, before any Stage 2 run)

@@ -17,8 +17,11 @@
 | Stage | Status |
 |---|---|
 | 1 Accumulation and track table | **Done (13 Nov 2026). ALL PASS: True** (C1a to C6). Run on real data; entry appended to `LOG.md`. Outputs in `runs/20261003_stage1/poc2/stage1/`. |
-| 2 Design phase and D-gate | Not started. Design set only. Stop at the D-gate; D1 and D2 must pass before F1. |
+| 2 Design phase and D-gate | Run 13 Nov 2026 (code `fe62b23`, definitions `f19cbfb` + `ccc400a`). D1 FAIL, D2 PASS (V1, alpha 1%). Certificate B: no s certifiable at gamma 10%. Details in `LOG_r8_stage2_entry.md` Part B. F1 not yet done. |
 | 3 onward | Not started. |
+
+Stage 2 status: checks not all passed (D1 FAIL, D2 PASS). Hard rule 5 and plan section 8 require all checks to pass; the author overrides this for D1 only, for the reasons in the Decision above, before any Cert or Test track is touched. Hard rule 5 itself is unchanged.
+(The "Decision above" is the Decision line in `LOG_r8_stage2_entry.md` Part B.)
 
 Stage 1 run command: `py -3.12 -m src.r8_stage1 --run runs/20261003_stage1 --config configs/poc.yaml`
 
