@@ -138,7 +138,17 @@ Rows, and where each number comes from:
 (only reproduced as a check). B5, B5c and B6 are specified after F1 from the papers and design data only.
 
 #### Design-set values (from the Stage 6 design script, design set only)
-____
+Computed 2026-11-14 after Amendment 1 (12d6bdb), with `src/r8_stage6_design.py` committed first (abe7522; SHA-256
+4d67843a43f0a9654a8f639ab8ac4d925ed39f75fdbfe9f10f1ed72044115367). Output
+`runs/20261003_stage1/poc2/stage6/b5_design.json` SHA-256 39d4e9b6f614f3062ef3e7af98a66ef2b4549a07e80106b827083a9b4c3e1924.
+Both paper hashes checked. Files opened: seed0.npz, train_release.npz, scores_train_release.npz, frame_evidence.npz,
+head.npz, track_table_design.npz (not track_table_pool.npz).
+  - B5/B5c score transform: F_design = the sorted V1 margins of the 7,706 design frames with evidence (stored in full in
+    the JSON); margin 0.9752 to 39,770; quantiles 1/10/25/50/75/90/99% = 63.94, 699, 2,606, 7,529, 13,890, 21,370,
+    32,680. Each grid step of 0.01 in pi is one percentile of the design margins.
+  - Reason, measured: the largest V1 posterior is exactly 1.0 in float64 in 7,674 of the 7,706 design frames with
+    evidence (99.58%), so the paper's "largest class probability" would give nearly every frame the same score.
+  - B6: nothing fitted on the design set (Amendment 1).
 
 ### Part B: results (fill from the printout after the run)
 - Date: ____ / Stage: R8 Stage 6 / Run tag: runs/20261003_stage1/poc2/stage6
