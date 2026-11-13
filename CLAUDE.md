@@ -26,6 +26,7 @@ for validity only). Target venue: IEEE Access. This repo (`stage0_pkg`) holds PO
 5. Work one stage at a time. A stage is done only when its Checks pass. After each run, write a `LOG.md` entry in the
    section 13 template format (append only, never rewrite old entries).
 6. Use confidence tags in explanations: [Certain], [Likely], [Guessing].
+7. Commit messages contain a short subject line and, if needed, a brief body describing the change. No trailer lines of any kind.
 
 ## What must never appear in project docs, LOG entries or the paper
 - Lines like "Supervisor told?" or similar.
