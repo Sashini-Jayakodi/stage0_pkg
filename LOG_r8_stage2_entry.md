@@ -94,3 +94,9 @@ or the stage stops.
 - Decision: ____
 - Deviation from the plan? ____
 - Next step: the author reviews the D-gate; F1 (frozen_r8.yaml and the pre-registration block) only after that.
+
+### Amendment 1 to Part A (d) (2026-11-13, before any Stage 2 run)
+The fallback to the median rule is removed: if no s passes the Certificate B plug-in, s = not certifiable at n = 784,
+with no substitute value. Reason: the median rule makes about half the tracks late by construction, so a fallback s
+would be a value known to fail gamma. Made before `src/r8_stage2.py` was run on any data. No Stage 2 number existed,
+and no Cert or Test track has been touched (plan section 2).
