@@ -1,0 +1,53 @@
+{
+  "plan": "poc2-implementation-plan-r8 Stage 1",
+  "inputs_sha256": {
+    "checkpoint": "86527359bc61a5fbc4d48b7744e049b5ca3ff81cb016fb237298d0c007140bcc",
+    "train_release.npz": "228fe5b2ee29f59d5e3fac7e5b81ffd8b1a9b1f6b5747756f88711345034d380",
+    "head.npz": "5e85b1b0ca9ee45b86bcf20fcf4fce454128f8b292d454b84da42fe12ff0a5c2",
+    "seed0.npz": "397611c5538cc9ebe7a0be768ada29cb0afa7c89bdc53511df3a2403001fea49"
+  },
+  "results": {
+    "frame_head_accuracy": 0.9259863806779056,
+    "roi_vs_frame_spearman_median": 0.998218658126917,
+    "roi_vs_frame_spearman_frac_positive": 0.9984674329501916,
+    "track_lengths": {
+      "29": 1,
+      "30": 1306
+    },
+    "frames_failing_gate_frac": 0.048356244739728126,
+    "tracks_with_no_passing_frame": 5,
+    "tau": 43.84354019165039
+  },
+  "checks": {
+    "C1a_top1_equals_stored_stage3": true,
+    "C1b_accuracy_equals_poc1": true,
+    "C1c_gate_score_equals_stored": true,
+    "C2_V1_last_top_equals_independent_argmax": true,
+    "C3_roi_grows_with_frame_index": true,
+    "C4_short_track_handled": true,
+    "C5_commit_fraction_never_rises_with_lambda": true,
+    "C6_design_set_is_261_tracks": true
+  },
+  "all_pass": true,
+  "window": 5,
+  "n_grid": 200,
+  "grid_range": {
+    "V1": [
+      35.596810021128604,
+      40168.025057617044
+    ],
+    "V2": [
+      6.309156471801879,
+      1350.8959097988895
+    ],
+    "V3": [
+      28.53185360816975,
+      7076.706982033443
+    ]
+  },
+  "files_sha256": {
+    "track_table_design.npz": "ad6fa0c59f65697f107b0cb6b3dbef25b4b6680f8618fe38c50bd770d1f2b391",
+    "track_table_pool.npz": "0afb7e89052c393d695a8cb7e5796e4e811b1ff9c3c6bd392bf3cd10742250db",
+    "frame_evidence.npz": "f79033e8cee5ba73a6b22d1d33b91227ff7cf628d95dc616a28824ad68a0e960"
+  }
+}

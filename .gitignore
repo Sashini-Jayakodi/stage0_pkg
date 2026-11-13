@@ -30,3 +30,15 @@ Thumbs.db
 .idea/
 
 CLAUDE.local.md
+
+# Large data outputs anywhere in the repo (the existing runs/**/*.npz and data/cache/*.npy stay)
+*.npz
+*.npy
+
+# Never ignore these. Kept last because the last matching rule wins.
+# configs/** and docs/** (not configs/, docs/) so files inside are re-included too
+!**/*_summary.json
+!LOG*.md
+!env_*.txt
+!configs/**
+!docs/**

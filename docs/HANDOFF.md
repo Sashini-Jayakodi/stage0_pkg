@@ -16,13 +16,31 @@
 ## Stage status
 | Stage | Status |
 |---|---|
-| 1 Accumulation and track table | Code written (`src/r8_stage1.py`, `tests/test_r8_stage1.py`, 12 tests pass on synthetic data). **Not yet run on real data.** Next: run it and check `ALL PASS: True`. |
+| 1 Accumulation and track table | **Done (13 Nov 2026). ALL PASS: True** (C1a to C6). Run on real data; entry appended to `LOG.md`. Outputs in `runs/20261003_stage1/poc2/stage1/`. |
 | 2 Design phase and D-gate | Not started. Design set only. Stop at the D-gate; D1 and D2 must pass before F1. |
 | 3 onward | Not started. |
 
 Stage 1 run command: `py -3.12 -m src.r8_stage1 --run runs/20261003_stage1 --config configs/poc.yaml`
-Expected on real data: frame head accuracy equal to POC-1 (about 92.6%); tau = 43.8435; track lengths {29: 1, 30: 1306}.
-If C1a or C1b fails, stop: the head or the cache is not the POC-1 version.
+
+### Stage 1 key results (from `stage1_summary.json`)
+- Frame head accuracy 92.599%, equal to POC-1 (0.9259863806779056). tau = 43.8435.
+- Gate: 4.836% of frames fail; 5 tracks have no passing frame (rejected as unknown).
+- Track lengths {29: 1, 30: 1306}. ROI size vs frame index: median per-track Spearman 0.998, positive in 99.8% of tracks.
+- Commit table: 200-point lambda grid per variant (V1, V2, V3), grid built from design-set margins only.
+- Output SHA-256: design `ad6fa0c5...1f2b391`, pool `0afb7e89...2250db`, frame_evidence `f79033e8...a0e960`
+  (full hashes in `stage1_summary.json` -> files_sha256). Stage 2 must check them before reading.
+- Environment frozen in `env_poc2_stage1.txt` (Python 3.12.10, numpy 2.5.2, scipy 1.18.1, scikit-learn 1.9.1,
+  torch 2.14.1+cu132).
+
+### scikit-learn note (open environment issue)
+- `tests/test_stage3.py::test_ledoit_wolf_matches_sklearn` now fails: Windows Application Control blocks a
+  scikit-learn 1.9.1 DLL (`_middle_term_computer`). It passed in POC-1 (LOG.md Stage 4, 41 passed, 0 skipped).
+  Full suite before the Stage 1 run: 169 passed, 1 failed.
+- POC-1 never recorded its scikit-learn version, so it is unknown whether this comes from a package upgrade or a
+  policy change.
+- Stage 1 is unaffected (it does not refit the head or import sklearn). **Any POC-2 code must not import sklearn**
+  while this block stands; if a later stage needs it, solve the block first and log it as an environment change.
+  Do not edit the POC-1 test file (hard rule 1).
 
 ## Deviations already decided (logged in LOG_r8_stage1_entry.md)
 1. Stage 1 writes the commit table as two files. `track_table_design.npz` covers the 261 design tracks, with
