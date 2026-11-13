@@ -1,0 +1,174 @@
+{
+  "plan": "poc2-implementation-plan-r8 Stage 3a",
+  "frozen_r8_sha256": "4f7a79156a4486b6b5f97515457513e6df2a2bfeed2a41b6fa05936bd1141d24",
+  "code_sha256": {
+    "r8_stage3_synth.py": "e7aba046ef3ce197cb5bee3e5d37c8f262d09e9fdc11bf0f9219340717894fe4",
+    "r8_stage3_engine.py": "1d668ec914f170c1f57ce6c46a0754262466bfcd7d230c5242b208fee194cf11"
+  },
+  "config": {
+    "alpha": 0.01,
+    "delta": 0.1,
+    "p_frame": 0.074,
+    "frames": 30,
+    "n_design": 261,
+    "n_cert": 784,
+    "runs": 1000,
+    "n_pop": 200000,
+    "rhos": [
+      0.0,
+      0.3,
+      0.45
+    ],
+    "seed": 20261114
+  },
+  "rows": [
+    {
+      "rho_sim": 0.0,
+      "r_latent": 0.0,
+      "population": {
+        "frame_error": 0.074031,
+        "wrong_icc": 0.00017182763623770317
+      },
+      "runs_with_empty_working_grid": {
+        "track": 0,
+        "B1": 924
+      },
+      "track": {
+        "runs": 1000,
+        "certified_share": 1.0,
+        "violations": 2,
+        "violation_rate": 0.002,
+        "cp95": [
+          0.00024230111687723198,
+          0.007205838911457497
+        ],
+        "mean_true_risk_certified": 0.002884275
+      },
+      "B1": {
+        "runs": 1000,
+        "certified_share": 0.0,
+        "violations": 0,
+        "violation_rate": 0.0,
+        "cp95": [
+          0.0,
+          0.003682083896865671
+        ],
+        "mean_true_risk_certified": null
+      }
+    },
+    {
+      "rho_sim": 0.3,
+      "r_latent": 0.5985069173813329,
+      "population": {
+        "frame_error": 0.074398,
+        "wrong_icc": 0.30029809331818286
+      },
+      "runs_with_empty_working_grid": {
+        "track": 9,
+        "B1": 691
+      },
+      "track": {
+        "runs": 1000,
+        "certified_share": 0.224,
+        "violations": 8,
+        "violation_rate": 0.008,
+        "cp95": [
+          0.0034599761653293115,
+          0.015702049176074682
+        ],
+        "mean_true_risk_certified": 0.005378784821428571
+      },
+      "B1": {
+        "runs": 1000,
+        "certified_share": 0.019,
+        "violations": 17,
+        "violation_rate": 0.017,
+        "cp95": [
+          0.009933512592716534,
+          0.027079496864851366
+        ],
+        "mean_true_risk_certified": 0.010895556842105263
+      }
+    },
+    {
+      "rho_sim": 0.45,
+      "r_latent": 0.7615384383988506,
+      "population": {
+        "frame_error": 0.07408366666666667,
+        "wrong_icc": 0.4512388179813416
+      },
+      "runs_with_empty_working_grid": {
+        "track": 96,
+        "B1": 629
+      },
+      "track": {
+        "runs": 1000,
+        "certified_share": 0.025,
+        "violations": 2,
+        "violation_rate": 0.002,
+        "cp95": [
+          0.00024230111687723198,
+          0.007205838911457497
+        ],
+        "mean_true_risk_certified": 0.008028354
+      },
+      "B1": {
+        "runs": 1000,
+        "certified_share": 0.049,
+        "violations": 48,
+        "violation_rate": 0.048,
+        "cp95": [
+          0.03560026534288328,
+          0.06314011540150924
+        ],
+        "mean_true_risk_certified": 0.011513907959183672
+      }
+    }
+  ],
+  "p1_parts": {
+    "track_part_3a": true,
+    "frame_part_3a": false
+  },
+  "hand_pvalues": {
+    "pass": true,
+    "cases": [
+      {
+        "mu_hat": 0.0,
+        "n": 784,
+        "alpha": 0.01,
+        "exact": 0.0003784361054875282,
+        "engine": 0.0003784361054875089,
+        "rel_err": 5.0996187706191244e-14,
+        "min_term": "hoeffding",
+        "expected_min_term": "hoeffding"
+      },
+      {
+        "mu_hat": 0.006,
+        "n": 784,
+        "alpha": 0.01,
+        "exact": 0.4773987878850034,
+        "engine": 0.47739878788499385,
+        "rel_err": 1.9999879040489447e-14,
+        "min_term": "hoeffding",
+        "expected_min_term": "hoeffding"
+      },
+      {
+        "mu_hat": 0.08,
+        "n": 784,
+        "alpha": 0.1,
+        "exact": 0.09517267109805971,
+        "engine": 0.09517267109805973,
+        "rel_err": 1.4581694143601045e-16,
+        "min_term": "bentkus",
+        "expected_min_term": "bentkus"
+      }
+    ]
+  },
+  "cert_b_maxp": {
+    "pass": true,
+    "p_error": 0.0018193162367185801,
+    "p_max_lateness_broken": 1.0,
+    "p_max_both_kept": 0.0018193162367185801
+  },
+  "seconds": 180.5
+}

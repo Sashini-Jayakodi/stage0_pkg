@@ -91,14 +91,38 @@ track_table_design.npz (not track_table_pool.npz). 7,830 design frames of 261 tr
     [19, 18, ..., 0]. The start is the top of the working grid: rule (h)'s 70% coverage floor ends the range there.
 
 ### Part B: results (fill from the printout after the run)
-- Date: ____ / Stage: R8 Stage 3 / Run tag: runs/20261003_stage1/poc2/stage3
-- Git commit of Part A: ____ | Git commit of the code: ____
-- 3a violation rates at 1% (track / B1), rho_sim 0, 0.3, 0.45: ____
-- 3b violation rates per alpha (track / B1): ____
-- P1: track part ____ ; frame part ____ -> PASS / FAIL
-- Hand p-values: ____ | Certificate B max-p check: ____
+- Date: 2026-11-14 / Stage: R8 Stage 3 / Run tag: runs/20261003_stage1/poc2/stage3
+- Git commit of Part A: eb4c332 (rules), d9b1e48 (B1 values), b35805e (b1_design.json) | Git commit of the code: a044722
+- Outputs: stage3a_summary.json SHA-256 b6631a1f617ce619616ee58e76f85bd88fe5338366d3489a1313d85b0b8c420d (180.5 s);
+  stage3b_summary.json SHA-256 7591a438b569e7231f3a40d8da6420a81b6f65791e707df4c0101338a0bf7367 (records the 3a hash).
+  Both record frozen_r8.yaml SHA-256 4f7a7915...1d24 (freeze check passed).
+- 3a violation rates at 1% (track / B1; certifying share in brackets), 1,000 runs each:
+  - rho_sim 0 (r 0.000; realised frame error 7.40%, wrong-indicator correlation 0.000): track 0.20% [CP 0.02, 0.72]%
+    (certified 100.0%) / B1 0.00% [0.00, 0.37]% (certified 0.0%; empty B1 working grid in 924 runs)
+  - rho_sim 0.3 (r 0.599; 7.44%, 0.300): track 0.80% [0.35, 1.57]% (22.4%; 9 empty grids) / B1 1.70% [0.99, 2.71]%
+    (1.9%; 691 empty grids)
+  - rho_sim 0.45 (r 0.762; 7.41%, 0.451): track 0.20% [0.02, 0.72]% (2.5%; 96 empty grids) / B1 4.80% [3.56, 6.31]%
+    (4.9%; 629 empty grids)
+- 3b violation rates per alpha (track / B1; certifying share), 2,000 draws of 784 from the 1,046 pool tracks:
+  0.5%: 1.90% [1.35, 2.60]% (4.7%) / 17.00% [15.38, 18.72]% (60.0%);
+  1%: 1.40% [0.93, 2.02]% (19.8%) / 20.00% [18.27, 21.82]% (99.9%);
+  2%, 3%, 5%: 0.00% [0.00, 0.18]% for both (track certified 95.7%, 100%, 100%; B1 100%).
+- P1: FAIL (track_part_3b PASS, frame_part_3b PASS, track_part_3a PASS, frame_part_3a FAIL).
+- Reason for the 3a frame-part fail, as measured: B1's rule (h) found no usable threshold in most synthetic runs
+  (629/1000 at rho 0.45), so its violation rate was capped by its 4.9% certifying share; when it did certify it violated
+  in 48 of 49 runs (rho 0.45) and 17 of 19 (rho 0.3). Reported as failed; nothing changed.
+- Real-data result (3b, alpha 1%): B1 violation 20.0% [18.3, 21.8]% vs delta 10%; track-level 1.4% [0.9, 2.0]%.
+  H1 supported on real data.
+- Observation for Stage 4: at alpha 1% the track-level certifier certified in 19.8% of 3b draws (pool mean loss at the
+  start threshold 0.503% vs 0.11% on the design set); at 2% in 95.7% with 0 violations. P2 at 1% is at risk; per plan
+  section 11 it will be reported with the certifiability curve; the primary alpha stays 1%.
+- Hand p-values: PASS (3 exact-arithmetic cases, relative error <= 5.1e-14; min term hoeffding, hoeffding, bentkus) |
+  Certificate B max-p check: PASS (p_error 0.00182; lateness broken -> p 1, not certified; both kept -> p 0.00182)
 - Environment observation: test_ledoit_wolf_matches_sklearn passes as of 2026-11-14 on the same scikit-learn 1.9.1 that was blocked during Stage 1, which points to the Application Control policy rather than a package upgrade; the Stage 1 entry is left unchanged.
-- Checks: ____ — ALL PASS: ____
-- Decision: ____
-- Deviation from the plan? ____
+- Checks: 3b frozen_grid_matches_stage1_grid PASS, gate_flags_reproduce PASS, pool_commit_table_reproduces PASS,
+  b1_top_equals_stored_top1 PASS, pool_size_matches_frozen PASS — ALL PASS (checks): True. P1 (a pass level, not a
+  check) FAIL, as above.
+- Decision: P1 reported as FAIL. Nothing frozen changed. Proceed to Stage 4 with the frozen primary alpha 1%.
+- Deviation from the plan? Declared in Part A: B1 grid and order specified after F1 from design data only (Part A (c));
+  P1 scope fixed in Part A (g) before any Stage 3 number. No other deviation.
 - Next step: Stage 4 only after the author reviews Stage 3.
