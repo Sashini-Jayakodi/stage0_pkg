@@ -111,3 +111,11 @@ rejected as unknown (not committed), as for the commit rule. Commit frame = the 
 Reason: a fair baseline; picking gated-out frames would lower B2's coverage artificially and bias P3.
 (2) **B4** counts votes over gate-passing frames only; ties to the smaller class id. This confirms the rule already
 written in Part A (e); it is not a change.
+
+### Amendment 2 to Stage 4 Part A (2026-11-14, before any Stage 4 number existed)
+Made after the author's review and before any Stage 4 code was written; no Stage 4 number or pool outcome for Stage 4
+existed. **P3 and P4 scoring are unchanged, as written in Part A (f)** (an uncertified method has coverage 0 for P3;
+a re-split with nothing committed at 1% does not pass P4).
+Descriptive only, not scored: each re-split also reports the P3 comparison (commit-rule Test coverage vs B2 Test
+coverage) and the P4 comparison (median commit frame < 30) at the smallest alpha in the frozen grid that is certified
+by both the commit rule and B2 in that re-split, or "none" if there is no common alpha.
