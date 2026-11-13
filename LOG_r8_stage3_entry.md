@@ -97,6 +97,7 @@ track_table_design.npz (not track_table_pool.npz). 7,830 design frames of 261 tr
 - 3b violation rates per alpha (track / B1): ____
 - P1: track part ____ ; frame part ____ -> PASS / FAIL
 - Hand p-values: ____ | Certificate B max-p check: ____
+- Environment observation: test_ledoit_wolf_matches_sklearn passes as of 2026-11-14 on the same scikit-learn 1.9.1 that was blocked during Stage 1, which points to the Application Control policy rather than a package upgrade; the Stage 1 entry is left unchanged.
 - Checks: ____ — ALL PASS: ____
 - Decision: ____
 - Deviation from the plan? ____
