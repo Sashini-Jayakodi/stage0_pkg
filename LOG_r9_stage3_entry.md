@@ -192,3 +192,13 @@ frame_evidence.npz, head.npz, track_table_design.npz (not the pool table).
   starts `hb` and `hb_a1` do exist at 0.5% (index 4 to 6), so HB is tested at 0.5% while the exact binomial is not.
 - Full per-point tables (lambda, f_d, e_d, wrong, median commit position) are in the JSON and the printout.
 - No Cert or Test track was read. The runner checks this file's SHA-256 before use.
+
+### Amendment 1 (14 Nov 2026, after the design-set values, before any Cert number)
+- alpha 0.5%: no exact-binomial start at n = 784, because the power-aware start rule needs f_d x 784 x 0.005 >= 4.
+  This is caused by the start rule; plan section 6 shows the test itself could certify at n_c >= 460 with 0 errors.
+  HB starts exist at 0.5%, so HB results at 0.5% are not compared with the exact binomial.
+- Design facts recorded: S3's grid has 14 points and stops at 61.3% commit because the vote margin is an integer of at
+  most 30; design error is 0 from grid point 5 (S1), 4 (S2-sum, S2-min) and 14 (S4) on, so how far the walk relaxes
+  depends on Cert data.
+- This replaces the bracket "consistent with plan section 12: alpha = 0.5% is not certifiable at these sample sizes"
+  in (g). No rule, grid, start or other value changes.
