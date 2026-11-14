@@ -38,9 +38,11 @@ for validity only). Target venue: IEEE Access. This repo (`stage0_pkg`) holds PO
    - POC-2 record (finished): a stage was done only when its Checks passed; failures and overrides are in `LOG.md`.
 6. Use confidence tags in explanations: [Certain], [Likely], [Guessing].
 7. Commit messages contain a short subject line and, if needed, a brief body describing the change. No trailer lines of any kind.
-8. No words or phrases anywhere in this project (commit messages, code comments, docstrings, LOG entries, README files,
-   docs, configs, output files) that suggest AI tools were used. This includes tool names, 'assistant', 'generated',
-   'prompt', 'session', 'model wrote', and similar. Write as the author.
+8. From commit 5d0162e onward, new text anywhere in this project (commit messages, code comments, docstrings, LOG
+   entries, README files, docs, configs, output files) must not suggest AI tools were used: no tool names,
+   'assistant', 'prompt', 'chat', 'session' in that sense, 'model wrote', or similar. Write as the author. Technical
+   uses such as 'regenerated splits' or 'generated outputs' (data rebuilt by code) are fine. Frozen and append-only
+   files and pushed commits are not edited to meet this rule.
 
 ## POC-3 (plan Revision 9)
 - Plan: `docs/poc3-implementation-plan-r9.md` (SHA-256 recorded in `LOG.md`, POC-3 Stage 0 entry). Read its sections 2

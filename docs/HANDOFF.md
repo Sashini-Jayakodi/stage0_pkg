@@ -1,4 +1,4 @@
-# Handoff from the claude.ai project "FYP Visual Distance" (13 Nov 2026)
+# Handoff notes, project "FYP Visual Distance" (13 Nov 2026)
 
 ## Start here (POC-3)
 - **Branch `poc3`** (tracks `origin/poc3`). POC-2 is finished and tagged `poc2-final` (`9a8d08c`); do not commit to
@@ -31,7 +31,8 @@
     R9 and state the difference.
   - Downloads (BelgiumTSC, DITS) are outside requests: get the author's explicit OK first, put files in a new empty
     folder, and record source URL and SHA-256.
-  - `.claude/settings.json` turns off commit/PR attribution; `.claude/settings.local.json` is personal and git-ignored.
+  - The shared local tool settings keep commit messages and pull requests free of trailer lines; personal local
+    settings are git-ignored.
 
 ## Where the project stands
 - POC-1 (Revision 6, confusability-stratified certification) is finished. Result: two of three go/no-go criteria (G1)
@@ -40,7 +41,7 @@
   had 0%. Measured within-track correlation: rho = 0.446, design effect 13.9. Frame head accuracy is 92.6%. There are
   3,176 frame errors spread over 438 of the 1,307 tracks.
 - The project then moved to "Certify the Sign, Not the Frame" (proposal R8). The build plan is
-  `docs/poc2-implementation-plan-r8.md`, a copy of the claude.ai project doc. It decides everything: stages, checks,
+  `docs/poc2-implementation-plan-r8.md`, a copy of the project planning doc. It decides everything: stages, checks,
   gates, fallbacks.
 - Plan decisions already taken: drop the softmax and fixed-K baselines; 6 adverse cells instead of 10; BelgiumTSC
   as the second dataset (RQ1 only).
@@ -66,7 +67,7 @@ finished record and is not updated further.
 
 | Stage | Status |
 |---|---|
-| 0 Repo setup | **Done 14 Nov 2026.** `poc2-final` tagged and pushed; branch `poc3` created; plan R9 committed (`8c6c902`) and its SHA-256 recorded in `LOG.md`; POC-3 block added to `CLAUDE.md`; `.claude/settings.json` turns off commit/PR attribution. |
+| 0 Repo setup | **Done 14 Nov 2026.** `poc2-final` tagged and pushed; branch `poc3` created; plan R9 committed (`8c6c902`) and its SHA-256 recorded in `LOG.md`; POC-3 block added to the project rules file; local tool settings keep commit messages free of trailer lines. |
 | 1 Data audit (F-gates) | Not started. |
 | 2 Certification engine v2 (V-checks) | Not started. |
 | 3 GTSRB exploratory run of the layer | Not started. |
@@ -144,7 +145,7 @@ Stage 1 run command: `py -3.12 -m src.r8_stage1 --run runs/20261003_stage1 --con
      number of that stage exists. Choices the plan leaves open are asked, not guessed (one question with options).
   2. Values computed from design data go into Part A in a separate commit, with the script committed first.
   3. Code and synthetic-data tests (brute-force references, tamper tests); full suite; commit; push when asked.
-  4. Run on real data in the session and show the **whole** printout; then stop.
+  4. Run on real data and show the **whole** printout; then stop.
   5. Fill Part B only after the author has reviewed the printout; commit it with the stage's `*_summary.json`; append
      the entry to `LOG.md`; update this file.
 - Any change to a committed Part A before numbers exist is a dated "Amendment N" appended to the entry, never an edit.
