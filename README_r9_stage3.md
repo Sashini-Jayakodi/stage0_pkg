@@ -13,9 +13,17 @@ py -3.12 -m src.r9_stage3_design --run runs/20261003_stage1
 - Its SHA-256 goes into Part A before any Cert number is computed.
 
 ## Step 5: Cert/Test run
-Added with the runner (`src/r9_stage3.py`).
+```
+py -3.12 -m src.r9_stage3 --run runs/20261003_stage1 --config configs/poc.yaml
+```
+- Checks the frozen files, then the SHA-256 of `stage3_design.json`, `stage4_summary.json`, `src/r8_stage4.py`,
+  `baselines_design.json` and `train_meta.csv`; loads the pool with the POC-2 loader and its reproduction checks.
+- Regenerates the five Stage 4 re-splits and stops unless every certified Stage 4 Test coverage reproduces exactly.
+- Certifies S1, S2-sum, S2-min, S3 and S4 at every alpha with the exact binomial and HB (three starts), and reports
+  the plan 5.4 metrics, the uncertified reference and the smallest certifiable alpha.
+- Writes `runs/20261003_stage1/poc3/stage3/stage3_summary.json`.
 
 ## Tests
 ```
-py -3.12 -m pytest tests/test_r9_frozen.py tests/test_r9_stage3_design.py -q -p no:cacheprovider
+py -3.12 -m pytest tests/test_r9_frozen.py tests/test_r9_stage3_design.py tests/test_r9_stage3.py -q -p no:cacheprovider
 ```
