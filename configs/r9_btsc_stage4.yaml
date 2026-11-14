@@ -1,0 +1,31 @@
+# POC-3 (R9) Stage 4 settings (LOG_r9_stage4_entry.md Part A). Every value here is fixed in Part A.
+# The training recipe is the POC-1 Stage 1 recipe; src/r9_stage4.py checks that every recipe value below equals the
+# train block of configs/poc.yaml, so the recipe cannot drift from POC-1 without the run stopping.
+seed: 0                         # Part A (c), (d), (f): split seed and training seed
+n_classes: 62                   # BelgiumTSC class folders 00000 to 00061
+image_size: 112                 # whole image resized, no ROI crop (Part A decision 1)
+design_fraction: [1, 5]         # Part A (c): 20% of testing poles go to the design set (exact fraction)
+val_fraction: [1, 10]           # Part A (d): 10% of training poles for early stopping (exact fraction)
+expected:                       # Part A (c), (d), (j) V4.1 and V4.2
+  design_poles: 133
+  pool_poles: 530
+  train_val_poles: 136
+train:                          # POC-1 recipe, unchanged (configs/poc.yaml train block)
+  epochs: 20
+  patience: 5
+  batch_size: 128
+  lr_backbone: 0.0002
+  lr_head: 0.001
+  weight_decay: 0.0001
+  warmup_epochs: 1
+  amp: true
+  aug:
+    crop_area_scale: [0.85, 1.0]
+    crop_aspect: [0.9, 1.1]
+    rotation_deg: 10
+    contrast: 0.2
+    brightness: 0.0
+embed:
+  batch_size: 512               # POC-1 Stage 2 value
+  norm_tol: 1.0e-5              # POC-1 Stage 2 value
+  fc_tol: 1.0e-3                # POC-1 Stage 2 hook check
