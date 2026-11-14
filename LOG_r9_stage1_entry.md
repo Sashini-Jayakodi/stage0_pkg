@@ -177,30 +177,87 @@ run. No pole, class or shared-unit count had been made; the only counts so far a
 - Part B reports the readme totals (4,591 training / 2,534 testing images) against the zip counts (4,575 / 2,520) as
   a fact. The zip counts are used.
 
-### Part B: results (fill from the printout after the run)
-- Date: ____ / Stage: R9 Stage 1 / Run tag: runs/btsc/stage1
-- Git commit of Part A: ____ | Git commit of the code: ____ (src/r9_stage1_audit.py SHA-256 ____)
-- Downloads (from downloads_manifest.json): BelgiumTSC_Training.zip ____ bytes (listed 171.3 MBytes; size check ____),
-  SHA-256 ____; BelgiumTSC_Testing.zip ____ bytes (listed 76.5 MBytes; size check ____), SHA-256 ____; DITS ____.
-  Licence / terms: ____; publications the BelgiumTS page asks to cite: ____
-- Amendment 1 conditions: (a) zip integrity, training ____ / testing ____ (attempts ____); (b) image counts, training
-  ____ (plan 4,575) / testing ____ (plan 2,520): ____
-- Output: stage1_summary.json SHA-256 ____
-- Pole and camera encoding (source quoted): ____
-- Counts, training / testing: images ____ / ____ (plan 4,575 / 2,520); classes ____ / ____; pole numbers ____ / ____;
-  sign units ____ / ____; views per sign unit ____ / ____; poles with more than one class ____ / ____ (extra sign units
-  ____ / ____); consistency failures ____ / ____
-- Shared sign units: check 1 applied? ____ (readme sentence or "not stated"); check 1 only ____, check 2 only ____,
-  both ____, total removed ____; what check 1's count means here: ____
-- After removal, testing release: poles ____ (F-A1 count) / sign units ____
-- Expected limit (g): Cert size ____; n_c at 70% ____; tolerated errors at 0.5/1/2/3/5%: ____
-- DITS page retry on the run day: HTTPS ____ (time UTC, error) / HTTP ____ (time UTC, error); DITS structure: ____
-- Checks: F-A1 ____ F-A2 ____ F-A3 ____
-- Decision taken and why: ____
+### Part B: results (filled from the printout after the run)
+- Date: 2026-11-14 (run 11:46:48 UTC) / Stage: R9 Stage 1 / Run tag: runs/btsc/stage1
+- Git commit of Part A: 9a228a1 (definitions), 5dc5032 (Amendment 1), 6f05a92 (Amendment 2) | Git commit of the code:
+  262c832 (src/r9_stage1_audit.py SHA-256 3f1df93bf2623b86b5f18545b0f10970b60af4d718ce489cd147926d3176acf9;
+  src/r9_stage1_integrity.py 1f8a1dd67ff0618759b7d3eb15d3a75b9e5a1864c033fba41f536cff4bb2a0e3;
+  src/r9_stage1_download.py 4fd5887d649f9e9ab402d1faee60cddb2becf564105b13c4af280deae683cc3b). Working tree clean at
+  run time. Run command: `py -3.12 -m src.r9_stage1_audit --check1-applies yes --dits-retry`.
+- Downloads (from downloads_manifest.json, SHA-256 06c90353f75a8c4133991eb32dad2281d922622cecc0591a1b9b5bc819ae4ca3),
+  one attempt each, HTTP 200, no redirect:
+  - BelgiumTSC_Training.zip: 174,298,785 bytes (174.3 x 10^6, 166.2 x 2^20; listed 171.3 MBytes; size check FAIL),
+    SHA-256 e5f6a33c18716917d69989488b9f6af573821a7126ca1390af7e75403af1ee61; 2026-11-14 11:18:30 to 11:21:49 UTC.
+  - BelgiumTSC_Testing.zip: 77,877,833 bytes (77.9 x 10^6, 74.3 x 2^20; listed 76.5 MBytes; size check FAIL),
+    SHA-256 1811447452f02ede83c0237f2852fa8bd278f39e40ddcb1ba01c2ed212e735fa; 11:21:49 to 11:22:33 UTC.
+  - The first download step did not record curl's own exit code (recorded as null in the manifest).
+  - DITS: nothing downloaded (F-A3 below).
+  - Licence / terms: the BelgiumTS page states no licence and no terms of use; it asks users to cite. Publications named
+    in both readmes: R. Timofte and L. Van Gool, "Sparse representation based projections", BMVC 2011; R. Timofte,
+    K. Zimmermann and L. Van Gool, "Multi-view Traffic Sign Detection, Recognition, and 3D Localisation", Machine
+    Vision and Applications, 2011, doi 10.1007/s00138-011-0391-3.
+- Amendment 1 conditions: (a) zip integrity PASS for both (training 4,701 members, testing 2,646 members, no bad
+  member; first attempt, no re-download); (b) image counts PASS: training 4,575 (plan 4,575), testing 2,520 (plan 2,520).
+- Output: stage1_summary.json SHA-256 77ba6a7042a471fa3320059d85a5ec967a8d30a613355c05c74815d03277a0dd.
+  Descriptive breakdown (below): check2_breakdown.json SHA-256
+  08aa904ba6e0bd0a9d6fa5ec4850773f791722a71e0d3c95ef27d7c54e96a50d (src/r9_stage1_breakdown.py, commit 852dedc,
+  SHA-256 d696bd2ec0c2a802d8b20f0616b5d7b01c02b9277d14ed08200123fff8e2abc0).
+- Pole and view encoding (readme, both releases, quoted as written): "The first part, XXXXX, represents the pole number
+  from where is in the full annotations of BelgiumTS database. All images of one class with identical pole numbers
+  originate from the same pole and more represent one single physical traffic sign. The second part, YYYYY, is a
+  running number for the views where the traffic sign is annotated." There is no camera index (Amendment 2).
+- Counts, training / testing:
+  - images 4,575 / 2,520 (plan 4,575 / 2,520; readmes state 4,591 / 2,534, see below);
+  - class folders 62 / 62; distinct class IDs 62 / 53 (9 classes have no testing image);
+  - pole numbers 1,364 / 701; sign units (pole, class) 1,545 / 848;
+  - poles with more than one class 162 / 128, adding 181 / 147 sign units;
+  - views per sign unit (1 / 2 / 3 / 4+): training 18 / 64 / 1,432 / 31; testing 14 / 8 / 816 / 10;
+  - views per pole: median 3 / 3, range 1-15 / 1-12;
+  - ROI shorter side (px), quantiles 0 / 10 / 25 / 50 / 75 / 90 / 100%: training 9 / 41 / 56 / 78 / 108 / 146 / 438;
+    testing 10 / 35 / 46 / 65 / 99 / 139 / 416;
+  - consistency failures: 16 / 14 images with more than one GT row and 16 / 14 repeated (pole, view) pairs within a
+    class folder; no other failure type (no unparsed name, no image without a row, no row without an image, no class
+    mismatch). Examples: training 00056/01199_0000[0-5], 00057/00472_0000[0-3]; testing 00035/02261_0000[0-1],
+    00035/02263_0000[0-5], 00038/00027_0000[0-1].
+  - The duplicated rows account exactly for the readme totals: 4,575 + 16 = 4,591 and 2,520 + 14 = 2,534. The zip
+    file counts are used. The audit counts one view per GT row, so the views-per-unit and views-per-pole figures above
+    include the duplicates; pole and unit counts do not depend on them. Stage 4 counts views by unique file name.
+- Shared sign units: check 1 applied (Amendment 2: one pole numbering for the whole BelgiumTS database). Check 1 only 5,
+  check 2 only 59, both 1; check 1 total 6, check 2 total 60; removed 65. Check 1's count means 6 testing sign units
+  carry the same pole number and class as a training sign unit, read as the same physical sign.
+  - Descriptive breakdown, after the gate result, changes nothing: of the 60 units flagged by check 2, 0 have a
+    byte-identical training image and 60 are matched only by class, image width, image height and ROI box. Whether
+    these are the same physical signs re-encoded or coincidences between different signs is not established; all 60
+    stay removed as the rule in (e) requires.
+- After removal, testing release: 663 poles (F-A1 count) / 783 sign units.
+- Expected limit (g), next to plan section 6:
+  - By poles (as written): Cert 398 (0.6 x 663), n_c 279 at a 70% commit fraction; tolerated errors at alpha
+    0.5 / 1 / 2 / 3 / 5%: not certifiable / 0 / 2 / 4 / 8.
+  - By sign units (Amendment 2 note; the Stage 4 split is by (pole, class) units, so the real Cert size may be larger):
+    Cert about 470 (0.6 x 783), n_c about 329; tolerated errors: not certifiable / 0 / 2 / 5 / 10.
+  - At either size alpha = 1% certifies only with 0 committed errors (n_c below 388), and 0.5% is out of reach.
+- DITS page retry on the run day: HTTPS 2026-11-14 11:46:03 UTC, curl exit 28, "Failed to connect to
+  users.diag.uniroma1.it:443 after 21542 ms: Could not connect to server" / HTTP 11:46:25 UTC, curl exit 28, "Failed
+  to connect to users.diag.uniroma1.it:80 after 21059 ms: Could not connect to server". DITS structure: not known.
+- Checks: F-A1 PASS (663 testing poles after removal, minimum 600) | F-A2 PASS after removal (65 shared units removed;
+  663 poles remain, so the "fewer than 600" fallback is not triggered) | F-A3 FAIL (authors' page unreachable on both
+  retries).
+- Decision taken and why: BelgiumTSC is the fresh dataset for Stages 4 to 6 (F-A1 and F-A2 passed, plan section 9).
+  Stage 7 (DITS) is dropped (F-A3 failed, plan section 11); earliness evidence stays GTSRB only, labelled exploratory,
+  and this is stated as a limitation. Stage 4 stratifies by class where possible; the testing release has 53 of 62
+  classes.
 - Deviations: Amendment 1 conditions (a) and (b) were run on 2026-11-14 on code committed afterwards, unchanged
   (src/r9_stage1_integrity.py SHA-256 1f8a1dd67ff0618759b7d3eb15d3a75b9e5a1864c033fba41f536cff4bb2a0e3,
   src/r9_stage1_download.py SHA-256 4fd5887d649f9e9ab402d1faee60cddb2becf564105b13c4af280deae683cc3b; committed with
-  tests/test_r9_stage1_integrity.py in the commit that adds this line). These were integrity checks only (zip CRCs and
-  the .ppm image count); no research count was made. src/r9_stage1_download.py was not run.
-- Deviation from the plan? ____
-- Next step: ____
+  tests/test_r9_stage1_integrity.py in the commit that adds this line, 88741f3). These were integrity checks only (zip
+  CRCs and the .ppm image count); no research count was made. src/r9_stage1_download.py was not run.
+- Deviations: commit 262c832 added the views-per-pole minimum and maximum to the audit code (with a test) after
+  Amendment 2 asked for median and range, and before the audit was run. Its commit message was not set in advance.
+- Deviations: the check-2 breakdown (852dedc) was added after the gate result as a descriptive read-only step; it
+  changes no removal and no gate.
+- Deviation from the plan? Yes. (1) The listed-size check was replaced as the condition to proceed by zip integrity
+  and image counts (Amendment 1); the size FAIL stands. (2) The analysis unit from Stage 4 on is (pole, class), since
+  a pole can carry several signs; F-A1 still counts poles as the plan says. (3) Shared units are found by two checks
+  (pole number and class; image content), not only by pole number. (4) BelgiumTSC has no camera index; view order is
+  ascending view number in annotation order (Amendment 2), replacing "camera index" in plan Stage 5.
+- Next step: Stage 2 (certification engine v2, V-checks), only when the author says so.

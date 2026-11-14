@@ -5,7 +5,8 @@
   `poc2`. Never touch the remote branch `origin/POC_2` (an older branch, at `2c9b74a`). Last commits: `8c6c902` (plan R9),
   `f5c49a8` (Stage 0 setup), `c0ffaaf` (handoff tidy), `5d0162e` (project rules and POC-3 file naming), `daf03b1`
   (wording rule narrowed; handoff and gitignore wording), `3fbb90f` (handoff working method section).
-- **Stage 0 done.** Next step: **POC-3 Stage 1 (data audit, F-gates)**, only when the author says so. Read plan R9
+- **Stages 0 and 1 done.** Next step: **POC-3 Stage 2 (certification engine v2, V-checks)**, only when the author
+  says so. Read plan R9
   sections 2 and 3 first. The POC-3 status table is below the POC-2 one.
 - **Environment (checked 14 Nov 2026):** `py -3.12` (Python 3.12.10) with torch 2.14.1+cu132 (CUDA available, RTX 5050),
   numpy 2.5.2, scipy 1.18.1, scikit-learn 1.9.1 (imports fine again). Full test suite: `py -3.12 -m pytest tests -q
@@ -69,13 +70,13 @@ finished record and is not updated further.
 | Stage | Status |
 |---|---|
 | 0 Repo setup | **Done 14 Nov 2026.** `poc2-final` tagged and pushed; branch `poc3` created; plan R9 committed (`8c6c902`) and its SHA-256 recorded in `LOG.md`; POC-3 block added to the project rules file; local tool settings keep commit messages free of trailer lines. |
-| 1 Data audit (F-gates) | Not started. |
+| 1 Data audit (F-gates) | **Done 14 Nov 2026** (Part A `9a228a1`, Amendments `5dc5032`, `6f05a92`; code `262c832`). **F-A1 PASS** (663 testing poles after removal, minimum 600), **F-A2 PASS after removal** (65 shared (pole, class) units removed), **F-A3 FAIL** (DITS page unreachable). BelgiumTSC zips in `data/btsc_raw/` (git-ignored; URLs and SHA-256 in `runs/btsc/stage1/downloads_manifest.json`). Testing release: 53 of 62 classes; 783 sign units after removal; 16 / 14 duplicated GT rows (count views by unique file name). Projected n_c about 279-329, so alpha 1% tolerates 0 errors. Details in `LOG_r9_stage1_entry.md` Part B. |
 | 2 Certification engine v2 (V-checks) | Not started. |
 | 3 GTSRB exploratory run of the layer | Not started. |
 | 4 BelgiumTSC model and cache | Not started. |
 | 5 BelgiumTSC design phase and freeze F3 | Not started. |
 | 6 BelgiumTSC confirmation | Not started. |
-| 7 DITS earliness (only if F-A3 passes) | Not started. |
+| 7 DITS earliness (only if F-A3 passes) | **Dropped** (F-A3 failed, plan section 11). Earliness evidence is GTSRB only, labelled exploratory. |
 | 8 Final tables | Not started. |
 | 9 Idea text and gates | Not started. |
 

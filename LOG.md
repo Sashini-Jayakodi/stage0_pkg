@@ -1309,3 +1309,33 @@ Replaces the "Data roles, design set only" item of (e). Everything else in (e) i
 - Decision taken and why: plan R9 section 9, Stage 0.
 - Deviation from the plan? No.
 - Next step: Stage 1 (data audit, F-gates); not started.
+
+---
+
+## POC-3 (R9) Stage 1: data audit (BelgiumTSC, DITS), F-gates
+
+- Date: 2026-11-14 / Stage: R9 Stage 1 / Run tag: runs/btsc/stage1
+- Config hash / checkpoint hash / git commit: Part A 9a228a1, Amendment 1 5dc5032, Amendment 2 6f05a92; code 262c832
+  (src/r9_stage1_audit.py SHA-256 3f1df93bf2623b86b5f18545b0f10970b60af4d718ce489cd147926d3176acf9); breakdown 852dedc.
+  Inputs: BelgiumTSC_Training.zip SHA-256 e5f6a33c18716917d69989488b9f6af573821a7126ca1390af7e75403af1ee61,
+  BelgiumTSC_Testing.zip SHA-256 1811447452f02ede83c0237f2852fa8bd278f39e40ddcb1ba01c2ed212e735fa (from
+  https://btsd.ethz.ch/shareddata/). Output stage1_summary.json SHA-256
+  77ba6a7042a471fa3320059d85a5ec967a8d30a613355c05c74815d03277a0dd. No checkpoint used.
+- What was done: downloaded and integrity-checked the BelgiumTSC releases, audited poles, sign units and shared units,
+  retried the DITS page; full record in `LOG_r9_stage1_entry.md`.
+- Result numbers (from stage1_summary.json):
+  - Images 4,575 / 2,520 (training / testing; plan 4,575 / 2,520; readmes 4,591 / 2,534 because of 16 / 14 duplicated
+    GT rows). Listed-size check FAIL for both zips; zip integrity and image counts PASS (Amendment 1).
+  - Testing: 701 poles, 848 sign units (pole, class), 53 of 62 classes; 128 poles carry more than one class.
+  - Shared units: check 1 only 5, check 2 only 59, both 1; 65 removed. All 60 check-2 units matched by class, size and
+    ROI only, none byte-identical (descriptive, after the gate result, changes nothing).
+  - After removal: 663 testing poles, 783 sign units. Projection: Cert 398 poles (n_c 279 at 70%) or about 470 units
+    (n_c about 329); alpha 1% tolerates 0 errors at either size, 2% tolerates 2, 0.5% not certifiable.
+- Checks: F-A1 PASS (663 >= 600) | F-A2 PASS after removal (65 units) | F-A3 FAIL (DITS page unreachable on HTTPS and
+  HTTP, 2026-11-14 11:46 UTC, curl exit 28).
+- Decision taken and why: BelgiumTSC is the fresh dataset for Stages 4 to 6; Stage 7 dropped (plan R9 sections 9 and
+  11). Stage 4 counts views by unique file name and stratifies by class where possible.
+- Deviation from the plan? Yes: size check replaced by integrity conditions (Amendment 1); analysis unit (pole, class)
+  from Stage 4 on, F-A1 still counts poles; two shared-unit checks; view order = annotation order, no camera index
+  (Amendment 2). Details and process deviations in `LOG_r9_stage1_entry.md` Part B.
+- Next step: Stage 2 (certification engine v2, V-checks); not started.

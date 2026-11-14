@@ -1,0 +1,10 @@
+{
+  "label": "descriptive, after the gate result, changes nothing",
+  "summary_sha256": "77ba6a7042a471fa3320059d85a5ec967a8d30a613355c05c74815d03277a0dd",
+  "check2_total_in_summary": 60,
+  "check2_units": 60,
+  "with_byte_identical_view": 0,
+  "class_size_roi_match_only": 60,
+  "byte_identical_and_metadata": 0,
+  "byte_identical_without_metadata_match": 0
+}
