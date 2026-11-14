@@ -15,18 +15,27 @@ for validity only). Target venue: IEEE Access. This repo (`stage0_pkg`) holds PO
   POC-1 is tagged `poc1-final`.
 
 ## Hard rules (never break)
-1. Do not edit any POC-1 file (`src/*.py` without the `r8_` prefix, `configs/poc.yaml`, `configs/frozen_g2.yaml`,
-   anything in `runs/20261003_stage1/` outside `poc2/`). POC-2 code goes in new files: `src/r8_*.py`, `tests/test_r8_*.py`.
+1. Do not edit any POC-1 or POC-2 file.
+   - POC-1: `src/*.py` without an `r8_` or `r9_` prefix, `configs/poc.yaml`, `configs/frozen_g2.yaml`, anything in
+     `runs/20261003_stage1/` outside `poc2/` and `poc3/`.
+   - POC-2 (finished, tag `poc2-final`): `src/r8_*.py`, `tests/test_r8_*.py`, `configs/frozen_r8.yaml`, `LOG_r8_*`,
+     `docs/poc2-implementation-plan-r8.md`, `runs/20261003_stage1/poc2/`. POC-3 code may import and reuse these modules,
+     never change them.
+   - POC-3 code goes in new files: `src/r9_*.py`, `tests/test_r9_*.py`.
 2. Every script checks the SHA-256 of the files it reads against the summary JSON that wrote them, and stops if they differ.
-3. Plan section 2 (design, then freeze, then confirm) is the integrity core:
-   - Stages 1 and 2 may read outcomes of the 261 design tracks only (seed-0 Fit split, `track_split == 0` in `splits/seed0.npz`).
-   - No commit-rule error, coverage or outcome number on the 1,046 pool tracks may be computed, saved or printed before
-     `configs/frozen_r8.yaml` is committed (gate F1). Add a code assertion for this in every design-phase stage.
-   - After F1, nothing frozen changes. Failed checks are reported as failed.
-   - delta = 0.1 and beta = 5% are fixed in every phase.
+3. Design, then freeze, then confirm is the integrity core.
+   - POC-3 (plan R9 section 2): BelgiumTSC design poles only until `configs/frozen_r9_btsc.yaml` is committed (F3); no
+     Cert/Test number on BelgiumTSC pool poles before F3; add a code assertion for this in every design-phase stage.
+     Everything new on GTSRB is labelled exploratory (post-hoc). After a freeze, nothing frozen changes. Failed checks
+     are reported as failed. delta = 0.1 in every phase.
+   - POC-2 record (finished): Stages 1 and 2 read only the 261 design tracks (seed-0 Fit split, `track_split == 0` in
+     `splits/seed0.npz`); no pool outcome before `configs/frozen_r8.yaml` (F1, commit `3de4cb9`); beta = 5% for the gate.
 4. Losses are computed per lambda (tracks-by-lambdas table), never from one score per track (risk R3).
-5. Work one stage at a time. A stage is done only when its Checks pass. After each run, write a `LOG.md` entry in the
-   section 13 template format (append only, never rewrite old entries).
+5. Work one stage at a time. After each run, write a `LOG.md` entry in the section 13 template format (append only,
+   never rewrite old entries).
+   - POC-3: a stage is done when its V-checks pass; F-gates follow their written fallback; R-results are reported, never
+     scored (plan R9 section 3).
+   - POC-2 record (finished): a stage was done only when its Checks passed; failures and overrides are in `LOG.md`.
 6. Use confidence tags in explanations: [Certain], [Likely], [Guessing].
 7. Commit messages contain a short subject line and, if needed, a brief body describing the change. No trailer lines of any kind.
 

@@ -1,5 +1,38 @@
 # Handoff from the claude.ai project "FYP Visual Distance" (13 Nov 2026)
 
+## Start here (POC-3)
+- **Branch `poc3`** (tracks `origin/poc3`). POC-2 is finished and tagged `poc2-final` (`9a8d08c`); do not commit to
+  `poc2`. Never touch the remote branch `origin/POC_2` (an older branch, at `2c9b74a`). Last commits: `8c6c902` (plan R9),
+  `f5c49a8` (Stage 0 setup), then the handoff tidy.
+- **Stage 0 done.** Next step: **POC-3 Stage 1 (data audit, F-gates)**, only when the author says so. Read plan R9
+  sections 2 and 3 first. The POC-3 status table is below the POC-2 one.
+- **Environment (checked 14 Nov 2026):** `py -3.12` (Python 3.12.10) with torch 2.14.1+cu132 (CUDA available, RTX 5050),
+  numpy 2.5.2, scipy 1.18.1, scikit-learn 1.9.1 (imports fine again). Full test suite: `py -3.12 -m pytest tests -q
+  -p no:cacheprovider`, 267 passed in about 70 s at `poc2-final`. Both PowerShell and Git Bash work; Git Bash has
+  `pdftotext`/`pdfinfo` (the Read tool cannot render PDFs here: no `pdftoppm`).
+- **Data and artefacts:** POC-1 artefacts under `runs/20261003_stage1/` (list further down); image cache and
+  `train_meta.csv` in `data/cache/` (`train_meta.csv` is tracked in git but has no recorded hash: POC-2 cross-checked its
+  ROI boxes against the Stage 1 sizes instead). POC-2 outputs in `runs/20261003_stage1/poc2/stage1..6/`, each with a
+  `*_summary.json` whose SHA-256 is in that stage's Part B. POC-3 outputs go in `runs/20261003_stage1/poc3/` and
+  `runs/btsc/`.
+- **Papers:** `docs/papers/` holds the Ringel et al. 2024 and Boursinos and Koutsoukos 2022 PDFs. Git-ignored (not
+  redistributed); citations, source URLs and SHA-256 in `LOG_r8_stage6_entry.md`. On a fresh clone they must be
+  downloaded again and hash-checked.
+- **Reusable POC-2 code (import, never edit):** `src/r8_frozen.py` (freeze-guard pattern), `src/r8_stage2.py`
+  (`open_npz` pool-file guard, design loader), `src/r8_stage3_engine.py` (vectorised Learn-then-Test, exact hand
+  p-values), `src/r8_stage3_synth.py` (synthetic model with latent track difficulty, the base for R9 Stage 2),
+  `src/r8_stage4.py` (Cert/Test splits; split membership is NOT saved: regenerate with `make_split` and check the
+  Stage 4 code hash and coverages, as `src/r8_stage5.py` does), `src/r8_stage6_methods.py` (B5, B5c, B6 = R9's S2).
+- **Gotchas:**
+  - Windows line endings: git prints LF -> CRLF warnings. A file's SHA-256 is of its bytes on this machine; when a hash
+    must be stable across machines, also record the git blob ID (as done for the R8 and R9 plans and frozen_r8.yaml).
+  - In POC-2, B6 was calibrated on Cert thirds (Stage 6 Amendment 1). Plan R9 section 5.2 says S2 is calibrated
+    on the design set (two halves) so all Cert signs stay available for the certificate. This is a different rule; follow
+    R9 and state the difference.
+  - Downloads (BelgiumTSC, DITS) are outside requests: get the author's explicit OK first, put files in a new empty
+    folder, and record source URL and SHA-256.
+  - `.claude/settings.json` turns off commit/PR attribution; `.claude/settings.local.json` is personal and git-ignored.
+
 ## Where the project stands
 - POC-1 (Revision 6, confusability-stratified certification) is finished. Result: two of three go/no-go criteria (G1)
   failed on clean data, because the hard group was not riskier than the easy group. The certifier itself was shown
@@ -61,15 +94,14 @@ Stage 1 run command: `py -3.12 -m src.r8_stage1 --run runs/20261003_stage1 --con
 - Environment frozen in `env_poc2_stage1.txt` (Python 3.12.10, numpy 2.5.2, scipy 1.18.1, scikit-learn 1.9.1,
   torch 2.14.1+cu132).
 
-### scikit-learn note (open environment issue)
-- `tests/test_stage3.py::test_ledoit_wolf_matches_sklearn` now fails: Windows Application Control blocks a
-  scikit-learn 1.9.1 DLL (`_middle_term_computer`). It passed in POC-1 (LOG.md Stage 4, 41 passed, 0 skipped).
-  Full suite before the Stage 1 run: 169 passed, 1 failed.
-- POC-1 never recorded its scikit-learn version, so it is unknown whether this comes from a package upgrade or a
-  policy change.
-- Stage 1 is unaffected (it does not refit the head or import sklearn). **Any POC-2 code must not import sklearn**
-  while this block stands; if a later stage needs it, solve the block first and log it as an environment change.
-  Do not edit the POC-1 test file (hard rule 1).
+### scikit-learn note (resolved)
+- During POC-2 Stage 1 (13 Nov 2026), `tests/test_stage3.py::test_ledoit_wolf_matches_sklearn` failed because Windows
+  Application Control blocked a scikit-learn 1.9.1 DLL (`_middle_term_computer`).
+- Since 14 Nov 2026 it passes again on the same scikit-learn 1.9.1, which points to the Application Control policy,
+  not a package upgrade (recorded in `LOG_r8_stage3_entry.md` Part B; the Stage 1 entry is left unchanged). Full suite
+  at `poc2-final`: 267 passed, 0 failed.
+- POC-2 code never imports sklearn. If POC-3 code needs it, check the import first; if the block returns, log it as an
+  environment change. Do not edit the POC-1 test file (hard rule 1).
 
 ## Deviations already decided (logged in LOG_r8_stage1_entry.md)
 1. Stage 1 writes the commit table as two files. `track_table_design.npz` covers the 261 design tracks, with
@@ -104,8 +136,20 @@ Stage 1 run command: `py -3.12 -m src.r8_stage1 --run runs/20261003_stage1 --con
 - `src/train.py`: `sha256_file`.
 - POC-2 outputs go in `runs/20261003_stage1/poc2/stageN/`.
 
-## Working agreements with the user
+## Working agreements with the user (as practised through POC-2; apply to POC-3)
 - The user is not strong in statistics. Explain results in plain words before the maths.
 - Never suggest changing a frozen value or rule to get a better result. Negative results are reported as they are.
-- Treat each stage as: build, then synthetic tests, then the user runs it on the laptop, then the user pastes the
-  printout, then fill the LOG entry.
+- Order inside a stage:
+  1. Write `LOG_r9_stageN_entry.md` Part A (every definition and open choice), show it, and commit it **before** any
+     number of that stage exists. Choices the plan leaves open are asked, not guessed (one question with options).
+  2. Values computed from design data go into Part A in a separate commit, with the script committed first.
+  3. Code and synthetic-data tests (brute-force references, tamper tests); full suite; commit; push when asked.
+  4. Run on real data in the session and show the **whole** printout; then stop.
+  5. Fill Part B only after the author has reviewed the printout; commit it with the stage's `*_summary.json`; append
+     the entry to `LOG.md`; update this file.
+- Any change to a committed Part A before numbers exist is a dated "Amendment N" appended to the entry, never an edit.
+- Show diffs before commits when asked; stage only the named files; commit messages exactly as given, no trailer lines.
+- Text the author supplies for the record is checked against the facts before it is committed; a sentence that is not
+  true is flagged and a corrected wording proposed (for example a claim that a run had happened when it had not).
+- Stop after each step the author names; do not start the next stage, run on real data, push, tag or download
+  without being told to.
