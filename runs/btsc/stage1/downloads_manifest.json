@@ -1,0 +1,42 @@
+{
+  "stage": "R9 Stage 1",
+  "part_a_commit": "9a228a1eefbd1ee8b066d931f2abbc04ea143eb4",
+  "source_page": "https://btsd.ethz.ch/shareddata/",
+  "size_check_rule": "pass if round(bytes/1e6, 1) or round(bytes/2**20, 1) equals the listed MBytes (Part A (b))",
+  "files": [
+    {
+      "name": "BelgiumTSC_Training.zip",
+      "path": "data/btsc_raw/zips/BelgiumTSC_Training.zip",
+      "url": "https://btsd.ethz.ch/shareddata/BelgiumTSC/BelgiumTSC_Training.zip",
+      "http_status": 200,
+      "download_start_utc": "2026-11-14T11:18:30Z",
+      "download_end_utc": "2026-11-14T11:21:49Z",
+      "size_bytes": 174298785,
+      "listed_mbytes": 171.3,
+      "bytes_div_1e6": 174.2988,
+      "bytes_div_2pow20": 166.2243,
+      "size_check": "FAIL",
+      "sha256": "e5f6a33c18716917d69989488b9f6af573821a7126ca1390af7e75403af1ee61",
+      "curl_exit_code": null,
+      "curl_exit_code_note": "not captured by the first download step (it recorded the exit code of the time stamp command); HTTP 200 and byte count equal to file size are the evidence of completion"
+    },
+    {
+      "name": "BelgiumTSC_Testing.zip",
+      "path": "data/btsc_raw/zips/BelgiumTSC_Testing.zip",
+      "url": "https://btsd.ethz.ch/shareddata/BelgiumTSC/BelgiumTSC_Testing.zip",
+      "http_status": 200,
+      "download_start_utc": "2026-11-14T11:21:49Z",
+      "download_end_utc": "2026-11-14T11:22:33Z",
+      "size_bytes": 77877833,
+      "listed_mbytes": 76.5,
+      "bytes_div_1e6": 77.8778,
+      "bytes_div_2pow20": 74.2701,
+      "size_check": "FAIL",
+      "sha256": "1811447452f02ede83c0237f2852fa8bd278f39e40ddcb1ba01c2ed212e735fa",
+      "curl_exit_code": null,
+      "curl_exit_code_note": "not captured by the first download step (it recorded the exit code of the time stamp command); HTTP 200 and byte count equal to file size are the evidence of completion"
+    }
+  ],
+  "status": "size check failed for both files; stage stopped before extraction (Part A (b))",
+  "download_step_fixed": "src/r9_stage1_download.py records curl's own exit code for any later download"
+}

@@ -179,5 +179,10 @@ zip had been opened or extracted, and no count of any kind existed.
 - DITS page retry on the run day: HTTPS ____ (time UTC, error) / HTTP ____ (time UTC, error); DITS structure: ____
 - Checks: F-A1 ____ F-A2 ____ F-A3 ____
 - Decision taken and why: ____
+- Deviations: Amendment 1 conditions (a) and (b) were run on 2026-11-14 on code committed afterwards, unchanged
+  (src/r9_stage1_integrity.py SHA-256 1f8a1dd67ff0618759b7d3eb15d3a75b9e5a1864c033fba41f536cff4bb2a0e3,
+  src/r9_stage1_download.py SHA-256 4fd5887d649f9e9ab402d1faee60cddb2becf564105b13c4af280deae683cc3b; committed with
+  tests/test_r9_stage1_integrity.py in the commit that adds this line). These were integrity checks only (zip CRCs and
+  the .ppm image count); no research count was made. src/r9_stage1_download.py was not run.
 - Deviation from the plan? ____
 - Next step: ____
