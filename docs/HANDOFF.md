@@ -5,7 +5,7 @@
   `poc2`. Never touch the remote branch `origin/POC_2` (an older branch, at `2c9b74a`). Last commits: `8c6c902` (plan R9),
   `f5c49a8` (Stage 0 setup), `c0ffaaf` (handoff tidy), `5d0162e` (project rules and POC-3 file naming), `daf03b1`
   (wording rule narrowed; handoff and gitignore wording), `3fbb90f` (handoff working method section); Stage 2:
-  `6043706`, `c70f15d`, `2f18f95`, `5716fc6`, `f19727c` and the freeze commit.
+  `6043706`, `c70f15d`, `2f18f95`, `5716fc6`, `f19727c` and the freeze commit `99da0b5`.
 - **Stages 0, 1 and 2 done; the engine `src/r9_certify.py` is frozen.** Next step: **POC-3 Stage 3 (GTSRB exploratory
   run of the layer)**, only when the author says so. Read plan R9 sections 2 and 3 first. The POC-3 status table is
   below the POC-2 one.
@@ -29,6 +29,10 @@
 - **Gotchas:**
   - Windows line endings: git prints LF -> CRLF warnings. A file's SHA-256 is of its bytes on this machine; when a hash
     must be stable across machines, also record the git blob ID (as done for the R8 and R9 plans and frozen_r8.yaml).
+  - POC-3 freeze rule: frozen POC-3 files (engine, engine tests, plan R9; `configs/frozen_r9_btsc.yaml` from Stage 5)
+    are checked at run time by git blob ID through `src/r9_frozen.py` (added in Stage 3), not by SHA-256, so a
+    line-ending-only difference does not stop a run and any other change does. Every r9 script that uses the engine
+    calls it first. The recorded blob IDs are in `LOG.md`; SHA-256 values stay recorded for the bytes on this machine.
   - In POC-2, B6 was calibrated on Cert thirds (Stage 6 Amendment 1). Plan R9 section 5.2 says S2 is calibrated
     on the design set (two halves) so all Cert signs stay available for the certificate. This is a different rule; follow
     R9 and state the difference.
