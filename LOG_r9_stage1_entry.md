@@ -159,6 +159,24 @@ zip had been opened or extracted, and no count of any kind existed.
   stops the stage.
 - Part B reports the size mismatch, conditions (a) and (b) and their results as facts.
 
+### Amendment 2 (14 Nov 2026, before any pole/class count)
+Made after reading the two readmes and the header lines of the GT csv files for their format, and before the audit was
+run. No pole, class or shared-unit count had been made; the only counts so far are the Amendment 1 image counts.
+
+- Check 1 applies. Reason: the readme states that XXXXX "represents the pole number from where is in the full
+  annotations of BelgiumTS database", that is, one numbering for the whole database, which meets the rule in (e).
+  Decided from the readme text only. Check 1 and check 2 counts are reported separately in Part B, as already set.
+- View order: BelgiumTSC has no camera index. YYYYY is "a running number for the views where the traffic sign is
+  annotated. There is no temporal order of the images, but they were where extracted in the order of the annotations
+  on the original pole from BelgiumTS." (readme, quoted as written). View order for all later stages = ascending YYYYY.
+  This replaces "camera order" and "camera number" wherever Part A or plan Stage 5 uses them.
+- Views per pole: reported as median and range (minimum, maximum), with no pass/fail. This replaces the "mostly small"
+  condition in (d).
+- The (g) projection uses poles, as written. Part B notes that from Stage 4 the split is by (pole, class) units, so the
+  real Cert size may be larger.
+- Part B reports the readme totals (4,591 training / 2,534 testing images) against the zip counts (4,575 / 2,520) as
+  a fact. The zip counts are used.
+
 ### Part B: results (fill from the printout after the run)
 - Date: ____ / Stage: R9 Stage 1 / Run tag: runs/btsc/stage1
 - Git commit of Part A: ____ | Git commit of the code: ____ (src/r9_stage1_audit.py SHA-256 ____)
