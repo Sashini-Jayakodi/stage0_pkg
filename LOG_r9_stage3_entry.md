@@ -155,3 +155,40 @@ frame qualifies, it escalates. Gate-failing frames give no evidence (Stage 1 gat
   imported, never edited.
 - Outputs in `runs/20261003_stage1/poc3/stage3/`: `stage3_design.json` (step 3), `stage3_summary.json` (step 5), each
   with the SHA-256 of the code and of every file read. `README_r9_stage3.md` gives the run commands.
+
+#### Design-set values (step 3; design tracks only, exploratory)
+Computed 2026-11-14 after the Part A commit (9be85ac), with the code committed first (05c1df5;
+`src/r9_stage3_design.py` SHA-256 1984e00d04fc7eeee75ac838de1cbab9888ea3714c9ce12d7630f9423fa48b65;
+`src/r9_stage3_scores.py` SHA-256
+ba6c3a745855d3216885cb832937fa69cef552bf37b00b53840aedaae2fcee0d). Command
+`py -3.12 -m src.r9_stage3_design --run runs/20261003_stage1`. Output
+`runs/20261003_stage1/poc3/stage3/stage3_design.json` SHA-256
+798585428c4cc345a760e347ded0c37f16c46f65a2ecf7dfa50473bacfb8e62b. Freeze check passed (all three blob IDs); design
+tables and gate flags reproduce Stage 1; files opened: seed0.npz, train_release.npz, scores_train_release.npz,
+frame_evidence.npz, head.npz, track_table_design.npz (not the pool table).
+- S2 halves: A (ICP) 141 tracks, B (ECDF and a, b) 120 tracks; the "about 130 per part" in (e) was an estimate: half A
+  gets the extra track of every class with an odd count. ICP calibration scores 4,031; ECDF values 2,994.
+  - S2-sum (primary): a = +0.3, b = +0.8, design AURC 0.00223. S2-min (secondary): a = +0.1, b = +0.9, AURC 0.00242.
+- Grids (lambda_0 = -inf in every score):
+  | Score | Distinct points | lambda_1 .. lambda_max | f_d range | e_d at lambda_0 | Tracks with no value |
+  |---|---|---|---|---|---|
+  | S1 | 30 | 2230.44 .. 24423.1 | 100.00 .. 30.27% | 14.94% (39/261) | 0 |
+  | S2-sum | 30 | 0.816132 .. 1.05461 | 99.62 .. 30.27% | 10.00% (26/260) | 1 |
+  | S2-min | 30 | 0.895792 .. 0.984803 | 99.62 .. 30.27% | 10.38% (27/260) | 1 |
+  | S3 | 14 | 9 .. 30 | 100.00 .. 61.30% | 14.94% (39/261) | 0 |
+  | S4 | 30 | 388.62 .. 1009.82 | 100.00 .. 30.27% | 14.94% (39/261) | 0 |
+  - S3's vote margin is an integer of at most 30, and 61.30% of design tracks reach 30, so its strictest point commits
+    61.30%, not about 30%.
+  - The S2 track with no value has fewer than 5 passing frames.
+- Starts (grid index, loosest = 0; -1 = no start possible) and the uncertified reference (loosest j with e_d <= alpha):
+  | Score | alpha | binom | hb | hb_a1 | hb_bs | reference |
+  |---|---|---|---|---|---|---|
+  | S1 | 0.5 / 1 / 2 / 3 / 5% | -1 / 20 / 29 / 29 / 29 | 4 / 12 / 19 / 23 / 28 | 5 / 14 / 21 / 24 / 29 | -1 / 20 / 29 / 29 / 29 | 4 / 3 / 1 / 1 / 1 |
+  | S2-sum | 0.5 / 1 / 2 / 3 / 5% | -1 / 20 / 29 / 29 / 29 | 4 / 12 / 19 / 23 / 28 | 5 / 14 / 21 / 24 / 29 | -1 / 20 / 29 / 29 / 29 | 3 / 3 / 2 / 1 / 1 |
+  | S2-min | 0.5 / 1 / 2 / 3 / 5% | -1 / 20 / 29 / 29 / 29 | 4 / 12 / 19 / 23 / 28 | 5 / 14 / 21 / 24 / 29 | -1 / 20 / 29 / 29 / 29 | 3 / 3 / 2 / 2 / 1 |
+  | S3 | 0.5 / 1 / 2 / 3 / 5% | -1 / 13 / 13 / 13 / 13 | 4 / 11 / 13 / 13 / 13 | 6 / 11 / 13 / 13 / 13 | -1 / 13 / 13 / 13 / 13 | 4 / 3 / 3 / 1 / 1 |
+  | S4 | 0.5 / 1 / 2 / 3 / 5% | -1 / 20 / 29 / 29 / 29 | 4 / 12 / 19 / 23 / 28 | 5 / 14 / 21 / 24 / 29 | -1 / 20 / 29 / 29 / 29 | 14 / 6 / 4 / 3 / 1 |
+- alpha 0.5%: no start possible at n = 784 for the exact binomial (needs design commit fraction >= 102%). The HB
+  starts `hb` and `hb_a1` do exist at 0.5% (index 4 to 6), so HB is tested at 0.5% while the exact binomial is not.
+- Full per-point tables (lambda, f_d, e_d, wrong, median commit position) are in the JSON and the printout.
+- No Cert or Test track was read. The runner checks this file's SHA-256 before use.
