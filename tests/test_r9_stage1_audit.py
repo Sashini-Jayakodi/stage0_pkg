@@ -133,6 +133,22 @@ def test_shared_detection_by_each_check(tmp_path):
     assert yes["gates"]["test_sign_units_after_removal"] == 1
 
 
+def test_check2_breakdown_and_summary_tamper(tmp_path):
+    from src.r9_stage1_breakdown import main as breakdown, split_check2
+    train, test = shared_case(tmp_path)
+    zdir, edir, man = setup_tree(tmp_path, train, test)
+    summary = A.audit(zdir, edir, man, check1_applies=True)
+    sp = tmp_path / "summary.json"
+    sp.write_text(json.dumps(summary))
+    out = breakdown(sp, sha256_file(sp), zdir, edir, man, tmp_path / "b.json")
+    # Check 2 units: (20,1) bytes only, (21,2) metadata only, (800,1) bytes and metadata.
+    assert out["check2_units"] == 3 == summary["shared"]["check2_total"]
+    assert (out["with_byte_identical_view"], out["class_size_roi_match_only"],
+            out["byte_identical_and_metadata"]) == (2, 1, 1)
+    with pytest.raises(SystemExit, match="SHA-256 differs"):
+        breakdown(sp, "0" * 64, zdir, edir, man, tmp_path / "c.json")
+
+
 def test_fa1_counts_poles_not_units(monkeypatch):
     monkeypatch.setattr(A, "F_A1_MIN_POLES", 3)
     # Two poles, four sign units: units >= 3 but poles < 3, so F-A1 must fail.
