@@ -38,6 +38,9 @@ for validity only). Target venue: IEEE Access. This repo (`stage0_pkg`) holds PO
    - POC-2 record (finished): a stage was done only when its Checks passed; failures and overrides are in `LOG.md`.
 6. Use confidence tags in explanations: [Certain], [Likely], [Guessing].
 7. Commit messages contain a short subject line and, if needed, a brief body describing the change. No trailer lines of any kind.
+8. No words or phrases anywhere in this project (commit messages, code comments, docstrings, LOG entries, README files,
+   docs, configs, output files) that suggest AI tools were used. This includes tool names, 'assistant', 'generated',
+   'prompt', 'session', 'model wrote', and similar. Write as the author.
 
 ## POC-3 (plan Revision 9)
 - Plan: `docs/poc3-implementation-plan-r9.md` (SHA-256 recorded in `LOG.md`, POC-3 Stage 0 entry). Read its sections 2
@@ -63,5 +66,6 @@ for validity only). Target venue: IEEE Access. This repo (`stage0_pkg`) holds PO
 
 ## Code style
 Short comments that say WHY each part exists. Synthetic-data pytest tests for every stage, with brute-force reference
-implementations, plus tamper tests (changed input files must be refused). Each stage also gets a
-`README_r8_stageN.md` and a `LOG_r8_stageN_entry.md` with blanks for the user to fill from the printout.
+implementations, plus tamper tests (changed input files must be refused). Each POC-3 stage also gets a
+`README_r9_stageN.md` and a `LOG_r9_stageN_entry.md` with blanks for the user to fill from the printout (POC-2 stages
+used `README_r8_stageN.md` and `LOG_r8_stageN_entry.md`; those files stay as they are).
