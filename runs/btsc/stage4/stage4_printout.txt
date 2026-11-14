@@ -1,0 +1,100 @@
+
+===== R9 Stage 4 step split | 2026-11-14T21:03:45Z | HEAD beeb114171d16fd8c3295ac00681d83f9a0348a3 | worktree clean False =====
+freeze check PASS (3 files by git blob ID)
+V4.1 counts after de-duplication: training {'views': 4575, 'classes': 62, 'poles': 1364, 'units': 1545} | testing {'views': 2520, 'classes': 53, 'poles': 701, 'units': 848} | testing after removal {'views': 2325, 'classes': 53, 'poles': 663, 'units': 783}
+duplicated GT rows dropped: training 16, testing 14; removed units 65
+testing design: 133 poles, 157 units, 465 views, 40 classes
+testing pool: 530 poles, 626 units, 1860 views, 53 classes
+testing strata: 53; strata on one side only: 13
+  stratum class 0: 2 pole(s), all pool
+  stratum class 2: 2 pole(s), all pool
+  stratum class 3: 2 pole(s), all pool
+  stratum class 5: 1 pole(s), all pool
+  stratum class 12: 1 pole(s), all pool
+  stratum class 20: 1 pole(s), all pool
+  stratum class 25: 1 pole(s), all pool
+  stratum class 27: 2 pole(s), all pool
+  stratum class 43: 2 pole(s), all pool
+  stratum class 44: 1 pole(s), all pool
+  stratum class 46: 2 pole(s), all pool
+  stratum class 49: 1 pole(s), all pool
+  stratum class 51: 1 pole(s), all pool
+testing classes on one side only: 13
+  class 0: 2 unit(s), all pool
+  class 2: 2 unit(s), all pool
+  class 3: 2 unit(s), all pool
+  class 5: 1 unit(s), all pool
+  class 12: 1 unit(s), all pool
+  class 20: 1 unit(s), all pool
+  class 25: 1 unit(s), all pool
+  class 27: 3 unit(s), all pool
+  class 43: 2 unit(s), all pool
+  class 44: 1 unit(s), all pool
+  class 46: 2 unit(s), all pool
+  class 49: 1 unit(s), all pool
+  class 51: 1 unit(s), all pool
+testing units per class (class: design / pool):
+  0: 0/2 | 1: 2/6 | 2: 0/2 | 3: 0/2 | 4: 1/3 | 5: 0/1 | 6: 1/1 | 7: 6/22 | 8: 1/3 | 10: 2/8
+  12: 0/1 | 13: 2/11 | 14: 1/4 | 16: 1/3 | 17: 12/45 | 18: 7/29 | 19: 10/42 | 20: 0/1 | 21: 3/12 | 22: 4/16
+  23: 1/4 | 24: 1/4 | 25: 0/1 | 27: 0/3 | 28: 3/14 | 29: 2/7 | 30: 2/10 | 31: 7/23 | 32: 28/100 | 34: 1/2
+  35: 10/41 | 37: 2/8 | 38: 10/46 | 39: 7/24 | 40: 3/13 | 41: 1/3 | 42: 1/2 | 43: 0/2 | 44: 0/1 | 45: 5/22
+  46: 0/2 | 47: 2/8 | 49: 0/1 | 51: 0/1 | 53: 1/7 | 54: 3/13 | 55: 1/4 | 56: 2/8 | 57: 3/10 | 58: 1/2
+  59: 1/5 | 60: 1/3 | 61: 5/18
+training fit part: 1228 poles, 1384 units, 4091 views, 62 classes | validation: 136 poles, 161 units, 484 views, 48 classes
+pole list SHA-256: design_poles a5da932ccef54c7dfa11721c79bdd38ad3f650eb209361d9b545555dc4722df5, pool_poles 2edd782dd226f257244252c07b80bf09392d2ff174766e12b4fd225de4e5b31d, train_val_poles b20d1e18ca1cd236fb11df08fbedb5e1b0364afbf1e078cb78bf5ff1f0f04eb0, train_fit_poles bad15b27b1145d1212f3456b77edda0a803913bf487d8837a6707e4c68b3b272
+split_summary.json SHA-256 475465d8c7de98366c555d42e4b5fdcbe7d3d3c74c0beae468d33d5f30b27bfd
+
+===== R9 Stage 4 step cache | 2026-11-14T21:05:44Z | HEAD beeb114171d16fd8c3295ac00681d83f9a0348a3 | worktree clean False =====
+freeze check PASS (3 files by git blob ID)
+cache train: 4575 views -> train_112.npy SHA-256 13a21060763323a72fed468b49d35ecf7cb51ede954edb5ab0f4f67fa44df5bc
+cache test: 2325 views -> test_112.npy SHA-256 94231770ef0cf99007eda8cc3ea73291c5fe9c1f3fae9b4eb1aa7c3bdb36c466
+cache_summary.json SHA-256 925c6ebe5a1c75c56311523fd5d716bbdf695b65e6a4b04e7ee2fe425f288214
+
+===== R9 Stage 4 step train | 2026-11-14T21:06:56Z | HEAD beeb114171d16fd8c3295ac00681d83f9a0348a3 | worktree clean False =====
+freeze check PASS (3 files by git blob ID)
+fine-tune: 4091 training-part views, 484 validation views (training release only); ImageNet weights resnet18-f37072fd.pth SHA-256 f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec; device cuda
+epoch  1 | train loss 2.1891 acc 0.5233 | val loss 0.4713 acc 0.8781 * | 3s
+epoch  2 | train loss 0.2548 acc 0.9455 | val loss 0.1768 acc 0.9545 * | 4s
+epoch  3 | train loss 0.0438 acc 0.9929 | val loss 0.1056 acc 0.9731 * | 6s
+epoch  4 | train loss 0.0141 acc 0.9983 | val loss 0.0649 acc 0.9793 * | 8s
+epoch  5 | train loss 0.0077 acc 0.9995 | val loss 0.0747 acc 0.9814 * | 9s
+epoch  6 | train loss 0.0040 acc 1.0000 | val loss 0.0758 acc 0.9814  | 11s
+epoch  7 | train loss 0.0028 acc 1.0000 | val loss 0.0756 acc 0.9814  | 12s
+epoch  8 | train loss 0.0035 acc 0.9998 | val loss 0.0658 acc 0.9835 * | 14s
+epoch  9 | train loss 0.0021 acc 1.0000 | val loss 0.0821 acc 0.9855 * | 15s
+epoch 10 | train loss 0.0018 acc 1.0000 | val loss 0.0738 acc 0.9835  | 17s
+epoch 11 | train loss 0.0015 acc 1.0000 | val loss 0.0777 acc 0.9876 * | 19s
+epoch 12 | train loss 0.0014 acc 1.0000 | val loss 0.0740 acc 0.9835  | 20s
+epoch 13 | train loss 0.0013 acc 1.0000 | val loss 0.0712 acc 0.9876 * | 22s
+epoch 14 | train loss 0.0011 acc 1.0000 | val loss 0.0738 acc 0.9855  | 23s
+epoch 15 | train loss 0.0011 acc 1.0000 | val loss 0.0753 acc 0.9855  | 25s
+epoch 16 | train loss 0.0011 acc 1.0000 | val loss 0.0749 acc 0.9855  | 26s
+epoch 17 | train loss 0.0010 acc 1.0000 | val loss 0.0739 acc 0.9876  | 28s
+epoch 18 | train loss 0.0010 acc 1.0000 | val loss 0.0747 acc 0.9876  | 29s
+early stop: no val improvement for 5 epochs
+epochs run 18 (stopped early: True); best epoch 13 (validation accuracy 0.9876, loss 0.0712)
+checkpoint SHA-256 83fdd0d1975f0b05f06ef45f8bfa45dc31846570f61db1be8da0299b06c5b76b
+train_summary.json SHA-256 9aee27951591f6e8ee10a80d3e2badd4b7df789259885104b084bccd08609e7e
+
+===== R9 Stage 4 step embed | 2026-11-14T21:08:22Z | HEAD beeb114171d16fd8c3295ac00681d83f9a0348a3 | worktree clean False =====
+freeze check PASS (3 files by git blob ID)
+train_fit: 4091 rows | max|norm-1| 1.0e-08 | max fc consistency error 2.4e-06 | argmax equals evaluate path: True
+train_val: 484 rows | max|norm-1| 8.7e-09 | max fc consistency error 2.3e-06 | argmax equals evaluate path: True
+test_design: 465 rows | max|norm-1| 8.4e-09 | max fc consistency error 2.2e-06 | argmax equals evaluate path: True
+test_pool: 1860 rows | max|norm-1| 9.8e-09 | max fc consistency error 2.2e-06 | argmax equals evaluate path: True
+embed_summary.json SHA-256 6abd9867331e0f66580bfaff722d1e290d5cd14df4139d2b4f572856cb023307
+
+===== R9 Stage 4 step head | 2026-11-14T21:08:40Z | HEAD beeb114171d16fd8c3295ac00681d83f9a0348a3 | worktree clean False =====
+freeze check PASS (3 files by git blob ID)
+head: fit on 4091 training-part views, Ledoit-Wolf shrinkage 0.0791, covariance condition number 84.1
+train_fit: 4091 views | head acc 1.0000 | softmax acc 1.0000 | agreement 1.0000
+train_val: 484 views | head acc 0.9814 | softmax acc 0.9876 | agreement 0.9938
+test_design per view: 465 views | head acc 0.9699 | softmax acc 0.9699 | agreement 0.9871
+test_design per unit at last view: 157 units | head acc 0.9554 | softmax acc 0.9554
+test_pool: 1860 views (row count only; no label read)
+head_summary.json SHA-256 624eb57d276f1c32489c652e1e7b723517f5af6b060c831ed5be34c6e822b5e5
+
+===== R9 Stage 4 step vchecks | 2026-11-14T21:08:53Z | HEAD beeb114171d16fd8c3295ac00681d83f9a0348a3 | worktree clean False =====
+freeze check PASS (3 files by git blob ID)
+V-checks: V4.1 PASS | V4.2 PASS | V4.3 PASS | V4.4 PASS | V4.5 PASS | V4.6 PASS | ALL PASS: True
+stage4_summary.json SHA-256 1c66a0119d39473f818f1add56c8a878d32ddfcc91aef4b0f5a9bd76568a3a31

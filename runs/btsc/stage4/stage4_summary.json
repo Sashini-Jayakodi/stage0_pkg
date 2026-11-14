@@ -1,0 +1,60 @@
+{
+  "stage": "R9 Stage 4",
+  "run_utc": "2026-11-14T21:08:55Z",
+  "git_head": "beeb114171d16fd8c3295ac00681d83f9a0348a3",
+  "worktree_clean": false,
+  "code_sha256": {
+    "src/r9_stage4.py": "d6ca35f8a42f9db26fa65205c8a4046ea190d09b06f10699dbb12f5cdc653150",
+    "src/r9_stage4_data.py": "18b853108207f97a11dc610d6bbc87f09716dba73bce1b96a3e64edcf19fde81",
+    "src/r9_stage4_model.py": "a0cd5a5220c2f6960ad5863ff273b91691b6196e23197075b776ed6bbd53ebb2",
+    "src/r9_btsc_guard.py": "d77d87365674560ff8013fc84a6ae51c5c1c93866c90cb3f72483c1ce8664d8d",
+    "configs/r9_btsc_stage4.yaml": "f92bcc7403953873620c398ffdfdb93bf3c55c2a12db6698793dee502786a7a8"
+  },
+  "versions": {
+    "python": "3.12.10",
+    "torch": "2.14.1+cu132",
+    "torchvision": "0.29.1+cu132",
+    "numpy": "2.5.2"
+  },
+  "inputs_sha256": {
+    "stage1_summary.json": "77ba6a7042a471fa3320059d85a5ec967a8d30a613355c05c74815d03277a0dd",
+    "downloads_manifest.json": "06c90353f75a8c4133991eb32dad2281d922622cecc0591a1b9b5bc819ae4ca3",
+    "BelgiumTSC_Training.zip": "e5f6a33c18716917d69989488b9f6af573821a7126ca1390af7e75403af1ee61",
+    "BelgiumTSC_Testing.zip": "1811447452f02ede83c0237f2852fa8bd278f39e40ddcb1ba01c2ed212e735fa"
+  },
+  "step_summaries_sha256": {
+    "split_summary.json": "475465d8c7de98366c555d42e4b5fdcbe7d3d3c74c0beae468d33d5f30b27bfd",
+    "cache_summary.json": "925c6ebe5a1c75c56311523fd5d716bbdf695b65e6a4b04e7ee2fe425f288214",
+    "train_summary.json": "9aee27951591f6e8ee10a80d3e2badd4b7df789259885104b084bccd08609e7e",
+    "embed_summary.json": "6abd9867331e0f66580bfaff722d1e290d5cd14df4139d2b4f572856cb023307",
+    "head_summary.json": "624eb57d276f1c32489c652e1e7b723517f5af6b060c831ed5be34c6e822b5e5"
+  },
+  "checkpoint_sha256": "83fdd0d1975f0b05f06ef45f8bfa45dc31846570f61db1be8da0299b06c5b76b",
+  "vchecks": {
+    "V4.3": "PASS",
+    "V4.1": "PASS",
+    "V4.2": "PASS",
+    "V4.4": "PASS",
+    "V4.5": "PASS",
+    "V4.6": "PASS"
+  },
+  "all_pass": true,
+  "files_sha256": {
+    "train_views.csv": "090a8f87b2e05f64289f6a02cd9525339c9dce7fa6c5615bd8a9e083703b2315",
+    "test_views.csv": "4104119f3bbe5423dd2a17a8e9739f79a2af4df2f7f699329d413a60c789a2da",
+    "split_poles.json": "d0d39881bd394579502aa1b63b684a0460445a67f097e708d481d7062b78c44e",
+    "cache/train_112.npy": "13a21060763323a72fed468b49d35ecf7cb51ede954edb5ab0f4f67fa44df5bc",
+    "cache/test_112.npy": "94231770ef0cf99007eda8cc3ea73291c5fe9c1f3fae9b4eb1aa7c3bdb36c466",
+    "model/best.pt": "83fdd0d1975f0b05f06ef45f8bfa45dc31846570f61db1be8da0299b06c5b76b",
+    "model/history.csv": "6e5b2b3fa590d0caf63a18d80777edbd0da15d4b05842a0cb5e2449daa743012",
+    "embeddings/train_fit.npz": "74661849a135485e6097014cf8b5edb7e165418354828644371cc8ecd5e5488d",
+    "embeddings/train_val.npz": "3969f2104621b3aaa99aab9ddb5dc11838f7111d9dd1cb32b3ca8944cd57c749",
+    "embeddings/test_design.npz": "10085b80c20fee107cc1f398521c6bf481806d29ee00b6b0ecf0b8741c0b52fd",
+    "embeddings/test_pool.npz": "47fa0f5cdeab2456ff325fc1cb707ef08b7ef3b0e08ea6c39c47d25dc4eb3183",
+    "head/head.npz": "a3b9d94e0351e1da9eb5bc233eff69c2acb6a0a3a27e379f31cd2dcfc7f45483",
+    "head/scores_train_fit.npz": "aa5829575364a979cfb01e69d890b3199810d9b46eb50f789c800caa0843df04",
+    "head/scores_train_val.npz": "e56c2d1ff5454bc14cdbf747ee255d66928d8c4e3429425e01b157af12928cd8",
+    "head/scores_test_design.npz": "10f5483002d95ebb9d78e90771f3fbc56dd1f4ddc6f05c1c2efb6da73a6dcaef",
+    "head/scores_test_pool.npz": "a5a01131b5f11dea529e3ac75be661058204d2f78cce8e14f7de799b1fc8b9ee"
+  }
+}

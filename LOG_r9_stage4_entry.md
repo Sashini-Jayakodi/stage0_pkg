@@ -166,21 +166,96 @@ label-dependent number on pool poles (hard rule 3; plan section 2). delta = 0.1 
 4. The 65 removed units: not cached and not embedded.
 5. Split seed: 0.
 
-### Part B: results (fill from the printout after the run)
-- Date: ____ / Stage: R9 Stage 4 / Run tag: runs/btsc/stage4
-- Git commit of Part A: ____ | Git commit of the code: ____ | Run command: ____
-- Input hash checks: ____
-- Counts (V4.1): ____
-- Split (V4.2): design ____ poles / ____ units / ____ classes; pool ____ poles / ____ units / ____ classes; views
-  ____ / ____
-- Training validation split: ____ poles / ____ units in validation; classes in training part ____
-- ImageNet weight file SHA-256: ____
-- Training: best epoch ____ of ____ run; validation accuracy ____
-- Checkpoint SHA-256: ____
-- Embedding checks (V4.5): ____
-- Head: shrinkage ____; head / softmax accuracy, training part ____ / ____, validation ____ / ____
-- Design-pole accuracy (decision 3, no threshold): ____
-- Output: stage4_summary.json SHA-256 ____
-- Checks: V4.1 ____ | V4.2 ____ | V4.3 ____ | V4.4 ____ | V4.5 ____ | V4.6 ____
-- Deviation from the plan? ____
+### Part B: results (filled from the printout after the run)
+- Date: 2026-11-14 (steps run 21:03:45 to 21:08:53 UTC) / Stage: R9 Stage 4 / Run tag: runs/btsc/stage4
+- Git commit of Part A: 1d9e00b | Git commit of the code: beeb114 (HEAD for all six steps). Code SHA-256 (working
+  copy at run time, recorded in every step summary): src/r9_stage4.py
+  d6ca35f8a42f9db26fa65205c8a4046ea190d09b06f10699dbb12f5cdc653150, src/r9_stage4_data.py
+  18b853108207f97a11dc610d6bbc87f09716dba73bce1b96a3e64edcf19fde81, src/r9_stage4_model.py
+  a0cd5a5220c2f6960ad5863ff273b91691b6196e23197075b776ed6bbd53ebb2, src/r9_btsc_guard.py
+  d77d87365674560ff8013fc84a6ae51c5c1c93866c90cb3f72483c1ce8664d8d, configs/r9_btsc_stage4.yaml
+  f92bcc7403953873620c398ffdfdb93bf3c55c2a12db6698793dee502786a7a8.
+- Run commands, in order: `py -3.12 -m src.r9_stage4 split`, `cache`, `train`, `embed`, `head`, `vchecks`. Each step
+  began with the freeze check (PASS, 3 files by git blob ID). Environment: Python 3.12.10, torch 2.14.1+cu132,
+  torchvision 0.29.1+cu132, numpy 2.5.2, NVIDIA GeForce RTX 5050 Laptop GPU.
+- Input hash checks: Stage 1 summary, manifest, both zips, both extracted trees (file set and CRC-32), all GT files and
+  both readmes matched the recorded values in the split, cache and vchecks steps.
+- Counts after de-duplication (V4.1): training 4,575 views, 62 classes, 1,364 poles, 1,545 units; testing 2,520 views,
+  53 classes, 701 poles, 848 units; testing after removing the 65 Stage 1 units: 2,325 views, 53 classes, 663 poles,
+  783 units. Duplicated GT rows dropped: training 16, testing 14 (all identical, so no stop).
+- Split (V4.2), testing release:
+
+  | Side | Poles | Units | Views | Classes |
+  |---|---|---|---|---|
+  | Design | 133 | 157 | 465 | 40 |
+  | Pool | 530 | 626 | 1,860 | 53 |
+
+  - 53 strata; 13 strata on one side only, all in the pool (stratum classes 0, 2, 3, 27, 43, 46 with 2 poles each;
+    5, 12, 20, 25, 44, 49, 51 with 1 pole each).
+  - 13 classes in the pool only (units): 0 (2), 2 (2), 3 (2), 5 (1), 12 (1), 20 (1), 25 (1), 27 (3), 43 (2), 44 (1),
+    46 (2), 49 (1), 51 (1). The design set holds 40 of the 53 testing classes. This follows from the rule: strata of
+    one or two poles have a quota of 0.2 or 0.4 and got no design place in the remainder step.
+  - Units per class (design / pool), counts only: 0: 0/2, 1: 2/6, 2: 0/2, 3: 0/2, 4: 1/3, 5: 0/1, 6: 1/1, 7: 6/22,
+    8: 1/3, 10: 2/8, 12: 0/1, 13: 2/11, 14: 1/4, 16: 1/3, 17: 12/45, 18: 7/29, 19: 10/42, 20: 0/1, 21: 3/12,
+    22: 4/16, 23: 1/4, 24: 1/4, 25: 0/1, 27: 0/3, 28: 3/14, 29: 2/7, 30: 2/10, 31: 7/23, 32: 28/100, 34: 1/2,
+    35: 10/41, 37: 2/8, 38: 10/46, 39: 7/24, 40: 3/13, 41: 1/3, 42: 1/2, 43: 0/2, 44: 0/1, 45: 5/22, 46: 0/2,
+    47: 2/8, 49: 0/1, 51: 0/1, 53: 1/7, 54: 3/13, 55: 1/4, 56: 2/8, 57: 3/10, 58: 1/2, 59: 1/5, 60: 1/3, 61: 5/18.
+- Training release split: fit part 1,228 poles, 1,384 units, 4,091 views, 62 classes; validation 136 poles, 161 units,
+  484 views, 48 classes.
+- Pole lists (`split_poles.json`, SHA-256 d0d39881bd394579502aa1b63b684a0460445a67f097e708d481d7062b78c44e); SHA-256 of
+  each list as JSON: design a5da932ccef54c7dfa11721c79bdd38ad3f650eb209361d9b545555dc4722df5, pool
+  2edd782dd226f257244252c07b80bf09392d2ff174766e12b4fd225de4e5b31d, training validation
+  b20d1e18ca1cd236fb11df08fbedb5e1b0364afbf1e078cb78bf5ff1f0f04eb0, training fit
+  bad15b27b1145d1212f3456b77edda0a803913bf487d8837a6707e4c68b3b272.
+- ImageNet weight file `resnet18-f37072fd.pth` (local torch hub cache, no download) SHA-256
+  f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec.
+- Training: 18 epochs run, early stop (no validation improvement for 5 epochs); best epoch 13, validation accuracy
+  0.9876 (478 of 484 views), validation loss 0.0712; 29.9 s on the GPU, mixed precision for training.
+- Checkpoint `model/best.pt` SHA-256 83fdd0d1975f0b05f06ef45f8bfa45dc31846570f61db1be8da0299b06c5b76b.
+- Embedding checks (V4.5): max |norm - 1| 1.0e-08 / 8.7e-09 / 8.4e-09 / 9.8e-09 and max fc consistency error 2.4e-06 /
+  2.3e-06 / 2.2e-06 / 2.2e-06 for training fit (4,091 rows) / training validation (484) / design (465) / pool (1,860);
+  logits argmax equals the evaluation path in all four sets. The pool file holds no labels.
+- Head: fitted on the 4,091 training-part views; Ledoit-Wolf shrinkage 0.0791, covariance condition number 84.1.
+  Training part: head 1.0000, softmax 1.0000, agreement 1.0000. Training validation: head 0.9814, softmax 0.9876,
+  agreement 0.9938.
+- Design-pole accuracy (decision 3, no threshold): per view 465 views, head 0.9699 (451 correct), softmax 0.9699,
+  agreement 0.9871; per unit at the last view, 157 units, head 0.9554 (150 correct), softmax 0.9554.
+- Pool poles: row count only (1,860 views); no pool label, error or accuracy was read or computed.
+- Large files (git-ignored by `*.npy`, `*.npz`, `runs/**/*.pt`; SHA-256 here and in `stage4_summary.json`):
+  - `cache/train_112.npy` 13a21060763323a72fed468b49d35ecf7cb51ede954edb5ab0f4f67fa44df5bc
+  - `cache/test_112.npy` 94231770ef0cf99007eda8cc3ea73291c5fe9c1f3fae9b4eb1aa7c3bdb36c466
+  - `model/best.pt` 83fdd0d1975f0b05f06ef45f8bfa45dc31846570f61db1be8da0299b06c5b76b
+  - `embeddings/train_fit.npz` 74661849a135485e6097014cf8b5edb7e165418354828644371cc8ecd5e5488d
+  - `embeddings/train_val.npz` 3969f2104621b3aaa99aab9ddb5dc11838f7111d9dd1cb32b3ca8944cd57c749
+  - `embeddings/test_design.npz` 10085b80c20fee107cc1f398521c6bf481806d29ee00b6b0ecf0b8741c0b52fd
+  - `embeddings/test_pool.npz` 47fa0f5cdeab2456ff325fc1cb707ef08b7ef3b0e08ea6c39c47d25dc4eb3183
+  - `head/head.npz` a3b9d94e0351e1da9eb5bc233eff69c2acb6a0a3a27e379f31cd2dcfc7f45483
+  - `head/scores_train_fit.npz` aa5829575364a979cfb01e69d890b3199810d9b46eb50f789c800caa0843df04
+  - `head/scores_train_val.npz` e56c2d1ff5454bc14cdbf747ee255d66928d8c4e3429425e01b157af12928cd8
+  - `head/scores_test_design.npz` 10f5483002d95ebb9d78e90771f3fbc56dd1f4ddc6f05c1c2efb6da73a6dcaef
+  - `head/scores_test_pool.npz` a5a01131b5f11dea529e3ac75be661058204d2f78cce8e14f7de799b1fc8b9ee
+- Step summaries (committed): split 475465d8c7de98366c555d42e4b5fdcbe7d3d3c74c0beae468d33d5f30b27bfd, cache
+  925c6ebe5a1c75c56311523fd5d716bbdf695b65e6a4b04e7ee2fe425f288214, train
+  9aee27951591f6e8ee10a80d3e2badd4b7df789259885104b084bccd08609e7e, embed
+  6abd9867331e0f66580bfaff722d1e290d5cd14df4139d2b4f572856cb023307, head
+  624eb57d276f1c32489c652e1e7b723517f5af6b060c831ed5be34c6e822b5e5.
+- Output: stage4_summary.json SHA-256 1c66a0119d39473f818f1add56c8a878d32ddfcc91aef4b0f5a9bd76568a3a31.
+- Checks: V4.1 PASS | V4.2 PASS | V4.3 PASS | V4.4 PASS | V4.5 PASS | V4.6 PASS | ALL PASS: True.
+- Facts about the run:
+  - Every step header and step summary records `worktree clean False`. The working tree held only the untracked
+    Stage 4 outputs (the runner creates `stage4_printout.txt` before it checks git status); no tracked file was
+    changed and HEAD was beeb114 for all six steps. The author decided not to change the code after the split step and
+    to record this here.
+  - The train step printed a PyTorch UserWarning that a non-writable NumPy array (the read-only mmap cache) was turned
+    into a tensor. Nothing writes to that tensor. The warning went to stderr, so it is not in `stage4_printout.txt`.
+  - Before the run, the first full test suite run had one failure, the POC-1 test
+    `tests/test_stage3.py::test_ledoit_wolf_matches_sklearn` (ImportError); it passed alone and the rerun of the full
+    suite gave 435 passed. This matches the intermittent Windows Application Control block on scikit-learn recorded in
+    `docs/HANDOFF.md`; no POC-3 code imports scikit-learn.
+  - V4.6 checks the cache shape against the view tables and re-decodes three rows per cache (first, middle, last).
+- Deviation from the plan? Yes: (1) plan Stage 4 says "Cache crops at 112x112"; the released images are cached whole,
+  without a further ROI crop (decision 1). (2) The split is by pole with (pole, class) as the analysis unit (Stage 1
+  Amendment 2); 13 small classes are in the pool only. (3) Early stopping uses a by-pole 10% validation split of the
+  training release (Part A (d)), not a split by image as in POC-1. (4) Part A (f) named `results.json` as a training
+  output; the training values are in `train_summary.json` instead, and no `last.pt` is written.
 - Next step: Stage 5 (BelgiumTSC design phase and freeze F3), only when the author says so.

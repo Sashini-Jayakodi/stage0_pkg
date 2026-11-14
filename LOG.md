@@ -1402,3 +1402,40 @@ Replaces the "Data roles, design set only" item of (e). Everything else in (e) i
   primary, chosen before any Cert number); S2 calibrated on design halves of 141 / 120 tracks; no exact-binomial start
   at 0.5%. The review list of above-alpha cells missed S4 2% seed 0; added in Part B.
 - Next step: Stage 4 (BelgiumTSC model and cache), only when the author says so.
+
+## POC-3 (R9) Stage 4: BelgiumTSC model, cache, design/pool split, embeddings and head
+
+- Date: 2026-11-14 / Stage: R9 Stage 4 / Run tag: runs/btsc/stage4
+- Config hash / checkpoint hash / git commit: Part A 1d9e00b; code beeb114 (HEAD for all six steps; configs/
+  r9_btsc_stage4.yaml SHA-256 f92bcc7403953873620c398ffdfdb93bf3c55c2a12db6698793dee502786a7a8). Checkpoint
+  `runs/btsc/stage4/model/best.pt` SHA-256 83fdd0d1975f0b05f06ef45f8bfa45dc31846570f61db1be8da0299b06c5b76b (ImageNet
+  weights resnet18-f37072fd.pth SHA-256 f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec, local copy).
+  Output stage4_summary.json SHA-256 1c66a0119d39473f818f1add56c8a878d32ddfcc91aef4b0f5a9bd76568a3a31; split_poles.json
+  SHA-256 d0d39881bd394579502aa1b63b684a0460445a67f097e708d481d7062b78c44e. Inputs hash-checked against the Stage 1
+  summary (77ba6a70...a0dd) and manifest.
+- What was done: one view per image (class folder, file name); dropped the 65 Stage 1 removed units; split the testing
+  poles by pole (rarest-class strata, largest remainder, seed 0) into design and pool; cached whole images at 112 x 112;
+  fine-tuned a 62-class ResNet-18 once on the training release with the POC-1 recipe (early stopping on 10% of
+  training poles); extracted embeddings; fitted the tied-Gaussian head on the training part; added the pre-F3 guard
+  `src/r9_btsc_guard.py` (pool labels refused until configs/frozen_r9_btsc.yaml is frozen). Full record in
+  `LOG_r9_stage4_entry.md`.
+- Result numbers (from stage4_summary.json and the step summaries):
+  - Counts: training 4,575 views, 62 classes, 1,364 poles, 1,545 units; testing 2,520 views, 53 classes, 701 poles,
+    848 units; after removal 2,325 views, 663 poles, 783 units. Duplicated GT rows dropped 16 / 14.
+  - Split: design 133 poles, 157 units, 465 views, 40 classes; pool 530 poles, 626 units, 1,860 views, 53 classes.
+    13 classes (0, 2, 3, 5, 12, 20, 25, 27, 43, 44, 46, 49, 51; 1 to 3 units each) are in the pool only.
+  - Training: 18 epochs, early stop; best epoch 13, validation accuracy 0.9876 (training-release poles).
+  - Head: shrinkage 0.0791; training validation head 0.9814, softmax 0.9876.
+  - Design-pole accuracy (no threshold): per view head 0.9699 (451 / 465), per unit at the last view head 0.9554
+    (150 / 157). Pool: row counts only.
+- Checks: V4.1 PASS | V4.2 PASS | V4.3 PASS | V4.4 PASS | V4.5 PASS | V4.6 PASS.
+- Decision taken and why: Part A decisions 1 to 5 (whole image, head on the training part, design accuracy without
+  threshold, removed units not cached, seed 0), taken before the Part A commit. Caches, embeddings, scores and the
+  checkpoint stay git-ignored; their SHA-256 values are in `LOG_r9_stage4_entry.md` Part B and stage4_summary.json.
+- Deviation from the plan? Yes: whole released images cached without a further ROI crop; split by pole with
+  (pole, class) as the unit; early stopping on a by-pole training-release split; training values in
+  train_summary.json instead of results.json. Run facts: `worktree clean False` in every step because the Stage 4
+  outputs were untracked (HEAD beeb114 throughout); a PyTorch non-writable-array warning in the train step; one
+  intermittent scikit-learn ImportError in a POC-1 test before the run, 435 passed on rerun. Details in
+  `LOG_r9_stage4_entry.md` Part B.
+- Next step: Stage 5 (BelgiumTSC design phase and freeze F3), only when the author says so.

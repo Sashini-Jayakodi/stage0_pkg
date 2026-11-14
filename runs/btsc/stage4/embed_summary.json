@@ -1,0 +1,52 @@
+{
+  "stage": "R9 Stage 4, embed",
+  "run_utc": "2026-11-14T21:08:27Z",
+  "git_head": "beeb114171d16fd8c3295ac00681d83f9a0348a3",
+  "worktree_clean": false,
+  "code_sha256": {
+    "src/r9_stage4.py": "d6ca35f8a42f9db26fa65205c8a4046ea190d09b06f10699dbb12f5cdc653150",
+    "src/r9_stage4_data.py": "18b853108207f97a11dc610d6bbc87f09716dba73bce1b96a3e64edcf19fde81",
+    "src/r9_stage4_model.py": "a0cd5a5220c2f6960ad5863ff273b91691b6196e23197075b776ed6bbd53ebb2",
+    "src/r9_btsc_guard.py": "d77d87365674560ff8013fc84a6ae51c5c1c93866c90cb3f72483c1ce8664d8d",
+    "configs/r9_btsc_stage4.yaml": "f92bcc7403953873620c398ffdfdb93bf3c55c2a12db6698793dee502786a7a8"
+  },
+  "versions": {
+    "python": "3.12.10",
+    "torch": "2.14.1+cu132",
+    "torchvision": "0.29.1+cu132",
+    "numpy": "2.5.2"
+  },
+  "checkpoint_sha256": "83fdd0d1975f0b05f06ef45f8bfa45dc31846570f61db1be8da0299b06c5b76b",
+  "checks": {
+    "train_fit": {
+      "rows": 4091,
+      "max_norm_error": 1.0260465588274315e-08,
+      "max_fc_consistency_error": 2.3719469233185464e-06,
+      "argmax_equals_evaluate": true
+    },
+    "train_val": {
+      "rows": 484,
+      "max_norm_error": 8.651910743395774e-09,
+      "max_fc_consistency_error": 2.2519794384834313e-06,
+      "argmax_equals_evaluate": true
+    },
+    "test_design": {
+      "rows": 465,
+      "max_norm_error": 8.40797409473737e-09,
+      "max_fc_consistency_error": 2.2023681367500103e-06,
+      "argmax_equals_evaluate": true
+    },
+    "test_pool": {
+      "rows": 1860,
+      "max_norm_error": 9.794690836173459e-09,
+      "max_fc_consistency_error": 2.238495390827211e-06,
+      "argmax_equals_evaluate": true
+    }
+  },
+  "files_sha256": {
+    "embeddings/train_fit.npz": "74661849a135485e6097014cf8b5edb7e165418354828644371cc8ecd5e5488d",
+    "embeddings/train_val.npz": "3969f2104621b3aaa99aab9ddb5dc11838f7111d9dd1cb32b3ca8944cd57c749",
+    "embeddings/test_design.npz": "10085b80c20fee107cc1f398521c6bf481806d29ee00b6b0ecf0b8741c0b52fd",
+    "embeddings/test_pool.npz": "47fa0f5cdeab2456ff325fc1cb707ef08b7ef3b0e08ea6c39c47d25dc4eb3183"
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "stage": "R9 Stage 4, train",
+  "run_utc": "2026-11-14T21:07:26Z",
+  "git_head": "beeb114171d16fd8c3295ac00681d83f9a0348a3",
+  "worktree_clean": false,
+  "code_sha256": {
+    "src/r9_stage4.py": "d6ca35f8a42f9db26fa65205c8a4046ea190d09b06f10699dbb12f5cdc653150",
+    "src/r9_stage4_data.py": "18b853108207f97a11dc610d6bbc87f09716dba73bce1b96a3e64edcf19fde81",
+    "src/r9_stage4_model.py": "a0cd5a5220c2f6960ad5863ff273b91691b6196e23197075b776ed6bbd53ebb2",
+    "src/r9_btsc_guard.py": "d77d87365674560ff8013fc84a6ae51c5c1c93866c90cb3f72483c1ce8664d8d",
+    "configs/r9_btsc_stage4.yaml": "f92bcc7403953873620c398ffdfdb93bf3c55c2a12db6698793dee502786a7a8"
+  },
+  "versions": {
+    "python": "3.12.10",
+    "torch": "2.14.1+cu132",
+    "torchvision": "0.29.1+cu132",
+    "numpy": "2.5.2"
+  },
+  "best_epoch": 13,
+  "best_val_acc": 0.987603305785124,
+  "best_val_loss": 0.07121697733224916,
+  "epochs_run": 18,
+  "stopped_early": true,
+  "use_amp": true,
+  "seconds": 29.9,
+  "n_fit_views": 4091,
+  "n_val_views": 484,
+  "seed": 0,
+  "recipe": {
+    "epochs": 20,
+    "patience": 5,
+    "batch_size": 128,
+    "lr_backbone": 0.0002,
+    "lr_head": 0.001,
+    "weight_decay": 0.0001,
+    "warmup_epochs": 1,
+    "amp": true,
+    "aug": {
+      "crop_area_scale": [
+        0.85,
+        1.0
+      ],
+      "crop_aspect": [
+        0.9,
+        1.1
+      ],
+      "rotation_deg": 10,
+      "contrast": 0.2,
+      "brightness": 0.0
+    }
+  },
+  "imagenet_weights_file": "resnet18-f37072fd.pth",
+  "imagenet_weights_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+  "checkpoint_sha256": "83fdd0d1975f0b05f06ef45f8bfa45dc31846570f61db1be8da0299b06c5b76b",
+  "device": "cuda",
+  "gpu": "NVIDIA GeForce RTX 5050 Laptop GPU",
+  "files_sha256": {
+    "model/best.pt": "83fdd0d1975f0b05f06ef45f8bfa45dc31846570f61db1be8da0299b06c5b76b",
+    "model/history.csv": "6e5b2b3fa590d0caf63a18d80777edbd0da15d4b05842a0cb5e2449daa743012"
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "stage": "R9 Stage 4, head",
+  "run_utc": "2026-11-14T21:08:41Z",
+  "git_head": "beeb114171d16fd8c3295ac00681d83f9a0348a3",
+  "worktree_clean": false,
+  "code_sha256": {
+    "src/r9_stage4.py": "d6ca35f8a42f9db26fa65205c8a4046ea190d09b06f10699dbb12f5cdc653150",
+    "src/r9_stage4_data.py": "18b853108207f97a11dc610d6bbc87f09716dba73bce1b96a3e64edcf19fde81",
+    "src/r9_stage4_model.py": "a0cd5a5220c2f6960ad5863ff273b91691b6196e23197075b776ed6bbd53ebb2",
+    "src/r9_btsc_guard.py": "d77d87365674560ff8013fc84a6ae51c5c1c93866c90cb3f72483c1ce8664d8d",
+    "configs/r9_btsc_stage4.yaml": "f92bcc7403953873620c398ffdfdb93bf3c55c2a12db6698793dee502786a7a8"
+  },
+  "versions": {
+    "python": "3.12.10",
+    "torch": "2.14.1+cu132",
+    "torchvision": "0.29.1+cu132",
+    "numpy": "2.5.2"
+  },
+  "features": "l2-normalised 512-d embeddings, no PCA",
+  "fit_set": "train_fit",
+  "shrinkage": 0.07912917109859334,
+  "cov_condition_number": 84.10187882732357,
+  "cov_eig_min": 2.4288786403877556e-05,
+  "cov_eig_max": 0.0020427325710016546,
+  "results": {
+    "train_fit": {
+      "rows": 4091,
+      "head_accuracy": 1.0,
+      "softmax_accuracy": 1.0,
+      "label_agreement": 1.0
+    },
+    "train_val": {
+      "rows": 484,
+      "head_accuracy": 0.981404958677686,
+      "softmax_accuracy": 0.987603305785124,
+      "label_agreement": 0.993801652892562
+    },
+    "test_design": {
+      "per_view": {
+        "rows": 465,
+        "head_accuracy": 0.9698924731182795,
+        "softmax_accuracy": 0.9698924731182795,
+        "label_agreement": 0.9870967741935484
+      },
+      "per_unit_last_view": {
+        "units": 157,
+        "head_accuracy": 0.9554140127388535,
+        "softmax_accuracy": 0.9554140127388535
+      }
+    },
+    "test_pool": {
+      "rows": 1860
+    }
+  },
+  "files_sha256": {
+    "head/head.npz": "a3b9d94e0351e1da9eb5bc233eff69c2acb6a0a3a27e379f31cd2dcfc7f45483",
+    "head/scores_train_fit.npz": "aa5829575364a979cfb01e69d890b3199810d9b46eb50f789c800caa0843df04",
+    "head/scores_train_val.npz": "e56c2d1ff5454bc14cdbf747ee255d66928d8c4e3429425e01b157af12928cd8",
+    "head/scores_test_design.npz": "10f5483002d95ebb9d78e90771f3fbc56dd1f4ddc6f05c1c2efb6da73a6dcaef",
+    "head/scores_test_pool.npz": "a5a01131b5f11dea529e3ac75be661058204d2f78cce8e14f7de799b1fc8b9ee"
+  }
+}
