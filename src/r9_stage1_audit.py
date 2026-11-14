@@ -113,6 +113,7 @@ def release_counts(rel):
         classes_per_pole[p].add(c)
     multi = [p for p, cs in classes_per_pole.items() if len(cs) > 1]
     vpu = Counter(min(n, 4) for n in units.values())
+    vpp = list(Counter(v["pole"] for v in views).values())
     sizes = np.array([v["size"] for v in views]) if views else np.array([0])
     return {
         "images": rel["n_images"],
@@ -124,7 +125,10 @@ def release_counts(rel):
         "sign_units_per_class": {str(c): n for c, n in sorted(Counter(c for _, c in units).items())},
         "poles_with_more_than_one_class": len(multi),
         "extra_sign_units_from_multi_class_poles": len(units) - len(poles),
-        "views_per_pole_median": float(np.median(list(Counter(v["pole"] for v in views).values()))) if views else 0,
+        # Amendment 2: views per pole as median and range, no pass/fail.
+        "views_per_pole_median": float(np.median(vpp)) if vpp else 0,
+        "views_per_pole_min": min(vpp) if vpp else 0,
+        "views_per_pole_max": max(vpp) if vpp else 0,
         "roi_shorter_side_quantiles": {str(q): float(np.quantile(sizes, q))
                                         for q in (0, 0.1, 0.25, 0.5, 0.75, 0.9, 1)},
         "consistency_failures": {k: len(v) for k, v in rel["fails"].items()},

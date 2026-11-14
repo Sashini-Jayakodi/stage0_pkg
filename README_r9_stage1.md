@@ -34,7 +34,7 @@ py -3.12 -m src.r9_stage1_audit --check1-applies {yes|no} --dits-retry
 - `inputs_sha256`, `gt_sha256` (every GT csv), `readme_sha256`, `code_sha256`.
 - `counts.training` / `counts.testing` (Part A (c)): images, class folders, distinct class IDs, pole numbers, sign
   units (pole, class), views per sign unit (1, 2, 3, 4+), sign units per class, poles with more than one class and the
-  extra sign units they add, median views per pole, ROI shorter-side quantiles, consistency failures with examples.
+  extra sign units they add, views per pole (median, minimum, maximum), ROI shorter-side quantiles, consistency failures with examples.
 - `shared` (Part A (e)): whether check 1 applied; flagged by check 1 only, check 2 only, both; check 1 and check 2
   totals; number removed.
 - `gates` (Part A (f)): testing poles and sign units after removal; F-A1 (poles >= 600); F-A2.

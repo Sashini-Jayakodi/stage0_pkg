@@ -103,6 +103,8 @@ def test_multi_class_pole(tmp_path):
     assert c["poles_with_more_than_one_class"] == 1
     assert c["extra_sign_units_from_multi_class_poles"] == 1
     assert c["views_per_sign_unit"] == {"1": 2, "2": 1, "3": 0, "4+": 0}
+    # Views per pole: pole 5 has 3 views, pole 6 has 1.
+    assert (c["views_per_pole_min"], c["views_per_pole_median"], c["views_per_pole_max"]) == (1, 2.0, 3)
 
 
 def shared_case(tmp_path):
