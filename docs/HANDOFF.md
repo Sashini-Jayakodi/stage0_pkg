@@ -5,9 +5,11 @@
   `poc2`. Never touch the remote branch `origin/POC_2` (an older branch, at `2c9b74a`). Last commits: `8c6c902` (plan R9),
   `f5c49a8` (Stage 0 setup), `c0ffaaf` (handoff tidy), `5d0162e` (project rules and POC-3 file naming), `daf03b1`
   (wording rule narrowed; handoff and gitignore wording), `3fbb90f` (handoff working method section); Stage 2:
-  `6043706`, `c70f15d`, `2f18f95`, `5716fc6`, `f19727c` and the freeze commit `99da0b5`.
-- **Stages 0, 1 and 2 done; the engine `src/r9_certify.py` is frozen.** Next step: **POC-3 Stage 3 (GTSRB exploratory
-  run of the layer)**, only when the author says so. Read plan R9 sections 2 and 3 first. The POC-3 status table is
+  `6043706`, `c70f15d`, `2f18f95`, `5716fc6`, `f19727c` and the freeze commit `99da0b5`; Stage 3: `9be85ac`,
+  `aee1565`, `05c1df5`, `58cacfe`, `0c255f0`, `27ed9a7` and the Part B commit.
+- **Stages 0 to 3 done; the engine `src/r9_certify.py` is frozen.** Next step: **POC-3 Stage 4 (BelgiumTSC model and
+  cache)**, only when the author says so. Read plan R9 sections 2 and 3 first. Full suite at Stage 3: 368 passed. The
+  POC-3 status table is
   below the POC-2 one.
 - **Environment (checked 14 Nov 2026):** `py -3.12` (Python 3.12.10) with torch 2.14.1+cu132 (CUDA available, RTX 5050),
   numpy 2.5.2, scipy 1.18.1, scikit-learn 1.9.1 (imports fine again). Full test suite: `py -3.12 -m pytest tests -q
@@ -77,7 +79,7 @@ finished record and is not updated further.
 | 0 Repo setup | **Done 14 Nov 2026.** `poc2-final` tagged and pushed; branch `poc3` created; plan R9 committed (`8c6c902`) and its SHA-256 recorded in `LOG.md`; POC-3 block added to the project rules file; local tool settings keep commit messages free of trailer lines. |
 | 1 Data audit (F-gates) | **Done 14 Nov 2026** (Part A `9a228a1`, Amendments `5dc5032`, `6f05a92`; code `262c832`). **F-A1 PASS** (663 testing poles after removal, minimum 600), **F-A2 PASS after removal** (65 shared (pole, class) units removed), **F-A3 FAIL** (DITS page unreachable). BelgiumTSC zips in `data/btsc_raw/` (git-ignored; URLs and SHA-256 in `runs/btsc/stage1/downloads_manifest.json`). Testing release: 53 of 62 classes; 783 sign units after removal; 16 / 14 duplicated GT rows (count views by unique file name). Projected n_c about 279-329, so alpha 1% tolerates 0 errors. Details in `LOG_r9_stage1_entry.md` Part B. |
 | 2 Certification engine v2 (V-checks) | **Done 14 Nov 2026; engine frozen** (Part A `c70f15d`, Amendments `5716fc6`, `f19727c`; final run on `f19727c`). **V1 to V4 all PASS** in all three runs: V1 40/40 plan section 6 values; V2 36/36 settings (2 error levels P_FRAME 7.4% and 5% x rho 0/0.3/0.45 x fixed-3 / view-mix / fixed-30 x alpha 1%/2%, 2,000 runs each), largest sign-level violation rate 5.35% [4.40, 6.43]%; V3 rel. error 6.9e-15; V4 PASS. Frozen: `src/r9_certify.py` SHA-256 `d2fd6fd6...8075` (blob `158a9c9e`), `tests/test_r9_certify.py` SHA-256 `3a163ab5...7813` (blob `ecb6e044`); full values in `LOG.md`. HB comparator: primary start = Amendment 2 (zero-error pass at the lower 90% CP bound of the design commit fraction); Stages 3 and 6 report HB under all three starts (`hb`, `hb_a1`, `hb_bs`). Reported: exact binomial certified at least as often as HB under every start in all 36 settings; frame-level B1 up to 37.45% violations (30 frames), 15.35% (3 views). Engine API: `certify(k, n_c, n, alpha, f_design, test, n_design=...)`; HB rules need `n_design` (design units, or design frames for B1). Full suite 327 passed. Details in `LOG_r9_stage2_entry.md` Part B. |
-| 3 GTSRB exploratory run of the layer | Not started. |
+| 3 GTSRB exploratory run of the layer | **Done 14 Nov 2026; exploratory (post-hoc)** (Part A `9be85ac`, design values `58cacfe`, Amendment 1 `0c255f0`; code `aee1565`, `05c1df5`, `27ed9a7`). All integrity checks PASS (freeze by blob ID, 68 Stage 4 coverages reproduce, POC-2 pool checks). Exact binomial certifies 1% for every score (S1, S2-sum primary, S2-min, S3, S4) in 5/5 re-splits; 0.5% has no exact-binomial start at n = 784 (start rule, Amendment 1). At 1%: coverage S1 81.3%, S2-sum 90.8%, S2-min 89.3%, S3 85.9%, S4 56.5%; median commit frame 17 / 5 / 5 / 21 / 2. HB (primary start) certifies 1% in 5/5/2/1/0; exact binomial certifies wherever HB does, at the same or a looser point. Six certified Test cells above alpha, all with lower 95% CP bound below alpha. The 1% result is confounded with the changed test, grid and start vs POC-2. Freeze guard `src/r9_frozen.py` (blob IDs) is called first by every r9 script that uses the engine. Details in `LOG_r9_stage3_entry.md` Part B. |
 | 4 BelgiumTSC model and cache | Not started. |
 | 5 BelgiumTSC design phase and freeze F3 | Not started. |
 | 6 BelgiumTSC confirmation | Not started. |

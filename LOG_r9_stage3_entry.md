@@ -202,3 +202,160 @@ frame_evidence.npz, head.npz, track_table_design.npz (not the pool table).
   depends on Cert data.
 - This replaces the bracket "consistent with plan section 12: alpha = 0.5% is not certifiable at these sample sizes"
   in (g). No rule, grid, start or other value changes.
+
+### Part B: results (exploratory, post-hoc; filled from the printout after review)
+**Every number in this Part B is exploratory (post-hoc):** all GTSRB tracks were used before (Part A preamble).
+
+- Date: 2026-11-14 / Stage: R9 Stage 3 / Run tag: runs/20261003_stage1/poc3/stage3
+- Git commit of Part A: 9be85ac (definitions), 58cacfe (design-set values), 0c255f0 (Amendment 1). Code: 05c1df5
+  (scores, design script), 27ed9a7 (runner; `src/r9_stage3.py` SHA-256
+  45a712ca65c0bf55c012cb0a41984a0a6a00411083540bf040628bb9d243ff7c). Run from a clean tree on 27ed9a7:
+  `py -3.12 -m src.r9_stage3 --run runs/20261003_stage1 --config configs/poc.yaml` (2.6 s).
+- Output: `stage3_summary.json` SHA-256 aad2c03ff94487bbc4743dbedf6b76a3e51a4167f50a8d3b831ba7360fa052e2; whole
+  printout `stage3_printout.txt` SHA-256 21d57b80b500a5c5c56fc0dbfd28f05a4621b8daf5bc87e8624817ffb6283d69 (same
+  directory). Full suite before the run: 368 passed.
+
+#### Integrity (all passed)
+- Freeze check: plan R9 0abe7fa5, engine 158a9c9e, engine tests ecb6e044 (blob IDs) — PASS.
+- Hash checks: stage3_design.json, stage4_summary.json, src/r8_stage4.py, baselines_design.json, train_meta.csv and
+  every POC-2 pool input — PASS.
+- Split reproduction: the five Stage 4 re-splits regenerated; all 68 certified Stage 4 Test coverages reproduce
+  exactly — PASS.
+- POC-2 checks: frozen_grid_matches_stage1_grid, gate_flags_reproduce, pool_commit_table_reproduces,
+  b1_top_equals_stored_top1, meta_roi_matches_stage1_sizes, b2_frames_all_pass_gate — all PASS. Design starts
+  recomputed equal the design file — PASS.
+- Pool 1,046 tracks; Cert 784 / Test 262 per re-split. Pool tracks with no value: S1 5, S2-sum 10, S2-min 10, S3 5,
+  S4 5 (the 5 tracks with no passing frame, plus 5 with fewer than 5 passing frames for S2).
+
+#### Certification (grid index certified per seed 0-4; "-" = none)
+| Score | alpha | binom | hb | hb_a1 | hb_bs |
+|---|---|---|---|---|---|
+| S1 | 0.5% | - - - - - | - - - - - | - - - - - | - - - - - |
+| S1 | 1% | 5 5 7 7 7 | 6 10 10 10 10 | 6 10 10 10 10 | - - - - - |
+| S1 | 2% | 3 3 3 3 4 | 4 4 4 4 4 | - - - - - | - - - - - |
+| S1 | 3% | 3 3 3 3 2 | 3 3 3 3 3 | - - - - - | - - - - - |
+| S1 | 5% | 1 1 1 1 1 | 1 1 1 1 1 | 1 1 1 1 1 | 1 1 1 1 1 |
+| S2-sum | 0.5% | - - - - - | - - - - - | - - - - - | - - - - - |
+| S2-sum | 1% | 4 4 4 4 4 | 4 4 12 12 12 | - - 12 12 - | - - - - - |
+| S2-sum | 2% | 3 3 3 3 2 | 3 3 4 3 3 | 3 3 4 3 3 | - - - - - |
+| S2-sum | 3% | 2 2 2 2 2 | 2 3 2 2 2 | 2 3 2 2 2 | - - - - - |
+| S2-sum | 5% | 1 1 1 1 1 | 1 1 1 1 1 | 1 1 1 1 1 | 1 1 1 1 1 |
+| S2-min | 0.5% | - - - - - | 4 4 - - - | 4 4 - - - | - - - - - |
+| S2-min | 1% | 4 4 4 4 4 | 4 4 - - - | - - 13 - - | - - - - - |
+| S2-min | 2% | 3 3 3 3 3 | 3 3 4 4 3 | 3 3 4 4 3 | - - - - - |
+| S2-min | 3% | 2 2 2 2 2 | 2 3 2 3 2 | 2 3 2 3 2 | - - - - - |
+| S2-min | 5% | 1 1 1 1 1 | 1 1 1 1 1 | 1 1 1 1 1 | 1 1 1 1 1 |
+| S3 | 0.5% | - - - - - | - - - - - | - - - - - | - - - - - |
+| S3 | 1% | 5 6 6 6 6 | 7 - - - - | 7 - - - - | - - - - - |
+| S3 | 2% | 3 4 3 4 4 | 4 4 4 4 4 | 4 4 4 4 4 | 4 4 4 4 4 |
+| S3 | 3% | 3 3 3 3 3 | 3 3 3 3 3 | 3 3 3 3 3 | 3 3 3 3 3 |
+| S3 | 5% | 1 1 1 1 1 | 1 1 1 1 1 | 1 1 1 1 1 | 1 1 1 1 1 |
+| S4 | 0.5% | - - - - - | - - - - - | - - - - - | - - - - - |
+| S4 | 1% | 11 18 19 19 19 | - - - - - | - - - - - | - - - - - |
+| S4 | 2% | 4 10 10 11 4 | 10 18 - - - | - - - - - | - - - - - |
+| S4 | 3% | 3 4 3 3 3 | 4 4 4 - - | 4 4 - - - | - - - - - |
+| S4 | 5% | 1 1 1 1 1 | 2 2 1 1 1 | 2 2 1 1 1 | 2 2 1 1 1 |
+
+Smallest certifiable alpha per seed 0-4:
+| Score | binom | hb | hb_a1 | hb_bs |
+|---|---|---|---|---|
+| S1 | 1% 1% 1% 1% 1% | 1% 1% 1% 1% 1% | 1% 1% 1% 1% 1% | 5% 5% 5% 5% 5% |
+| S2-sum | 1% 1% 1% 1% 1% | 1% 1% 1% 1% 1% | 2% 2% 1% 1% 2% | 5% 5% 5% 5% 5% |
+| S2-min | 1% 1% 1% 1% 1% | 0.5% 0.5% 2% 2% 2% | 0.5% 0.5% 1% 2% 2% | 5% 5% 5% 5% 5% |
+| S3 | 1% 1% 1% 1% 1% | 1% 2% 2% 2% 2% | 1% 2% 2% 2% 2% | 2% 2% 2% 2% 2% |
+| S4 | 1% 1% 1% 1% 1% | 2% 2% 3% 5% 5% | 3% 3% 5% 5% 5% | 5% 5% 5% 5% 5% |
+- alpha 0.5%: no exact-binomial start at n = 784 (Amendment 1); the HB values of 0.5% for S2-min are not compared with
+  the exact binomial.
+
+#### Test metrics, exact binomial, median (min-max) over the 5 re-splits (all certified 5/5 at 1% to 5%)
+| Score | alpha | Coverage % | Error % | Commit frame | Size px |
+|---|---|---|---|---|---|
+| S1 | 1% | 81.30 (79.77-87.40) | 0.00 (0.00-0.88) | 17.0 (15.0-18.0) | 33.0 (31.0-36.0) |
+| S1 | 2% | 93.51 (90.08-94.27) | 0.82 (0.42-1.22) | 9.0 (8.0-13.0) | 26.0 (25.0-27.0) |
+| S1 | 3% | 93.89 (93.13-94.66) | 1.21 (0.81-3.63) | 9.0 (7.0-9.0) | 26.0 (22.0-26.0) |
+| S1 | 5% | 96.95 (95.80-98.09) | 3.11 (1.97-3.98) | 5.0 (5.0-5.5) | 23.0 (22.0-24.0) |
+| S2-sum | 1% | 90.84 (87.02-91.22) | 0.00 (0.00-0.44) | 5.0 (5.0-5.0) | 24.0 (23.0-25.0) |
+| S2-sum | 2% | 92.75 (91.98-94.27) | 0.83 (0.00-2.44) | 5.0 (5.0-5.0) | 23.0 (22.0-24.0) |
+| S2-sum | 3% | 94.27 (93.89-95.80) | 1.59 (0.81-2.44) | 5.0 (5.0-5.0) | 23.0 (22.0-24.0) |
+| S2-sum | 5% | 96.18 (95.04-98.47) | 2.35 (1.98-3.61) | 5.0 (5.0-5.0) | 23.0 (22.0-23.0) |
+| S2-min | 1% | 89.31 (85.50-90.08) | 0.00 (0.00-0.45) | 5.0 (5.0-7.0) | 25.0 (24.0-26.0) |
+| S2-min | 2% | 92.75 (92.37-93.89) | 0.83 (0.00-1.24) | 5.0 (5.0-5.0) | 23.0 (23.0-24.5) |
+| S2-min | 3% | 95.04 (93.89-96.18) | 1.59 (1.19-2.44) | 5.0 (5.0-5.0) | 23.0 (22.0-24.0) |
+| S2-min | 5% | 96.18 (95.80-98.85) | 2.75 (1.98-3.98) | 5.0 (5.0-5.0) | 23.0 (22.0-23.0) |
+| S3 | 1% | 85.88 (85.50-87.79) | 0.00 (0.00-0.87) | 21.0 (20.0-21.0) | 42.0 (39.0-43.0) |
+| S3 | 2% | 91.22 (87.79-92.75) | 0.84 (0.42-1.67) | 18.0 (16.0-18.0) | 35.0 (32.0-36.0) |
+| S3 | 3% | 91.60 (88.93-92.75) | 0.83 (0.43-1.67) | 16.0 (16.0-16.0) | 33.0 (32.0-34.0) |
+| S3 | 5% | 97.33 (95.04-97.71) | 3.14 (1.95-3.61) | 9.0 (9.0-9.0) | 26.0 (25.0-26.0) |
+| S4 | 1% | 56.49 (53.82-72.90) | 0.00 (0.00-1.57) | 2.0 (1.0-3.5) | 24.0 (22.0-25.0) |
+| S4 | 2% | 77.10 (75.19-88.93) | 1.02 (0.00-3.00) | 2.0 (2.0-3.0) | 23.0 (21.0-24.0) |
+| S4 | 3% | 93.13 (90.08-94.27) | 2.07 (0.85-3.27) | 2.0 (1.0-2.0) | 21.0 (20.0-23.0) |
+| S4 | 5% | 96.18 (95.42-98.47) | 3.20 (1.98-4.37) | 1.0 (1.0-1.0) | 21.0 (20.0-21.0) |
+Escalation rate = 100% - coverage. D90 sizes, the HB rows and the uncertified reference rows per seed are in the
+printout and the JSON.
+
+#### Test error and descriptive 95% Clopper-Pearson interval, every certified exact-binomial cell
+Descriptive, added at Part B, changes nothing. wrong / committed Test signs, error %, [two-sided 95% CP] %; seeds 0-4.
+- S1 1%: 2/227 0.88 [0.11, 3.15]; 1/229 0.44 [0.01, 2.41]; 0/210 0.00 [0.00, 1.74]; 0/213 0.00 [0.00, 1.72]; 0/209 0.00 [0.00, 1.75]
+- S1 2%: 3/247 1.21 [0.25, 3.51]; 2/246 0.81 [0.10, 2.91]; 3/245 1.22 [0.25, 3.54]; 2/244 0.82 [0.10, 2.93]; 1/236 0.42 [0.01, 2.34]
+- S1 3%: 3/247 1.21 [0.25, 3.51]; 2/246 0.81 [0.10, 2.91]; 3/245 1.22 [0.25, 3.54]; 2/244 0.82 [0.10, 2.93]; **9/248 3.63 [1.67, 6.78]**
+- S1 5%: 8/254 3.15 [1.37, 6.11]; 7/255 2.75 [1.11, 5.57]; 5/254 1.97 [0.64, 4.53]; 8/257 3.11 [1.35, 6.04]; 10/251 3.98 [1.93, 7.20]
+- S2-sum 1%: 1/228 0.44 [0.01, 2.42]; 1/233 0.43 [0.01, 2.37]; 0/238 0.00 [0.00, 1.54]; 0/239 0.00 [0.00, 1.53]; 0/238 0.00 [0.00, 1.54]
+- S2-sum 2%: 3/241 1.24 [0.26, 3.59]; 2/242 0.83 [0.10, 2.95]; 0/243 0.00 [0.00, 1.51]; 1/247 0.40 [0.01, 2.23]; **6/246 2.44 [0.90, 5.23]**
+- S2-sum 3%: 4/247 1.62 [0.44, 4.09]; 2/247 0.81 [0.10, 2.89]; 3/249 1.20 [0.25, 3.48]; 4/251 1.59 [0.44, 4.03]; 6/246 2.44 [0.90, 5.23]
+- S2-sum 5%: 5/251 1.99 [0.65, 4.59]; 5/252 1.98 [0.65, 4.57]; 6/255 2.35 [0.87, 5.05]; 8/258 3.10 [1.35, 6.02]; 9/249 3.61 [1.67, 6.75]
+- S2-min 1%: 1/224 0.45 [0.01, 2.46]; 1/230 0.43 [0.01, 2.40]; 0/235 0.00 [0.00, 1.56]; 0/236 0.00 [0.00, 1.55]; 0/234 0.00 [0.00, 1.56]
+- S2-min 2%: 3/242 1.24 [0.26, 3.58]; 2/242 0.83 [0.10, 2.95]; 0/244 0.00 [0.00, 1.50]; 1/246 0.41 [0.01, 2.24]; 3/243 1.23 [0.26, 3.57]
+- S2-min 3%: 4/249 1.61 [0.44, 4.06]; 3/248 1.21 [0.25, 3.49]; 4/251 1.59 [0.44, 4.03]; 3/252 1.19 [0.25, 3.44]; 6/246 2.44 [0.90, 5.23]
+- S2-min 5%: 6/252 2.38 [0.88, 5.11]; 5/252 1.98 [0.65, 4.57]; 7/255 2.75 [1.11, 5.57]; 10/259 3.86 [1.87, 6.99]; 10/251 3.98 [1.93, 7.20]
+- S3 1%: 2/230 0.87 [0.11, 3.11]; 0/228 0.00 [0.00, 1.60]; 0/225 0.00 [0.00, 1.63]; 0/224 0.00 [0.00, 1.63]; 1/224 0.45 [0.01, 2.46]
+- S3 2%: 4/239 1.67 [0.46, 4.23]; 1/236 0.42 [0.01, 2.34]; 3/243 1.23 [0.26, 3.57]; 2/239 0.84 [0.10, 2.99]; 1/230 0.43 [0.01, 2.40]
+- S3 3%: 4/239 1.67 [0.46, 4.23]; 2/240 0.83 [0.10, 2.98]; 3/243 1.23 [0.26, 3.57]; 2/241 0.83 [0.10, 2.97]; 1/233 0.43 [0.01, 2.37]
+- S3 5%: 8/255 3.14 [1.36, 6.09]; 5/256 1.95 [0.64, 4.50]; 5/255 1.96 [0.64, 4.52]; 8/255 3.14 [1.36, 6.09]; 9/249 3.61 [1.67, 6.75]
+- S4 1%: **3/191 1.57 [0.33, 4.52]**; 1/150 0.67 [0.02, 3.66]; 0/148 0.00 [0.00, 2.46]; 0/141 0.00 [0.00, 2.58]; 0/144 0.00 [0.00, 2.53]
+- S4 2%: **5/233 2.15 [0.70, 4.94]**; 2/197 1.02 [0.12, 3.62]; 2/202 0.99 [0.12, 3.53]; 0/198 0.00 [0.00, 1.85]; **7/233 3.00 [1.22, 6.09]**
+- S4 3%: 5/242 2.07 [0.67, 4.76]; 2/236 0.85 [0.10, 3.03]; 5/244 2.05 [0.67, 4.72]; 6/247 2.43 [0.90, 5.21]; **8/245 3.27 [1.42, 6.33]**
+- S4 5%: 6/251 2.39 [0.88, 5.13]; 5/253 1.98 [0.64, 4.55]; 8/250 3.20 [1.39, 6.21]; 9/258 3.49 [1.61, 6.52]; 11/252 4.37 [2.20, 7.68]
+- HB cells certified at an index the exact binomial did not certify (their Test errors are in the JSON): the only one
+  above its alpha is S4, hb, 2%, seed 0: 5/200 2.50 [0.82, 5.74]; its lower CP bound is also below alpha.
+
+#### Test cells above alpha (exact binomial; bold above)
+- **Six** certified cells have a Test error above alpha: S1 3% seed 4 (3.63%); S2-sum 2% seed 4 (2.44%); S4 1% seed 0
+  (1.57%); S4 2% seed 0 (2.15%); S4 2% seed 4 (3.00%); S4 3% seed 4 (3.27%). The author's review list named five; S4
+  2% seed 0 was missed there and is added here.
+- In every certified cell the lower 95% CP bound is below alpha, so none of these Test estimates is evidence that the
+  true error exceeds alpha.
+- The certificate states that, with probability at least 0.9 over the Cert draw, the true error among committed signs
+  is at most alpha. A Test estimate from about 140 to 260 committed signs moves by about 0.4 to 0.7 points per wrong
+  sign, so single Test estimates can exceed alpha without the certificate being broken. Validity is measured by
+  violation rates over many draws (POC-2 Stage 3, R9 Stage 2, Stage 6), not by five Test estimates.
+
+#### Readings (exploratory statements, not results scored against anything)
+- **E2 (S2 earlier than S1):** at 1% the exact-binomial median commit frame is 5.0 (5.0-5.0) for S2-sum against 17.0
+  (15.0-18.0) for S1, with coverage 90.84% against 81.30% (medians). At 2% to 5% S2-sum stays at frame 5 while S1 moves
+  from 9 to 5.
+- **E3 (exact binomial against HB):** at every alpha from 1% to 5%, in every score and seed, the exact binomial
+  certified whenever any HB start certified, and at the same or a looser grid point. HB at 0.5% (S2-min, seeds 0 and 1)
+  is not compared (Amendment 1). Re-splits certified out of 5 at 1%, binom / hb / hb_a1 / hb_bs: S1 5/5/5/0, S2-sum
+  5/5/2/0, S2-min 5/2/1/0, S3 5/1/1/0, S4 5/0/0/0.
+- **Cost of the certificate, S2-sum at 1%:** certified coverage 90.84% (87.02-91.22) with worst Test error 0.44%
+  (seed 0, 1/228); uncertified reference (loosest point with design error <= 1%, j = 3) coverage 92.37% (91.98-94.27)
+  with worst Test error 1.24% (seed 0, 3/241). The certificate costs about 1.5 points of median coverage here, and the
+  reference's worst error is above its 1% target.
+- **1% certified for every score in 5 of 5 re-splits:** POC-2's commit rule certified 0 of 5 at 1%. This stage changed
+  the test (exact binomial), the grid (30 points down to about 30% commit) and the start (power-aware) together, so the
+  difference cannot be assigned to any one change.
+- **Commit frames sit at each score's floor:** S2 commits at frame 5 (the first full window, K = 5) and S4 at frames
+  1 to 3 (a single frame) at most alphas. S1 and S3 commit later and move earlier as alpha grows (median frame S1 17
+  to 5, S3 21 to 9 from 1% to 5%) without reaching their first possible frame. Differences in earliness between S2 or
+  S4 and the others therefore partly reflect where each score can first give a value.
+
+#### Computation note for the CP intervals and the E3 check
+Computed after the review from `stage3_summary.json` (hash above) with scipy.stats.beta (two-sided 95%
+Clopper-Pearson). No Cert or Test outcome was recomputed; nothing in Part A or the code changed.
+
+- Decision taken and why: Stage 3 reported as run. All integrity checks passed; the results are R-results (plan R9
+  section 3), reported, not scored.
+- Deviation from the plan? Yes (declared in Part A and Amendment 1): S3 and S4 made sequential; S2 in two variants
+  with S2-sum primary; S2 calibrated on design halves (141 / 120 tracks); alpha 0.5% has no exact-binomial start.
+  Process: the review list of above-alpha cells missed one (added above).
+- Next step: Stage 4 (BelgiumTSC model and cache), only when the author says so.

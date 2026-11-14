@@ -1369,3 +1369,36 @@ Replaces the "Data roles, design set only" item of (e). Everything else in (e) i
   comparator start changed twice before the freeze (Amendments 1 and 2), the exact binomial never; the population-curve
   script was run before its commit. Details in `LOG_r9_stage2_entry.md` Part B.
 - Next step: Stage 3 (GTSRB exploratory run of the layer), only when the author says so.
+
+## POC-3 (R9) Stage 3: GTSRB run of the layer on four scores (exploratory, post-hoc)
+
+- Date: 2026-11-14 / Stage: R9 Stage 3 / Run tag: runs/20261003_stage1/poc3/stage3
+- Config hash / checkpoint hash / git commit: Part A 9be85ac, design-set values 58cacfe (stage3_design.json SHA-256
+  798585428c4cc345a760e347ded0c37f16c46f65a2ecf7dfa50473bacfb8e62b), Amendment 1 0c255f0; code aee1565 (freeze guard
+  `src/r9_frozen.py`), 05c1df5 (scores, design script), 27ed9a7 (runner, SHA-256
+  45a712ca65c0bf55c012cb0a41984a0a6a00411083540bf040628bb9d243ff7c). Output stage3_summary.json SHA-256
+  aad2c03ff94487bbc4743dbedf6b76a3e51a4167f50a8d3b831ba7360fa052e2; printout stage3_printout.txt SHA-256
+  21d57b80b500a5c5c56fc0dbfd28f05a4621b8daf5bc87e8624817ffb6283d69. POC-1 checkpoint 8652735...0bcc via the POC-2
+  inputs (hash-checked).
+- What was done (all exploratory, post-hoc): wrapped S1 (summed Gaussian margin), S2-sum (primary) and S2-min
+  (Boursinos and Koutsoukos, K = 5, calibrated on two design halves), S3 (running vote margin) and S4 (current-frame
+  margin) in the frozen engine; 30-point design grids, power-aware starts; certified on the five regenerated POC-2
+  Stage 4 re-splits (Cert 784 / Test 262) at alpha 0.5 to 5% with the exact binomial and HB under three starts; full
+  record in `LOG_r9_stage3_entry.md`.
+- Result numbers (exact binomial; median over 5 re-splits):
+  - Smallest certifiable alpha: 1% for every score in all 5 re-splits. alpha 0.5% has no exact-binomial start at
+    n = 784 (Amendment 1).
+  - At 1%: coverage S1 81.30%, S2-sum 90.84%, S2-min 89.31%, S3 85.88%, S4 56.49%; median commit frame 17 / 5 / 5 / 21
+    / 2. At 2%: coverage 93.51 / 92.75 / 92.75 / 91.22 / 77.10%.
+  - HB certified 1% in 5 / 5 / 2 / 1 / 0 re-splits (primary start) for S1 / S2-sum / S2-min / S3 / S4; the exact
+    binomial certified wherever HB did, at the same or a looser point, from 1% to 5%.
+  - Six certified Test cells above alpha (S1 3% s4 3.63%; S2-sum 2% s4 2.44%; S4 1% s0 1.57%; S4 2% s0 2.15%; S4 2%
+    s4 3.00%; S4 3% s4 3.27%); every lower 95% CP bound is below alpha (descriptive, added at Part B).
+- Checks: freeze check PASS | all hash checks PASS | 68 Stage 4 Test coverages reproduce PASS | POC-2 pool checks
+  PASS | design starts recompute PASS. No V-checks in this stage (R-results only).
+- Decision taken and why: results reported as run (plan R9 section 3). 1% in 5/5 for every score is confounded with
+  the changed test, grid and start against POC-2.
+- Deviation from the plan? Yes, declared in Part A and Amendment 1: S3 and S4 sequential; S2 in two variants (S2-sum
+  primary, chosen before any Cert number); S2 calibrated on design halves of 141 / 120 tracks; no exact-binomial start
+  at 0.5%. The review list of above-alpha cells missed S4 2% seed 0; added in Part B.
+- Next step: Stage 4 (BelgiumTSC model and cache), only when the author says so.
