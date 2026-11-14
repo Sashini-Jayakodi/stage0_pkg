@@ -166,6 +166,33 @@ engine freeze. Synthetic data only; no Cert or Test number of any dataset exists
   `r8_stage3_engine.exact_hb`, so the HB start is index 2 while the binomial start is index 3).
 - V1 to V4 are re-run in full after this amendment. The first run's printout and summary stay in Part B as recorded.
 
+### Amendment 2 (14 Nov 2026, after the Amendment 1 re-run, before the freeze)
+Made after the second V-check run (code commit 5716fc6; V1 to V4 all PASS; summary kept as
+`stage2_summary_run2.json`, SHA-256 e809286c0fe7d4146da2153a8ff164c8d256130dbb69947a5bf771b328c182fe) and before the
+engine freeze. Synthetic data only.
+
+- Reason: the Amendment 1 start has no margin. A diagnostic on 500 synthetic runs (level 0, rho 0, fixed-3, alpha 1%;
+  a separate script, not part of the record) showed that HB failed its first test at the Amendment 1 start in 184 of
+  500 runs, mostly because the Cert commit fraction came out slightly below the design estimate; HB certified in 316 of
+  500 runs from that start against 450 of 500 from the binomial start. In the second run sign_hb certified in about
+  60% of runs in every rho 0 setting (e.g. level 0, rho 0, fixed-3, alpha 1%: 87.4% in the first run, 59.4% in the
+  second).
+- New primary HB start: the strictest grid point j at which HB would certify with zero committed errors at the lower
+  one-sided 90% Clopper-Pearson bound of f_d(j), that is hb_pvalue(alpha * (1 - CP_lower(f_d(j))), n, alpha) <= delta,
+  with CP_lower from n_design units at the sign level (157 or 261) and from the design frames at the frame level (B1)
+  (`src.r9_certify.hb_start`, rule "hb"). Design data, n_design, n and alpha only, never Cert outcomes.
+- The exact binomial start and test, the grids, seeds, settings and V1 to V4 are unchanged.
+- Secondary analysis (here and in Stages 3 and 6): HB is reported under all three starts next to the exact binomial,
+  so the comparison is shown to be robust or not to the start rule: "hb" (this amendment, primary), "hb_a1"
+  (Amendment 1, zero margin) and "hb_bs" (the binomial power-aware start, as Part A was first written). The engine keeps
+  all three rules.
+- This is the last change to the comparator before the freeze. Whatever the re-run shows is reported as it comes out.
+- Tests added: a hand case (n = 470, alpha 2%, n_design 157, design fractions 1, 0.9, 0.8, 0.7, 0.63, 0.45; each CP
+  bound checked against its definition; exact zero-error HB p-values at the bounds give start index 3, against 4 for
+  Amendment 1 and 5 for the binomial start), the start against a loop, the CP-margin start never stricter than the
+  zero-margin one, and every HB start ignores Cert outcomes.
+- V1 to V4 are re-run in full. The first and second runs' printouts and summaries stay in Part B as recorded.
+
 ### Part B: results (filled from the printout after the run)
 - Re-run check of the design values (author's request, recorded either way): the population-curve script was first run
   before its commit 6043706 (process deviation from the working method). After that commit, all five levels were

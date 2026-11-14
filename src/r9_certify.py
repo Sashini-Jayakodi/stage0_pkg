@@ -1,27 +1,34 @@
 """POC-3 (R9) certification engine v2: sign-level Learn-then-Test with an exact binomial test.
 
-LOG_r9_stage2_entry.md Part A (a). Pure numpy/scipy, no file I/O. Frozen after the Stage 2 V-checks pass.
+LOG_r9_stage2_entry.md Part A (a), Amendments 1 and 2. Pure numpy/scipy, no file I/O. Frozen after the Stage 2
+V-checks pass.
 
 Grid convention: thresholds j = 0..G-1 ordered from the loosest (j = 0) to the strictest. Per threshold:
   n_c = committed Cert units, k = committed and wrong Cert units, n = all Cert units.
   exact binomial : p = P(Binomial(n_c, alpha) <= k)       (H0: P(wrong | committed) >= alpha)
   comparator     : Hoeffding-Bentkus on L = wrong - alpha * committed + alpha (src.certify.hb_pvalue, unchanged)
 A threshold with n_c = 0 gets p = 1 under both tests, so it is never certified.
-Start of the walk, per test (Stage 2 Part A (a) and Amendment 1):
-  binom : power-aware start (plan 5.3), the strictest j with f_design(j) * n * alpha >= 4.
-  hb    : the strictest j at which HB would certify with zero committed errors given the design commit fraction,
-          hb_pvalue(alpha * (1 - f_design(j)), n, alpha) <= delta. HB carries alpha * (1 - commit fraction) for every
-          uncommitted unit, so the binomial start would make it fail its first test at strict thresholds.
-Both starts use design fractions, n and alpha only. The walk tests start, start-1, ..., 0 at level delta and stops at
-the first p > delta.
+
+Start of the walk (rule names used by certify / start_for):
+  "binom" : exact binomial, power-aware start (plan 5.3): strictest j with f_design(j) * n * alpha >= 4.
+  "hb"    : HB, primary start (Amendment 2): strictest j where HB would certify with zero committed errors at the lower
+            one-sided 90% Clopper-Pearson bound of f_design(j) from n_design design units (or frames).
+  "hb_a1" : HB, Amendment 1 start (no margin): same with f_design(j) itself. Kept for the secondary analysis.
+  "hb_bs" : HB from the binomial power-aware start (Part A as first written). Kept for the secondary analysis.
+HB carries alpha * (1 - commit fraction) for every uncommitted unit, so its start must sit at a looser threshold than
+the binomial one; the margin covers the design-to-Cert noise in the commit fraction. Every start uses design
+fractions, n_design, n and alpha only, never Cert outcomes. The walk tests start, start-1, ..., 0 at level delta and
+stops at the first p > delta.
 """
 import numpy as np
-from scipy.stats import binom
+from scipy.stats import beta, binom
 
 from src.certify import hb_pvalue
 
 DELTA = 0.1              # fixed in every phase (plan section 2)
 MIN_EXPECTED = 4         # power-aware start: expected errors at alpha among committed units (plan 5.3)
+CP_LOWER = 0.10          # Amendment 2: one-sided lower 90% Clopper-Pearson bound of the design commit fraction
+RULES = ("binom", "hb", "hb_a1", "hb_bs")
 
 
 def binom_pvalue(k, n_c, alpha):
@@ -42,9 +49,10 @@ def hb_pvalue_counts(k, n_c, n, alpha):
 
 
 def pvalues(k, n_c, n, alpha, test="binom"):
+    """test: 'binom' for the exact binomial; any HB rule name ('hb', 'hb_a1', 'hb_bs') for Hoeffding-Bentkus."""
     if test == "binom":
         return binom_pvalue(k, n_c, alpha)
-    if test == "hb":
+    if test in ("hb", "hb_a1", "hb_bs"):
         return hb_pvalue_counts(k, n_c, n, alpha)
     raise ValueError(f"unknown test {test!r}")
 
@@ -56,20 +64,35 @@ def power_start(f_design, n, alpha, min_expected=MIN_EXPECTED):
     return int(ok.max()) if len(ok) else -1
 
 
-def hb_start(f_design, n, alpha, delta=DELTA):
-    """Strictest grid index where HB would certify with zero committed errors at the design commit fraction; -1 if
-    none (Amendment 1). Uses design fractions, n and alpha only: Cert outcomes cannot move the start."""
-    f = np.asarray(f_design, dtype=float)
+def hb_start_zero(f, n, alpha, delta=DELTA):
+    """Strictest grid index where HB would certify with zero committed errors at commit fraction f; -1 if none."""
+    f = np.asarray(f, dtype=float)
     ok = np.flatnonzero(hb_pvalue(alpha * (1.0 - f), n, alpha) <= delta)
     return int(ok.max()) if len(ok) else -1
 
 
-def start_for(test, f_design, n, alpha, delta=DELTA):
-    if test == "binom":
+def cp_lower(f_design, n_design, q=CP_LOWER):
+    """One-sided lower Clopper-Pearson bound (level 1 - q) of each design commit fraction, from n_design units."""
+    x = np.rint(np.asarray(f_design, dtype=float) * n_design)
+    lo = beta.ppf(q, np.maximum(x, 1.0), n_design - x + 1.0)
+    return np.where(x > 0, lo, 0.0)
+
+
+def hb_start(f_design, n, alpha, n_design, delta=DELTA):
+    """Primary HB start (Amendment 2): hb_start_zero at the lower 90% CP bound of the design commit fraction."""
+    return hb_start_zero(cp_lower(f_design, n_design), n, alpha, delta)
+
+
+def start_for(rule, f_design, n, alpha, n_design=None, delta=DELTA):
+    if rule in ("binom", "hb_bs"):
         return power_start(f_design, n, alpha)
-    if test == "hb":
-        return hb_start(f_design, n, alpha, delta)
-    raise ValueError(f"unknown test {test!r}")
+    if rule == "hb_a1":
+        return hb_start_zero(f_design, n, alpha, delta)
+    if rule == "hb":
+        if n_design is None:
+            raise ValueError("the primary HB start needs n_design")
+        return hb_start(f_design, n, alpha, n_design, delta)
+    raise ValueError(f"unknown rule {rule!r}")
 
 
 def walk(p, start, delta=DELTA):
@@ -82,10 +105,10 @@ def walk(p, start, delta=DELTA):
     return best
 
 
-def certify(k, n_c, n, alpha, f_design, test="binom", delta=DELTA):
-    """Certified grid index (or -1) for one Cert sample. k, n_c: per threshold, loosest first."""
+def certify(k, n_c, n, alpha, f_design, test="binom", delta=DELTA, n_design=None):
+    """Certified grid index (or -1) for one Cert sample. k, n_c: per threshold, loosest first. test: a rule in RULES."""
     p = pvalues(k, n_c, n, alpha, test)
-    return walk(p, start_for(test, f_design, n, alpha, delta), delta)
+    return walk(p, start_for(test, f_design, n, alpha, n_design, delta), delta)
 
 
 def max_errors(n_c, alpha, delta=DELTA):

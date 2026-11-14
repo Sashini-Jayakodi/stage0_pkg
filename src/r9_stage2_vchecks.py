@@ -32,7 +32,7 @@ CURVES_SHA = {0: "fd7fdb44acbf6b0809258969996a5a919e185a503d40a222236a3a9d3881b0
 N_DESIGN = {"fixed-3": 157, "view-mix": 157, "fixed-30": 261}
 RUNS = 2000
 V2_MAX = C.DELTA + 0.02
-TESTS = ("binom", "hb")
+TESTS = C.RULES          # binom; HB with the primary start (Amendment 2) and the two earlier starts (secondary analysis)
 UNITS = ("sign", "B1")
 
 # ------------------------------------------------------------------ V1: plan section 6 (None = "none")
@@ -94,7 +94,7 @@ def v4_static():
     n_c, k = np.array([470, 460, 450, 440, 0, 0]), np.zeros(6)       # high enough that HB also passes the control
     walk = {}
     for t in TESTS:
-        full = C.certify(k, n_c, n, a, np.ones(6), t)
+        full = C.certify(k, n_c, n, a, np.ones(6), t, n_design=157)
         control = C.walk(C.pvalues(k, n_c, n, a, t), 3)
         walk[t] = {"certified_from_strictest": full, "control_from_index_3": control, "ok": full == -1 and control == 0}
     ok = all(d["ok"] for d in direct) and all(w["ok"] for w in walk.values())
@@ -168,11 +168,11 @@ def run_pair(level, pair, rho, cluster, p_frame, runs, n_pop, curve):
         Ad, _, Nd = frame_totals(Xd, Td, bgrid)
         Ac, Wc, Nc = frame_totals(Xc, Tc, bgrid)
         for a in P.ALPHAS:
-            for t in TESTS:                                          # each test has its own start (Amendment 1)
-                no_start[(a, "sign", t)] += C.start_for(t, fd, nc, a) < 0
-                no_start[(a, "B1", t)] += C.start_for(t, Ad / Nd, Nc, a) < 0
-                j = C.certify(k, n_c, nc, a, fd, t)
-                jb = C.certify(Wc, Ac, Nc, a, Ad / Nd, t)
+            for t in TESTS:                                          # each rule has its own start (Amendments 1, 2)
+                no_start[(a, "sign", t)] += C.start_for(t, fd, nc, a, nd) < 0
+                no_start[(a, "B1", t)] += C.start_for(t, Ad / Nd, Nc, a, Nd) < 0
+                j = C.certify(k, n_c, nc, a, fd, t, n_design=nd)
+                jb = C.certify(Wc, Ac, Nc, a, Ad / Nd, t, n_design=Nd)
                 cert[(a, "sign", t)][i], cert[(a, "B1", t)][i] = j, jb
                 zero_nc_certified += (j >= 0 and n_c[j] == 0) + (jb >= 0 and Ac[jb] == 0)
 
@@ -257,11 +257,11 @@ def main(argv=None):
 
     print(f"\nV2 sign-level exact binomial, CP95 upper <= {V2_MAX:.2f}: {'PASS' if v2_pass else 'FAIL'} "
           f"({sum(s['v2_pass'] for s in settings)} / {len(settings)} settings)")
-    hdr = (f"{'lvl':>3} {'rho':>4} {'cluster':8} {'alpha':>5} | {'unit/test':12} {'cert':>7} {'viol':>5} {'rate':>7} "
+    hdr = (f"{'lvl':>3} {'rho':>4} {'cluster':8} {'alpha':>5} | {'unit/rule':12} {'cert':>7} {'viol':>5} {'rate':>7} "
            f"{'CP95':>17} {'mean R*':>8} {'med j':>5} {'nostart':>7}")
     print(hdr)
     for s in settings:
-        for key in ("sign_binom", "sign_hb", "B1_binom", "B1_hb"):
+        for key in [f"{u}_{t}" for u in UNITS for t in TESTS]:
             x = s["rows"][key]
             mj = "  n/a" if x["median_certified_index"] is None else f"{x['median_certified_index']:5.1f}"
             mr = "     n/a" if x["mean_true_risk_certified"] is None else f"{100 * x['mean_true_risk_certified']:7.3f}%"
@@ -270,6 +270,8 @@ def main(argv=None):
                   f"{100 * x['certified_share']:6.1f}% {x['violations']:5d} {100 * x['violation_rate']:6.2f}% "
                   f"[{100 * x['cp95'][0]:6.2f}, {100 * x['cp95'][1]:6.2f}]% {mr} {mj} {x['runs_no_eligible_start']:7d}{flag}")
         print()
+    print("(rules: binom = exact binomial, power-aware start; hb = HB, primary start (Amendment 2, CP margin); "
+          "hb_a1 = HB, zero-margin start (Amendment 1); hb_bs = HB from the binomial start)")
     print("(cert = share of runs certifying a threshold; viol = certified and true risk R > alpha; mean R* = mean true "
           "risk of the certified threshold over certifying runs; med j = median certified grid index, 0 = loosest, "
           "29 = strictest; nostart = runs with no eligible start)")
