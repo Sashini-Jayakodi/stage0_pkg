@@ -7,8 +7,13 @@ Grid convention: thresholds j = 0..G-1 ordered from the loosest (j = 0) to the s
   exact binomial : p = P(Binomial(n_c, alpha) <= k)       (H0: P(wrong | committed) >= alpha)
   comparator     : Hoeffding-Bentkus on L = wrong - alpha * committed + alpha (src.certify.hb_pvalue, unchanged)
 A threshold with n_c = 0 gets p = 1 under both tests, so it is never certified.
-Power-aware start (plan 5.3): the strictest j with f_design(j) * n * alpha >= 4. The walk tests start, start-1, ..., 0
-at level delta and stops at the first p > delta.
+Start of the walk, per test (Stage 2 Part A (a) and Amendment 1):
+  binom : power-aware start (plan 5.3), the strictest j with f_design(j) * n * alpha >= 4.
+  hb    : the strictest j at which HB would certify with zero committed errors given the design commit fraction,
+          hb_pvalue(alpha * (1 - f_design(j)), n, alpha) <= delta. HB carries alpha * (1 - commit fraction) for every
+          uncommitted unit, so the binomial start would make it fail its first test at strict thresholds.
+Both starts use design fractions, n and alpha only. The walk tests start, start-1, ..., 0 at level delta and stops at
+the first p > delta.
 """
 import numpy as np
 from scipy.stats import binom
@@ -51,6 +56,22 @@ def power_start(f_design, n, alpha, min_expected=MIN_EXPECTED):
     return int(ok.max()) if len(ok) else -1
 
 
+def hb_start(f_design, n, alpha, delta=DELTA):
+    """Strictest grid index where HB would certify with zero committed errors at the design commit fraction; -1 if
+    none (Amendment 1). Uses design fractions, n and alpha only: Cert outcomes cannot move the start."""
+    f = np.asarray(f_design, dtype=float)
+    ok = np.flatnonzero(hb_pvalue(alpha * (1.0 - f), n, alpha) <= delta)
+    return int(ok.max()) if len(ok) else -1
+
+
+def start_for(test, f_design, n, alpha, delta=DELTA):
+    if test == "binom":
+        return power_start(f_design, n, alpha)
+    if test == "hb":
+        return hb_start(f_design, n, alpha, delta)
+    raise ValueError(f"unknown test {test!r}")
+
+
 def walk(p, start, delta=DELTA):
     """Fixed-sequence test from 'start' down to 0. Returns the last index with p <= delta, or -1."""
     best = -1
@@ -64,7 +85,7 @@ def walk(p, start, delta=DELTA):
 def certify(k, n_c, n, alpha, f_design, test="binom", delta=DELTA):
     """Certified grid index (or -1) for one Cert sample. k, n_c: per threshold, loosest first."""
     p = pvalues(k, n_c, n, alpha, test)
-    return walk(p, power_start(f_design, n, alpha), delta)
+    return walk(p, start_for(test, f_design, n, alpha, delta), delta)
 
 
 def max_errors(n_c, alpha, delta=DELTA):

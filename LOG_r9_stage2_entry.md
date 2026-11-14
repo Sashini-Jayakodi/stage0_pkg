@@ -144,6 +144,28 @@ its design values (note in (f)) come before this commit; no other Stage 2 code e
 - If a V-check fails: it is a bug. The fix is made before the freeze, the failed run stays in Part B, and V1 to V4 are
   re-run in full.
 
+### Amendment 1 (14 Nov 2026, after the first synthetic V-check run, before the freeze)
+Made after the first V-check run (code commit 2f18f95; V1 to V4 all PASS; summary kept as
+`stage2_summary_run1.json`, SHA-256 daea75fed027b6aa7b4856c6f0f3d1cfeb2d3937b14a6a0e889b4eb0191ae9fe) and before the
+engine freeze. Synthetic data only; no Cert or Test number of any dataset exists.
+
+- Reason: with the binomial power-aware start, Hoeffding-Bentkus fails its first test at strict thresholds, because its
+  loss carries alpha x (1 - commit fraction) for every uncommitted sign. The exact-vs-HB comparison therefore measured
+  the start rule, not the test. Evidence from the first run (level 0, rho 0, fixed-3): sign_hb certified in 87.4% of
+  runs at alpha 1% (start near 85% commit) and in 0.0% at alpha 2% (start near 43% commit), while the exact binomial
+  certified in 99.5% and 100.0%. The same pattern held for B1_hb in all fixed-3 and view-mix settings (0.0 to 0.2%).
+- New HB start: the strictest grid point j at which HB would certify with zero committed errors given the design
+  commit fraction, that is hb_pvalue(alpha * (1 - f_d(j)), n, alpha) <= delta (`src.r9_certify.hb_start`). Computed
+  only from design fractions, n and alpha, never from Cert outcomes. Used for sign_hb and B1_hb. The walk from that
+  start is unchanged (relax one grid point at a time, stop at the first p > delta).
+- This replaces "The same order is used for both tests" in (a). The binomial start, the binomial test, the grids,
+  seeds, settings, V1 to V4 and everything else are unchanged.
+- Runner change that follows from it: "runs with no eligible start" is counted per test.
+- Tests added: the HB start against a loop; the HB start ignores Cert outcomes; a hand case (n = 470, alpha 2%, design
+  fractions 1, 0.9, 0.7, 0.5, 0.3; exact zero-error HB p-values 7.5e-5, 0.00171, 0.0395, 0.231, 0.618 by
+  `r8_stage3_engine.exact_hb`, so the HB start is index 2 while the binomial start is index 3).
+- V1 to V4 are re-run in full after this amendment. The first run's printout and summary stay in Part B as recorded.
+
 ### Part B: results (filled from the printout after the run)
 - Re-run check of the design values (author's request, recorded either way): the population-curve script was first run
   before its commit 6043706 (process deviation from the working method). After that commit, all five levels were

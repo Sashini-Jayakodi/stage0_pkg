@@ -156,7 +156,7 @@ def run_pair(level, pair, rho, cluster, p_frame, runs, n_pop, curve):
 
     nd, nc = N_DESIGN[cluster], P.N_CERT[cluster]
     cert = {(a, u, t): np.full(runs, -1) for a in P.ALPHAS for u in UNITS for t in TESTS}
-    no_start = {(a, u): 0 for a in P.ALPHAS for u in UNITS}
+    no_start = {(a, u, t): 0 for a in P.ALPHAS for u in UNITS for t in TESTS}
     zero_nc_certified = 0
     rng = P.rng_for(level, pair, 2)
     for i in range(runs):
@@ -168,9 +168,9 @@ def run_pair(level, pair, rho, cluster, p_frame, runs, n_pop, curve):
         Ad, _, Nd = frame_totals(Xd, Td, bgrid)
         Ac, Wc, Nc = frame_totals(Xc, Tc, bgrid)
         for a in P.ALPHAS:
-            no_start[(a, "sign")] += C.power_start(fd, nc, a) < 0
-            no_start[(a, "B1")] += C.power_start(Ad / Nd, Nc, a) < 0
-            for t in TESTS:
+            for t in TESTS:                                          # each test has its own start (Amendment 1)
+                no_start[(a, "sign", t)] += C.start_for(t, fd, nc, a) < 0
+                no_start[(a, "B1", t)] += C.start_for(t, Ad / Nd, Nc, a) < 0
                 j = C.certify(k, n_c, nc, a, fd, t)
                 jb = C.certify(Wc, Ac, Nc, a, Ad / Nd, t)
                 cert[(a, "sign", t)][i], cert[(a, "B1", t)][i] = j, jb
@@ -186,7 +186,7 @@ def run_pair(level, pair, rho, cluster, p_frame, runs, n_pop, curve):
                 cv = cert[(a, u, t)]
                 row = E.rate_row(cv, mu, a)
                 row["median_certified_index"] = float(np.median(cv[cv >= 0])) if (cv >= 0).any() else None
-                row["runs_no_eligible_start"] = int(no_start[(a, u)])
+                row["runs_no_eligible_start"] = int(no_start[(a, u, t)])
                 rows[f"{u}_{t}"] = row
         settings.append({"level": level, "p_frame": p_frame, "rho": rho, "cluster": cluster, "alpha": a,
                          "n_cert": nc, "n_design": nd, "rows": rows,
