@@ -45,3 +45,6 @@ CLAUDE.local.md
 
 # Third-party papers: kept locally, not redistributed (citations, URLs and SHA-256 in LOG_r8_stage6_entry.md)
 docs/papers/
+
+# Personal Claude Code settings (not shared)
+.claude/settings.local.json

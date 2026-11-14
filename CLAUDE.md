@@ -1,16 +1,18 @@
-# FYP: Certify the Sign, Not the Frame (POC-2, plan Revision 8)
+# FYP: Certify the Sign, Not the Frame (POC-3 active, plan Revision 9; POC-2 complete)
 
 Track-level certified commit rules and certified readable size for traffic sign recognition (GTSRB core, BelgiumTSC
-for validity only). Target venue: IEEE Access. This repo (`stage0_pkg`) holds POC-1 (finished) and POC-2 (in progress).
+for validity only). Target venue: IEEE Access. This repo (`stage0_pkg`) holds POC-1 (finished) and POC-2 complete
+(tag poc2-final); POC-3 active on branch poc3.
 
 @docs/HANDOFF.md
-@docs/poc2-implementation-plan-r8.md
+@docs/poc3-implementation-plan-r9.md
 
 ## Environment
 - Windows laptop, PowerShell. Python is `py -3.12` (NOT 3.11: Windows Application Control blocks torch DLLs there).
 - GPU: RTX 5050 8 GB, torch 2.14.1+cu132. 16 GB RAM: use mmap for the image cache.
 - Tests: `py -3.12 -m pytest tests -q`. Long suites: run in the background and poll.
-- Git: POC-1 is tagged `poc1-final`; POC-2 work happens on branch `poc2`.
+- Git: POC-3 work happens on branch `poc3`. POC-2 is finished and tagged `poc2-final`; do not commit to `poc2`.
+  POC-1 is tagged `poc1-final`.
 
 ## Hard rules (never break)
 1. Do not edit any POC-1 file (`src/*.py` without the `r8_` prefix, `configs/poc.yaml`, `configs/frozen_g2.yaml`,
@@ -27,6 +29,22 @@ for validity only). Target venue: IEEE Access. This repo (`stage0_pkg`) holds PO
    section 13 template format (append only, never rewrite old entries).
 6. Use confidence tags in explanations: [Certain], [Likely], [Guessing].
 7. Commit messages contain a short subject line and, if needed, a brief body describing the change. No trailer lines of any kind.
+
+## POC-3 (plan Revision 9)
+- Plan: `docs/poc3-implementation-plan-r9.md` (SHA-256 recorded in `LOG.md`, POC-3 Stage 0 entry). Read its sections 2
+  and 3 before any work. POC-3 work happens on branch `poc3`; POC-2 is tagged `poc2-final`. The POC-2 plan R8 and
+  `configs/frozen_r8.yaml` stay frozen.
+- Work ONE stage at a time. Do not start the next stage until the author says so.
+- Freezes: after Stage 2 the engine file is frozen; after Stage 5 `configs/frozen_r9_btsc.yaml` is frozen.
+- Never change a frozen value after a Cert/Test number has been seen. Never drop a re-split or baseline because of its
+  result.
+- Every stage ends with a `LOG.md` entry (POC-2 template, plan R8 section 13), including failed checks.
+- POC-3 code goes in new files only: `src/r9_*.py` and `tests/test_r9_*.py`.
+- No POC-1 or POC-2 file is edited (POC-2 files: `src/r8_*.py`, `tests/test_r8_*.py`, `configs/frozen_r8.yaml`,
+  `LOG_r8_*`, `runs/20261003_stage1/poc2/`).
+- POC-3 outputs go in `runs/20261003_stage1/poc3/` and `runs/btsc/`.
+- No AI attribution lines in commits or files.
+- Python: `py -3.12` (Windows, PowerShell).
 
 ## What must never appear in project docs, LOG entries or the paper
 - Lines like "Supervisor told?" or similar.

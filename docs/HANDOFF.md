@@ -26,6 +26,24 @@
 | **POC-2 core** | **Stages 1-6 complete.** The comparison table of plan section 9 is in `LOG_r8_stage6_entry.md` Part B and `stage6_summary.json`. |
 | 7 onward | Not started. Every confirm-phase script calls `load_frozen()` (`src/r8_frozen.py`) first. Stage 7 must follow the BelgiumTSC alpha rule below. |
 
+## POC-3 (plan R9) stage status
+Plan: `docs/poc3-implementation-plan-r9.md` (SHA-256 `c0639973c70f35ac5cda1f11c49bf50a1639c632c48ccec8889d60a5ded03db4`,
+committed in `8c6c902` on branch `poc3`). POC-2 is tagged `poc2-final` (`9a8d08c`); the POC-2 table above is the
+finished record and is not updated further.
+
+| Stage | Status |
+|---|---|
+| 0 Repo setup | **Done 14 Nov 2026.** `poc2-final` tagged and pushed; branch `poc3` created; plan R9 committed (`8c6c902`) and its SHA-256 recorded in `LOG.md`; POC-3 block added to `CLAUDE.md`; `.claude/settings.json` turns off commit/PR attribution. |
+| 1 Data audit (F-gates) | Not started. |
+| 2 Certification engine v2 (V-checks) | Not started. |
+| 3 GTSRB exploratory run of the layer | Not started. |
+| 4 BelgiumTSC model and cache | Not started. |
+| 5 BelgiumTSC design phase and freeze F3 | Not started. |
+| 6 BelgiumTSC confirmation | Not started. |
+| 7 DITS earliness (only if F-A3 passes) | Not started. |
+| 8 Final tables | Not started. |
+| 9 Idea text and gates | Not started. |
+
 **Stage 7 (BelgiumTSC) note:** BelgiumTSC's primary alpha is chosen by the Stage 2 D2 rule on BelgiumTSC's own design poles, at its own Cert size, and frozen before any BelgiumTSC Cert or Test pole is read; no GTSRB pool result is used.
 
 Stage 2 status: checks not all passed (D1 FAIL, D2 PASS). Hard rule 5 and plan section 8 require all checks to pass; the author overrides this for D1 only, for the reasons in the Decision above, before any Cert or Test track is touched. Hard rule 5 itself is unchanged.

@@ -1290,3 +1290,22 @@ Replaces the "Data roles, design set only" item of (e). Everything else in (e) i
 - What is still fixed without Cert data: nothing in B6 is fitted on the design set. The (a, b) grid (step 0.1 over
   [-1, 1]), the window sizes K = 5 and 9, and the split seed are constants stated in Part A, not fitted. The only
   design-set quantity left in Stage 6 is the B5/B5c score transform of (b) (design ECDF of the V1 margin).
+
+---
+
+## POC-3 (R9) Stage 0: repo setup
+
+- Date: 2026-11-14 / Stage: R9 Stage 0 / Run tag: none (no data read)
+- Config hash / checkpoint hash / git commit: plan `docs/poc3-implementation-plan-r9.md` SHA-256
+  c0639973c70f35ac5cda1f11c49bf50a1639c632c48ccec8889d60a5ded03db4 (working-copy bytes), git blob
+  0abe7fa51af3b499cd79218e46c83790dbfa2e99 (line-ending independent); committed in 8c6c902 on branch `poc3`. POC-2
+  tagged `poc2-final` at 9a8d08c and pushed. No checkpoint used.
+- What was done: tagged and pushed `poc2-final`; created and pushed branch `poc3`; committed plan R9 and recorded its
+  hash; added the POC-3 block to `CLAUDE.md`; created `.claude/settings.json` with commit/PR attribution off; added the
+  POC-3 status table to `docs/HANDOFF.md`.
+- Result numbers: none (setup only).
+- Checks: plan file committed and identical to its source (same SHA-256 as both copies in `POC 3 plan - FYP`) — PASS;
+  plan hash recorded here and in `docs/HANDOFF.md` — PASS.
+- Decision taken and why: plan R9 section 9, Stage 0.
+- Deviation from the plan? No.
+- Next step: Stage 1 (data audit, F-gates); not started.
