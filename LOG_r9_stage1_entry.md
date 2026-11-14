@@ -129,12 +129,44 @@ in this stage.
 - Output: `runs/btsc/stage1/stage1_summary.json` (counts, checks, gate results, SHA-256 of every input) and
   `runs/btsc/stage1/downloads_manifest.json`. `README_r9_stage1.md` gives the run command.
 
+### Amendment 1 (14 Nov 2026, after the size check)
+Made after the two BelgiumTSC zips were downloaded (Part A commit 9a228a1) and the listed-size check in (b) failed. No
+zip had been opened or extracted, and no count of any kind existed.
+
+- The listed-size check failed for both zips. The FAIL stands and is reported in Part B as recorded:
+
+  | File | Bytes | Bytes / 10^6 | Bytes / 2^20 | Listed (MBytes) | Size check |
+  |---|---|---|---|---|---|
+  | BelgiumTSC_Training.zip | 174,298,785 | 174.3 | 166.2 | 171.3 | FAIL |
+  | BelgiumTSC_Testing.zip | 77,877,833 | 77.9 | 74.3 | 76.5 | FAIL |
+
+- Both files are about 1.8% larger than listed in decimal MB. This points to the page's size convention or an older
+  build of the zips, not to a broken download; it is not proven. The page gives no hash to check against.
+- Both downloads returned HTTP 200 from the URLs in (a) with no redirect, and the byte counts reported by the download
+  equal the file sizes on disk. The first download step did not record the download tool's own exit code; the
+  download step is fixed so the manifest records it from now on.
+- New conditions to proceed, fixed before either is run. They replace the size check as the condition to proceed;
+  they do not turn the size check into a pass.
+  - (a) Zip integrity: every member's CRC passes (Python `zipfile.ZipFile.testzip`, read-only, nothing written). The
+    zip's SHA-256 is checked against `runs/btsc/stage1/downloads_manifest.json` first. If (a) fails: stop, download
+    that zip again once with the fixed download step, record both attempts, and run (a) again.
+  - (b) Image counts after extraction equal the counts in plan section 7: 4,575 training and 2,520 testing images. An
+    image is a file with extension `.ppm` (any case). Only images are counted at this step; no pole, camera or class
+    count is made until (b) is recorded. If (b) fails: stop and report; the stage does not proceed.
+  - Extraction (only after (a) passes) goes into `data/btsc_raw/extracted/<zip name without .zip>/`, each a new empty
+    folder, as in (b) of Part A.
+- This amendment replaces (c) item 1 ("a difference is reported, not corrected") for the image count: a difference now
+  stops the stage.
+- Part B reports the size mismatch, conditions (a) and (b) and their results as facts.
+
 ### Part B: results (fill from the printout after the run)
 - Date: ____ / Stage: R9 Stage 1 / Run tag: runs/btsc/stage1
 - Git commit of Part A: ____ | Git commit of the code: ____ (src/r9_stage1_audit.py SHA-256 ____)
 - Downloads (from downloads_manifest.json): BelgiumTSC_Training.zip ____ bytes (listed 171.3 MBytes; size check ____),
   SHA-256 ____; BelgiumTSC_Testing.zip ____ bytes (listed 76.5 MBytes; size check ____), SHA-256 ____; DITS ____.
   Licence / terms: ____; publications the BelgiumTS page asks to cite: ____
+- Amendment 1 conditions: (a) zip integrity, training ____ / testing ____ (attempts ____); (b) image counts, training
+  ____ (plan 4,575) / testing ____ (plan 2,520): ____
 - Output: stage1_summary.json SHA-256 ____
 - Pole and camera encoding (source quoted): ____
 - Counts, training / testing: images ____ / ____ (plan 4,575 / 2,520); classes ____ / ____; pole numbers ____ / ____;
