@@ -1339,3 +1339,33 @@ Replaces the "Data roles, design set only" item of (e). Everything else in (e) i
   from Stage 4 on, F-A1 still counts poles; two shared-unit checks; view order = annotation order, no camera index
   (Amendment 2). Details and process deviations in `LOG_r9_stage1_entry.md` Part B.
 - Next step: Stage 2 (certification engine v2, V-checks); not started.
+
+## POC-3 (R9) Stage 2: certification engine v2, V-checks V1 to V4
+
+- Date: 2026-11-14 / Stage: R9 Stage 2 / Run tag: runs/20261003_stage1/poc3/stage2
+- Config hash / checkpoint hash / git commit: Part A c70f15d, Amendment 1 5716fc6, Amendment 2 f19727c; population
+  curves 6043706 (population_curves_L0.json SHA-256 fd7fdb44acbf6b0809258969996a5a919e185a503d40a222236a3a9d3881b019,
+  L1 5cd5c3aa553f48fe9bd82e2b29066f29a59f9e0591d0143af35af0ee17986260). Final run on f19727c; output
+  stage2_summary.json SHA-256 8c152579609bb972b394d8c145746eae2975f7e7c79fae640ba829f46ee3729f (earlier runs:
+  stage2_summary_run1.json daea75fe...9fe, stage2_summary_run2.json e809286c...82fe). Synthetic data only; no
+  checkpoint, no dataset file.
+- What was done: built the exact-binomial engine with the power-aware start and fixed-sequence walk, the
+  Hoeffding-Bentkus comparator and a simulator on the POC-2 Stage 3a model (36 settings: 2 error levels x 3 rho x
+  3 cluster settings x 2 alpha, 2,000 runs each); ran V1 to V4 three times (Part A, Amendment 1, Amendment 2); full
+  record in `LOG_r9_stage2_entry.md`.
+- Result numbers (final run; V-check results identical in all three runs):
+  - V1 40 / 40 plan section 6 values; V3 largest relative error 6.9e-15; V4 0 certified thresholds with no committed
+    unit.
+  - V2: largest sign-level violation rate 5.35% [4.40, 6.43]% (level 0, rho 0.45, fixed-30, alpha 2%).
+  - Reported: frame-level B1 up to 37.45% violations with 30 frames and up to 15.35% with 3 views; the exact binomial
+    certified at least as often as HB under all three HB starts in all 36 settings.
+- Checks: V1 PASS | V2 PASS (36 / 36) | V3 PASS | V4 PASS.
+- Decision taken and why: engine frozen (plan Stage 2). src/r9_certify.py SHA-256
+  d2fd6fd63a0a65b22c73b08722bc1aa5583b51619b5720f99f6224b4fef98075, git blob 158a9c9e32ab8ec1f568f75b5c35c9992711db74;
+  tests/test_r9_certify.py SHA-256 3a163ab536a2fe8c5a3c7b0ce14ef533a432d2558739b563cf176b127cdf7813, git blob
+  ecb6e04429883ddbf298b22b803cd3bc70c959ef. Neither file changes from here on. Primary HB start: Amendment 2; Stages 3
+  and 6 report HB under all three starts.
+- Deviation from the plan? Yes: a declared added error level (P_FRAME 5%) and a view-mix cluster setting in V2; the HB
+  comparator start changed twice before the freeze (Amendments 1 and 2), the exact binomial never; the population-curve
+  script was run before its commit. Details in `LOG_r9_stage2_entry.md` Part B.
+- Next step: Stage 3 (GTSRB exploratory run of the layer), only when the author says so.

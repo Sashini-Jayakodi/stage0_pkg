@@ -200,15 +200,57 @@ engine freeze. Synthetic data only.
   The file hashes did NOT match the recorded ones in any of the five files. Key-by-key comparison: the only differing
   field in every file is `seconds` (run time, e.g. L0 12.6 vs 14.1 s); grids, curves, calibration and step 2 results
   are identical. The recorded files are the ones committed and checked by the runner.
-- Date: ____ / Stage: R9 Stage 2 / Run tag: runs/20261003_stage1/poc3/stage2
-- Git commit of Part A: ____ | Git commit of the code: ____ (src/r9_certify.py SHA-256 ____;
-  src/r9_stage2_vchecks.py SHA-256 ____). Run command: ____
-- Output: stage2_summary.json SHA-256 ____
-- V1: ____ (40 / 40 values)
-- V2: ____ (settings with CP upper <= 0.12: ____ / 36; largest CP upper ____ in setting ____)
-- V3: ____ (largest relative error ____)
-- V4: ____
-- Reported: sign-level exact binomial vs Hoeffding-Bentkus certification rates ____; B1 violation rates ____
-- Decision taken and why: ____
-- Deviations: ____
-- Next step: ____
+- Date: 2026-11-14 / Stage: R9 Stage 2 / Run tag: runs/20261003_stage1/poc3/stage2
+- Git commit of Part A: c70f15d (definitions, design values), 5716fc6 (Amendment 1), f19727c (Amendment 2). Population
+  curves: 6043706. Run command for every run: `py -3.12 -m src.r9_stage2_vchecks`; tracked files clean at each run
+  (earlier run summaries untracked). Each run: 36 settings x 2,000 runs, population 1,000,000 per (level, pair).
+- Three V-check runs, all kept:
+  | Run | Code commit | src/r9_certify.py SHA-256 | src/r9_stage2_vchecks.py SHA-256 | Summary file | Summary SHA-256 |
+  |---|---|---|---|---|---|
+  | 1 (Part A) | 2f18f95 | d2bb5e4aa75d6aaba18ab83c7f8e7676f13e9f9d3edb030a2fc8a59bcb2426e2 | c79a39a58d8109c5defc1a4fce702e021af327e8f79ff938d7a015b846fd566a | stage2_summary_run1.json | daea75fed027b6aa7b4856c6f0f3d1cfeb2d3937b14a6a0e889b4eb0191ae9fe |
+  | 2 (Amendment 1) | 5716fc6 | 3113c6f58db5bde513f5f24e9d602a4c710f0b3297ffc2cebed4762b120e03cd | bd09476c23e58f410b4f0037e8a62eafadd9c77e5da7c41695e90054b57f7799 | stage2_summary_run2.json | e809286c0fe7d4146da2153a8ff164c8d256130dbb69947a5bf771b328c182fe |
+  | 3 (Amendment 2, final) | f19727c | d2fd6fd63a0a65b22c73b08722bc1aa5583b51619b5720f99f6224b4fef98075 | b3348a22209c01900ae9ab4b69a61b4e69b3172f970d268895ed63975f53af4d | stage2_summary.json | 8c152579609bb972b394d8c145746eae2975f7e7c79fae640ba829f46ee3729f |
+  Runs 1 and 2 wrote `stage2_summary.json`; each was renamed (bytes unchanged, hash checked) before the next run.
+  Run times 155.7 s, 176.0 s, 574.7 s. All three runs read population_curves_L0/L1.json with the recorded hashes; the
+  recomputed sign-level grids and true risks equal the curve files exactly (max |R diff| 0) in all 18 (level, pair).
+- V1 to V4, identical in all three runs:
+  - V1: PASS, 40 / 40 values equal plan section 6 (including the zero-error minima 460, 230, 114, 76, 45).
+  - V2: PASS, 36 / 36 settings with CP upper <= 0.12. Largest: level 0, rho 0.45, fixed-30, alpha 2%: 107 / 2,000
+    violations, 5.35% [4.40, 6.43]%.
+  - V3: PASS, largest relative error 6.9e-15 (13 cases).
+  - V4: PASS: 40 direct cases with p = 1; walk case -1 from the strictest point with control 0 (binom and every HB
+    rule); 0 certified thresholds with n_c = 0 in all V2 runs.
+- Reproducibility across runs: sign_binom and B1_binom rows are identical in runs 1, 2 and 3 in all 36 settings (the
+  binomial start and test were not changed). Run 1 sign_hb equals run 3 sign_hb_bs, and run 2 sign_hb equals run 3
+  sign_hb_a1, in all 36 settings.
+- Null settings (level 0, rho 0.3 and 0.45, fixed-3 and view-mix, alpha 1%; no eligible threshold with R < alpha):
+  sign_binom certified in 5.7%, 4.3%, 0.4%, 0.5% of runs; most certifications were violations (93 of 113, 71 of 87,
+  9 of 9, 10 of 10 certifying runs; rates 4.65%, 3.55%, 0.45%, 0.50%). Level 1 at alpha 1%, 3-view: sign_binom certified in 48.7%, 41.0%, 19.2%, 14.8% (rho 0.3 / 0.3 /
+  0.45 / 0.45; fixed-3 / view-mix), under the 50% mentioned in the first Part A draft; reported as they came out.
+- Reported, not scored (run 3):
+  - Exact binomial against Hoeffding-Bentkus (sign level, certification rate): the exact binomial certified at least
+    as often as HB under every start rule in all 36 settings. rho 0 settings: binom 98.7 to 100%; hb (Amendment 2)
+    83.9 to 93.9%; hb_a1 58.0 to 65.1%; hb_bs 83.9 to 93.9% at alpha 1% with 3 views and 0.0 to 0.1% elsewhere.
+    Example with rho > 0 (level 0, rho 0.45, fixed-30, alpha 1%): binom 85.3%, hb 9.8%, hb_a1 10.3%, hb_bs 0.0%.
+    hb certified at least as often as hb_a1 in 27 of 36 settings; the 9 exceptions are all alpha 1% with rho > 0
+    (differences 0.10 to 2.95 points). Largest HB violation rate (any rule): 1.60% [1.10, 2.25]% (hb, level 1, rho 0.45,
+    fixed-3, alpha 2%).
+  - B1 (frame level) violation rate, exact binomial: up to 37.45% [35.32, 39.61]% with 30 frames (level 1, rho 0.45,
+    alpha 2%); up to 15.35% [13.80, 17.01]% with 3 views (level 1, rho 0.45, fixed-3, alpha 2%); 0.00 to 8.25% at
+    rho 0. B1 with HB (primary start): up to 29.15% [27.17, 31.20]% (level 1, rho 0.45, fixed-30, alpha 2%).
+- Decision taken and why: V1 to V4 pass in the final run and the exact binomial results are unchanged from run 1, so
+  the engine is frozen (plan Stage 2): src/r9_certify.py SHA-256
+  d2fd6fd63a0a65b22c73b08722bc1aa5583b51619b5720f99f6224b4fef98075, git blob 158a9c9e32ab8ec1f568f75b5c35c9992711db74;
+  tests/test_r9_certify.py SHA-256 3a163ab536a2fe8c5a3c7b0ce14ef533a432d2558739b563cf176b127cdf7813, git blob
+  ecb6e04429883ddbf298b22b803cd3bc70c959ef (both as committed in f19727c). The primary HB start is Amendment 2; Stages
+  3 and 6 report HB under all three starts.
+- Deviations:
+  - The population-curve script was run before its commit (see the re-run check above).
+  - Before the code commit 2f18f95 and before any V-check run, the V4 walk control case was changed from committed
+    counts 470/400/300/200 to 470/460/450/440, because HB cannot pass at 200 of 470 (p = 0.36) and the control could
+    not show what it was meant to show. Test case only; engine unchanged.
+  - The HB comparator start was changed twice after synthetic runs and before the freeze (Amendments 1 and 2). The
+    exact binomial was never changed. A diagnostic script for Amendment 2 was run outside the record (described in
+    Amendment 2).
+  - The runner changed with each amendment (no-start count per rule; all four rules reported).
+- Next step: Stage 3 (GTSRB exploratory run of the layer), only when the author says so.
