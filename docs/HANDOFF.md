@@ -9,7 +9,7 @@
 - **Environment (checked 14 Nov 2026):** `py -3.12` (Python 3.12.10) with torch 2.14.1+cu132 (CUDA available, RTX 5050),
   numpy 2.5.2, scipy 1.18.1, scikit-learn 1.9.1 (imports fine again). Full test suite: `py -3.12 -m pytest tests -q
   -p no:cacheprovider`, 267 passed in about 70 s at `poc2-final`. Both PowerShell and Git Bash work; Git Bash has
-  `pdftotext`/`pdfinfo` (the Read tool cannot render PDFs here: no `pdftoppm`).
+  `pdftotext`/`pdfinfo`. PDFs are read as text extracts only (pdftoppm is not installed).
 - **Data and artefacts:** POC-1 artefacts under `runs/20261003_stage1/` (list further down); image cache and
   `train_meta.csv` in `data/cache/` (`train_meta.csv` is tracked in git but has no recorded hash: POC-2 cross-checked its
   ROI boxes against the Stage 1 sizes instead). POC-2 outputs in `runs/20261003_stage1/poc2/stage1..6/`, each with a
@@ -29,8 +29,8 @@
   - In POC-2, B6 was calibrated on Cert thirds (Stage 6 Amendment 1). Plan R9 section 5.2 says S2 is calibrated
     on the design set (two halves) so all Cert signs stay available for the certificate. This is a different rule; follow
     R9 and state the difference.
-  - Downloads (BelgiumTSC, DITS) are outside requests: get the author's explicit OK first, put files in a new empty
-    folder, and record source URL and SHA-256.
+  - Downloads need the author's approval first, go into a new empty folder, and have their source URL and SHA-256
+    recorded.
   - The shared local tool settings keep commit messages and pull requests free of trailer lines; personal local
     settings are git-ignored.
 
@@ -137,20 +137,19 @@ Stage 1 run command: `py -3.12 -m src.r8_stage1 --run runs/20261003_stage1 --con
 - `src/train.py`: `sha256_file`.
 - POC-2 outputs go in `runs/20261003_stage1/poc2/stageN/`.
 
-## Working agreements with the user (as practised through POC-2; apply to POC-3)
-- The user is not strong in statistics. Explain results in plain words before the maths.
-- Never suggest changing a frozen value or rule to get a better result. Negative results are reported as they are.
+## Working method (as practised through POC-2; applied to POC-3)
+- I never change a frozen value or rule to get a better result. Negative results and failed checks are logged in
+  `LOG.md` as they came out.
 - Order inside a stage:
-  1. Write `LOG_r9_stageN_entry.md` Part A (every definition and open choice), show it, and commit it **before** any
-     number of that stage exists. Choices the plan leaves open are asked, not guessed (one question with options).
+  1. I write `LOG_r9_stageN_entry.md` Part A (every definition and open choice) and commit it **before** any number of
+     that stage exists. Every choice the plan leaves open is decided and written into Part A before that commit.
   2. Values computed from design data go into Part A in a separate commit, with the script committed first.
-  3. Code and synthetic-data tests (brute-force references, tamper tests); full suite; commit; push when asked.
-  4. Run on real data and show the **whole** printout; then stop.
-  5. Fill Part B only after the author has reviewed the printout; commit it with the stage's `*_summary.json`; append
-     the entry to `LOG.md`; update this file.
+  3. Code and synthetic-data tests (brute-force references, tamper tests); full suite; commit.
+  4. I run on real data and keep the **whole** printout; then I stop.
+  5. I fill Part B only after reviewing the whole printout; I commit it with the stage's `*_summary.json`, append the
+     entry to `LOG.md` and update this file.
 - Any change to a committed Part A before numbers exist is a dated "Amendment N" appended to the entry, never an edit.
-- Show diffs before commits when asked; stage only the named files; commit messages exactly as given, no trailer lines.
-- Text the author supplies for the record is checked against the facts before it is committed; a sentence that is not
-  true is flagged and a corrected wording proposed (for example a claim that a run had happened when it had not).
-- Stop after each step the author names; do not start the next stage, run on real data, push, tag or download
-  without being told to.
+- I review the diff before every commit. A commit stages only the files of that step and has no trailer lines.
+- Every sentence written for the record is checked against the facts before it is committed.
+- I stop after each step. The next stage, a real-data run, a push, a tag or a download each starts only as a separate
+  decision.
