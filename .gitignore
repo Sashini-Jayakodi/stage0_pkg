@@ -11,6 +11,8 @@ env/
 
 # Raw datasets
 data/raw/*.zip
+data/btsc_raw/
+data/dits_raw/
 
 # Large generated caches
 data/cache/*.npy

@@ -3,7 +3,8 @@
 ## Start here (POC-3)
 - **Branch `poc3`** (tracks `origin/poc3`). POC-2 is finished and tagged `poc2-final` (`9a8d08c`); do not commit to
   `poc2`. Never touch the remote branch `origin/POC_2` (an older branch, at `2c9b74a`). Last commits: `8c6c902` (plan R9),
-  `f5c49a8` (Stage 0 setup), then the handoff tidy.
+  `f5c49a8` (Stage 0 setup), `c0ffaaf` (handoff tidy), `5d0162e` (project rules and POC-3 file naming), `daf03b1`
+  (wording rule narrowed; handoff and gitignore wording), `3fbb90f` (handoff working method section).
 - **Stage 0 done.** Next step: **POC-3 Stage 1 (data audit, F-gates)**, only when the author says so. Read plan R9
   sections 2 and 3 first. The POC-3 status table is below the POC-2 one.
 - **Environment (checked 14 Nov 2026):** `py -3.12` (Python 3.12.10) with torch 2.14.1+cu132 (CUDA available, RTX 5050),
