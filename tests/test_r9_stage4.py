@@ -469,6 +469,6 @@ def test_last_view_units_brute_force():
 def test_no_pool_poles_in_real_design_guard_path():
     # The runner builds its guard from split_poles.json design poles only; a pool row is refused.
     from src.r9_btsc_guard import GuardedTestLabels
-    g = GuardedTestLabels([1, 2], [0, 1], [1])
+    g = GuardedTestLabels([1, 2], [0, 1], [1], blobs={})   # explicit pre-F3 state (the repo is past F3)
     with pytest.raises(AssertionError):
         g.labels([1])

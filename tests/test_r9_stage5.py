@@ -413,11 +413,18 @@ def test_run_design_synthetic(tmp_path, monkeypatch):
 
 
 def test_main_refuses_overwrite(tmp_path, monkeypatch):
+    monkeypatch.setattr(DS, "f3_closed", lambda: False)        # pre-F3 state, to reach the overwrite check
     out = tmp_path / "stage5"
     out.mkdir()
     (out / "stage5_design.json").write_text("{}")
     with pytest.raises(SystemExit):
         DS.main(["--stage4", str(tmp_path / "none"), "--out", str(out)])
+
+
+def test_design_step_refused_after_f3(tmp_path):
+    # the real repo is past F3: the design phase is over and the design step must not run
+    with pytest.raises(AssertionError, match="F3 is closed"):
+        DS.main(["--stage4", str(tmp_path / "none"), "--out", str(tmp_path / "out")])
 
 
 # ---------------------------------------------------------------- freeze step (src/r9_stage5_freeze.py)
@@ -490,8 +497,14 @@ def test_freeze_refuses_changed_design(tmp_path, monkeypatch):
         FR.reproduce(R, d, design, {"x": "y"})
 
 
-def test_freeze_refuses_existing_yaml(tmp_path):
+def test_freeze_refuses_existing_yaml(tmp_path, monkeypatch):
+    monkeypatch.setattr(FR, "f3_closed", lambda: False)        # pre-F3 state, to reach the overwrite check
     y = tmp_path / "frozen.yaml"
     y.write_text("x: 1\n")
     with pytest.raises(SystemExit):
         FR.main(["--yaml", str(y), "--design", str(tmp_path / "none.json")])
+
+
+def test_freeze_refused_after_f3(tmp_path):
+    with pytest.raises(AssertionError, match="F3 is already closed"):
+        FR.main(["--yaml", str(tmp_path / "y.yaml"), "--design", str(tmp_path / "none.json")])
