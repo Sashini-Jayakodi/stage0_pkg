@@ -6,8 +6,8 @@
   `f5c49a8` (Stage 0 setup), `c0ffaaf` (handoff tidy), `5d0162e` (project rules and POC-3 file naming), `daf03b1`
   (wording rule narrowed; handoff and gitignore wording), `3fbb90f` (handoff working method section); Stage 2:
   `6043706`, `c70f15d`, `2f18f95`, `5716fc6`, `f19727c` and the freeze commit `99da0b5`; Stage 3: `9be85ac`,
-  `aee1565`, `05c1df5`, `58cacfe`, `0c255f0`, `27ed9a7`, `515dcb7`; Stage 4: `1d9e00b` (Part A), `beeb114` (code) and
-  the Part B commit.
+  `aee1565`, `05c1df5`, `58cacfe`, `0c255f0`, `27ed9a7`, `515dcb7`; Stage 4: `1d9e00b` (Part A), `beeb114` (code),
+  `5dfe52b` (Part B) and `7a1d985` (view tables and training history).
 - **Stages 0 to 4 done; the engine `src/r9_certify.py` is frozen.** Next step: **POC-3 Stage 5 (BelgiumTSC design
   phase and freeze F3)**, only when the author says so. Read plan R9 sections 2 and 3 first. Full suite at Stage 4: 435
   passed (one intermittent scikit-learn ImportError in a POC-1 test on the first run). BelgiumTSC testing labels are
