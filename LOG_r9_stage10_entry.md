@@ -133,3 +133,32 @@ sign-level violation rate (exact binomial and HB) with CP interval; certificatio
   used per run.
 - The runner recomputes the curves with the same seeds and stops if they differ from the committed curve file
   (hash-checked first).
+
+#### (h) values: boundary subset (step 2, 15 Nov 2026; population curves only, no Cert sample drawn)
+- Script `src/r9_stage10_popcurves.py` committed in a6ed1b3 (SHA-256
+  797aae0712ef69f2cbd1eb62968b8162c178423547d7ef5eb675fafa311bc72d) before it was run; full suite 547 passed. Run
+  command `py -3.12 -m src.r9_stage10_popcurves`, 18.9 s.
+- Output `runs/20261003_stage1/poc3/stage10/population_curves_stage10.json` SHA-256
+  ffa785eafc545a45b4a2d364b072111f5f8dd9440d4b0f308753e2dcce0b119f (git blob 69ad7832cc91ad62a8f60ad6ec623074f611743a);
+  printout `population_curves_printout.txt` SHA-256 b619b25756a328f82d279af18ee503e9c03e7927314baa358b01174e9d915365.
+- Predictions recomputed: all 9 within 0.005 percentage points of table (c).
+- Calibration: population view error 7.38% to 7.42%; wrong-indicator ICC 0.0997 to 0.1001 (rho 0.1), 0.1993 to 0.2007
+  (rho 0.2), 0.5994 to 0.6023 (rho 0.6).
+- Boundary diagnostic: in every setting the start is the strictest grid point (j_s = 29); the first point above alpha
+  in walk order is j_b = 13 at alpha 1% (R_b 1.079% to 1.132%) and j_b = 8 at alpha 2% (R_b 2.230% to 2.315%).
+  **Boundary subset: all 18 of 18 settings.**
+| pair | rho | m | R_b at 1% | R_b at 2% |
+|---|---|---|---|---|
+| 0 | 0.1 | 5 | 1.096% | 2.236% |
+| 1 | 0.1 | 10 | 1.112% | 2.271% |
+| 2 | 0.1 | 15 | 1.101% | 2.252% |
+| 3 | 0.2 | 5 | 1.090% | 2.237% |
+| 4 | 0.2 | 10 | 1.091% | 2.247% |
+| 5 | 0.2 | 15 | 1.113% | 2.277% |
+| 6 | 0.6 | 5 | 1.106% | 2.252% |
+| 7 | 0.6 | 10 | 1.079% | 2.230% |
+| 8 | 0.6 | 15 | 1.132% | 2.315% |
+- Why the subset is everything: the B1 accept fraction and true risk per frame are properties of single frames, which
+  have the same marginal distribution for every rho and m in this model, so the B1 curves are almost the same in all
+  9 pairs. Within-sign correlation changes how variable the Cert count is, not the curve. The summary over the subset
+  in (e) therefore equals the summary over all 18; both are reported as Part A says.
