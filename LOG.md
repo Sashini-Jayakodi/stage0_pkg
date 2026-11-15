@@ -1535,3 +1535,37 @@ apart.
   head margins compared exactly in float32; tests that read the live FROZEN_BLOBS pinned to an explicit pre-F3 state
   at F3 (guard code unchanged). Details in `LOG_r9_stage5_entry.md` Part B.
 - Next step: Stage 6 (BelgiumTSC confirmation), only when the author says so.
+
+## POC-3 (R9) Stage 6: BelgiumTSC confirmation
+
+- Date: 2026-11-15 / Stage: R9 Stage 6 / Run tag: runs/btsc/stage6
+- Config hash / checkpoint hash / git commit: Part A 89a8c42; code 34c3492 (run HEAD); `configs/frozen_r9_btsc.yaml`
+  blob f4d37e5d73ef230e91689be5303e5eac51b15450 checked by `check_frozen()` (4 files); Stage 4 inputs and
+  `stage5_design.json` hash-checked; `stage6_summary.json` SHA-256
+  71be795779554a62546b1e03089222b53c35bc5a8ffac4bb2406c470b39e185f (blob 28ceaa6ae6cdd8964b0018510612fe2840dab3e2);
+  `stage6_printout.txt` SHA-256 b2d6eef1a8f11d673882b01d08ff4ecca0d6c4eb57bdad04bfbd844c1898f30c.
+- What was done: one run on the BelgiumTSC pool with every value from the frozen yaml: RQ1 resampling (2,000 draws of
+  397 pool poles; S1 to S4 and view-level B1; every alpha; exact binomial and HB primary start), the pre-registered
+  V-check, RQ2 on the 5 frozen re-splits (every score, alpha and rule; uncertified reference), B2, B5, B5c and B6, the
+  plan section 8 table and the S2 against B6 table. Full record in `LOG_r9_stage6_entry.md`.
+- Result numbers:
+  - V-check PASS, 5 of 5 cells (3%, exact binomial): S1 0.00% (2000 certified), S2-sum 3.25% [2.52, 4.12] (1196),
+    S2-min 3.25% [2.52, 4.12] (1920), S3 0.00% (1989), S4 0.00% (2000).
+  - RQ1: view-level B1 14.00% [12.51, 15.60]% at 0.5% (above delta) and 8.60% [7.41, 9.92]% at 1%; largest
+    sign-level rate 1.45% at 1% and 3.25% at any alpha. Design effect 2.24 [1.25, 2.74].
+  - RQ2, smallest certifiable alpha (exact binomial, 5 seeds): S1 and S4 1%; S3 2%; S2-min 2% (one seed 3%); S2-sum
+    3% (two seeds 5%). HB primary start certified 1% only in seed 4 (S1, S4); HB never certified where the exact
+    binomial did not.
+  - At 3% S1, S3 and S4 certify commit-all at view 1 (pool view-1 error 1.44%); coverage 100%, Test error 0.65%
+    (0.62-1.90%). At 1% S1 and S4 certify in 5/5 at coverage 93.55% and 95.48% (Test error up to 1.32%, seed 4).
+  - B6 above its target r: 2 of 5 re-splits at 3%, 5 of 5 at 2% (worst 3.23%). B5/B5c gap at most 0.65%, real error
+    up to 1.90%.
+- Checks: integrity all True | V-check PASS (5/5).
+- Decision taken and why: the primary alpha stays 3% as frozen; the 3% table does not separate the methods, so the 1%
+  table is reported beside it as pre-registered, non-scored cells.
+- Deviation from the plan? Yes: the runner's `worktree clean` flag reads False because it creates its own output
+  folder before `git status` (tree clean before the run; no number changed; not rerun); the 1% comparison table was
+  assembled after the run from the summary JSON by `src/r9_stage6_tables.py` (commit 2392433; Part A promised it in
+  the printout);
+  B5/B5c "certified" read as a finite threshold. Details in `LOG_r9_stage6_entry.md` Part B.
+- Next step: Stage 8 (final tables), only when the author says so. Stage 7 dropped (F-A3 failed).

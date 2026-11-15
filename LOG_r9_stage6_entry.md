@@ -213,14 +213,179 @@ Part A section (x) (commit 019f782), whose settings the yaml freezes.
 
 ### Part B: results (filled from the printout after the run)
 
-- Date: ____ / Run tag: runs/btsc/stage6 / Code commit: ____ / Part A commit: ____
-- `stage6_summary.json` SHA-256: ____ ; `stage6_printout.txt` SHA-256: ____
-- Integrity (k): ____
-- RQ1 (d): ____
-- V-check (e), S1 / S2-sum / S2-min / S3 / S4 at 3%, binom (certify count; violations; rate [95% CP]; PASS/FAIL):
-  ____
-- RQ2 (f), (g): ____
-- Baselines (h): ____
-- Comparison table (i): ____
-- S2 against B6 (j): ____
-- Deviations, bugs and reruns: ____
+- Date: 2026-11-15 / Run tag: runs/btsc/stage6 / Code commit: 34c3492 (`src/r9_stage6.py` SHA-256
+  c6b7a89c0eda47c2b7a8bc6e0abf84d2ac82bc47b0d302c37f99bebafff7b108, `src/r9_stage6_methods.py` SHA-256
+  d0681dcf82e6ee2ff4d35af26511d0b3d2ebbb977277cdab6847435c3c10c6fd) / Part A commit: 89a8c42. Full suite before the
+  run: 505 passed. One run, `py -3.12 -m src.r9_stage6`, 24.7 s, exit 0; not rerun.
+- `stage6_summary.json` SHA-256 71be795779554a62546b1e03089222b53c35bc5a8ffac4bb2406c470b39e185f (git blob
+  28ceaa6ae6cdd8964b0018510612fe2840dab3e2); `stage6_printout.txt` SHA-256
+  b2d6eef1a8f11d673882b01d08ff4ecca0d6c4eb57bdad04bfbd844c1898f30c (git blob
+  4dd6c061f9c80345ffc941a90aecb235d1ed4c2b).
+
+#### Integrity (k): all checks True
+- Freeze check PASS, 4 files by git blob ID (plan R9, engine, engine tests, `configs/frozen_r9_btsc.yaml`).
+- Stage 4 inputs and `stage5_design.json` matched by SHA-256; both pool files matched `stage4_summary.json`. Files
+  opened: the ten of (a), no others.
+- The recomputed design phase wrote `configs/frozen_r9_btsc.yaml` again byte for byte (LF).
+- Pool rows match the view table; no design pole in the pool; `f3_closed()` true before the first pool label; pool
+  head top-3 and margins equal the stored Stage 4 scores exactly; pool 530 poles, 626 units, 1,860 views.
+- Splits partition the pool and give the yaml's Cert / Test unit counts; every engine start (scores and B2) equals
+  the frozen start.
+
+#### V-check (e): PASS, 5 of 5 cells (alpha 3%, exact binomial, upper 95% CP <= 0.12)
+| Score | Certified (of 2,000) | Violations | Rate [95% CP] | Mean true risk | Result |
+|---|---|---|---|---|---|
+| S1 | 2000 | 0 | 0.00% [0.00, 0.18] | 1.31% | PASS |
+| S2-sum | 1196 | 65 | 3.25% [2.52, 4.12] | 1.85% | PASS |
+| S2-min | 1920 | 65 | 3.25% [2.52, 4.12] | 1.05% | PASS |
+| S3 | 1989 | 0 | 0.00% [0.00, 0.18] | 1.31% | PASS |
+| S4 | 2000 | 0 | 0.00% [0.00, 0.18] | 1.16% | PASS |
+
+Every scored cell certified in at least 1,196 of 2,000 draws, so no pass rests on a cell that rarely certifies. All
+65 S2 violations (each variant) are draws that certified grid point 0 (commit at view 1), whose true pool error is
+3.35% for S2. The check is scored as pre-registered.
+
+#### RQ1 (d): violation rate, sign-level against view-level B1
+Measured on the design poles (Stage 5): within-unit rho 0.631 [0.126, 0.887], design effect 2.24 [1.25, 2.74] at
+2.96 views per unit. GTSRB record (POC-2 Stage 3b, alpha 1%, HB): frame-level 20.0% [18.3, 21.8]%, track-level 1.4%
+[0.9, 2.0]%. Pool true risk at grid point 0 (commit at view 1): S1, S3, S4 1.44%; S2-sum, S2-min 3.35%; B1 1.45% per
+view. Items per draw: 441 to 503 units (mean 468.6); 1,309 to 1,490 views for B1.
+
+Rate % [95% CP] (certified draws of 2,000); exact binomial / HB primary start:
+| alpha | S1 | S2-sum | S2-min | S3 | S4 | B1 (views) |
+|---|---|---|---|---|---|---|
+| 0.5% | no start / 0.00 (0) | no start / 0.00 (0) | no start / 0.00 (0) | no start / 0.00 (0) | no start / 0.00 (0) | **14.00 [12.51, 15.60] (1083)** / 4.00 [3.18, 4.95] (958) |
+| 1% | 1.45 [0.97, 2.08] (1646) / 0.05 [0.00, 0.28] (958) | 0.20 [0.05, 0.51] (4) / 0.00 (0) | 0.00 (120) / 0.00 (13) | 0.65 [0.35, 1.11] (390) / 0.10 [0.01, 0.36] (94) | 1.25 [0.81, 1.84] (1648) / 0.10 [0.01, 0.36] (958) | 8.60 [7.41, 9.92] (1642) / 3.15 [2.43, 4.01] (946) |
+| 2% | 0.00 (2000) / 0.00 (1219) | 0.05 [0.00, 0.28] (285) / 0.00 (67) | 0.05 [0.00, 0.28] (1234) / 0.00 (658) | 0.00 (1644) / 0.00 (1253) | 0.00 (1632) / 0.00 (962) | 0.00 (1998) / 0.00 (1646) |
+| 3% | 0.00 (2000) / 0.00 (937) | 3.25 [2.52, 4.12] (1196) / 0.80 [0.46, 1.30] (710) | 3.25 [2.52, 4.12] (1920) / 0.90 [0.53, 1.42] (1667) | 0.00 (1989) / 0.00 (1936) | 0.00 (2000) / 0.00 (1147) | 0.00 (2000) / 0.00 (1856) |
+| 5% | 0.00 (2000) / 0.00 (1994) | 0.00 (1993) / 0.00 (1955) | 0.00 (2000) / 0.00 (1998) | 0.00 (2000) / 0.00 (2000) | 0.00 (2000) / 0.00 (1784) | 0.00 (2000) / 0.00 (2000) |
+
+0.5% with HB: 1 of 2,000 draws had a start for each score; none certified. Every rate of 0.00 has the interval
+[0.00, 0.18].
+- View-level B1 exceeds delta at 0.5%: 14.00% [12.51, 15.60]% with the exact binomial (HB 4.00%).
+- At 1% B1 is 8.60% [7.41, 9.92]%, below delta but about 6 times the largest sign-level rate (S1 1.45%).
+- At 2% and above, B1, S1, S3 and S4 have no violations, because their pool error at view 1 is 1.44% (1.45% per view
+  for B1). S2-sum and S2-min, whose pool error at view 1 is 3.35%, have 1 violation each at 2% (0.05%) and 65 each at
+  3% (3.25%), within delta.
+- No sign-level cell exceeds delta at any alpha or rule; the largest sign-level rate is 3.25% [2.52, 4.12]%.
+
+#### RQ2 (f), (g): smallest certifiable alpha per score and rule (seeds 0 to 4; "-" = none)
+| Score | binom | hb | hb_a1 | hb_bs |
+|---|---|---|---|---|
+| S1 | 1, 1, 1, 1, 1% | 5, 5, 5, 5, 1% | -, -, 5, 5, 1% | -, -, -, -, 1% |
+| S2-sum | 3, 3, 5, 5, 3% | 5, 5, 5, 5, 5% | 5, 5, 5, 5, 5% | 5, 5, 5, 5, 5% |
+| S2-min | 2, 2, 3, 2, 2% | 3, 3, 3, 3, 2% | 3, 3, 3, 3, 2% | 3, 3, 3, 3, 2% |
+| S3 | 2, 2, 2, 2, 2% | 2, 2, 3, 3, 2% | 2, 2, 3, 3, 2% | 2, 2, 3, 3, 2% |
+| S4 | 1, 1, 1, 1, 1% | 5, 5, 3, 5, 1% | -, -, -, -, 1% | -, -, -, -, 1% |
+| B2 | 1, 1, 1, 1, 1% | 5, 2, 2, 5, 1% | -, -, 2, -, 1% | -, -, -, -, 1% |
+
+E3: the exact binomial certified 1% for S1 and S4 in all 5 re-splits; Hoeffding-Bentkus did so only in seed 4 under
+each of its three starts. In no (seed, score, alpha) cell did HB certify where the exact binomial did not.
+
+#### Every Test cell above alpha (error among committed, 95% CP)
+- Layer (certified): S1 and S4, seed 4, 1%, all four rules: 1.32% (2/152) [0.16, 4.67], coverage 96.20%. No other
+  certified layer cell is above alpha.
+- B2 (certified), all in seed 4: 1% binom 1.32% (2/152) [0.16, 4.67]; 1% hb, hb_a1, hb_bs 1.34% (2/149)
+  [0.16, 4.76]; 2% binom 3.80% (6/158) [1.41, 8.08]; 2% hb and hb_a1 3.18% (5/157) [1.04, 7.28]; 3% binom and hb
+  3.80% (6/158) [1.41, 8.08].
+- B6 S2-sum (against r = alpha): 0.5% and 1% in all 5 re-splits (1.94% (3/155) [0.40, 5.55], 1.30% (2/154)
+  [0.16, 4.61], 1.23% (2/162) [0.15, 4.39], 1.29% (2/155) [0.16, 4.58], 1.90% (3/158) [0.39, 5.45] for seeds 0 to 4);
+  2% in all 5 (3.23% (5/155) [1.06, 7.37], 2.60% (4/154) [0.71, 6.52], 2.47% (4/162) [0.68, 6.20], 3.23% (5/155)
+  [1.06, 7.37], 2.53% (4/158) [0.69, 6.35]); 3% in seeds 0 and 3 (3.23% (5/155) [1.06, 7.37]).
+- B6 S2-min: 0.5% in all 5 (0.65% (1/153) [0.02, 3.59], 0.65% (1/153) [0.02, 3.59], 0.62% (1/160) [0.02, 3.43],
+  0.66% (1/152) [0.02, 3.61], 1.92% (3/156) [0.40, 5.52]); 1% in seed 4 (1.92% (3/156) [0.40, 5.52]); 2% in all 5
+  (same values as S2-sum at 2%); 3% in seeds 0 and 3 (3.23% (5/155) [1.06, 7.37]).
+- B5 (real error above alpha; gap 0.00% in each): 0.5% in all 5 (1.29% [0.16, 4.58], 0.65% [0.02, 3.56], 0.62%
+  [0.02, 3.39], 0.65% [0.02, 3.54], 1.90% [0.39, 5.45]); 1% in seeds 0 (1.29%) and 4 (1.90%).
+- B5c (real error above alpha; gap 0.00% in each): 0.5% in all 5 (same values as B5); 1% in seed 4 (1.90%
+  [0.39, 5.45]).
+
+#### Comparison table (i), BelgiumTSC, primary alpha 3%: median (min-max; seeds counted)
+At 3%, most methods certify committing every unit at view 1 because the pool error at view 1 is 1.44%; the
+primary-alpha table therefore does not separate the methods. The primary alpha is not changed after the run. All
+alphas were pre-registered to be run and reported; the 1% results are reported alongside as pre-registered,
+non-scored cells.
+
+| Row | S1 | S2-sum | S2-min | S3 | S4 | B1 | B2 | B5 | B5c | B6 S2-sum | B6 S2-min |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| Type of promise | real error, sign | real error, sign | real error, sign | real error, sign | real error, sign | real error per view | real error, one view per sign | accuracy gap, marginal | accuracy gap, conditional | none | none |
+| Violation rate (resampling) | 0.00% [0.00, 0.18] (2000) | 3.25% [2.52, 4.12] (1196) | 3.25% [2.52, 4.12] (1920) | 0.00% [0.00, 0.18] (1989) | 0.00% [0.00, 0.18] (2000) | 0.00% [0.00, 0.18] (2000) | not in RQ1 | not in RQ1 | not in RQ1 | not in RQ1 | not in RQ1 |
+| Certified re-splits | 5/5 | 3/5 | 5/5 | 5/5 | 5/5 | not run | 5/5 | 5/5 (finite lambda) | 5/5 (finite lambda) | no certificate | no certificate |
+| Test coverage | 100% | 100% (3) | 98.73 (98.06-99.35) | 100% | 100% | not run | 100% | 100% | 100% | 100% | 100% |
+| Test error | 0.65 (0.62-1.90) | 1.90 (1.30-1.94; 3) | 0.65 (0.62-1.92) | 0.65 (0.62-1.90) | 0.65 (0.62-1.90) | not run | 1.85 (0.65-3.80) | 0.65 (0.62-1.90) real | 0.65 (0.62-1.90) real | 2.60 (2.47-3.23) | 2.60 (2.47-3.23) |
+| Worst error vs 3% | 1.90, 0 above | 1.94, 0 above | 1.92, 0 above | 1.90, 0 above | 1.90, 0 above | not run | 3.80, 1 above | gap 0.65; real 1.90, 0 above | gap 0.65; real 1.90, 0 above | 3.23, 2 above | 3.23, 2 above |
+| Smallest certifiable alpha | 1% (5/5) | 3% (3-5%) | 2% (2-3%) | 2% (5/5) | 1% (5/5) | not run | 1% (5/5) | 0.5% (gap tolerance) | 1% (gap tolerance) | none | none |
+| Median commit view | 1 | 1 | 1 | 1 | 1 | not run | 2 | 1 | 1 | 1 | 1 |
+| Median size at commit (px) | 71 (62-75.5) | 70 (62-75.5) | 71.5 (63-77) | 71 (62-75.5) | 71 (62-75.5) | not run | 67 (60-70.5) | 71 (62-75.5) | 71 (62-75.5) | 71 (62-75.5) | 71 (62-75.5) |
+| Can escalate | yes | yes | yes | yes | yes | yes | yes | no | no | yes | yes |
+
+Errors and coverage in %. B1 re-split rows: "not run (B1 is pre-registered for the resampling only)". B1 certify
+counts in the resampling (exact binomial): 0.5% 1083, 1% 1642, 2% 1998, 3% 2000, 5% 2000.
+
+#### Comparison table at 1% (pre-registered, reported, not the primary alpha)
+Same format. Assembled after the run from `stage6_summary.json` by `src/r9_stage6_tables.py`
+(`py -3.12 -m src.r9_stage6_tables --alpha 0.01`, commit 2392433; deviation 2 below).
+
+| Row | S1 | S2-sum | S2-min | S3 | S4 | B1 | B2 | B5 | B5c | B6 S2-sum | B6 S2-min |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| Violation rate (resampling) | 1.45% [0.97, 2.08] (1646) | 0.20% [0.05, 0.51] (4) | 0.00% [0.00, 0.18] (120) | 0.65% [0.35, 1.11] (390) | 1.25% [0.81, 1.84] (1648) | 8.60% [7.41, 9.92] (1642) | not in RQ1 | not in RQ1 | not in RQ1 | not in RQ1 | not in RQ1 |
+| Certified re-splits | 5/5 | 0/5 | 0/5 | 0/5 | 5/5 | not run | 5/5 | 5/5 (finite lambda) | 5/5 (finite lambda) | no certificate | no certificate |
+| Test coverage | 93.55 (91.36-96.20) | n/a | n/a | n/a | 95.48 (93.55-97.40) | not run | 92.86 (86.45-96.20) | 100% | 100% | 100% | 98.73 (98.06-99.35) |
+| Test error | 0.00 (0.00-1.32) | n/a | n/a | n/a | 0.00 (0.00-1.32) | not run | 0.00 (0.00-1.32) | 0.65 (0.62-1.90) real | 0.65 (0.62-1.90) real | 1.30 (1.23-1.94) | 0.65 (0.62-1.92) |
+| Worst error vs 1% | 1.32, 1 above | n/a | n/a | n/a | 1.32, 1 above | not run | 1.32, 1 above | gap 0.65; real 1.90, 2 above | gap 0.65; real 1.90, 1 above | 1.94, 5 above | 1.92, 1 above |
+| Smallest certifiable alpha | 1% (5/5) | 3% (3-5%) | 2% (2-3%) | 2% (5/5) | 1% (5/5) | not run | 1% (5/5) | 0.5% (gap tolerance) | 1% (gap tolerance) | none | none |
+| Median commit view | 2 | n/a | n/a | n/a | 1 | not run | 2 | 1 | 2 (1-3) | 1 | 1 |
+| Median size at commit (px) | 65.5 (62.5-71) | n/a | n/a | n/a | 73 (68-79.5) | not run | 68.5 (61-73) | 71 (62-75.5) | 66 (61-71) | 71 (62-75.5) | 71.5 (63-77) |
+| Can escalate | yes | yes | yes | yes | yes | yes | yes | no | no | yes | yes |
+
+Type of promise as in the 3% table.
+
+#### S2 against B6 (j): cost of the certificate, every alpha (median commit view 1 wherever anything commits)
+Coverage %, error % median (min-max), worst error, re-splits above alpha. Reference = uncertified reference.
+
+| Variant | alpha | Layer (exact binomial) | B6 (r = alpha) | Reference |
+|---|---|---|---|---|
+| S2-sum | 0.5% | 0/5 certified | 100; 1.30 (1.23-1.94); worst 1.94; 5 above | commits nothing |
+| S2-sum | 1% | 0/5 certified | 100; 1.30 (1.23-1.94); worst 1.94; 5 above | commits nothing |
+| S2-sum | 2% | 0/5 certified | 100; 2.60 (2.47-3.23); worst 3.23; 5 above | 100; 1.30 (1.23-1.94); worst 1.94; 0 above |
+| S2-sum | **3%** | **3/5; 100; 1.90 (1.30-1.94); worst 1.94; 0 above** | **100; 2.60 (2.47-3.23); worst 3.23; 2 above** | 100; 1.30 (1.23-1.94); worst 1.94; 0 above |
+| S2-sum | 5% | 5/5; 100; 2.60 (1.23-3.23); worst 3.23; 0 above | 100; 2.60 (2.47-3.23); worst 3.23; 0 above | 100; 2.60 (2.47-3.23); worst 3.23; 0 above |
+| S2-min | 0.5% | 0/5 certified | 98.73 (98.06-99.35); 0.65 (0.62-1.92); worst 1.92; 5 above | commits nothing |
+| S2-min | 1% | 0/5 certified | 98.73 (98.06-99.35); 0.65 (0.62-1.92); worst 1.92; 1 above | 98.73; 0.65 (0.62-1.92); worst 1.92; 1 above |
+| S2-min | 2% | 4/5; 98.72 (98.06-99.35); 0.66 (0.65-1.92); worst 1.92; 0 above | 100; 2.60 (2.47-3.23); worst 3.23; 5 above | 98.73; 0.65 (0.62-1.92); worst 1.92; 0 above |
+| S2-min | **3%** | **5/5; 98.73 (98.06-99.35); 0.65 (0.62-1.92); worst 1.92; 0 above** | **100; 2.60 (2.47-3.23); worst 3.23; 2 above** | 98.73; 0.65 (0.62-1.92); worst 1.92; 0 above |
+| S2-min | 5% | 5/5; 100 (98.73-100); 2.60 (0.62-3.23); worst 3.23; 0 above | 100; 2.60 (2.47-3.23); worst 3.23; 0 above | 100; 2.60 (2.47-3.23); worst 3.23; 0 above |
+
+Where both commit, the certificate costs no commit view (view 1 for both). At 3% it costs S2-sum 2 of 5 re-splits
+and S2-min about 1.3 points of coverage; B6 exceeds its target in 2 of 5 re-splits at 3% and in 5 of 5 at 2%
+(both variants).
+
+#### B5 and B5c: accuracy gap against real error (Test, per seed 0 to 4)
+| Method | alpha | lambda | Gap % | Real error % |
+|---|---|---|---|---|
+| B5 | 0.5% | 0.08 (all seeds) | 0.00 in all | 1.29, 0.65, 0.62, 0.65, 1.90 |
+| B5 | 1% | 0.01 (seed 3: 0.00) | 0.00, 0.00, 0.00, 0.65, 0.00 | 1.29, 0.65, 0.62, 0.65, 1.90 |
+| B5 | 2%, 3%, 5% | 0.00 | 0.00, 0.00, 0.00, 0.65, 0.00 | 0.65, 0.65, 0.62, 0.65, 1.90 |
+| B5c | 0.5% | all infinite (stop at the last view) | 0.00 in all | 1.29, 0.65, 0.62, 0.65, 1.90 |
+| B5c | 1% | seeds 0, 3: (0, 0, 0); seeds 1, 2: (inf, inf, 0); seed 4: (inf, 0, 0) | 0.00, 0.00, 0.00, 0.65, 0.00 | 0.65, 0.65, 0.62, 0.65, 1.90 |
+| B5c | 2%, 3%, 5% | (0, 0, 0) | 0.00, 0.00, 0.00, 0.65, 0.00 | 0.65, 0.65, 0.62, 0.65, 1.90 |
+
+The gap stays at or below the tolerance in every cell (largest 0.65%); the real error reaches 1.90% (seed 4) at every
+tolerance. Coverage is 100% throughout (Ringel never escalates).
+
+#### Deviations, bugs and reruns
+1. The printout header and `stage6_summary.json` (`worktree_clean: false`) report a tree that is not clean. Cause: the
+   runner creates `runs/btsc/stage6/` and opens the printout there before it calls `git status`, so the run's own
+   untracked output folder is counted. The tree was clean before the run (checked after commit 34c3492); the code
+   files equal that commit. No number changed; not rerun.
+2. Part A (i) says the comparison table is also printed at every other alpha. The runner printed it at 3% only. The 1%
+   table above was assembled after the run by `src/r9_stage6_tables.py` (commit 2392433), which reads the
+   hash-checked `stage6_summary.json` and calls the runner's own `comparison_table` function; no number is recomputed
+   from data. Its test (`tests/test_r9_stage6_tables.py`) checks that the 3% table it builds equals the printed one line
+   for line. Tables at 0.5%, 2% and 5% were not assembled; their cells are all in `stage6_summary.json` and the
+   printout, and the same script builds them.
+3. Part A does not define "certified" for B5 and B5c. The runner reads it as a finite threshold (B5) or at least one
+   finite threshold (B5c); with no finite threshold Ringel's rule stops every unit at its last view.
+4. "Test cells above alpha" lists B5 and B5c where the real error exceeds alpha, although their promise is the gap.
+- No bug was found; there was one run and no rerun.
+- Next step: Stage 8 (final tables), only when the author says so. Stage 7 (DITS) is dropped (F-A3 failed).
