@@ -10,10 +10,11 @@
   `5dfe52b` (Part B) and `7a1d985` (view tables and training history); Stage 5: `019f782` (Part A), `b63546a` (code),
   `ec85800` (design-pole values), `986a8e7` (freeze code), **F3 `e94e667`**, `1355c7d` (tests after F3) and `88e07f1`
   (Part B); Stage 6: `89a8c42` (Part A), `34c3492` (code), `2392433` (table rebuild script) and the
-  Part B commit.
-- **Stages 0 to 6 done (Stage 7 dropped); the engine `src/r9_certify.py` and `configs/frozen_r9_btsc.yaml` are frozen
-  (F3 closed).** Next step: **POC-3 Stage 8 (final tables)**, only when the author says so. Read plan R9 sections 2,
-  3 and 9 Stage 8 first. Full suite at Stage 6: 505 passed. Since F3 the guard
+  Part B commit; Stage 8: `fd60e28` (tables script, tests, `docs/poc3-results-tables.md`) and the record commit.
+- **Stages 0 to 6 and 8 done (Stage 7 dropped); the engine `src/r9_certify.py` and `configs/frozen_r9_btsc.yaml` are
+  frozen (F3 closed).** Next step: **POC-3 Stage 9 (idea text and gates)**, only when the author says so. Read plan R9
+  sections 2, 3, 9 Stage 9, 12 and 13 first; the final tables are in `docs/poc3-results-tables.md`. Full suite at
+  Stage 8: 530 passed. Since F3 the guard
   `src/r9_btsc_guard.py` lets pool labels through; `check_frozen()` checks 4 files. Nothing in the frozen yaml changes.
   The POC-3 status table is below the POC-2 one.
 - **Environment (checked 14 Nov 2026):** `py -3.12` (Python 3.12.10) with torch 2.14.1+cu132 (CUDA available, RTX 5050),
@@ -89,7 +90,7 @@ finished record and is not updated further.
 | 5 BelgiumTSC design phase and freeze F3 | **Done 15 Nov 2026; F3 closed** (Part A `019f782`, code `b63546a`, design values `ec85800`, freeze code `986a8e7`, **F3 commit `e94e667`**, tests after F3 `1355c7d`, Part B `88e07f1`). Integrity checks all PASS. Rule 3 (n_min = 464 Cert units, f_d >= 70%, UCB90 x n_c <= k_max): **primary alpha 3%** (S1 and S4: 0 of 150 committed design errors); **F-D1 PASS**, 10% not added. Grids: S1 30, S2-sum 3, S2-min 3, S3 4, S4 30 points. **S2 has low resolution on BelgiumTSC** ((a, b) = (0, 0.1), about 80 windows per ECDF, 6 of 7 view-1 errors from ties); reported as a design-phase finding, not amended (author's decision). Re-splits: Cert 397 / Test 133 poles, Cert 464-472 units. Within-unit rho 0.631 [0.126, 0.887], design effect 2.24 [1.25, 2.74]. `configs/frozen_r9_btsc.yaml` SHA-256 `93e030fd...5932`, blob `f4d37e5d`; written from a recomputation checked equal to the hash-checked `stage5_design.json` (that file stores infinities as null). Details in `LOG_r9_stage5_entry.md` Part B. |
 | 6 BelgiumTSC confirmation | **Done 15 Nov 2026** (Part A `89a8c42`, code `34c3492`, one run, not rerun). Integrity all True. **V-check PASS 5/5** (3%, exact binomial): S1, S3, S4 0.00%; S2-sum and S2-min 3.25% [2.52, 4.12]% (all at grid point 0, S2 pool view-1 error 3.35%); certify counts 1196-2000 of 2000. RQ1: view-level B1 14.00% [12.51, 15.60]% at 0.5% (above delta), 8.60% at 1%; sign-level at most 3.25%; design effect 2.24. Smallest certifiable alpha (exact binomial): S1, S4 1%; S3 2%; S2-min 2-3%; S2-sum 3-5%; HB primary start reached 1% only in seed 4. **At 3% S1, S3, S4 certify commit-all at view 1 (pool view-1 error 1.44%), so the primary-alpha table does not separate the methods**; the 1% table is reported beside it (pre-registered, not scored): S1 and S4 5/5 at 93.6% / 95.5% coverage. B6 above its target in 2/5 re-splits at 3%, 5/5 at 2%. Deviations: runner's worktree flag reads False (own output folder; tree was clean); 1% table assembled from the summary JSON after the run by `src/r9_stage6_tables.py` (`2392433`). Details in `LOG_r9_stage6_entry.md` Part B. |
 | 7 DITS earliness (only if F-A3 passes) | **Dropped** (F-A3 failed, plan section 11). Earliness evidence is GTSRB only, labelled exploratory. |
-| 8 Final tables | Not started. |
+| 8 Final tables | **Done 15 Nov 2026** (code `fd60e28`). `src/r9_stage8_tables.py` writes `docs/poc3-results-tables.md` from hash-checked committed summaries (no new numbers); `check_frozen()` first; 22 tests check every table against its source JSON. Tables: GTSRB comparison at 1% (exploratory; baseline columns are POC-2 records, marked in their headers and a "Source / test" row), BelgiumTSC at 3% (primary, with the Stage 6 statement) and 1% (not primary), RQ1 validity, exact binomial against HB, S2 against B6, Ringel gap against real error, limitations. Adverse-cells table not built. Details in `LOG_r9_stage8_entry.md`. |
 | 9 Idea text and gates | Not started. |
 
 **Stage 7 (BelgiumTSC) note:** BelgiumTSC's primary alpha is chosen by the Stage 2 D2 rule on BelgiumTSC's own design poles, at its own Cert size, and frozen before any BelgiumTSC Cert or Test pole is read; no GTSRB pool result is used.

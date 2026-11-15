@@ -1569,3 +1569,26 @@ apart.
   the printout);
   B5/B5c "certified" read as a finite threshold. Details in `LOG_r9_stage6_entry.md` Part B.
 - Next step: Stage 8 (final tables), only when the author says so. Stage 7 dropped (F-A3 failed).
+
+## POC-3 (R9) Stage 8: final tables
+
+- Date: 2026-11-15 / Stage: R9 Stage 8 / Output: docs/poc3-results-tables.md
+- Config hash / checkpoint hash / git commit: code fd60e28 (`src/r9_stage8_tables.py` SHA-256
+  3740264e458f536234bc04e5caa32a5274eebf4b5fc563345046a52c0f127242); output `docs/poc3-results-tables.md` SHA-256
+  ae889e2e8765b1efabb917aea6e3db780c0897105c53cc411b0229feeca1ed07 (blob 3c6fed2750650a38453c089a82d9e2b39834033a).
+  `check_frozen()` PASS (4 files). Sources hash-checked: R9 Stage 1, 2, 3 and 6 summaries; POC-2 Stage 3b, 4 and 6
+  summaries; POC-1 stage5_results.json (git blob, no recorded SHA-256); LOG_r9_stage6_entry.md (git blob).
+- What was done: built the Stage 8 tables from the committed summaries by code, with no new analysis: GTSRB
+  comparison at 1% (exploratory), BelgiumTSC comparison at the primary 3% with the Stage 6 statement and at 1%
+  (pre-registered, not the primary alpha), RQ1 validity (GTSRB real, simulation, BelgiumTSC), exact binomial against
+  HB (three starts), S2 against B6 at every alpha, Ringel gap against real error, and limitations. Full record in
+  `LOG_r9_stage8_entry.md`.
+- Result numbers: none new; every value is as recorded in the cited summaries and Part B entries.
+- Checks: check_frozen PASS | source hash checks PASS (9) | tests/test_r9_stage8_tables.py 22 passed | full suite
+  530 passed before the table 1 header change.
+- Decision taken and why: the GTSRB baseline columns are POC-2 records (HB for B1 and B2; B6 calibrated on Cert
+  thirds), because R9 Stage 3 ran S1 to S4 only. They are marked "POC-2 record" in their headers, each column has a
+  "Source / test" row, and the note under the table states the differences.
+- Deviation from the plan? Yes: no Part A committed before the code (no new number exists in this stage); the
+  optional adverse-cells table is not built; Stage 7 dropped (F-A3 failed), so there is no DITS table.
+- Next step: Stage 9 (idea text and gates), only when the author says so.
