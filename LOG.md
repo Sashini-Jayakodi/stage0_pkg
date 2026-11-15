@@ -1504,3 +1504,34 @@ apart.
   recorded in `LOG_r9_stage5_entry.md` Part B and `docs/HANDOFF.md`). `configs/frozen_r9_btsc.yaml` SHA-256
   93e030fdf85e6416691df1ddc0185286095be2c8254e571ed4d8897f3f645932 (working-copy bytes), git blob
   f4d37e5d73ef230e91689be5303e5eac51b15450. Stage 6 checks it through `src/r9_frozen.py` before reading it.
+
+## POC-3 (R9) Stage 5: BelgiumTSC design phase and freeze F3
+
+- Date: 2026-11-15 / Stage: R9 Stage 5 / Run tag: runs/btsc/stage5
+- Config hash / checkpoint hash / git commit: Part A 019f782; code b63546a (design run HEAD); design-pole values
+  ec85800 (stage5_design.json SHA-256 115f98025f60b14aedad9c0d75df6d5deafc568d77b427e2bf9804be1d854a11, git blob
+  b06a09f8c64bbd789bd02addab0b518ecde66d0e); freeze code 986a8e7; F3 commit e94e6670987f7e9abad8382d848012a6a928407a
+  (configs/frozen_r9_btsc.yaml SHA-256 93e030fdf85e6416691df1ddc0185286095be2c8254e571ed4d8897f3f645932, git blob
+  f4d37e5d73ef230e91689be5303e5eac51b15450); tests after F3 1355c7d. Stage 4 inputs hash-checked against
+  stage4_summary.json (1c66a011...3a31). Checkpoint 83fdd0d1...b76b via the Stage 4 embeddings.
+- What was done: on the 133 design poles only, computed the S1 to S4 sequences (S2 with at most the last 3 views and
+  one ECDF per window length, calibrated on two halves by pole), 30-point grids, design statistics, the Cert/Test
+  re-splits from pool structure, starts per seed, Rule 3, within-sign correlation and the baseline design values;
+  wrote configs/frozen_r9_btsc.yaml from a recomputation checked equal to the design file; committed it with the
+  pre-registration block above and its FROZEN_BLOBS entry (F3). Full record in `LOG_r9_stage5_entry.md`.
+- Result numbers:
+  - Grids: S1 30, S2-sum 3, S2-min 3, S3 4, S4 30 distinct points; e_d at view 1 2.55% (S1, S3, S4), 4.46% (S2).
+  - Cert / Test units per seed: 471 / 155, 472 / 154, 464 / 162, 471 / 155, 468 / 158; n_min 464.
+  - Rule 3: predicted at 3% for S1 and S4 (0 / 150, UCB90 1.523%, n_c 443, 6.75 <= 8); at 5% also S2-sum and S2-min;
+    S3 at no alpha. Primary alpha 3%.
+  - Within-unit rho 0.631 [0.126, 0.887], design effect 2.24 [1.25, 2.74]; within-pole rho 0.515 [-0.627, 1.000].
+  - S2: (a, b) = (0, 0.1); second-largest ICP p-value 0 for 418 / 465 views; 6 of 7 view-1 errors from tied combined
+    p-values (post-run check on design units, not in the printout).
+- Checks: integrity (m) PASS | F-D1 PASS | freeze-step reproduction PASS | check_frozen after F3 PASS (4 files).
+- Decision taken and why: S2 frozen as fitted, its low resolution reported as a design-phase finding (author's
+  decision before F3). F3 closed; nothing in the frozen yaml changes from here on.
+- Deviation from the plan? Yes: S2 window of at most 3 views with per-length ECDFs; Rule 3 with n_min and a single
+  grid point; view order ascending YYYYY; no stage5_summary.json (its contents are in stage5_design.json and the yaml);
+  head margins compared exactly in float32; tests that read the live FROZEN_BLOBS pinned to an explicit pre-F3 state
+  at F3 (guard code unchanged). Details in `LOG_r9_stage5_entry.md` Part B.
+- Next step: Stage 6 (BelgiumTSC confirmation), only when the author says so.

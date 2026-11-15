@@ -290,18 +290,61 @@ printout `stage5_printout.txt` SHA-256 3e6b8e5f01719c4873356f426382c0185f4e73a40
 - No pool label, prediction, Cert or Test number was read or computed. Nothing is frozen yet (F3 open).
 
 ### Part B: results (filled from the printout after the run)
-- Date: ____ / Stage: R9 Stage 5 / Run tag: runs/btsc/stage5
-- Git commit of Part A: ____ | Design-pole values: ____ | Code: ____ | F3 commit: ____
-- Input hash checks: ____
-- S2 halves (A / B poles, units, views): ____ ; (a, b) Sum ____ , Min ____ ; ECDF sizes per window length ____
-- Grids (distinct points, f_d range, e_d at lambda_0) per score: ____
-- Cert / Test units per seed: ____ ; n_min ____
-- Starts per (seed, score, alpha, rule): ____
-- Rule 3 table (score x alpha: predicted yes/no, the grid point, UCB90, n_c, k_max): ____
-- Primary alpha: ____ | F-D1: PASS / FAIL (10% added: yes / no) | Fallback 2: yes / no
-- Within-unit rho ____ [____, ____], design effect ____ ; within-pole rho ____ [____, ____]
-- Baseline design values (B2 grid points, B5 F_design size, B6 theta per alpha): ____
-- frozen_r9_btsc.yaml SHA-256 ____ , blob ID ____
-- Checks: ____
-- Deviation from the plan? ____
+- Date: 2026-11-15 (design run 05:57:12 UTC) / Stage: R9 Stage 5 / Run tag: runs/btsc/stage5
+- Git commit of Part A: 019f782 | Code: b63546a (design run HEAD; `src/r9_stage5_design.py` SHA-256
+  65df87fedc15128a58adafcc819d434a5ae6d990f11fdeeb1fdaa85c2773b382, `src/r9_stage5_scores.py` SHA-256
+  9de1e24808d950f5cc1ce5ea65b7bf1c46c9bad4feb260d385480a1e43c0b12f) | Design-pole values: ec85800 | Freeze code: 986a8e7
+  | **F3 commit: e94e6670987f7e9abad8382d848012a6a928407a** | Tests after F3: 1355c7d.
+- Run commands: `py -3.12 -m src.r9_stage5_design` (HEAD b63546a; 0.5 s), then `py -3.12 -m src.r9_stage5_freeze`
+  (HEAD 986a8e7). Environment: Python 3.12.10, numpy 2.5.2. Both began with the freeze check (PASS, 3 files by git
+  blob ID before F3).
+- Input hash checks: all six inputs matched their recorded SHA-256 (the blob-ID fallback for text files was not
+  needed). Files opened: `stage4_summary.json`, `test_views.csv`, `split_poles.json`, `embeddings/test_design.npz`,
+  `head/head.npz`, `head/scores_test_design.npz`; no pool score or embedding file.
+- Integrity checks (m): all PASS (details in the design-pole values above). The head margins were compared exactly in
+  float32, the stored precision, instead of within 1e-9; float64 values differ by at most 6.07e-05.
+- S2 halves: A 66 poles / 77 units / 226 views; B 67 poles / 80 units / 239 views. (a, b) = (-0.0, +0.1) for S2-sum and
+  for S2-min (AURC 0.00005 each); ECDF sizes 80 / 80 / 79 for windows of 1 / 2 / 3 views.
+- Grids (distinct points; f_d range; e_d at lambda_0): S1 30, 100.00 to 30.57%, 2.55%; S2-sum 3, 100.00 to 97.45%,
+  4.46%; S2-min 3, 100.00 to 95.54%, 4.46%; S3 4, 100.00 to 94.27%, 2.55%; S4 30, 100.00 to 30.57%, 2.55%.
+- Cert / Test units per seed (397 / 133 poles each): 471 / 155, 472 / 154, 464 / 162, 471 / 155, 468 / 158; n_min 464.
+- Starts per (seed, score, alpha, rule): as listed in the design-pole values; full table in the yaml.
+- Rule 3: as tabled in the design-pole values. Predicted certifiable at 3%: S1, S4; at 5%: S1, S2-sum, S2-min, S4; S3
+  at no alpha (5%: 15.54 > 15).
+- **Primary alpha: 3%** | **F-D1: PASS** (10% added: no) | Fallback 2: no.
+- Within-unit rho 0.6312 [0.1256, 0.8868], design effect 2.2382 [1.2465, 2.7396] (m = 2.96), 2.2624 [1.2513, 2.7735]
+  (m = 3); within-pole rho 0.5146 [-0.6269, 1.0000].
+- Baseline design values: B1 view grid 30 points; B2 design draw 30 points; B5 F_design 465 S1 margins; B6 theta (both
+  variants) 0.09875 at 0.5% and 1%, -inf (commit at view 1) at 2%, 3% and 5%.
+- `configs/frozen_r9_btsc.yaml` SHA-256 93e030fdf85e6416691df1ddc0185286095be2c8254e571ed4d8897f3f645932 (working-copy
+  bytes), git blob f4d37e5d73ef230e91689be5303e5eac51b15450; in `FROZEN_BLOBS` since e94e667. After F3,
+  `check_frozen()` passes with 4 files and the guard reports F3 closed.
+- **S2 resolution (author's decision (a), before F3):** S2 is frozen as fitted and not amended; its low resolution on
+  BelgiumTSC is reported as a design-phase finding (pre-registration block in `LOG.md`).
+- **Post-run tie check (after the recorded design run, not in the printout):** on design units only, with the
+  recorded S2 fit, the largest combined p-value at view 1 is tied for 9 of 157 units, 7 units are wrong at view 1,
+  and 6 of those 7 are ties broken to the smaller class ID; the same counts for S2-sum and S2-min. The second-largest
+  ICP p-value is 0 for 418 of 465 views. The S2-sum check ran before the design-pole values commit, the S2-min check
+  before the F3 commit.
+- **Design file and yaml:** `stage5_design.json` stores every non-finite number as null, so a B6 threshold of -inf and
+  None ("commit nothing") are not distinguishable in that file. The freeze step recomputed the design phase from the
+  hash-checked Stage 4 inputs; the recomputation equalled the hash-checked design file in every field except the run
+  fields (PASS), and the yaml was written from it, keeping -inf and null apart.
+- **Tests edited at F3:** `tests/test_r9_btsc_guard.py` (from Stage 4) was edited at F3 (commit 1355c7d): the pre-F3
+  tests now pin an explicit open state (`blobs={}`), and a new test checks that F3 is closed in the real repo. The
+  guard code `src/r9_btsc_guard.py` is unchanged (SHA-256 d77d87365674560ff8013fc84a6ae51c5c1c93866c90cb3f72483c1ce8664d8d,
+  as in Stage 4). In the same commit, one Stage 4 guard test in `tests/test_r9_stage4.py` pins the open state the same
+  way, and `tests/test_r9_stage5.py` reaches the overwrite checks with an explicit pre-F3 state and gains two tests
+  that the design and freeze steps refuse to run after F3. Full suite: 472 passed before F3; after F3, 9 tests that
+  read the live `FROZEN_BLOBS` failed as expected; 474 passed after the edits.
+- Checks: integrity (m) PASS | F-D1 PASS | freeze-step reproduction PASS | check_frozen after F3 PASS (4 files).
+- Facts about the run: the design file records `worktree_clean False`: the runner creates `runs/btsc/stage5/` and its
+  printout before it checks git status, so the new untracked outputs counted; no tracked file was changed (HEAD
+  b63546a), as in Stage 4.
+- Deviation from the plan? Yes: (1) S2 combines at most the last 3 views with one ECDF per window length (Q2), not a
+  fixed K = 5; (2) Rule 3 uses n_min and checks a single grid point (Q3 to Q5); (3) the view order is ascending YYYYY,
+  not camera index (Stage 1 Amendment 2); (4) Part A (o) named a `stage5_summary.json`; it was not written: the code
+  SHA-256, input hashes and files opened are in `stage5_design.json`, and the yaml `sources` block holds the hashes of
+  the design file and the Stage 4 inputs; (5) the integrity comparison of head margins was exact in float32 instead
+  of within 1e-9 (Part A (m)); (6) the post-run tie check above is not in the printout.
 - Next step: Stage 6 (BelgiumTSC confirmation), only when the author says so.
