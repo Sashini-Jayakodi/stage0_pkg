@@ -418,3 +418,80 @@ def test_main_refuses_overwrite(tmp_path, monkeypatch):
     (out / "stage5_design.json").write_text("{}")
     with pytest.raises(SystemExit):
         DS.main(["--stage4", str(tmp_path / "none"), "--out", str(out)])
+
+
+# ---------------------------------------------------------------- freeze step (src/r9_stage5_freeze.py)
+from src import r9_stage5_freeze as FR  # noqa: E402
+import yaml  # noqa: E402
+
+
+def synthetic_design(tmp_path, monkeypatch):
+    """A synthetic Stage 4 folder, its design run R and the recorded design file (as the design step writes it)."""
+    base, s4, blobs = make_stage4(tmp_path, n_design_poles=60, n_pool_poles=120)
+    d = DS.load_stage4(base, s4, blobs)
+    monkeypatch.setattr(DS, "STAGE4_SUMMARY_SHA256", s4)
+    monkeypatch.setattr(DS, "TEXT_BLOBS", blobs)
+    monkeypatch.setattr(SC, "BOOT_DRAWS", 50)
+    monkeypatch.setattr(DS, "stop", lambda m: (_ for _ in ()).throw(SystemExit(m)))
+    E = d["emb"]
+    sc = score(d["head"], E["emb"])
+    last = {}
+    for i, u in enumerate(zip(E["pole"].tolist(), E["y"].tolist())):
+        if u not in last or E["view"][i] > E["view"][last[u]]:
+            last[u] = i
+    pool_units = {(r["pole"], r["cls"]) for r in d["rows"] if r["part"] == "pool"}
+    monkeypatch.setattr(DS, "EXPECTED", {
+        "design_poles": len(set(E["pole"].tolist())), "design_units": len(last), "design_views": len(E["row"]),
+        "pool_poles": len({p for p, _ in pool_units}), "pool_units": len(pool_units),
+        "views_correct": int((sc["top3"][:, 0] == E["y"]).sum()),
+        "units_correct_last_view": int(sum(sc["top3"][i, 0] == u[1] for u, i in last.items()))})
+    R = DS.run_design(d)
+    code = {f: sha256_file(ROOT / f) for f in DS.CODE}
+    path = tmp_path / "stage5_design.json"
+    path.write_text(json.dumps(DS.to_json(R, d, {"x": "y"}, code, 0.0), indent=1) + "\n")
+    return base, d, R, path
+
+
+def test_plain_keeps_inf():
+    assert FR.plain({1: np.array([-np.inf, 1.5]), "t": np.float64(-np.inf), "n": None}) == \
+        {"1": [-np.inf, 1.5], "t": -np.inf, "n": None}
+
+
+def test_freeze_reproduce_and_build(tmp_path, monkeypatch):
+    base, d, R, path = synthetic_design(tmp_path, monkeypatch)
+    monkeypatch.chdir(ROOT)
+    design, how = FR.load_design(path, sha256_file(path), blob_id(path))
+    assert how == "sha256"
+    FR.reproduce(R, d, design, {"x": "y"})                               # same design: passes
+    y = yaml.safe_load(yaml.safe_dump(FR.build(R, design, "s", "b"), sort_keys=False, default_flow_style=None))
+    for s in SC.SCORES:
+        assert y["scores"][s]["grid"][0] == -np.inf
+        assert y["scores"][s]["grid"][1:] == R["scores"][s]["grid"][1:].tolist()
+    for s, th in R["b6"].items():                                        # -inf and None stay apart in the yaml
+        for a, t in th.items():
+            assert y["b6"]["theta"][s][f"{a:g}"] == t
+    assert y["resplits"]["split"]["0"]["test_poles"] == R["resplits"][0]["test_poles"]
+    assert y["s2_halves"]["B_poles"] == R["halves"]["B_poles"]
+    assert y["primary_alpha"] == (None if R["primary_alpha"] is None else f"{R['primary_alpha']:g}")
+    assert set(y["s2"]["S2-sum"]["ecdf"]) == {"1", "2", "3"}
+
+
+def test_freeze_refuses_changed_design(tmp_path, monkeypatch):
+    base, d, R, path = synthetic_design(tmp_path, monkeypatch)
+    monkeypatch.chdir(ROOT)
+    sha, blob = sha256_file(path), blob_id(path)
+    obj = json.loads(path.read_text())
+    obj["n_min"] += 1
+    path.write_text(json.dumps(obj, indent=1) + "\n")
+    with pytest.raises(SystemExit):                                      # hash check
+        FR.load_design(path, sha, blob)
+    design, _ = FR.load_design(path, sha256_file(path), blob_id(path))   # hash accepted, content changed
+    with pytest.raises(SystemExit):                                      # reproduction check
+        FR.reproduce(R, d, design, {"x": "y"})
+
+
+def test_freeze_refuses_existing_yaml(tmp_path):
+    y = tmp_path / "frozen.yaml"
+    y.write_text("x: 1\n")
+    with pytest.raises(SystemExit):
+        FR.main(["--yaml", str(y), "--design", str(tmp_path / "none.json")])
