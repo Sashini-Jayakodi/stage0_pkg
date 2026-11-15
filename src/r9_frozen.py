@@ -10,12 +10,14 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 ENGINE = "src/r9_certify.py"
 
-# Recorded in LOG.md: plan R9 in the Stage 0 entry, engine and engine tests in the Stage 2 entry (freeze 99da0b5).
-# configs/frozen_r9_btsc.yaml is added here at Stage 5 (F3).
+# Recorded in LOG.md: plan R9 in the Stage 0 entry, engine and engine tests in the Stage 2 entry (freeze 99da0b5),
+# the BelgiumTSC frozen config in the F3 pre-registration block (Stage 5). Its presence here closes F3 and opens the
+# pool labels in src/r9_btsc_guard.py.
 FROZEN_BLOBS = {
     "docs/poc3-implementation-plan-r9.md": "0abe7fa51af3b499cd79218e46c83790dbfa2e99",
     ENGINE: "158a9c9e32ab8ec1f568f75b5c35c9992711db74",
     "tests/test_r9_certify.py": "ecb6e04429883ddbf298b22b803cd3bc70c959ef",
+    "configs/frozen_r9_btsc.yaml": "f4d37e5d73ef230e91689be5303e5eac51b15450",
 }
 
 

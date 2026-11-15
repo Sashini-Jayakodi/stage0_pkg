@@ -1439,3 +1439,68 @@ Replaces the "Data roles, design set only" item of (e). Everything else in (e) i
   intermittent scikit-learn ImportError in a POC-1 test before the run, 435 passed on rerun. Details in
   `LOG_r9_stage4_entry.md` Part B.
 - Next step: Stage 5 (BelgiumTSC design phase and freeze F3), only when the author says so.
+
+## POC-3 (R9) Pre-registration block, freeze F3 (plan R9 Stage 5), 2026-11-15
+
+Written before any Cert or Test number on BelgiumTSC pool poles exists. Every value below was chosen on the 133 design
+poles (157 units, 465 views) or from pool structure only, and is in `configs/frozen_r9_btsc.yaml` (committed together
+with this block and its entry in `FROZEN_BLOBS`). Nothing here changes after this commit. delta = 0.1 in every phase.
+Definitions: `LOG_r9_stage5_entry.md` Part A (commit 019f782) and its design-pole values (commit ec85800).
+
+- **Plan and engine:** plan R9 git blob 0abe7fa51af3b499cd79218e46c83790dbfa2e99; engine `src/r9_certify.py` blob
+  158a9c9e32ab8ec1f568f75b5c35c9992711db74; engine tests blob ecb6e04429883ddbf298b22b803cd3bc70c959ef.
+- **Design-values file:** `runs/btsc/stage5/stage5_design.json` SHA-256
+  115f98025f60b14aedad9c0d75df6d5deafc568d77b427e2bf9804be1d854a11, git blob b06a09f8c64bbd789bd02addab0b518ecde66d0e.
+  The yaml was written by `src/r9_stage5_freeze.py` (commit 986a8e7) from a recomputation that reproduced this file
+  exactly.
+
+1. **Unit and views.** Unit = (pole, class); view order = ascending YYYYY; commit time = views used; no gate.
+2. **Scores.** S1 (summed head log-likelihood margin), S2-sum (primary S2) and S2-min (window of at most the last 3
+   views, one ECDF per window length), S3 (running vote margin), S4 (current-view margin). S2 halves by pole, seed
+   20261115: A 66 poles (226 ICP scores), B 67 poles (ECDF sizes 80 / 80 / 79); (a, b) = (0, 0.1) for both variants.
+   Stated: on the design units S2's confidence takes only two values, so its grid has 3 points and its strictest point
+   commits 97.45% (S2-sum) / 95.54% (S2-min).
+3. **Grids.** Rule of Part A (f) on the 157 design units; distinct points S1 30, S2-sum 3, S2-min 3, S3 4, S4 30.
+   Values in the yaml.
+4. **Alpha grid and primary alpha.** {0.5, 1, 2, 3, 5}%. Rule 3 (n_min = 464, f_d >= 70%, UCB90 x floor(f_d x n_min)
+   <= k_max): predicted certifiable at 3% for S1 and S4 (0 / 150 committed design errors, UCB90 1.523%, n_c 443,
+   6.75 <= 8) and at 5% for S1, S2-sum, S2-min and S4; S3 at no alpha (5%: 15.54 > 15). **Primary alpha 3%.** F-D1
+   PASS; 10% not added. Rule 3 ignores the walk path (Part A (i), Q5).
+5. **Re-splits.** Seeds 0 to 4; Test = 133 pool poles by the Stage 4 rule (25%), Cert = 397 poles. Cert / Test units:
+   471 / 155, 472 / 154, 464 / 162, 471 / 155, 468 / 158. Pole lists in the yaml.
+6. **Tests and starts.** Exact binomial (primary) and Hoeffding-Bentkus (starts hb primary, hb_a1, hb_bs), each with
+   that seed's Cert unit count; start indices per (seed, score, alpha, rule) in the yaml. alpha 0.5% has no
+   exact-binomial start in any seed ("no start possible", not tested and failed).
+7. **RQ1 resampling (Stage 6).** 2,000 draws of 397 pool poles with replacement (seed [20261115, 6, d]); sign-level
+   certificate counted by unit; view-level B1 on the S4 single-view margin with its 30-point view grid; all score
+   variants and B1, every alpha with a start, exact binomial and HB primary start; all reported.
+8. **Stage 6 V-check.** Upper 95% Clopper-Pearson bound of the sign-level violation rate <= 0.12, scored for every score
+   variant at the primary alpha 3%, exact binomial. All other cells reported, not scored.
+9. **Baselines.** B2 (one random view per unit, S4 margin; seeds [20261115, 7, s], design draw [20261115, 7, 100];
+   30-point design grid); B5 and B5c (Ringel et al., POC-2 code; pi = F_design of the 465 design S1 margins; grid
+   0 to 1 by 0.01 plus infinity; B5c thresholds for views 1 to 3, D_cal halves 199 / 198 poles, seed [20261116, s]);
+   B6 (uncertified S2-sum and S2-min; theta on half B: 0.09875 at 0.5% and 1%, -inf at 2%, 3% and 5%).
+10. **Uncertified reference.** Loosest grid point with design committed error <= alpha (indices in the yaml).
+11. **Fallbacks** as in plan section 11.
+
+**Design-phase measurements (reported, not used for any choice).** Within-unit error correlation rho 0.631
+[0.126, 0.887], design effect 2.24 [1.25, 2.74] at 2.96 views per unit; within-pole rho 0.515 [-0.627, 1.000]
+(23 poles with more than one unit).
+
+**S2 resolution on BelgiumTSC (design-phase finding).** S2 (both variants) has 3 distinct grid points on BelgiumTSC
+design units: (a, b) = (0, 0.1); the second-largest ICP p-value is 0 for 418/465 views; each ECDF rests on about 80
+windows; 6 of 7 S2 view-1 errors follow tied combined p-values broken to the smaller class ID. Recorded before F3 as a
+finding about the score with a small calibration set; S2 is not amended (decision recorded here). The tie counts come
+from a check run after the recorded design run, on design units only, with the recorded S2 fit (both variants: 9 of
+157 units tied at view 1, 7 wrong, 6 of them tied).
+
+**Design file and yaml.** `stage5_design.json` stores every non-finite number as null, so a B6 threshold of -inf
+("commit at view 1") and None ("commit nothing") cannot be told apart in that file. The yaml is therefore written from
+a recomputation of the design phase from the hash-checked Stage 4 inputs, which was checked equal to the hash-checked
+design file in every field except the run fields (time, HEAD, worktree state, seconds); the yaml keeps -inf and null
+apart.
+
+- **F3 record (2026-11-15):** F3 commit = the commit that adds this block and the `FROZEN_BLOBS` entry (its hash is
+  recorded in `LOG_r9_stage5_entry.md` Part B and `docs/HANDOFF.md`). `configs/frozen_r9_btsc.yaml` SHA-256
+  93e030fdf85e6416691df1ddc0185286095be2c8254e571ed4d8897f3f645932 (working-copy bytes), git blob
+  f4d37e5d73ef230e91689be5303e5eac51b15450. Stage 6 checks it through `src/r9_frozen.py` before reading it.
