@@ -1,0 +1,197 @@
+=== R9 Stage 5 design phase (BelgiumTSC design poles only) | HEAD b63546a909cea20c8461bac0e85f70d4005e9c30 ===
+freeze check PASS: 3 files by git blob ID
+input checks PASS: {'stage4_summary.json': 'sha256', 'test_views.csv': 'sha256', 'split_poles.json': 'sha256', 'embeddings/test_design.npz': 'sha256', 'head/head.npz': 'sha256', 'head/scores_test_design.npz': 'sha256'}
+files opened: ['stage4_summary.json', 'test_views.csv', 'split_poles.json', 'embeddings/test_design.npz', 'head/head.npz', 'head/scores_test_design.npz']
+
+--- (m) integrity checks ---
+  npz_rows_are_design_rows: True
+  npz_matches_view_table: True
+  design_poles_match_split: True
+  guard_labels_equal_stored: True
+  head_top3_reproduces: True
+  head_margin_reproduces: True
+  top1_equals_head_top1: True
+  margin_float64_vs_stored_max_abs: 6.07e-05
+  stage4_facts_reproduce: True
+  facts: {'design_poles': 133, 'design_units': 157, 'design_views': 465, 'views_correct': 451, 'units_correct_last_view': 150, 'pool_poles': 530, 'pool_units': 626}
+
+--- (e) S2 halves (seed 20261115) ---
+  A (ICP): 66 poles, 77 units, 226 views | B (ECDF, a, b): 67 poles, 80 units, 239 views
+  S2-sum (primary): a = -0.0, b = +0.1, AURC 0.00005, ICP scores 226, ECDF sizes L1 80, L2 80, L3 79
+  S2-min (secondary): a = -0.0, b = +0.1, AURC 0.00005, ICP scores 226, ECDF sizes L1 80, L2 80, L3 79
+
+--- (g) Cert/Test re-splits (pool structure only) ---
+  seed 0: Cert 397 poles / 471 units | Test 133 poles / 155 units
+  seed 1: Cert 397 poles / 472 units | Test 133 poles / 154 units
+  seed 2: Cert 397 poles / 464 units | Test 133 poles / 162 units
+  seed 3: Cert 397 poles / 471 units | Test 133 poles / 155 units
+  seed 4: Cert 397 poles / 468 units | Test 133 poles / 158 units
+  n_min = 464
+
+--- S1: 30 distinct grid points (of 30) ---
+    j       lambda   f_d %   e_d % wrong med view
+    0         -inf 100.00   2.55     4      1.0
+    1       459.65  98.09   0.65     1      1.0
+    2      882.471  95.54   0.00     0      1.0
+    3      1591.47  92.99   0.00     0      2.0
+    4      2042.92  90.45   0.00     0      2.0
+    5      2327.38  88.54   0.00     0      2.0
+    6      2605.79  85.99   0.00     0      2.0
+    7      2927.02  83.44   0.00     0      3.0
+    8      3022.38  80.89   0.00     0      3.0
+    9      3121.58  78.34   0.00     0      3.0
+   10      3236.56  76.43   0.00     0      3.0
+   11      3337.41  73.89   0.00     0      3.0
+   12         3424  71.34   0.00     0      3.0
+   13      3514.02  68.79   0.00     0      3.0
+   14      3552.22  66.24   0.00     0      3.0
+   15      3596.53  64.33   0.00     0      3.0
+   16      3730.71  61.78   0.00     0      3.0
+   17      3948.49  59.24   0.00     0      3.0
+   18       4043.4  56.69   0.00     0      3.0
+   19      4077.27  54.14   0.00     0      3.0
+   20      4100.43  52.23   0.00     0      3.0
+   21      4183.63  49.68   0.00     0      3.0
+   22      4223.71  47.13   0.00     0      3.0
+   23      4268.68  44.59   0.00     0      3.0
+   24      4304.53  42.68   0.00     0      3.0
+   25      4345.05  40.13   0.00     0      3.0
+   26      4355.51  37.58   0.00     0      3.0
+   27      4370.96  35.03   0.00     0      3.0
+   28      4403.84  32.48   0.00     0      3.0
+   29      4425.23  30.57   0.00     0      3.0
+  starts per seed (grid index; -1 = no start possible): alpha: binom / hb / hb_a1 / hb_bs
+   seed 0 (n = 471): 0.5%: -1/-1/0/-1  1%: 6/6/8/6  2%: 24/14/16/24  3%: 29/18/20/29  5%: 29/22/25/29
+   seed 1 (n = 472): 0.5%: -1/-1/0/-1  1%: 6/6/8/6  2%: 24/14/16/24  3%: 29/18/20/29  5%: 29/22/25/29
+   seed 2 (n = 464): 0.5%: -1/-1/0/-1  1%: 5/6/7/5  2%: 23/13/16/23  3%: 29/18/20/29  5%: 29/22/25/29
+   seed 3 (n = 471): 0.5%: -1/-1/0/-1  1%: 6/6/8/6  2%: 24/14/16/24  3%: 29/18/20/29  5%: 29/22/25/29
+   seed 4 (n = 468): 0.5%: -1/-1/0/-1  1%: 6/6/8/6  2%: 23/14/16/23  3%: 29/18/20/29  5%: 29/22/24/29
+  reference (loosest j with e_d <= alpha): 0.5%: 2, 1%: 1, 2%: 1, 3%: 0, 5%: 0
+
+--- S2-sum: 3 distinct grid points (of 30) ---
+    j       lambda   f_d %   e_d % wrong med view
+    0         -inf 100.00   4.46     7      1.0
+    1      0.09875 100.00   4.46     7      1.0
+    2          0.1  97.45   1.31     2      1.0
+  starts per seed (grid index; -1 = no start possible): alpha: binom / hb / hb_a1 / hb_bs
+   seed 0 (n = 471): 0.5%: -1/-1/1/-1  1%: 2/2/2/2  2%: 2/2/2/2  3%: 2/2/2/2  5%: 2/2/2/2
+   seed 1 (n = 472): 0.5%: -1/-1/1/-1  1%: 2/2/2/2  2%: 2/2/2/2  3%: 2/2/2/2  5%: 2/2/2/2
+   seed 2 (n = 464): 0.5%: -1/-1/1/-1  1%: 2/2/2/2  2%: 2/2/2/2  3%: 2/2/2/2  5%: 2/2/2/2
+   seed 3 (n = 471): 0.5%: -1/-1/1/-1  1%: 2/2/2/2  2%: 2/2/2/2  3%: 2/2/2/2  5%: 2/2/2/2
+   seed 4 (n = 468): 0.5%: -1/-1/1/-1  1%: 2/2/2/2  2%: 2/2/2/2  3%: 2/2/2/2  5%: 2/2/2/2
+  reference (loosest j with e_d <= alpha): 0.5%: -1, 1%: -1, 2%: 2, 3%: 2, 5%: 0
+
+--- S2-min: 3 distinct grid points (of 30) ---
+    j       lambda   f_d %   e_d % wrong med view
+    0         -inf 100.00   4.46     7      1.0
+    1      0.09875 100.00   4.46     7      1.0
+    2          0.1  95.54   0.67     1      1.0
+  starts per seed (grid index; -1 = no start possible): alpha: binom / hb / hb_a1 / hb_bs
+   seed 0 (n = 471): 0.5%: -1/-1/1/-1  1%: 2/2/2/2  2%: 2/2/2/2  3%: 2/2/2/2  5%: 2/2/2/2
+   seed 1 (n = 472): 0.5%: -1/-1/1/-1  1%: 2/2/2/2  2%: 2/2/2/2  3%: 2/2/2/2  5%: 2/2/2/2
+   seed 2 (n = 464): 0.5%: -1/-1/1/-1  1%: 2/2/2/2  2%: 2/2/2/2  3%: 2/2/2/2  5%: 2/2/2/2
+   seed 3 (n = 471): 0.5%: -1/-1/1/-1  1%: 2/2/2/2  2%: 2/2/2/2  3%: 2/2/2/2  5%: 2/2/2/2
+   seed 4 (n = 468): 0.5%: -1/-1/1/-1  1%: 2/2/2/2  2%: 2/2/2/2  3%: 2/2/2/2  5%: 2/2/2/2
+  reference (loosest j with e_d <= alpha): 0.5%: -1, 1%: 2, 2%: 2, 3%: 2, 5%: 0
+
+--- S3: 4 distinct grid points (of 30) ---
+    j       lambda   f_d %   e_d % wrong med view
+    0         -inf 100.00   2.55     4      1.0
+    1            1 100.00   2.55     4      1.0
+    2            2  96.82   1.97     3      2.0
+    3            3  94.27   1.35     2      3.0
+  starts per seed (grid index; -1 = no start possible): alpha: binom / hb / hb_a1 / hb_bs
+   seed 0 (n = 471): 0.5%: -1/-1/1/-1  1%: 3/3/3/3  2%: 3/3/3/3  3%: 3/3/3/3  5%: 3/3/3/3
+   seed 1 (n = 472): 0.5%: -1/-1/1/-1  1%: 3/3/3/3  2%: 3/3/3/3  3%: 3/3/3/3  5%: 3/3/3/3
+   seed 2 (n = 464): 0.5%: -1/-1/1/-1  1%: 3/3/3/3  2%: 3/3/3/3  3%: 3/3/3/3  5%: 3/3/3/3
+   seed 3 (n = 471): 0.5%: -1/-1/1/-1  1%: 3/3/3/3  2%: 3/3/3/3  3%: 3/3/3/3  5%: 3/3/3/3
+   seed 4 (n = 468): 0.5%: -1/-1/1/-1  1%: 3/3/3/3  2%: 3/3/3/3  3%: 3/3/3/3  5%: 3/3/3/3
+  reference (loosest j with e_d <= alpha): 0.5%: -1, 1%: -1, 2%: 2, 3%: 0, 5%: 0
+
+--- S4: 30 distinct grid points (of 30) ---
+    j       lambda   f_d %   e_d % wrong med view
+    0         -inf 100.00   2.55     4      1.0
+    1      235.917  98.09   0.65     1      1.0
+    2      471.763  95.54   0.00     0      1.0
+    3      745.345  92.99   0.00     0      1.0
+    4      844.272  90.45   0.00     0      1.0
+    5      960.953  88.54   0.00     0      1.0
+    6      1083.22  85.99   0.00     0      1.0
+    7      1145.37  83.44   0.00     0      1.0
+    8      1185.62  80.89   0.00     0      1.0
+    9      1200.64  78.34   0.00     0      1.0
+   10      1212.59  76.43   0.00     0      1.0
+   11      1237.46  73.89   0.00     0      1.0
+   12      1284.78  71.34   0.00     0      1.0
+   13      1310.25  68.79   0.00     0      1.0
+   14      1336.02  66.24   0.00     0      1.0
+   15      1358.69  64.33   0.00     0      1.0
+   16      1389.81  61.78   0.00     0      1.0
+   17      1423.05  59.24   0.00     0      1.0
+   18      1430.89  56.69   0.00     0      1.0
+   19      1442.88  54.14   0.00     0      1.0
+   20      1453.38  52.23   0.00     0      1.0
+   21      1465.44  49.68   0.00     0      1.0
+   22       1475.2  47.13   0.00     0      1.0
+   23      1487.47  44.59   0.00     0      1.0
+   24      1498.27  42.68   0.00     0      1.0
+   25      1514.98  40.13   0.00     0      1.0
+   26      1523.14  37.58   0.00     0      1.0
+   27      1528.87  35.03   0.00     0      1.0
+   28      1544.71  32.48   0.00     0      1.0
+   29      1561.87  30.57   0.00     0      1.0
+  starts per seed (grid index; -1 = no start possible): alpha: binom / hb / hb_a1 / hb_bs
+   seed 0 (n = 471): 0.5%: -1/-1/0/-1  1%: 6/6/8/6  2%: 24/14/16/24  3%: 29/18/20/29  5%: 29/22/25/29
+   seed 1 (n = 472): 0.5%: -1/-1/0/-1  1%: 6/6/8/6  2%: 24/14/16/24  3%: 29/18/20/29  5%: 29/22/25/29
+   seed 2 (n = 464): 0.5%: -1/-1/0/-1  1%: 5/6/7/5  2%: 23/13/16/23  3%: 29/18/20/29  5%: 29/22/25/29
+   seed 3 (n = 471): 0.5%: -1/-1/0/-1  1%: 6/6/8/6  2%: 24/14/16/24  3%: 29/18/20/29  5%: 29/22/25/29
+   seed 4 (n = 468): 0.5%: -1/-1/0/-1  1%: 6/6/8/6  2%: 23/14/16/23  3%: 29/18/20/29  5%: 29/22/24/29
+  reference (loosest j with e_d <= alpha): 0.5%: 2, 1%: 1, 2%: 1, 3%: 0, 5%: 0
+
+--- (i) Rule 3 (n_min = 464, f_d >= 70%, UCB90 x n_c <= k_max) ---
+    score  alpha  pred   j   f_d % wrong/com  UCB90 %  n_c UCB90xn_c k_max
+       S1   0.5%    no  11  73.89    0/116     1.965  342     6.722  none
+       S1   1.0%    no   6  85.99    0/135     1.691  398     6.731     1
+       S1   2.0%    no   6  85.99    0/135     1.691  398     6.731     4
+       S1   3.0%   YES   2  95.54    0/150     1.523  443     6.748     8
+       S1   5.0%   YES   1  98.09    1/154     2.502  455    11.385    16
+   S2-sum   0.5%    no   2  97.45    2/153     3.441  452    15.554  none
+   S2-sum   1.0%    no   2  97.45    2/153     3.441  452    15.554     1
+   S2-sum   2.0%    no   2  97.45    2/153     3.441  452    15.554     4
+   S2-sum   3.0%    no   2  97.45    2/153     3.441  452    15.554     8
+   S2-sum   5.0%   YES   2  97.45    2/153     3.441  452    15.554    16
+   S2-min   0.5%    no   2  95.54    1/150     2.568  443    11.378  none
+   S2-min   1.0%    no   2  95.54    1/150     2.568  443    11.378     1
+   S2-min   2.0%    no   2  95.54    1/150     2.568  443    11.378     4
+   S2-min   3.0%    no   2  95.54    1/150     2.568  443    11.378     8
+   S2-min   5.0%   YES   2  95.54    1/150     2.568  443    11.378    15
+       S3   0.5%    no   3  94.27    2/148     3.556  437    15.540  none
+       S3   1.0%    no   3  94.27    2/148     3.556  437    15.540     1
+       S3   2.0%    no   3  94.27    2/148     3.556  437    15.540     4
+       S3   3.0%    no   3  94.27    2/148     3.556  437    15.540     8
+       S3   5.0%    no   3  94.27    2/148     3.556  437    15.540    15
+       S4   0.5%    no  11  73.89    0/116     1.965  342     6.722  none
+       S4   1.0%    no   6  85.99    0/135     1.691  398     6.731     1
+       S4   2.0%    no   6  85.99    0/135     1.691  398     6.731     4
+       S4   3.0%   YES   2  95.54    0/150     1.523  443     6.748     8
+       S4   5.0%   YES   1  98.09    1/154     2.502  455    11.385    16
+
+  F-D1 (some alpha in 1-5% predicted for some score): PASS
+  primary alpha: 3%
+
+--- (j) within-sign error correlation (design poles; head top-1 per view, no threshold) ---
+  within_unit: rho 0.6312 [0.1256, 0.8868] | clusters 157, items 465, errors 14, undefined bootstrap draws 0
+  within_pole: rho 0.5146 [-0.6269, 1.0000] | clusters 133, items 157, errors 7, undefined bootstrap draws 0
+  design_effect_m_mean: 2.2382 [1.2465, 2.7396]
+  design_effect_m_3: 2.2624 [1.2513, 2.7735]
+  mean views per unit 2.9618; poles with more than one unit 23
+
+--- (k) baseline design values ---
+  B1 view grid: 30 points over 465 design views; f_d 100.00 ..  30.11%; e_d at lambda_0   3.01%
+  B2 design draw: 30 grid points; f_d 100.00 ..  30.57%; e_d at lambda_0   3.18%
+  B5 F_design: 465 S1 margins (all design views)
+  B6 S2-sum theta per alpha (half B): 0.5%: 0.0988, 1%: 0.0988, 2%: -inf, 3%: -inf, 5%: -inf
+  B6 S2-min theta per alpha (half B): 0.5%: 0.0988, 1%: 0.0988, 2%: -inf, 3%: -inf, 5%: -inf
+
+Output: runs\btsc\stage5\stage5_design.json  SHA-256 115f98025f60b14aedad9c0d75df6d5deafc568d77b427e2bf9804be1d854a11  git blob b06a09f8c64bbd789bd02addab0b518ecde66d0e
+Design poles only. No pool label, prediction, Cert or Test number was read or computed.

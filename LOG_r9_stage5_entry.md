@@ -239,6 +239,56 @@ confidence >= lambda; its label there is its answer. If no view qualifies, the u
    bootstrap seeds [20261115, 5, 1] and [20261115, 5, 2] (j); RQ1 draw seeds [20261115, 6, d] (k); B2 seeds
    [20261115, 7, s] and [20261115, 7, 100], B5c seed [20261116, s] (k).
 
+#### Design-pole values (step 3; design poles only)
+Computed 2026-11-15 after the Part A commit (019f782), with the code committed first (b63546a;
+`src/r9_stage5_design.py` and `src/r9_stage5_scores.py`, SHA-256 in the output file). Command
+`py -3.12 -m src.r9_stage5_design`. Output `runs/btsc/stage5/stage5_design.json` SHA-256
+115f98025f60b14aedad9c0d75df6d5deafc568d77b427e2bf9804be1d854a11, git blob b06a09f8c64bbd789bd02addab0b518ecde66d0e;
+printout `stage5_printout.txt` SHA-256 3e6b8e5f01719c4873356f426382c0185f4e73a40ba6fa852ada78a3bad8280c.
+- Integrity (m): freeze check PASS (3 files by blob ID); all six inputs matched by SHA-256; files opened: the six of
+  (a), no pool score or embedding file; design rows, poles, views and sizes match the view table; guarded labels equal
+  the stored design labels; recomputed head top-3 and margins equal the stored float32 values exactly (the float64
+  margins differ from the stored float32 ones by at most 6.07e-05, rounding only); Stage 4 facts reproduce (133 poles,
+  157 units, 465 views, 451 views and 150 units correct; pool 530 poles, 626 units).
+- S2 halves: A 66 poles / 77 units / 226 views (226 ICP scores); B 67 poles / 80 units / 239 views; ECDF sizes
+  80 / 80 / 79 for windows of 1 / 2 / 3 views. S2-sum a = -0.0, b = +0.1, AURC 0.00005; S2-min the same a, b and AURC.
+- Re-splits (Cert / Test units): seed 0 471 / 155, 1 472 / 154, 2 464 / 162, 3 471 / 155, 4 468 / 158; 397 / 133 poles
+  in every seed; n_min = 464.
+- Distinct grid points: S1 30, S2-sum 3, S2-min 3, S3 4, S4 30. Design committed error at lambda_0 (commit at view 1):
+  S1, S3, S4 2.55% (4 / 157); S2-sum and S2-min 4.46% (7 / 157).
+- **S2 on BelgiumTSC is nearly degenerate.** Its confidence takes only two values on the design units (0.09875 and
+  0.1), so its grid has 3 points (lambda_0, 0.09875, 0.1) and its strictest point commits 97.45% (S2-sum) / 95.54%
+  (S2-min). Mechanism: (a, b) = (0, 0.1) makes the confidence 0.1 x (1 - second-largest combined p-value); the
+  second-largest ICP p-value is 0 for 418 of 465 views, and each ECDF has only about 80 values, so the transformed
+  values sit on a few steps. Its 3 extra wrong units at view 1 (7 against 4 for S4) come from ties: the largest
+  combined p-value is tied for 9 of 157 units at view 1, and 6 of the 7 wrong units are ties broken to the smaller
+  class ID (POC-2 `cred_conf`, argmax). The tie and view counts come from a check run after the recorded design run, on
+  design units only, with the recorded S2 fit; it is not in the printout.
+- Starts (grid index; binom / hb / hb_a1 / hb_bs; seeds 0, 1, 3: n = 471, 472, 471; seed 2: n = 464; seed 4: n = 468):
+  - S1 and S4 (same commit counts per point): 0.5% -1 / -1 / 0 / -1 in every seed; 1% 6 / 6 / 8 / 6 (seed 2:
+    5 / 6 / 7 / 5); 2% 24 / 14 / 16 / 24 (seed 2: 23 / 13 / 16 / 23; seed 4: 23 / 14 / 16 / 23); 3%
+    29 / 18 / 20 / 29; 5% 29 / 22 / 25 / 29 (seed 4: 29 / 22 / 24 / 29).
+  - S2-sum, S2-min: 0.5% -1 / -1 / 1 / -1; 1% to 5% 2 / 2 / 2 / 2, every seed.
+  - S3: 0.5% -1 / -1 / 1 / -1; 1% to 5% 3 / 3 / 3 / 3, every seed.
+- Rule 3 (n_min = 464; deciding point j, wrong / committed, UCB90, n_c, UCB90 x n_c, k_max):
+  | Score | 0.5% | 1% | 2% | 3% | 5% |
+  |---|---|---|---|---|---|
+  | S1 | no (j 11, 0/116, 1.965%, 342, 6.72, none) | no (j 6, 0/135, 1.691%, 398, 6.73, 1) | no (j 6, 6.73 > 4) | **yes** (j 2, 0/150, 1.523%, 443, 6.75 <= 8) | **yes** (j 1, 1/154, 2.502%, 455, 11.39 <= 16) |
+  | S2-sum | no (j 2, 2/153, 3.441%, 452, 15.55, none) | no (15.55 > 1) | no (15.55 > 4) | no (15.55 > 8) | **yes** (15.55 <= 16) |
+  | S2-min | no (j 2, 1/150, 2.568%, 443, 11.38, none) | no (11.38 > 1) | no (11.38 > 4) | no (11.38 > 8) | **yes** (11.38 <= 15) |
+  | S3 | no (j 3, 2/148, 3.556%, 437, 15.54, none) | no (15.54 > 1) | no (15.54 > 4) | no (15.54 > 8) | no (15.54 > 15) |
+  | S4 | as S1 | as S1 | as S1 | **yes** (as S1) | **yes** (as S1) |
+- **F-D1: PASS** (3% and 5% predicted). **Primary alpha: 3%** (S1 and S4). 10% not added; Fallback 2 not used.
+- Correlation (j): within-unit rho 0.6312 [0.1256, 0.8868] (157 units, 465 views, 14 wrong views); design effect
+  2.2382 [1.2465, 2.7396] at m = 2.96 and 2.2624 [1.2513, 2.7735] at m = 3. Within-pole rho 0.5146 [-0.6269, 1.0000]
+  (133 poles, 157 units, 7 wrong units; 23 poles with more than one unit). No undefined bootstrap draws.
+- Baselines: B1 view grid 30 points (f_d 100.00 to 30.11%, e_d at lambda_0 3.01%); B2 design draw 30 points (f_d
+  100.00 to 30.57%, e_d at lambda_0 3.18%); B5 F_design 465 S1 margins; B6 theta on half B, both variants: 0.0988 at
+  0.5% and 1%, -inf (commit at view 1) at 2%, 3% and 5%.
+- Uncertified reference (loosest j with e_d <= alpha), 0.5 / 1 / 2 / 3 / 5%: S1 and S4 2 / 1 / 1 / 0 / 0; S2-sum
+  -1 / -1 / 2 / 2 / 0; S2-min -1 / 2 / 2 / 2 / 0; S3 -1 / -1 / 2 / 0 / 0.
+- No pool label, prediction, Cert or Test number was read or computed. Nothing is frozen yet (F3 open).
+
 ### Part B: results (filled from the printout after the run)
 - Date: ____ / Stage: R9 Stage 5 / Run tag: runs/btsc/stage5
 - Git commit of Part A: ____ | Design-pole values: ____ | Code: ____ | F3 commit: ____
