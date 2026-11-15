@@ -10,11 +10,12 @@
   `5dfe52b` (Part B) and `7a1d985` (view tables and training history); Stage 5: `019f782` (Part A), `b63546a` (code),
   `ec85800` (design-pole values), `986a8e7` (freeze code), **F3 `e94e667`**, `1355c7d` (tests after F3) and `88e07f1`
   (Part B); Stage 6: `89a8c42` (Part A), `34c3492` (code), `2392433` (table rebuild script) and the
-  Part B commit; Stage 8: `fd60e28` (tables script, tests, `docs/poc3-results-tables.md`) and the record commit.
-- **Stages 0 to 6 and 8 done (Stage 7 dropped); the engine `src/r9_certify.py` and `configs/frozen_r9_btsc.yaml` are
+  Part B commit; Stage 8: `fd60e28` (tables script, tests, `docs/poc3-results-tables.md`) and the record commit;
+  Stage 10 (declared addition): `a8d142f`, `a6ed1b3`, `fece72c`, `43df8eb` and the Part B commit.
+- **Stages 0 to 6, 8 and 10 done (Stage 7 dropped); the engine `src/r9_certify.py` and `configs/frozen_r9_btsc.yaml` are
   frozen (F3 closed).** Next step: **POC-3 Stage 9 (idea text and gates)**, only when the author says so. Read plan R9
   sections 2, 3, 9 Stage 9, 12 and 13 first; the final tables are in `docs/poc3-results-tables.md`. Full suite at
-  Stage 8: 530 passed. Since F3 the guard
+  Stage 10: 560 passed. Since F3 the guard
   `src/r9_btsc_guard.py` lets pool labels through; `check_frozen()` checks 4 files. Nothing in the frozen yaml changes.
   The POC-3 status table is below the POC-2 one.
 - **Environment (checked 14 Nov 2026):** `py -3.12` (Python 3.12.10) with torch 2.14.1+cu132 (CUDA available, RTX 5050),
@@ -92,6 +93,7 @@ finished record and is not updated further.
 | 7 DITS earliness (only if F-A3 passes) | **Dropped** (F-A3 failed, plan section 11). Earliness evidence is GTSRB only, labelled exploratory. |
 | 8 Final tables | **Done 15 Nov 2026** (code `fd60e28`). `src/r9_stage8_tables.py` writes `docs/poc3-results-tables.md` from hash-checked committed summaries (no new numbers); `check_frozen()` first; 22 tests check every table against its source JSON. Tables: GTSRB comparison at 1% (exploratory; baseline columns are POC-2 records, marked in their headers and a "Source / test" row), BelgiumTSC at 3% (primary, with the Stage 6 statement) and 1% (not primary), RQ1 validity, exact binomial against HB, S2 against B6, Ringel gap against real error, limitations. Adverse-cells table not built. Details in `LOG_r9_stage8_entry.md`. |
 | 9 Idea text and gates | Not started. |
+| 10 Effective-delta check (declared addition, synthetic) | **Done 15 Nov 2026** (Part A `a8d142f`, curve script `a6ed1b3`, boundary subset `fece72c`, runner `43df8eb`; one run). Formula delta_eff = Phi(Phi^-1(0.1) / sqrt(1 + (m - 1) rho)), predictions committed before any run. **A conservative ceiling, not a predictor:** 18 of 18 prospective settings (rho 0.1/0.2/0.6 x m 5/10/15 x alpha 1/2%; all in the boundary subset) within the bound, mean gap -14.86 pp (-9.00 to -22.05); observed frame-level rate falls with alpha in all 9 pairs and does not rise with m at rho 0.1. Retrospective: Stage 2 72/72 within the bound, point above prediction in 1/72 (the worst case known when the formula was written); GTSRB 3b 5/5; BelgiumTSC Stage 6 10/10. Sign level at most 5.30%. Full suite 560 passed. Details in `LOG_r9_stage10_entry.md` Part B. |
 
 **Stage 7 (BelgiumTSC) note:** BelgiumTSC's primary alpha is chosen by the Stage 2 D2 rule on BelgiumTSC's own design poles, at its own Cert size, and frozen before any BelgiumTSC Cert or Test pole is read; no GTSRB pool result is used.
 

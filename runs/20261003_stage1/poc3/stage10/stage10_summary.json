@@ -1,0 +1,4378 @@
+{
+  "plan": "poc3-implementation-plan-r9, Stage 10 (declared addition)",
+  "frozen_blobs": {
+    "docs/poc3-implementation-plan-r9.md": "0abe7fa51af3b499cd79218e46c83790dbfa2e99",
+    "src/r9_certify.py": "158a9c9e32ab8ec1f568f75b5c35c9992711db74",
+    "tests/test_r9_certify.py": "ecb6e04429883ddbf298b22b803cd3bc70c959ef",
+    "configs/frozen_r9_btsc.yaml": "f4d37e5d73ef230e91689be5303e5eac51b15450"
+  },
+  "code_sha256": {
+    "r9_stage10.py": "3cd142a7f6435c8ee435ee5ba34b9c2f3382c37b8150650a1fe53e23018353ee",
+    "r9_certify.py": "d2fd6fd63a0a65b22c73b08722bc1aa5583b51619b5720f99f6224b4fef98075",
+    "r9_stage10_popcurves.py": "797aae0712ef69f2cbd1eb62968b8162c178423547d7ef5eb675fafa311bc72d",
+    "r9_stage2_popcurves.py": "16ced3d98ef12e4ded20357f240f7ec07014908b52e4564b4168ef855530203d",
+    "r9_stage2_vchecks.py": "b3348a22209c01900ae9ab4b69a61b4e69b3172f970d268895ed63975f53af4d",
+    "r8_stage3_synth.py": "e7aba046ef3ce197cb5bee3e5d37c8f262d09e9fdc11bf0f9219340717894fe4",
+    "r8_stage3_engine.py": "1d668ec914f170c1f57ce6c46a0754262466bfcd7d230c5242b208fee194cf11"
+  },
+  "inputs_sha256": {
+    "population_curves_stage10.json": "ffa785eafc545a45b4a2d364b072111f5f8dd9440d4b0f308753e2dcce0b119f",
+    "stage2_summary.json": "8c152579609bb972b394d8c145746eae2975f7e7c79fae640ba829f46ee3729f",
+    "stage3b_summary.json": "7591a438b569e7231f3a40d8da6420a81b6f65791e707df4c0101338a0bf7367",
+    "stage6_summary.json": "71be795779554a62546b1e03089222b53c35bc5a8ffac4bb2406c470b39e185f"
+  },
+  "config": {
+    "delta": 0.1,
+    "runs": 2000,
+    "n_pop": 1000000,
+    "n_cert": 784,
+    "n_design": 261,
+    "p_frame": 0.074,
+    "alphas": [
+      0.01,
+      0.02
+    ],
+    "pairs": [
+      [
+        0.1,
+        5
+      ],
+      [
+        0.1,
+        10
+      ],
+      [
+        0.1,
+        15
+      ],
+      [
+        0.2,
+        5
+      ],
+      [
+        0.2,
+        10
+      ],
+      [
+        0.2,
+        15
+      ],
+      [
+        0.6,
+        5
+      ],
+      [
+        0.6,
+        10
+      ],
+      [
+        0.6,
+        15
+      ]
+    ],
+    "seed_key": "[20261115, 10, pair, stream]"
+  },
+  "predictions": [
+    {
+      "rho": 0.1,
+      "m": 5,
+      "DE": 1.4,
+      "delta_eff": 0.1393800759711432,
+      "table_pct": 13.94,
+      "ok": true
+    },
+    {
+      "rho": 0.1,
+      "m": 10,
+      "DE": 1.9,
+      "delta_eff": 0.1762540960158348,
+      "table_pct": 17.63,
+      "ok": true
+    },
+    {
+      "rho": 0.1,
+      "m": 15,
+      "DE": 2.4000000000000004,
+      "delta_eff": 0.20405109476410505,
+      "table_pct": 20.41,
+      "ok": true
+    },
+    {
+      "rho": 0.2,
+      "m": 5,
+      "DE": 1.8,
+      "delta_eff": 0.16973521412905013,
+      "table_pct": 16.97,
+      "ok": true
+    },
+    {
+      "rho": 0.2,
+      "m": 10,
+      "DE": 2.8,
+      "delta_eff": 0.22187577338487144,
+      "table_pct": 22.19,
+      "ok": true
+    },
+    {
+      "rho": 0.2,
+      "m": 15,
+      "DE": 3.8000000000000003,
+      "delta_eff": 0.25545477851248144,
+      "table_pct": 25.55,
+      "ok": true
+    },
+    {
+      "rho": 0.6,
+      "m": 5,
+      "DE": 3.4,
+      "delta_eff": 0.24352172246657836,
+      "table_pct": 24.35,
+      "ok": true
+    },
+    {
+      "rho": 0.6,
+      "m": 10,
+      "DE": 6.3999999999999995,
+      "delta_eff": 0.30622556669131407,
+      "table_pct": 30.62,
+      "ok": true
+    },
+    {
+      "rho": 0.6,
+      "m": 15,
+      "DE": 9.4,
+      "delta_eff": 0.337975009324678,
+      "table_pct": 33.8,
+      "ok": true
+    }
+  ],
+  "zero_nc_certified": 0,
+  "summary": {
+    "all": {
+      "n": 18,
+      "n_agree": 18,
+      "mean_abs_gap_pp": 14.860814791778406,
+      "mean_signed_gap_pp": -14.860814791778406
+    },
+    "boundary": {
+      "n": 18,
+      "n_agree": 18,
+      "mean_abs_gap_pp": 14.860814791778406,
+      "mean_signed_gap_pp": -14.860814791778406
+    }
+  },
+  "pairs": [
+    {
+      "pair": 0,
+      "rho": 0.1,
+      "m": 5,
+      "curve_check": {
+        "sign_grid": true,
+        "b1_grid": true,
+        "sign_pop_commit": true,
+        "sign_true_risk": true,
+        "b1_pop_accept": true,
+        "b1_true_risk": true
+      },
+      "zero_nc_certified": 0,
+      "calibration": {
+        "view_error": 0.0741746,
+        "wrong_icc": 0.10010128974756317
+      },
+      "settings": [
+        {
+          "pair": 0,
+          "rho": 0.1,
+          "m": 5,
+          "alpha": 0.01,
+          "DE": 1.4,
+          "predicted": 0.1393800759711432,
+          "boundary": true,
+          "R_b": 0.010964168545683403,
+          "observed": 0.045,
+          "cp95": [
+            0.036337957311261826,
+            0.055025252847450856
+          ],
+          "agree": true,
+          "b1_start_used": {
+            "median": 29.0,
+            "min": 29,
+            "max": 29,
+            "share_at_diagnostic_start": 1.0
+          },
+          "rows": {
+            "sign_binom": {
+              "runs": 2000,
+              "certified_share": 1.0,
+              "violations": 0,
+              "violation_rate": 0.0,
+              "cp95": [
+                0.0,
+                0.0018427397934059364
+              ],
+              "mean_true_risk_certified": 0.003880776345000001,
+              "median_certified_index": 2.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb": {
+              "runs": 2000,
+              "certified_share": 0.902,
+              "violations": 0,
+              "violation_rate": 0.0,
+              "cp95": [
+                0.0,
+                0.0018427397934059364
+              ],
+              "mean_true_risk_certified": 0.0031654459922394683,
+              "median_certified_index": 2.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb_a1": {
+              "runs": 2000,
+              "certified_share": 0.603,
+              "violations": 0,
+              "violation_rate": 0.0,
+              "cp95": [
+                0.0,
+                0.0018427397934059364
+              ],
+              "mean_true_risk_certified": 0.0031683786401326707,
+              "median_certified_index": 2.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb_bs": {
+              "runs": 2000,
+              "certified_share": 0.0,
+              "violations": 0,
+              "violation_rate": 0.0,
+              "cp95": [
+                0.0,
+                0.0018427397934059364
+              ],
+              "mean_true_risk_certified": null,
+              "median_certified_index": null,
+              "runs_no_eligible_start": 0
+            },
+            "B1_binom": {
+              "runs": 2000,
+              "certified_share": 1.0,
+              "violations": 90,
+              "violation_rate": 0.045,
+              "cp95": [
+                0.036337957311261826,
+                0.055025252847450856
+              ],
+              "mean_true_risk_certified": 0.008239522542,
+              "median_certified_index": 16.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb": {
+              "runs": 2000,
+              "certified_share": 0.333,
+              "violations": 2,
+              "violation_rate": 0.001,
+              "cp95": [
+                0.00012112759055682978,
+                0.0036076285698285315
+              ],
+              "mean_true_risk_certified": 0.0073531263663663676,
+              "median_certified_index": 19.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb_a1": {
+              "runs": 2000,
+              "certified_share": 0.222,
+              "violations": 1,
+              "violation_rate": 0.0005,
+              "cp95": [
+                1.2658823868557902e-05,
+                0.0027826398346589465
+              ],
+              "mean_true_risk_certified": 0.007385191292792793,
+              "median_certified_index": 19.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb_bs": {
+              "runs": 2000,
+              "certified_share": 0.0135,
+              "violations": 0,
+              "violation_rate": 0.0,
+              "cp95": [
+                0.0,
+                0.0018427397934059364
+              ],
+              "mean_true_risk_certified": 0.0074933849629629625,
+              "median_certified_index": 19.0,
+              "runs_no_eligible_start": 0
+            }
+          }
+        },
+        {
+          "pair": 0,
+          "rho": 0.1,
+          "m": 5,
+          "alpha": 0.02,
+          "DE": 1.4,
+          "predicted": 0.1393800759711432,
+          "boundary": true,
+          "R_b": 0.02236381306032565,
+          "observed": 0.024,
+          "cp95": [
+            0.017747484596558137,
+            0.03169569559043114
+          ],
+          "agree": true,
+          "b1_start_used": {
+            "median": 29.0,
+            "min": 29,
+            "max": 29,
+            "share_at_diagnostic_start": 1.0
+          },
+          "rows": {
+            "sign_binom": {
+              "runs": 2000,
+              "certified_share": 1.0,
+              "violations": 0,
+              "violation_rate": 0.0,
+              "cp95": [
+                0.0,
+                0.0018427397934059364
+              ],
+              "mean_true_risk_certified": 0.00730076365,
+              "median_certified_index": 1.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb": {
+              "runs": 2000,
+              "certified_share": 0.913,
+              "violations": 0,
+              "violation_rate": 0.0,
+              "cp95": [
+                0.0,
+                0.0018427397934059364
+              ],
+              "mean_true_risk_certified": 0.006809030076670318,
+              "median_certified_index": 1.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb_a1": {
+              "runs": 2000,
+              "certified_share": 0.6355,
+              "violations": 0,
+              "violation_rate": 0.0,
+              "cp95": [
+                0.0,
+                0.0018427397934059364
+              ],
+              "mean_true_risk_certified": 0.006823315892997641,
+              "median_certified_index": 1.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb_bs": {
+              "runs": 2000,
+              "certified_share": 0.0,
+              "violations": 0,
+              "violation_rate": 0.0,
+              "cp95": [
+                0.0,
+                0.0018427397934059364
+              ],
+              "mean_true_risk_certified": null,
+              "median_certified_index": null,
+              "runs_no_eligible_start": 0
+            },
+            "B1_binom": {
+              "runs": 2000,
+              "certified_share": 1.0,
+              "violations": 48,
+              "violation_rate": 0.024,
+              "cp95": [
+                0.017747484596558137,
+                0.03169569559043114
+              ],
+              "mean_true_risk_certified": 0.016847706457999996,
+              "median_certified_index": 11.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb": {
+              "runs": 2000,
+              "certified_share": 1.0,
+              "violations": 7,
+              "violation_rate": 0.0035,
+              "cp95": [
+                0.0014083038325025414,
+                0.007197961714658002
+              ],
+              "mean_true_risk_certified": 0.015421498683999996,
+              "median_certified_index": 12.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb_a1": {
+              "runs": 2000,
+              "certified_share": 1.0,
+              "violations": 7,
+              "violation_rate": 0.0035,
+              "cp95": [
+                0.0014083038325025414,
+                0.007197961714658002
+              ],
+              "mean_true_risk_certified": 0.015421498683999996,
+              "median_certified_index": 12.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb_bs": {
+              "runs": 2000,
+              "certified_share": 1.0,
+              "violations": 7,
+              "violation_rate": 0.0035,
+              "cp95": [
+                0.0014083038325025414,
+                0.007197961714658002
+              ],
+              "mean_true_risk_certified": 0.015421498683999996,
+              "median_certified_index": 12.0,
+              "runs_no_eligible_start": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "pair": 1,
+      "rho": 0.1,
+      "m": 10,
+      "curve_check": {
+        "sign_grid": true,
+        "b1_grid": true,
+        "sign_pop_commit": true,
+        "sign_true_risk": true,
+        "b1_pop_accept": true,
+        "b1_true_risk": true
+      },
+      "zero_nc_certified": 0,
+      "calibration": {
+        "view_error": 0.0740598,
+        "wrong_icc": 0.09970456134897969
+      },
+      "settings": [
+        {
+          "pair": 1,
+          "rho": 0.1,
+          "m": 10,
+          "alpha": 0.01,
+          "DE": 1.9,
+          "predicted": 0.1762540960158348,
+          "boundary": true,
+          "R_b": 0.011123248334431799,
+          "observed": 0.0345,
+          "cp95": [
+            0.02694021956764368,
+            0.04346087145229034
+          ],
+          "agree": true,
+          "b1_start_used": {
+            "median": 29.0,
+            "min": 29,
+            "max": 29,
+            "share_at_diagnostic_start": 1.0
+          },
+          "rows": {
+            "sign_binom": {
+              "runs": 2000,
+              "certified_share": 1.0,
+              "violations": 0,
+              "violation_rate": 0.0,
+              "cp95": [
+                0.0,
+                0.0018427397934059364
+              ],
+              "mean_true_risk_certified": 0.0021339135449999994,
+              "median_certified_index": 1.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb": {
+              "runs": 2000,
+              "certified_share": 0.9285,
+              "violations": 0,
+              "violation_rate": 0.0,
+              "cp95": [
+                0.0,
+                0.0018427397934059364
+              ],
+              "mean_true_risk_certified": 0.0019965293591814753,
+              "median_certified_index": 1.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb_a1": {
+              "runs": 2000,
+              "certified_share": 0.6135,
+              "violations": 0,
+              "violation_rate": 0.0,
+              "cp95": [
+                0.0,
+                0.0018427397934059364
+              ],
+              "mean_true_risk_certified": 0.001999168785656072,
+              "median_certified_index": 1.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb_bs": {
+              "runs": 2000,
+              "certified_share": 0.0,
+              "violations": 0,
+              "violation_rate": 0.0,
+              "cp95": [
+                0.0,
+                0.0018427397934059364
+              ],
+              "mean_true_risk_certified": null,
+              "median_certified_index": null,
+              "runs_no_eligible_start": 0
+            },
+            "B1_binom": {
+              "runs": 2000,
+              "certified_share": 1.0,
+              "violations": 69,
+              "violation_rate": 0.0345,
+              "cp95": [
+                0.02694021956764368,
+                0.04346087145229034
+              ],
+              "mean_true_risk_certified": 0.0086462712685,
+              "median_certified_index": 16.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb": {
+              "runs": 2000,
+              "certified_share": 0.987,
+              "violations": 4,
+              "violation_rate": 0.002,
+              "cp95": [
+                0.0005451931252109997,
+                0.005112808605346209
+              ],
+              "mean_true_risk_certified": 0.007865570103850052,
+              "median_certified_index": 17.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb_a1": {
+              "runs": 2000,
+              "certified_share": 0.987,
+              "violations": 4,
+              "violation_rate": 0.002,
+              "cp95": [
+                0.0005451931252109997,
+                0.005112808605346209
+              ],
+              "mean_true_risk_certified": 0.007865570103850052,
+              "median_certified_index": 17.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb_bs": {
+              "runs": 2000,
+              "certified_share": 0.987,
+              "violations": 4,
+              "violation_rate": 0.002,
+              "cp95": [
+                0.0005451931252109997,
+                0.005112808605346209
+              ],
+              "mean_true_risk_certified": 0.007865570103850052,
+              "median_certified_index": 17.0,
+              "runs_no_eligible_start": 0
+            }
+          }
+        },
+        {
+          "pair": 1,
+          "rho": 0.1,
+          "m": 10,
+          "alpha": 0.02,
+          "DE": 1.9,
+          "predicted": 0.1762540960158348,
+          "boundary": true,
+          "R_b": 0.022712508650126594,
+          "observed": 0.014,
+          "cp95": [
+            0.009322520088783648,
+            0.020170751231794837
+          ],
+          "agree": true,
+          "b1_start_used": {
+            "median": 29.0,
+            "min": 29,
+            "max": 29,
+            "share_at_diagnostic_start": 1.0
+          },
+          "rows": {
+            "sign_binom": {
+              "runs": 2000,
+              "certified_share": 1.0,
+              "violations": 0,
+              "violation_rate": 0.0,
+              "cp95": [
+                0.0,
+                0.0018427397934059364
+              ],
+              "mean_true_risk_certified": 0.0024130800000000006,
+              "median_certified_index": 1.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb": {
+              "runs": 2000,
+              "certified_share": 0.925,
+              "violations": 0,
+              "violation_rate": 0.0,
+              "cp95": [
+                0.0,
+                0.0018427397934059364
+              ],
+              "mean_true_risk_certified": 0.0024130800000000006,
+              "median_certified_index": 1.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb_a1": {
+              "runs": 2000,
+              "certified_share": 0.648,
+              "violations": 0,
+              "violation_rate": 0.0,
+              "cp95": [
+                0.0,
+                0.0018427397934059364
+              ],
+              "mean_true_risk_certified": 0.002413080000000001,
+              "median_certified_index": 1.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb_bs": {
+              "runs": 2000,
+              "certified_share": 0.0,
+              "violations": 0,
+              "violation_rate": 0.0,
+              "cp95": [
+                0.0,
+                0.0018427397934059364
+              ],
+              "mean_true_risk_certified": null,
+              "median_certified_index": null,
+              "runs_no_eligible_start": 0
+            },
+            "B1_binom": {
+              "runs": 2000,
+              "certified_share": 1.0,
+              "violations": 28,
+              "violation_rate": 0.014,
+              "cp95": [
+                0.009322520088783648,
+                0.020170751231794837
+              ],
+              "mean_true_risk_certified": 0.017527458278,
+              "median_certified_index": 10.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb": {
+              "runs": 2000,
+              "certified_share": 1.0,
+              "violations": 4,
+              "violation_rate": 0.002,
+              "cp95": [
+                0.0005451931252109997,
+                0.005112808605346209
+              ],
+              "mean_true_risk_certified": 0.016574804029000002,
+              "median_certified_index": 11.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb_a1": {
+              "runs": 2000,
+              "certified_share": 1.0,
+              "violations": 4,
+              "violation_rate": 0.002,
+              "cp95": [
+                0.0005451931252109997,
+                0.005112808605346209
+              ],
+              "mean_true_risk_certified": 0.016574804029000002,
+              "median_certified_index": 11.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb_bs": {
+              "runs": 2000,
+              "certified_share": 1.0,
+              "violations": 4,
+              "violation_rate": 0.002,
+              "cp95": [
+                0.0005451931252109997,
+                0.005112808605346209
+              ],
+              "mean_true_risk_certified": 0.016574804029000002,
+              "median_certified_index": 11.0,
+              "runs_no_eligible_start": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "pair": 2,
+      "rho": 0.1,
+      "m": 15,
+      "curve_check": {
+        "sign_grid": true,
+        "b1_grid": true,
+        "sign_pop_commit": true,
+        "sign_true_risk": true,
+        "b1_pop_accept": true,
+        "b1_true_risk": true
+      },
+      "zero_nc_certified": 0,
+      "calibration": {
+        "view_error": 0.07383386666666666,
+        "wrong_icc": 0.09994781903223718
+      },
+      "settings": [
+        {
+          "pair": 2,
+          "rho": 0.1,
+          "m": 15,
+          "alpha": 0.01,
+          "DE": 2.4000000000000004,
+          "predicted": 0.20405109476410505,
+          "boundary": true,
+          "R_b": 0.011014627072498357,
+          "observed": 0.041,
+          "cp95": [
+            0.03273891410988625,
+            0.050638403398032175
+          ],
+          "agree": true,
+          "b1_start_used": {
+            "median": 29.0,
+            "min": 29,
+            "max": 29,
+            "share_at_diagnostic_start": 1.0
+          },
+          "rows": {
+            "sign_binom": {
+              "runs": 2000,
+              "certified_share": 1.0,
+              "violations": 0,
+              "violation_rate": 0.0,
+              "cp95": [
+                0.0,
+                0.0018427397934059364
+              ],
+              "mean_true_risk_certified": 0.0010156744500000006,
+              "median_certified_index": 1.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb": {
+              "runs": 2000,
+              "certified_share": 0.933,
+              "violations": 0,
+              "violation_rate": 0.0,
+              "cp95": [
+                0.0,
+                0.0018427397934059364
+              ],
+              "mean_true_risk_certified": 0.001018522331189711,
+              "median_certified_index": 1.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb_a1": {
+              "runs": 2000,
+              "certified_share": 0.61,
+              "violations": 0,
+              "violation_rate": 0.0,
+              "cp95": [
+                0.0,
+                0.0018427397934059364
+              ],
+              "mean_true_risk_certified": 0.0010185322622950823,
+              "median_certified_index": 1.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb_bs": {
+              "runs": 2000,
+              "certified_share": 0.0,
+              "violations": 0,
+              "violation_rate": 0.0,
+              "cp95": [
+                0.0,
+                0.0018427397934059364
+              ],
+              "mean_true_risk_certified": null,
+              "median_certified_index": null,
+              "runs_no_eligible_start": 0
+            },
+            "B1_binom": {
+              "runs": 2000,
+              "certified_share": 1.0,
+              "violations": 82,
+              "violation_rate": 0.041,
+              "cp95": [
+                0.03273891410988625,
+                0.050638403398032175
+              ],
+              "mean_true_risk_certified": 0.008776052122333332,
+              "median_certified_index": 15.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb": {
+              "runs": 2000,
+              "certified_share": 1.0,
+              "violations": 7,
+              "violation_rate": 0.0035,
+              "cp95": [
+                0.0014083038325025414,
+                0.007197961714658002
+              ],
+              "mean_true_risk_certified": 0.008159718052000001,
+              "median_certified_index": 16.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb_a1": {
+              "runs": 2000,
+              "certified_share": 1.0,
+              "violations": 7,
+              "violation_rate": 0.0035,
+              "cp95": [
+                0.0014083038325025414,
+                0.007197961714658002
+              ],
+              "mean_true_risk_certified": 0.008159718052000001,
+              "median_certified_index": 16.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb_bs": {
+              "runs": 2000,
+              "certified_share": 1.0,
+              "violations": 7,
+              "violation_rate": 0.0035,
+              "cp95": [
+                0.0014083038325025414,
+                0.007197961714658002
+              ],
+              "mean_true_risk_certified": 0.008159718052000001,
+              "median_certified_index": 16.0,
+              "runs_no_eligible_start": 0
+            }
+          }
+        },
+        {
+          "pair": 2,
+          "rho": 0.1,
+          "m": 15,
+          "alpha": 0.02,
+          "DE": 2.4000000000000004,
+          "predicted": 0.20405109476410505,
+          "boundary": true,
+          "R_b": 0.022515206267076378,
+          "observed": 0.0125,
+          "cp95": [
+            0.008105230838877512,
+            0.018397493413938
+          ],
+          "agree": true,
+          "b1_start_used": {
+            "median": 29.0,
+            "min": 29,
+            "max": 29,
+            "share_at_diagnostic_start": 1.0
+          },
+          "rows": {
+            "sign_binom": {
+              "runs": 2000,
+              "certified_share": 1.0,
+              "violations": 0,
+              "violation_rate": 0.0,
+              "cp95": [
+                0.0,
+                0.0018427397934059364
+              ],
+              "mean_true_risk_certified": 0.00126272,
+              "median_certified_index": 1.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb": {
+              "runs": 2000,
+              "certified_share": 0.911,
+              "violations": 0,
+              "violation_rate": 0.0,
+              "cp95": [
+                0.0,
+                0.0018427397934059364
+              ],
+              "mean_true_risk_certified": 0.00126272,
+              "median_certified_index": 1.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb_a1": {
+              "runs": 2000,
+              "certified_share": 0.6425,
+              "violations": 0,
+              "violation_rate": 0.0,
+              "cp95": [
+                0.0,
+                0.0018427397934059364
+              ],
+              "mean_true_risk_certified": 0.0012627200000000002,
+              "median_certified_index": 1.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb_bs": {
+              "runs": 2000,
+              "certified_share": 0.0,
+              "violations": 0,
+              "violation_rate": 0.0,
+              "cp95": [
+                0.0,
+                0.0018427397934059364
+              ],
+              "mean_true_risk_certified": null,
+              "median_certified_index": null,
+              "runs_no_eligible_start": 0
+            },
+            "B1_binom": {
+              "runs": 2000,
+              "certified_share": 1.0,
+              "violations": 25,
+              "violation_rate": 0.0125,
+              "cp95": [
+                0.008105230838877512,
+                0.018397493413938
+              ],
+              "mean_true_risk_certified": 0.017675675985333334,
+              "median_certified_index": 10.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb": {
+              "runs": 2000,
+              "certified_share": 1.0,
+              "violations": 5,
+              "violation_rate": 0.0025,
+              "cp95": [
+                0.0008122259751939098,
+                0.005824445334518517
+              ],
+              "mean_true_risk_certified": 0.016868643797333334,
+              "median_certified_index": 10.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb_a1": {
+              "runs": 2000,
+              "certified_share": 1.0,
+              "violations": 5,
+              "violation_rate": 0.0025,
+              "cp95": [
+                0.0008122259751939098,
+                0.005824445334518517
+              ],
+              "mean_true_risk_certified": 0.016868643797333334,
+              "median_certified_index": 10.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb_bs": {
+              "runs": 2000,
+              "certified_share": 1.0,
+              "violations": 5,
+              "violation_rate": 0.0025,
+              "cp95": [
+                0.0008122259751939098,
+                0.005824445334518517
+              ],
+              "mean_true_risk_certified": 0.016868643797333334,
+              "median_certified_index": 10.0,
+              "runs_no_eligible_start": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "pair": 3,
+      "rho": 0.2,
+      "m": 5,
+      "curve_check": {
+        "sign_grid": true,
+        "b1_grid": true,
+        "sign_pop_commit": true,
+        "sign_true_risk": true,
+        "b1_pop_accept": true,
+        "b1_true_risk": true
+      },
+      "zero_nc_certified": 0,
+      "calibration": {
+        "view_error": 0.0740254,
+        "wrong_icc": 0.2007164879306847
+      },
+      "settings": [
+        {
+          "pair": 3,
+          "rho": 0.2,
+          "m": 5,
+          "alpha": 0.01,
+          "DE": 1.8,
+          "predicted": 0.16973521412905013,
+          "boundary": true,
+          "R_b": 0.010904164283942799,
+          "observed": 0.062,
+          "cp95": [
+            0.05182954876235306,
+            0.07347644774288987
+          ],
+          "agree": true,
+          "b1_start_used": {
+            "median": 29.0,
+            "min": 29,
+            "max": 29,
+            "share_at_diagnostic_start": 1.0
+          },
+          "rows": {
+            "sign_binom": {
+              "runs": 2000,
+              "certified_share": 0.99,
+              "violations": 28,
+              "violation_rate": 0.014,
+              "cp95": [
+                0.009322520088783648,
+                0.020170751231794837
+              ],
+              "mean_true_risk_certified": 0.005384272742424242,
+              "median_certified_index": 5.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb": {
+              "runs": 2000,
+              "certified_share": 0.6255,
+              "violations": 6,
+              "violation_rate": 0.003,
+              "cp95": [
+                0.0011017182250253473,
+                0.00651821860997453
+              ],
+              "mean_true_risk_certified": 0.004232944660271783,
+              "median_certified_index": 7.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb_a1": {
+              "runs": 2000,
+              "certified_share": 0.443,
+              "violations": 3,
+              "violation_rate": 0.0015,
+              "cp95": [
+                0.00030944294931233317,
+                0.004377320104529616
+              ],
+              "mean_true_risk_certified": 0.004178384085778781,
+              "median_certified_index": 7.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb_bs": {
+              "runs": 2000,
+              "certified_share": 0.0,
+              "violations": 0,
+              "violation_rate": 0.0,
+              "cp95": [
+                0.0,
+                0.0018427397934059364
+              ],
+              "mean_true_risk_certified": null,
+              "median_certified_index": null,
+              "runs_no_eligible_start": 0
+            },
+            "B1_binom": {
+              "runs": 2000,
+              "certified_share": 0.9995,
+              "violations": 124,
+              "violation_rate": 0.062,
+              "cp95": [
+                0.05182954876235306,
+                0.07347644774288987
+              ],
+              "mean_true_risk_certified": 0.008295939122561281,
+              "median_certified_index": 16.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb": {
+              "runs": 2000,
+              "certified_share": 0.3425,
+              "violations": 12,
+              "violation_rate": 0.006,
+              "cp95": [
+                0.0031040162823773266,
+                0.010457313821794881
+              ],
+              "mean_true_risk_certified": 0.007489068254014598,
+              "median_certified_index": 19.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb_a1": {
+              "runs": 2000,
+              "certified_share": 0.236,
+              "violations": 10,
+              "violation_rate": 0.005,
+              "cp95": [
+                0.0024002197556657725,
+                0.009175895070019778
+              ],
+              "mean_true_risk_certified": 0.007537781631355932,
+              "median_certified_index": 19.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb_bs": {
+              "runs": 2000,
+              "certified_share": 0.0465,
+              "violations": 2,
+              "violation_rate": 0.001,
+              "cp95": [
+                0.00012112759055682978,
+                0.0036076285698285315
+              ],
+              "mean_true_risk_certified": 0.007638190430107526,
+              "median_certified_index": 19.0,
+              "runs_no_eligible_start": 0
+            }
+          }
+        },
+        {
+          "pair": 3,
+          "rho": 0.2,
+          "m": 5,
+          "alpha": 0.02,
+          "DE": 1.8,
+          "predicted": 0.16973521412905013,
+          "boundary": true,
+          "R_b": 0.022371894201448493,
+          "observed": 0.0385,
+          "cp95": [
+            0.030500774860506338,
+            0.04788554482681921
+          ],
+          "agree": true,
+          "b1_start_used": {
+            "median": 29.0,
+            "min": 29,
+            "max": 29,
+            "share_at_diagnostic_start": 1.0
+          },
+          "rows": {
+            "sign_binom": {
+              "runs": 2000,
+              "certified_share": 1.0,
+              "violations": 106,
+              "violation_rate": 0.053,
+              "cp95": [
+                0.043593043592576375,
+                0.06374279299877267
+              ],
+              "mean_true_risk_certified": 0.011526079340000002,
+              "median_certified_index": 2.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb": {
+              "runs": 2000,
+              "certified_share": 0.8815,
+              "violations": 19,
+              "violation_rate": 0.0095,
+              "cp95": [
+                0.005729035522963454,
+                0.01479583217228858
+              ],
+              "mean_true_risk_certified": 0.009521402847419171,
+              "median_certified_index": 3.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb_a1": {
+              "runs": 2000,
+              "certified_share": 0.6245,
+              "violations": 13,
+              "violation_rate": 0.0065,
+              "cp95": [
+                0.003465381208667553,
+                0.011089549271656375
+              ],
+              "mean_true_risk_certified": 0.009570532089671738,
+              "median_certified_index": 3.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb_bs": {
+              "runs": 2000,
+              "certified_share": 0.0,
+              "violations": 0,
+              "violation_rate": 0.0,
+              "cp95": [
+                0.0,
+                0.0018427397934059364
+              ],
+              "mean_true_risk_certified": null,
+              "median_certified_index": null,
+              "runs_no_eligible_start": 0
+            },
+            "B1_binom": {
+              "runs": 2000,
+              "certified_share": 1.0,
+              "violations": 77,
+              "violation_rate": 0.0385,
+              "cp95": [
+                0.030500774860506338,
+                0.04788554482681921
+              ],
+              "mean_true_risk_certified": 0.016916606044,
+              "median_certified_index": 10.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb": {
+              "runs": 2000,
+              "certified_share": 0.9995,
+              "violations": 21,
+              "violation_rate": 0.0105,
+              "cp95": [
+                0.006511085658164156,
+                0.01600579487869697
+              ],
+              "mean_true_risk_certified": 0.015494639993996999,
+              "median_certified_index": 12.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb_a1": {
+              "runs": 2000,
+              "certified_share": 0.9995,
+              "violations": 21,
+              "violation_rate": 0.0105,
+              "cp95": [
+                0.006511085658164156,
+                0.01600579487869697
+              ],
+              "mean_true_risk_certified": 0.015494639993996999,
+              "median_certified_index": 12.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb_bs": {
+              "runs": 2000,
+              "certified_share": 0.9995,
+              "violations": 21,
+              "violation_rate": 0.0105,
+              "cp95": [
+                0.006511085658164156,
+                0.01600579487869697
+              ],
+              "mean_true_risk_certified": 0.015494639993996999,
+              "median_certified_index": 12.0,
+              "runs_no_eligible_start": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "pair": 4,
+      "rho": 0.2,
+      "m": 10,
+      "curve_check": {
+        "sign_grid": true,
+        "b1_grid": true,
+        "sign_pop_commit": true,
+        "sign_true_risk": true,
+        "b1_pop_accept": true,
+        "b1_true_risk": true
+      },
+      "zero_nc_certified": 0,
+      "calibration": {
+        "view_error": 0.074088,
+        "wrong_icc": 0.2004787429359595
+      },
+      "settings": [
+        {
+          "pair": 4,
+          "rho": 0.2,
+          "m": 10,
+          "alpha": 0.01,
+          "DE": 2.8,
+          "predicted": 0.22187577338487147,
+          "boundary": true,
+          "R_b": 0.010909236514194166,
+          "observed": 0.069,
+          "cp95": [
+            0.05828040513292326,
+            0.08100287591066666
+          ],
+          "agree": true,
+          "b1_start_used": {
+            "median": 29.0,
+            "min": 29,
+            "max": 29,
+            "share_at_diagnostic_start": 1.0
+          },
+          "rows": {
+            "sign_binom": {
+              "runs": 2000,
+              "certified_share": 0.9975,
+              "violations": 20,
+              "violation_rate": 0.01,
+              "cp95": [
+                0.0061186575427434635,
+                0.015402125783560048
+              ],
+              "mean_true_risk_certified": 0.004856984541353383,
+              "median_certified_index": 3.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb": {
+              "runs": 2000,
+              "certified_share": 0.7725,
+              "violations": 4,
+              "violation_rate": 0.002,
+              "cp95": [
+                0.0005451931252109997,
+                0.005112808605346209
+              ],
+              "mean_true_risk_certified": 0.0038761237799352743,
+              "median_certified_index": 5.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb_a1": {
+              "runs": 2000,
+              "certified_share": 0.5375,
+              "violations": 4,
+              "violation_rate": 0.002,
+              "cp95": [
+                0.0005451931252109997,
+                0.005112808605346209
+              ],
+              "mean_true_risk_certified": 0.003919039051162791,
+              "median_certified_index": 5.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb_bs": {
+              "runs": 2000,
+              "certified_share": 0.0005,
+              "violations": 0,
+              "violation_rate": 0.0,
+              "cp95": [
+                0.0,
+                0.0018427397934059364
+              ],
+              "mean_true_risk_certified": 0.0026875099999999997,
+              "median_certified_index": 7.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_binom": {
+              "runs": 2000,
+              "certified_share": 1.0,
+              "violations": 138,
+              "violation_rate": 0.069,
+              "cp95": [
+                0.05828040513292326,
+                0.08100287591066666
+              ],
+              "mean_true_risk_certified": 0.008653428069499999,
+              "median_certified_index": 15.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb": {
+              "runs": 2000,
+              "certified_share": 0.979,
+              "violations": 27,
+              "violation_rate": 0.0135,
+              "cp95": [
+                0.008914927994426228,
+                0.019581403564719605
+              ],
+              "mean_true_risk_certified": 0.007910590130234933,
+              "median_certified_index": 17.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb_a1": {
+              "runs": 2000,
+              "certified_share": 0.979,
+              "violations": 27,
+              "violation_rate": 0.0135,
+              "cp95": [
+                0.008914927994426228,
+                0.019581403564719605
+              ],
+              "mean_true_risk_certified": 0.007910590130234933,
+              "median_certified_index": 17.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb_bs": {
+              "runs": 2000,
+              "certified_share": 0.979,
+              "violations": 27,
+              "violation_rate": 0.0135,
+              "cp95": [
+                0.008914927994426228,
+                0.019581403564719605
+              ],
+              "mean_true_risk_certified": 0.007910590130234933,
+              "median_certified_index": 17.0,
+              "runs_no_eligible_start": 0
+            }
+          }
+        },
+        {
+          "pair": 4,
+          "rho": 0.2,
+          "m": 10,
+          "alpha": 0.02,
+          "DE": 2.8,
+          "predicted": 0.22187577338487147,
+          "boundary": true,
+          "R_b": 0.022472336723730543,
+          "observed": 0.0355,
+          "cp95": [
+            0.027827825049078093,
+            0.044569525372785294
+          ],
+          "agree": true,
+          "b1_start_used": {
+            "median": 29.0,
+            "min": 29,
+            "max": 29,
+            "share_at_diagnostic_start": 1.0
+          },
+          "rows": {
+            "sign_binom": {
+              "runs": 2000,
+              "certified_share": 1.0,
+              "violations": 0,
+              "violation_rate": 0.0,
+              "cp95": [
+                0.0,
+                0.0018427397934059364
+              ],
+              "mean_true_risk_certified": 0.010589436540000002,
+              "median_certified_index": 2.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb": {
+              "runs": 2000,
+              "certified_share": 0.9155,
+              "violations": 0,
+              "violation_rate": 0.0,
+              "cp95": [
+                0.0,
+                0.0018427397934059364
+              ],
+              "mean_true_risk_certified": 0.008671520262151832,
+              "median_certified_index": 2.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb_a1": {
+              "runs": 2000,
+              "certified_share": 0.6445,
+              "violations": 0,
+              "violation_rate": 0.0,
+              "cp95": [
+                0.0,
+                0.0018427397934059364
+              ],
+              "mean_true_risk_certified": 0.008737574864235842,
+              "median_certified_index": 2.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb_bs": {
+              "runs": 2000,
+              "certified_share": 0.0,
+              "violations": 0,
+              "violation_rate": 0.0,
+              "cp95": [
+                0.0,
+                0.0018427397934059364
+              ],
+              "mean_true_risk_certified": null,
+              "median_certified_index": null,
+              "runs_no_eligible_start": 0
+            },
+            "B1_binom": {
+              "runs": 2000,
+              "certified_share": 1.0,
+              "violations": 71,
+              "violation_rate": 0.0355,
+              "cp95": [
+                0.027827825049078093,
+                0.044569525372785294
+              ],
+              "mean_true_risk_certified": 0.017531858441999996,
+              "median_certified_index": 10.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb": {
+              "runs": 2000,
+              "certified_share": 1.0,
+              "violations": 21,
+              "violation_rate": 0.0105,
+              "cp95": [
+                0.006511085658164156,
+                0.01600579487869697
+              ],
+              "mean_true_risk_certified": 0.016576422211,
+              "median_certified_index": 11.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb_a1": {
+              "runs": 2000,
+              "certified_share": 1.0,
+              "violations": 21,
+              "violation_rate": 0.0105,
+              "cp95": [
+                0.006511085658164156,
+                0.01600579487869697
+              ],
+              "mean_true_risk_certified": 0.016576422211,
+              "median_certified_index": 11.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb_bs": {
+              "runs": 2000,
+              "certified_share": 1.0,
+              "violations": 21,
+              "violation_rate": 0.0105,
+              "cp95": [
+                0.006511085658164156,
+                0.01600579487869697
+              ],
+              "mean_true_risk_certified": 0.016576422211,
+              "median_certified_index": 11.0,
+              "runs_no_eligible_start": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "pair": 5,
+      "rho": 0.2,
+      "m": 15,
+      "curve_check": {
+        "sign_grid": true,
+        "b1_grid": true,
+        "sign_pop_commit": true,
+        "sign_true_risk": true,
+        "b1_pop_accept": true,
+        "b1_true_risk": true
+      },
+      "zero_nc_certified": 0,
+      "calibration": {
+        "view_error": 0.07395533333333333,
+        "wrong_icc": 0.1993163878120129
+      },
+      "settings": [
+        {
+          "pair": 5,
+          "rho": 0.2,
+          "m": 15,
+          "alpha": 0.01,
+          "DE": 3.8000000000000003,
+          "predicted": 0.25545477851248144,
+          "boundary": true,
+          "R_b": 0.011128402498019843,
+          "observed": 0.0615,
+          "cp95": [
+            0.05137017237511746,
+            0.07293746131704722
+          ],
+          "agree": true,
+          "b1_start_used": {
+            "median": 29.0,
+            "min": 29,
+            "max": 29,
+            "share_at_diagnostic_start": 1.0
+          },
+          "rows": {
+            "sign_binom": {
+              "runs": 2000,
+              "certified_share": 0.9945,
+              "violations": 69,
+              "violation_rate": 0.0345,
+              "cp95": [
+                0.02694021956764368,
+                0.04346087145229034
+              ],
+              "mean_true_risk_certified": 0.0046045004374057315,
+              "median_certified_index": 3.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb": {
+              "runs": 2000,
+              "certified_share": 0.81,
+              "violations": 22,
+              "violation_rate": 0.011,
+              "cp95": [
+                0.0069061227883288525,
+                0.01660701640128506
+              ],
+              "mean_true_risk_certified": 0.0036915469320987658,
+              "median_certified_index": 5.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb_a1": {
+              "runs": 2000,
+              "certified_share": 0.5695,
+              "violations": 20,
+              "violation_rate": 0.01,
+              "cp95": [
+                0.0061186575427434635,
+                0.015402125783560048
+              ],
+              "mean_true_risk_certified": 0.0037654242844600535,
+              "median_certified_index": 4.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb_bs": {
+              "runs": 2000,
+              "certified_share": 0.0,
+              "violations": 0,
+              "violation_rate": 0.0,
+              "cp95": [
+                0.0,
+                0.0018427397934059364
+              ],
+              "mean_true_risk_certified": null,
+              "median_certified_index": null,
+              "runs_no_eligible_start": 0
+            },
+            "B1_binom": {
+              "runs": 2000,
+              "certified_share": 1.0,
+              "violations": 123,
+              "violation_rate": 0.0615,
+              "cp95": [
+                0.05137017237511746,
+                0.07293746131704722
+              ],
+              "mean_true_risk_certified": 0.008796725461,
+              "median_certified_index": 15.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb": {
+              "runs": 2000,
+              "certified_share": 0.9995,
+              "violations": 29,
+              "violation_rate": 0.0145,
+              "cp95": [
+                0.009731812290767167,
+                0.020758479301277086
+              ],
+              "mean_true_risk_certified": 0.008195454293480073,
+              "median_certified_index": 16.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb_a1": {
+              "runs": 2000,
+              "certified_share": 0.9995,
+              "violations": 29,
+              "violation_rate": 0.0145,
+              "cp95": [
+                0.009731812290767167,
+                0.020758479301277086
+              ],
+              "mean_true_risk_certified": 0.008195454293480073,
+              "median_certified_index": 16.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb_bs": {
+              "runs": 2000,
+              "certified_share": 0.9995,
+              "violations": 29,
+              "violation_rate": 0.0145,
+              "cp95": [
+                0.009731812290767167,
+                0.020758479301277086
+              ],
+              "mean_true_risk_certified": 0.008195454293480073,
+              "median_certified_index": 16.0,
+              "runs_no_eligible_start": 0
+            }
+          }
+        },
+        {
+          "pair": 5,
+          "rho": 0.2,
+          "m": 15,
+          "alpha": 0.02,
+          "DE": 3.8000000000000003,
+          "predicted": 0.25545477851248144,
+          "boundary": true,
+          "R_b": 0.0227683409551287,
+          "observed": 0.035,
+          "cp95": [
+            0.027383801138442458,
+            0.044015415278486306
+          ],
+          "agree": true,
+          "b1_start_used": {
+            "median": 29.0,
+            "min": 29,
+            "max": 29,
+            "share_at_diagnostic_start": 1.0
+          },
+          "rows": {
+            "sign_binom": {
+              "runs": 2000,
+              "certified_share": 1.0,
+              "violations": 0,
+              "violation_rate": 0.0,
+              "cp95": [
+                0.0,
+                0.0018427397934059364
+              ],
+              "mean_true_risk_certified": 0.009764565939999997,
+              "median_certified_index": 1.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb": {
+              "runs": 2000,
+              "certified_share": 0.923,
+              "violations": 0,
+              "violation_rate": 0.0,
+              "cp95": [
+                0.0,
+                0.0018427397934059364
+              ],
+              "mean_true_risk_certified": 0.008282437421451787,
+              "median_certified_index": 2.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb_a1": {
+              "runs": 2000,
+              "certified_share": 0.661,
+              "violations": 0,
+              "violation_rate": 0.0,
+              "cp95": [
+                0.0,
+                0.0018427397934059364
+              ],
+              "mean_true_risk_certified": 0.00834703163388805,
+              "median_certified_index": 2.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb_bs": {
+              "runs": 2000,
+              "certified_share": 0.0,
+              "violations": 0,
+              "violation_rate": 0.0,
+              "cp95": [
+                0.0,
+                0.0018427397934059364
+              ],
+              "mean_true_risk_certified": null,
+              "median_certified_index": null,
+              "runs_no_eligible_start": 0
+            },
+            "B1_binom": {
+              "runs": 2000,
+              "certified_share": 1.0,
+              "violations": 70,
+              "violation_rate": 0.035,
+              "cp95": [
+                0.027383801138442458,
+                0.044015415278486306
+              ],
+              "mean_true_risk_certified": 0.017750262535333336,
+              "median_certified_index": 10.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb": {
+              "runs": 2000,
+              "certified_share": 1.0,
+              "violations": 22,
+              "violation_rate": 0.011,
+              "cp95": [
+                0.0069061227883288525,
+                0.01660701640128506
+              ],
+              "mean_true_risk_certified": 0.016938281253333336,
+              "median_certified_index": 11.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb_a1": {
+              "runs": 2000,
+              "certified_share": 1.0,
+              "violations": 22,
+              "violation_rate": 0.011,
+              "cp95": [
+                0.0069061227883288525,
+                0.01660701640128506
+              ],
+              "mean_true_risk_certified": 0.016938281253333336,
+              "median_certified_index": 11.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb_bs": {
+              "runs": 2000,
+              "certified_share": 1.0,
+              "violations": 22,
+              "violation_rate": 0.011,
+              "cp95": [
+                0.0069061227883288525,
+                0.01660701640128506
+              ],
+              "mean_true_risk_certified": 0.016938281253333336,
+              "median_certified_index": 11.0,
+              "runs_no_eligible_start": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "pair": 6,
+      "rho": 0.6,
+      "m": 5,
+      "curve_check": {
+        "sign_grid": true,
+        "b1_grid": true,
+        "sign_pop_commit": true,
+        "sign_true_risk": true,
+        "b1_pop_accept": true,
+        "b1_true_risk": true
+      },
+      "zero_nc_certified": 0,
+      "calibration": {
+        "view_error": 0.0741206,
+        "wrong_icc": 0.6023357465336046
+      },
+      "settings": [
+        {
+          "pair": 6,
+          "rho": 0.6,
+          "m": 5,
+          "alpha": 0.01,
+          "DE": 3.4,
+          "predicted": 0.24352172246657838,
+          "boundary": true,
+          "R_b": 0.011061292743347127,
+          "observed": 0.1535,
+          "cp95": [
+            0.13796874274834017,
+            0.17005426835438534
+          ],
+          "agree": true,
+          "b1_start_used": {
+            "median": 29.0,
+            "min": 29,
+            "max": 29,
+            "share_at_diagnostic_start": 1.0
+          },
+          "rows": {
+            "sign_binom": {
+              "runs": 2000,
+              "certified_share": 0.6345,
+              "violations": 51,
+              "violation_rate": 0.0255,
+              "cp95": [
+                0.01904401061075201,
+                0.033392744443928375
+              ],
+              "mean_true_risk_certified": 0.007192702096138691,
+              "median_certified_index": 16.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb": {
+              "runs": 2000,
+              "certified_share": 0.011,
+              "violations": 4,
+              "violation_rate": 0.002,
+              "cp95": [
+                0.0005451931252109997,
+                0.005112808605346209
+              ],
+              "mean_true_risk_certified": 0.00950179,
+              "median_certified_index": 12.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb_a1": {
+              "runs": 2000,
+              "certified_share": 0.0145,
+              "violations": 1,
+              "violation_rate": 0.0005,
+              "cp95": [
+                1.2658823868557902e-05,
+                0.0027826398346589465
+              ],
+              "mean_true_risk_certified": 0.008457283103448275,
+              "median_certified_index": 13.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb_bs": {
+              "runs": 2000,
+              "certified_share": 0.0,
+              "violations": 0,
+              "violation_rate": 0.0,
+              "cp95": [
+                0.0,
+                0.0018427397934059364
+              ],
+              "mean_true_risk_certified": null,
+              "median_certified_index": null,
+              "runs_no_eligible_start": 0
+            },
+            "B1_binom": {
+              "runs": 2000,
+              "certified_share": 0.99,
+              "violations": 307,
+              "violation_rate": 0.1535,
+              "cp95": [
+                0.13796874274834017,
+                0.17005426835438534
+              ],
+              "mean_true_risk_certified": 0.008628297943434343,
+              "median_certified_index": 16.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb": {
+              "runs": 2000,
+              "certified_share": 0.4275,
+              "violations": 66,
+              "violation_rate": 0.033,
+              "cp95": [
+                0.025612223823264613,
+                0.04179454582102009
+              ],
+              "mean_true_risk_certified": 0.00800095550877193,
+              "median_certified_index": 18.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb_a1": {
+              "runs": 2000,
+              "certified_share": 0.32,
+              "violations": 50,
+              "violation_rate": 0.025,
+              "cp95": [
+                0.018611105676337118,
+                0.03282777114900504
+              ],
+              "mean_true_risk_certified": 0.008029741971875,
+              "median_certified_index": 18.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb_bs": {
+              "runs": 2000,
+              "certified_share": 0.114,
+              "violations": 24,
+              "violation_rate": 0.012,
+              "cp95": [
+                0.0077033433702185005,
+                0.017802731356322096
+              ],
+              "mean_true_risk_certified": 0.00823665705263158,
+              "median_certified_index": 17.0,
+              "runs_no_eligible_start": 0
+            }
+          }
+        },
+        {
+          "pair": 6,
+          "rho": 0.6,
+          "m": 5,
+          "alpha": 0.02,
+          "DE": 3.4,
+          "predicted": 0.24352172246657838,
+          "boundary": true,
+          "R_b": 0.022523711948665988,
+          "observed": 0.118,
+          "cp95": [
+            0.10417907174299491,
+            0.13295141737365912
+          ],
+          "agree": true,
+          "b1_start_used": {
+            "median": 29.0,
+            "min": 29,
+            "max": 29,
+            "share_at_diagnostic_start": 1.0
+          },
+          "rows": {
+            "sign_binom": {
+              "runs": 2000,
+              "certified_share": 0.994,
+              "violations": 57,
+              "violation_rate": 0.0285,
+              "cp95": [
+                0.021655518443871286,
+                0.03676886985847281
+              ],
+              "mean_true_risk_certified": 0.014083813470824949,
+              "median_certified_index": 10.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb": {
+              "runs": 2000,
+              "certified_share": 0.3925,
+              "violations": 5,
+              "violation_rate": 0.0025,
+              "cp95": [
+                0.0008122259751939098,
+                0.005824445334518517
+              ],
+              "mean_true_risk_certified": 0.012061103159235668,
+              "median_certified_index": 14.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb_a1": {
+              "runs": 2000,
+              "certified_share": 0.271,
+              "violations": 4,
+              "violation_rate": 0.002,
+              "cp95": [
+                0.0005451931252109997,
+                0.005112808605346209
+              ],
+              "mean_true_risk_certified": 0.012014405977859778,
+              "median_certified_index": 14.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb_bs": {
+              "runs": 2000,
+              "certified_share": 0.0,
+              "violations": 0,
+              "violation_rate": 0.0,
+              "cp95": [
+                0.0,
+                0.0018427397934059364
+              ],
+              "mean_true_risk_certified": null,
+              "median_certified_index": null,
+              "runs_no_eligible_start": 0
+            },
+            "B1_binom": {
+              "runs": 2000,
+              "certified_share": 1.0,
+              "violations": 236,
+              "violation_rate": 0.118,
+              "cp95": [
+                0.10417907174299491,
+                0.13295141737365912
+              ],
+              "mean_true_risk_certified": 0.017254908942,
+              "median_certified_index": 10.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb": {
+              "runs": 2000,
+              "certified_share": 0.9905,
+              "violations": 91,
+              "violation_rate": 0.0455,
+              "cp95": [
+                0.03678927809881752,
+                0.0555721910065792
+              ],
+              "mean_true_risk_certified": 0.01585173345381121,
+              "median_certified_index": 11.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb_a1": {
+              "runs": 2000,
+              "certified_share": 0.9905,
+              "violations": 91,
+              "violation_rate": 0.0455,
+              "cp95": [
+                0.03678927809881752,
+                0.0555721910065792
+              ],
+              "mean_true_risk_certified": 0.01585173345381121,
+              "median_certified_index": 11.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb_bs": {
+              "runs": 2000,
+              "certified_share": 0.9905,
+              "violations": 91,
+              "violation_rate": 0.0455,
+              "cp95": [
+                0.03678927809881752,
+                0.0555721910065792
+              ],
+              "mean_true_risk_certified": 0.01585173345381121,
+              "median_certified_index": 11.0,
+              "runs_no_eligible_start": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "pair": 7,
+      "rho": 0.6,
+      "m": 10,
+      "curve_check": {
+        "sign_grid": true,
+        "b1_grid": true,
+        "sign_pop_commit": true,
+        "sign_true_risk": true,
+        "b1_pop_accept": true,
+        "b1_true_risk": true
+      },
+      "zero_nc_certified": 0,
+      "calibration": {
+        "view_error": 0.0740332,
+        "wrong_icc": 0.5994097401932261
+      },
+      "settings": [
+        {
+          "pair": 7,
+          "rho": 0.6,
+          "m": 10,
+          "alpha": 0.01,
+          "DE": 6.3999999999999995,
+          "predicted": 0.30622556669131407,
+          "boundary": true,
+          "R_b": 0.010788893506791932,
+          "observed": 0.206,
+          "cp95": [
+            0.1884664792558396,
+            0.22439962413145687
+          ],
+          "agree": true,
+          "b1_start_used": {
+            "median": 29.0,
+            "min": 29,
+            "max": 29,
+            "share_at_diagnostic_start": 1.0
+          },
+          "rows": {
+            "sign_binom": {
+              "runs": 2000,
+              "certified_share": 0.6535,
+              "violations": 77,
+              "violation_rate": 0.0385,
+              "cp95": [
+                0.030500774860506338,
+                0.04788554482681921
+              ],
+              "mean_true_risk_certified": 0.007087933879112472,
+              "median_certified_index": 16.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb": {
+              "runs": 2000,
+              "certified_share": 0.0115,
+              "violations": 5,
+              "violation_rate": 0.0025,
+              "cp95": [
+                0.0008122259751939098,
+                0.005824445334518517
+              ],
+              "mean_true_risk_certified": 0.009028259130434783,
+              "median_certified_index": 12.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb_a1": {
+              "runs": 2000,
+              "certified_share": 0.0195,
+              "violations": 3,
+              "violation_rate": 0.0015,
+              "cp95": [
+                0.00030944294931233317,
+                0.004377320104529616
+              ],
+              "mean_true_risk_certified": 0.008154936923076924,
+              "median_certified_index": 13.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb_bs": {
+              "runs": 2000,
+              "certified_share": 0.0,
+              "violations": 0,
+              "violation_rate": 0.0,
+              "cp95": [
+                0.0,
+                0.0018427397934059364
+              ],
+              "mean_true_risk_certified": null,
+              "median_certified_index": null,
+              "runs_no_eligible_start": 0
+            },
+            "B1_binom": {
+              "runs": 2000,
+              "certified_share": 0.9955,
+              "violations": 412,
+              "violation_rate": 0.206,
+              "cp95": [
+                0.1884664792558396,
+                0.22439962413145687
+              ],
+              "mean_true_risk_certified": 0.008885461046710197,
+              "median_certified_index": 15.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb": {
+              "runs": 2000,
+              "certified_share": 0.891,
+              "violations": 215,
+              "violation_rate": 0.1075,
+              "cp95": [
+                0.09425778374111338,
+                0.12190486047220032
+              ],
+              "mean_true_risk_certified": 0.008281357381032547,
+              "median_certified_index": 17.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb_a1": {
+              "runs": 2000,
+              "certified_share": 0.891,
+              "violations": 215,
+              "violation_rate": 0.1075,
+              "cp95": [
+                0.09425778374111338,
+                0.12190486047220032
+              ],
+              "mean_true_risk_certified": 0.008281357381032547,
+              "median_certified_index": 17.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb_bs": {
+              "runs": 2000,
+              "certified_share": 0.891,
+              "violations": 215,
+              "violation_rate": 0.1075,
+              "cp95": [
+                0.09425778374111338,
+                0.12190486047220032
+              ],
+              "mean_true_risk_certified": 0.008281357381032547,
+              "median_certified_index": 17.0,
+              "runs_no_eligible_start": 0
+            }
+          }
+        },
+        {
+          "pair": 7,
+          "rho": 0.6,
+          "m": 10,
+          "alpha": 0.02,
+          "DE": 6.3999999999999995,
+          "predicted": 0.30622556669131407,
+          "boundary": true,
+          "R_b": 0.02229724753505458,
+          "observed": 0.1465,
+          "cp95": [
+            0.13127954577968579,
+            0.1627645407994634
+          ],
+          "agree": true,
+          "b1_start_used": {
+            "median": 29.0,
+            "min": 29,
+            "max": 29,
+            "share_at_diagnostic_start": 1.0
+          },
+          "rows": {
+            "sign_binom": {
+              "runs": 2000,
+              "certified_share": 0.9935,
+              "violations": 84,
+              "violation_rate": 0.042,
+              "cp95": [
+                0.03363667911309392,
+                0.05173707971848958
+              ],
+              "mean_true_risk_certified": 0.013855711736285858,
+              "median_certified_index": 10.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb": {
+              "runs": 2000,
+              "certified_share": 0.41,
+              "violations": 7,
+              "violation_rate": 0.0035,
+              "cp95": [
+                0.0014083038325025414,
+                0.007197961714658002
+              ],
+              "mean_true_risk_certified": 0.011893189195121952,
+              "median_certified_index": 13.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb_a1": {
+              "runs": 2000,
+              "certified_share": 0.2775,
+              "violations": 6,
+              "violation_rate": 0.003,
+              "cp95": [
+                0.0011017182250253473,
+                0.00651821860997453
+              ],
+              "mean_true_risk_certified": 0.011838056720720722,
+              "median_certified_index": 14.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb_bs": {
+              "runs": 2000,
+              "certified_share": 0.0,
+              "violations": 0,
+              "violation_rate": 0.0,
+              "cp95": [
+                0.0,
+                0.0018427397934059364
+              ],
+              "mean_true_risk_certified": null,
+              "median_certified_index": null,
+              "runs_no_eligible_start": 0
+            },
+            "B1_binom": {
+              "runs": 2000,
+              "certified_share": 1.0,
+              "violations": 293,
+              "violation_rate": 0.1465,
+              "cp95": [
+                0.13127954577968579,
+                0.1627645407994634
+              ],
+              "mean_true_risk_certified": 0.017648401101,
+              "median_certified_index": 10.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb": {
+              "runs": 2000,
+              "certified_share": 0.9995,
+              "violations": 163,
+              "violation_rate": 0.0815,
+              "cp95": [
+                0.06987937266229995,
+                0.0943641004908009
+              ],
+              "mean_true_risk_certified": 0.0166633867973987,
+              "median_certified_index": 11.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb_a1": {
+              "runs": 2000,
+              "certified_share": 0.9995,
+              "violations": 163,
+              "violation_rate": 0.0815,
+              "cp95": [
+                0.06987937266229995,
+                0.0943641004908009
+              ],
+              "mean_true_risk_certified": 0.0166633867973987,
+              "median_certified_index": 11.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb_bs": {
+              "runs": 2000,
+              "certified_share": 0.9995,
+              "violations": 163,
+              "violation_rate": 0.0815,
+              "cp95": [
+                0.06987937266229995,
+                0.0943641004908009
+              ],
+              "mean_true_risk_certified": 0.0166633867973987,
+              "median_certified_index": 11.0,
+              "runs_no_eligible_start": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "pair": 8,
+      "rho": 0.6,
+      "m": 15,
+      "curve_check": {
+        "sign_grid": true,
+        "b1_grid": true,
+        "sign_pop_commit": true,
+        "sign_true_risk": true,
+        "b1_pop_accept": true,
+        "b1_true_risk": true
+      },
+      "zero_nc_certified": 0,
+      "calibration": {
+        "view_error": 0.07385946666666666,
+        "wrong_icc": 0.5994559410004636
+      },
+      "settings": [
+        {
+          "pair": 8,
+          "rho": 0.6,
+          "m": 15,
+          "alpha": 0.01,
+          "DE": 9.4,
+          "predicted": 0.337975009324678,
+          "boundary": true,
+          "R_b": 0.011319977701552353,
+          "observed": 0.2035,
+          "cp95": [
+            0.18605025140859707,
+            0.22182328849595764
+          ],
+          "agree": true,
+          "b1_start_used": {
+            "median": 29.0,
+            "min": 29,
+            "max": 29,
+            "share_at_diagnostic_start": 1.0
+          },
+          "rows": {
+            "sign_binom": {
+              "runs": 2000,
+              "certified_share": 0.6455,
+              "violations": 59,
+              "violation_rate": 0.0295,
+              "cp95": [
+                0.022530967865735167,
+                0.037889419299191596
+              ],
+              "mean_true_risk_certified": 0.007160510069713399,
+              "median_certified_index": 16.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb": {
+              "runs": 2000,
+              "certified_share": 0.0155,
+              "violations": 1,
+              "violation_rate": 0.0005,
+              "cp95": [
+                1.2658823868557902e-05,
+                0.0027826398346589465
+              ],
+              "mean_true_risk_certified": 0.008480376774193549,
+              "median_certified_index": 13.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb_a1": {
+              "runs": 2000,
+              "certified_share": 0.017,
+              "violations": 1,
+              "violation_rate": 0.0005,
+              "cp95": [
+                1.2658823868557902e-05,
+                0.0027826398346589465
+              ],
+              "mean_true_risk_certified": 0.008327767647058823,
+              "median_certified_index": 13.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb_bs": {
+              "runs": 2000,
+              "certified_share": 0.0,
+              "violations": 0,
+              "violation_rate": 0.0,
+              "cp95": [
+                0.0,
+                0.0018427397934059364
+              ],
+              "mean_true_risk_certified": null,
+              "median_certified_index": null,
+              "runs_no_eligible_start": 0
+            },
+            "B1_binom": {
+              "runs": 2000,
+              "certified_share": 0.999,
+              "violations": 407,
+              "violation_rate": 0.2035,
+              "cp95": [
+                0.18605025140859707,
+                0.22182328849595764
+              ],
+              "mean_true_risk_certified": 0.009179650620620618,
+              "median_certified_index": 15.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb": {
+              "runs": 2000,
+              "certified_share": 0.972,
+              "violations": 249,
+              "violation_rate": 0.1245,
+              "cp95": [
+                0.11033914753270484,
+                0.13977153573558238
+              ],
+              "mean_true_risk_certified": 0.008662111176611795,
+              "median_certified_index": 16.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb_a1": {
+              "runs": 2000,
+              "certified_share": 0.972,
+              "violations": 249,
+              "violation_rate": 0.1245,
+              "cp95": [
+                0.11033914753270484,
+                0.13977153573558238
+              ],
+              "mean_true_risk_certified": 0.008662111176611795,
+              "median_certified_index": 16.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb_bs": {
+              "runs": 2000,
+              "certified_share": 0.972,
+              "violations": 249,
+              "violation_rate": 0.1245,
+              "cp95": [
+                0.11033914753270484,
+                0.13977153573558238
+              ],
+              "mean_true_risk_certified": 0.008662111176611795,
+              "median_certified_index": 16.0,
+              "runs_no_eligible_start": 0
+            }
+          }
+        },
+        {
+          "pair": 8,
+          "rho": 0.6,
+          "m": 15,
+          "alpha": 0.02,
+          "DE": 9.4,
+          "predicted": 0.337975009324678,
+          "boundary": true,
+          "R_b": 0.02314877224869748,
+          "observed": 0.134,
+          "cp95": [
+            0.11936526255294427,
+            0.14971658818998115
+          ],
+          "agree": true,
+          "b1_start_used": {
+            "median": 29.0,
+            "min": 29,
+            "max": 29,
+            "share_at_diagnostic_start": 1.0
+          },
+          "rows": {
+            "sign_binom": {
+              "runs": 2000,
+              "certified_share": 0.9935,
+              "violations": 105,
+              "violation_rate": 0.0525,
+              "cp95": [
+                0.043137618084618856,
+                0.06319990248328705
+              ],
+              "mean_true_risk_certified": 0.014034401187720182,
+              "median_certified_index": 10.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb": {
+              "runs": 2000,
+              "certified_share": 0.423,
+              "violations": 4,
+              "violation_rate": 0.002,
+              "cp95": [
+                0.0005451931252109997,
+                0.005112808605346209
+              ],
+              "mean_true_risk_certified": 0.011927739101654846,
+              "median_certified_index": 13.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb_a1": {
+              "runs": 2000,
+              "certified_share": 0.2955,
+              "violations": 4,
+              "violation_rate": 0.002,
+              "cp95": [
+                0.0005451931252109997,
+                0.005112808605346209
+              ],
+              "mean_true_risk_certified": 0.011911208155668358,
+              "median_certified_index": 14.0,
+              "runs_no_eligible_start": 0
+            },
+            "sign_hb_bs": {
+              "runs": 2000,
+              "certified_share": 0.0,
+              "violations": 0,
+              "violation_rate": 0.0,
+              "cp95": [
+                0.0,
+                0.0018427397934059364
+              ],
+              "mean_true_risk_certified": null,
+              "median_certified_index": null,
+              "runs_no_eligible_start": 0
+            },
+            "B1_binom": {
+              "runs": 2000,
+              "certified_share": 1.0,
+              "violations": 268,
+              "violation_rate": 0.134,
+              "cp95": [
+                0.11936526255294427,
+                0.14971658818998115
+              ],
+              "mean_true_risk_certified": 0.018106508578666667,
+              "median_certified_index": 10.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb": {
+              "runs": 2000,
+              "certified_share": 1.0,
+              "violations": 176,
+              "violation_rate": 0.088,
+              "cp95": [
+                0.07594517775871641,
+                0.10127788287047285
+              ],
+              "mean_true_risk_certified": 0.01732062750666667,
+              "median_certified_index": 11.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb_a1": {
+              "runs": 2000,
+              "certified_share": 1.0,
+              "violations": 176,
+              "violation_rate": 0.088,
+              "cp95": [
+                0.07594517775871641,
+                0.10127788287047285
+              ],
+              "mean_true_risk_certified": 0.01732062750666667,
+              "median_certified_index": 11.0,
+              "runs_no_eligible_start": 0
+            },
+            "B1_hb_bs": {
+              "runs": 2000,
+              "certified_share": 1.0,
+              "violations": 176,
+              "violation_rate": 0.088,
+              "cp95": [
+                0.07594517775871641,
+                0.10127788287047285
+              ],
+              "mean_true_risk_certified": 0.01732062750666667,
+              "median_certified_index": 11.0,
+              "runs_no_eligible_start": 0
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "retrospective": [
+    {
+      "source": "Stage 2",
+      "level": 0,
+      "p_frame": 0.074,
+      "rho": 0.0,
+      "cluster": "fixed-3",
+      "m": 3.0,
+      "alpha": 0.01,
+      "rule": "binom",
+      "DE": 1.0,
+      "predicted": 0.10000000000000009,
+      "predicted_ci": null,
+      "observed": 0.038,
+      "cp95": [
+        0.030054275443109076,
+        0.04733386430501305
+      ],
+      "certified_share": 0.9155,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 0,
+      "p_frame": 0.074,
+      "rho": 0.0,
+      "cluster": "fixed-3",
+      "m": 3.0,
+      "alpha": 0.01,
+      "rule": "hb",
+      "DE": 1.0,
+      "predicted": 0.10000000000000009,
+      "predicted_ci": null,
+      "observed": 0.0005,
+      "cp95": [
+        1.2658823868557902e-05,
+        0.0027826398346589465
+      ],
+      "certified_share": 0.0295,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 0,
+      "p_frame": 0.074,
+      "rho": 0.0,
+      "cluster": "fixed-3",
+      "m": 3.0,
+      "alpha": 0.02,
+      "rule": "binom",
+      "DE": 1.0,
+      "predicted": 0.10000000000000009,
+      "predicted_ci": null,
+      "observed": 0.0235,
+      "cp95": [
+        0.017316813015912907,
+        0.031128550818985364
+      ],
+      "certified_share": 1.0,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 0,
+      "p_frame": 0.074,
+      "rho": 0.0,
+      "cluster": "fixed-3",
+      "m": 3.0,
+      "alpha": 0.02,
+      "rule": "hb",
+      "DE": 1.0,
+      "predicted": 0.10000000000000009,
+      "predicted_ci": null,
+      "observed": 0.0005,
+      "cp95": [
+        1.2658823868557902e-05,
+        0.0027826398346589465
+      ],
+      "certified_share": 0.5235,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 0,
+      "p_frame": 0.074,
+      "rho": 0.0,
+      "cluster": "view-mix",
+      "m": 2.9984114376489277,
+      "alpha": 0.01,
+      "rule": "binom",
+      "DE": 1.0,
+      "predicted": 0.10000000000000009,
+      "predicted_ci": null,
+      "observed": 0.032,
+      "cp95": [
+        0.02472928537813548,
+        0.040681319158607475
+      ],
+      "certified_share": 0.9095,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 0,
+      "p_frame": 0.074,
+      "rho": 0.0,
+      "cluster": "view-mix",
+      "m": 2.9984114376489277,
+      "alpha": 0.01,
+      "rule": "hb",
+      "DE": 1.0,
+      "predicted": 0.10000000000000009,
+      "predicted_ci": null,
+      "observed": 0.001,
+      "cp95": [
+        0.00012112759055682978,
+        0.0036076285698285315
+      ],
+      "certified_share": 0.0325,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 0,
+      "p_frame": 0.074,
+      "rho": 0.0,
+      "cluster": "view-mix",
+      "m": 2.9984114376489277,
+      "alpha": 0.02,
+      "rule": "binom",
+      "DE": 1.0,
+      "predicted": 0.10000000000000009,
+      "predicted_ci": null,
+      "observed": 0.0185,
+      "cp95": [
+        0.013058315418332227,
+        0.025410378996541125
+      ],
+      "certified_share": 0.999,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 0,
+      "p_frame": 0.074,
+      "rho": 0.0,
+      "cluster": "view-mix",
+      "m": 2.9984114376489277,
+      "alpha": 0.02,
+      "rule": "hb",
+      "DE": 1.0,
+      "predicted": 0.10000000000000009,
+      "predicted_ci": null,
+      "observed": 0.001,
+      "cp95": [
+        0.00012112759055682978,
+        0.0036076285698285315
+      ],
+      "certified_share": 0.529,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 0,
+      "p_frame": 0.074,
+      "rho": 0.0,
+      "cluster": "fixed-30",
+      "m": 30.0,
+      "alpha": 0.01,
+      "rule": "binom",
+      "DE": 1.0,
+      "predicted": 0.10000000000000009,
+      "predicted_ci": null,
+      "observed": 0.0035,
+      "cp95": [
+        0.0014083038325025414,
+        0.007197961714658002
+      ],
+      "certified_share": 1.0,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 0,
+      "p_frame": 0.074,
+      "rho": 0.0,
+      "cluster": "fixed-30",
+      "m": 30.0,
+      "alpha": 0.01,
+      "rule": "hb",
+      "DE": 1.0,
+      "predicted": 0.10000000000000009,
+      "predicted_ci": null,
+      "observed": 0.0,
+      "cp95": [
+        0.0,
+        0.0018427397934059364
+      ],
+      "certified_share": 1.0,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 0,
+      "p_frame": 0.074,
+      "rho": 0.0,
+      "cluster": "fixed-30",
+      "m": 30.0,
+      "alpha": 0.02,
+      "rule": "binom",
+      "DE": 1.0,
+      "predicted": 0.10000000000000009,
+      "predicted_ci": null,
+      "observed": 0.0,
+      "cp95": [
+        0.0,
+        0.0018427397934059364
+      ],
+      "certified_share": 1.0,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 0,
+      "p_frame": 0.074,
+      "rho": 0.0,
+      "cluster": "fixed-30",
+      "m": 30.0,
+      "alpha": 0.02,
+      "rule": "hb",
+      "DE": 1.0,
+      "predicted": 0.10000000000000009,
+      "predicted_ci": null,
+      "observed": 0.0,
+      "cp95": [
+        0.0,
+        0.0018427397934059364
+      ],
+      "certified_share": 1.0,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 0,
+      "p_frame": 0.074,
+      "rho": 0.3,
+      "cluster": "fixed-3",
+      "m": 3.0,
+      "alpha": 0.01,
+      "rule": "binom",
+      "DE": 1.6,
+      "predicted": 0.15549295285911996,
+      "predicted_ci": null,
+      "observed": 0.0795,
+      "cp95": [
+        0.0680174121667317,
+        0.09223237707052359
+      ],
+      "certified_share": 0.879,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 0,
+      "p_frame": 0.074,
+      "rho": 0.3,
+      "cluster": "fixed-3",
+      "m": 3.0,
+      "alpha": 0.01,
+      "rule": "hb",
+      "DE": 1.6,
+      "predicted": 0.15549295285911996,
+      "predicted_ci": null,
+      "observed": 0.003,
+      "cp95": [
+        0.0011017182250253473,
+        0.00651821860997453
+      ],
+      "certified_share": 0.0465,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 0,
+      "p_frame": 0.074,
+      "rho": 0.3,
+      "cluster": "fixed-3",
+      "m": 3.0,
+      "alpha": 0.02,
+      "rule": "binom",
+      "DE": 1.6,
+      "predicted": 0.15549295285911996,
+      "predicted_ci": null,
+      "observed": 0.0645,
+      "cp95": [
+        0.05412932010057727,
+        0.0761685214508566
+      ],
+      "certified_share": 1.0,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 0,
+      "p_frame": 0.074,
+      "rho": 0.3,
+      "cluster": "fixed-3",
+      "m": 3.0,
+      "alpha": 0.02,
+      "rule": "hb",
+      "DE": 1.6,
+      "predicted": 0.15549295285911996,
+      "predicted_ci": null,
+      "observed": 0.01,
+      "cp95": [
+        0.0061186575427434635,
+        0.015402125783560048
+      ],
+      "certified_share": 0.52,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 0,
+      "p_frame": 0.074,
+      "rho": 0.3,
+      "cluster": "view-mix",
+      "m": 2.9984114376489277,
+      "alpha": 0.01,
+      "rule": "binom",
+      "DE": 1.5995234312946782,
+      "predicted": 0.15545691762416847,
+      "predicted_ci": null,
+      "observed": 0.065,
+      "cp95": [
+        0.05458983750817447,
+        0.07670637897458914
+      ],
+      "certified_share": 0.8915,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 0,
+      "p_frame": 0.074,
+      "rho": 0.3,
+      "cluster": "view-mix",
+      "m": 2.9984114376489277,
+      "alpha": 0.01,
+      "rule": "hb",
+      "DE": 1.5995234312946782,
+      "predicted": 0.15545691762416847,
+      "predicted_ci": null,
+      "observed": 0.0015,
+      "cp95": [
+        0.00030944294931233317,
+        0.004377320104529616
+      ],
+      "certified_share": 0.054,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 0,
+      "p_frame": 0.074,
+      "rho": 0.3,
+      "cluster": "view-mix",
+      "m": 2.9984114376489277,
+      "alpha": 0.02,
+      "rule": "binom",
+      "DE": 1.5995234312946782,
+      "predicted": 0.15545691762416847,
+      "predicted_ci": null,
+      "observed": 0.0555,
+      "cp95": [
+        0.04587376649393303,
+        0.06645369553133039
+      ],
+      "certified_share": 0.999,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 0,
+      "p_frame": 0.074,
+      "rho": 0.3,
+      "cluster": "view-mix",
+      "m": 2.9984114376489277,
+      "alpha": 0.02,
+      "rule": "hb",
+      "DE": 1.5995234312946782,
+      "predicted": 0.15545691762416847,
+      "predicted_ci": null,
+      "observed": 0.009,
+      "cp95": [
+        0.005342443023395429,
+        0.014186714471514504
+      ],
+      "certified_share": 0.535,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 0,
+      "p_frame": 0.074,
+      "rho": 0.3,
+      "cluster": "fixed-30",
+      "m": 30.0,
+      "alpha": 0.01,
+      "rule": "binom",
+      "DE": 9.7,
+      "predicted": 0.3403597852642612,
+      "predicted_ci": null,
+      "observed": 0.1665,
+      "cp95": [
+        0.15042149411482036,
+        0.18356249220921458
+      ],
+      "certified_share": 1.0,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 0,
+      "p_frame": 0.074,
+      "rho": 0.3,
+      "cluster": "fixed-30",
+      "m": 30.0,
+      "alpha": 0.01,
+      "rule": "hb",
+      "DE": 9.7,
+      "predicted": 0.3403597852642612,
+      "predicted_ci": null,
+      "observed": 0.083,
+      "cp95": [
+        0.07127725216847293,
+        0.09596149536242968
+      ],
+      "certified_share": 1.0,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 0,
+      "p_frame": 0.074,
+      "rho": 0.3,
+      "cluster": "fixed-30",
+      "m": 30.0,
+      "alpha": 0.02,
+      "rule": "binom",
+      "DE": 9.7,
+      "predicted": 0.3403597852642612,
+      "predicted_ci": null,
+      "observed": 0.0985,
+      "cp95": [
+        0.08578605361234948,
+        0.11240434386495476
+      ],
+      "certified_share": 1.0,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 0,
+      "p_frame": 0.074,
+      "rho": 0.3,
+      "cluster": "fixed-30",
+      "m": 30.0,
+      "alpha": 0.02,
+      "rule": "hb",
+      "DE": 9.7,
+      "predicted": 0.3403597852642612,
+      "predicted_ci": null,
+      "observed": 0.0575,
+      "cp95": [
+        0.047702477380250706,
+        0.06861833547127535
+      ],
+      "certified_share": 1.0,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 0,
+      "p_frame": 0.074,
+      "rho": 0.45,
+      "cluster": "fixed-3",
+      "m": 3.0,
+      "alpha": 0.01,
+      "rule": "binom",
+      "DE": 1.9,
+      "predicted": 0.1762540960158348,
+      "predicted_ci": null,
+      "observed": 0.086,
+      "cp95": [
+        0.0740765070586859,
+        0.09915281681567538
+      ],
+      "certified_share": 0.891,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 0,
+      "p_frame": 0.074,
+      "rho": 0.45,
+      "cluster": "fixed-3",
+      "m": 3.0,
+      "alpha": 0.01,
+      "rule": "hb",
+      "DE": 1.9,
+      "predicted": 0.1762540960158348,
+      "predicted_ci": null,
+      "observed": 0.006,
+      "cp95": [
+        0.0031040162823773266,
+        0.010457313821794881
+      ],
+      "certified_share": 0.066,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 0,
+      "p_frame": 0.074,
+      "rho": 0.45,
+      "cluster": "fixed-3",
+      "m": 3.0,
+      "alpha": 0.02,
+      "rule": "binom",
+      "DE": 1.9,
+      "predicted": 0.1762540960158348,
+      "predicted_ci": null,
+      "observed": 0.074,
+      "cp95": [
+        0.06290868484123784,
+        0.0863585723405776
+      ],
+      "certified_share": 0.999,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 0,
+      "p_frame": 0.074,
+      "rho": 0.45,
+      "cluster": "fixed-3",
+      "m": 3.0,
+      "alpha": 0.02,
+      "rule": "hb",
+      "DE": 1.9,
+      "predicted": 0.1762540960158348,
+      "predicted_ci": null,
+      "observed": 0.0105,
+      "cp95": [
+        0.006511085658164156,
+        0.01600579487869697
+      ],
+      "certified_share": 0.5345,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 0,
+      "p_frame": 0.074,
+      "rho": 0.45,
+      "cluster": "view-mix",
+      "m": 2.9984114376489277,
+      "alpha": 0.01,
+      "rule": "binom",
+      "DE": 1.8992851469420176,
+      "predicted": 0.17620879728247546,
+      "predicted_ci": null,
+      "observed": 0.089,
+      "cp95": [
+        0.07688024006073672,
+        0.10233969438458704
+      ],
+      "certified_share": 0.868,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 0,
+      "p_frame": 0.074,
+      "rho": 0.45,
+      "cluster": "view-mix",
+      "m": 2.9984114376489277,
+      "alpha": 0.01,
+      "rule": "hb",
+      "DE": 1.8992851469420176,
+      "predicted": 0.17620879728247546,
+      "predicted_ci": null,
+      "observed": 0.0065,
+      "cp95": [
+        0.003465381208667553,
+        0.011089549271656375
+      ],
+      "certified_share": 0.073,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 0,
+      "p_frame": 0.074,
+      "rho": 0.45,
+      "cluster": "view-mix",
+      "m": 2.9984114376489277,
+      "alpha": 0.02,
+      "rule": "binom",
+      "DE": 1.8992851469420176,
+      "predicted": 0.17620879728247546,
+      "predicted_ci": null,
+      "observed": 0.075,
+      "cp95": [
+        0.06383622222456224,
+        0.08742784744015263
+      ],
+      "certified_share": 0.9985,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 0,
+      "p_frame": 0.074,
+      "rho": 0.45,
+      "cluster": "view-mix",
+      "m": 2.9984114376489277,
+      "alpha": 0.02,
+      "rule": "hb",
+      "DE": 1.8992851469420176,
+      "predicted": 0.17620879728247546,
+      "predicted_ci": null,
+      "observed": 0.0145,
+      "cp95": [
+        0.009731812290767167,
+        0.020758479301277086
+      ],
+      "certified_share": 0.542,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 0,
+      "p_frame": 0.074,
+      "rho": 0.45,
+      "cluster": "fixed-30",
+      "m": 30.0,
+      "alpha": 0.01,
+      "rule": "binom",
+      "DE": 14.05,
+      "predicted": 0.3662134236148331,
+      "predicted_ci": null,
+      "observed": 0.2055,
+      "cp95": [
+        0.18798315045745403,
+        0.22388444001171706
+      ],
+      "certified_share": 1.0,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 0,
+      "p_frame": 0.074,
+      "rho": 0.45,
+      "cluster": "fixed-30",
+      "m": 30.0,
+      "alpha": 0.01,
+      "rule": "hb",
+      "DE": 14.05,
+      "predicted": 0.3662134236148331,
+      "predicted_ci": null,
+      "observed": 0.124,
+      "cp95": [
+        0.10986482745633437,
+        0.13924737692993697
+      ],
+      "certified_share": 0.999,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 0,
+      "p_frame": 0.074,
+      "rho": 0.45,
+      "cluster": "fixed-30",
+      "m": 30.0,
+      "alpha": 0.02,
+      "rule": "binom",
+      "DE": 14.05,
+      "predicted": 0.3662134236148331,
+      "predicted_ci": null,
+      "observed": 0.3565,
+      "cp95": [
+        0.3354820310611511,
+        0.37793951972043077
+      ],
+      "certified_share": 1.0,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 0,
+      "p_frame": 0.074,
+      "rho": 0.45,
+      "cluster": "fixed-30",
+      "m": 30.0,
+      "alpha": 0.02,
+      "rule": "hb",
+      "DE": 14.05,
+      "predicted": 0.3662134236148331,
+      "predicted_ci": null,
+      "observed": 0.2775,
+      "cp95": [
+        0.2579640053652005,
+        0.2976903169929822
+      ],
+      "certified_share": 1.0,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 1,
+      "p_frame": 0.05,
+      "rho": 0.0,
+      "cluster": "fixed-3",
+      "m": 3.0,
+      "alpha": 0.01,
+      "rule": "binom",
+      "DE": 1.0,
+      "predicted": 0.10000000000000009,
+      "predicted_ci": null,
+      "observed": 0.042,
+      "cp95": [
+        0.03363667911309392,
+        0.05173707971848958
+      ],
+      "certified_share": 0.9935,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 1,
+      "p_frame": 0.05,
+      "rho": 0.0,
+      "cluster": "fixed-3",
+      "m": 3.0,
+      "alpha": 0.01,
+      "rule": "hb",
+      "DE": 1.0,
+      "predicted": 0.10000000000000009,
+      "predicted_ci": null,
+      "observed": 0.0015,
+      "cp95": [
+        0.00030944294931233317,
+        0.004377320104529616
+      ],
+      "certified_share": 0.3635,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 1,
+      "p_frame": 0.05,
+      "rho": 0.0,
+      "cluster": "fixed-3",
+      "m": 3.0,
+      "alpha": 0.02,
+      "rule": "binom",
+      "DE": 1.0,
+      "predicted": 0.10000000000000009,
+      "predicted_ci": null,
+      "observed": 0.0745,
+      "cp95": [
+        0.06337237783566632,
+        0.08689328491216988
+      ],
+      "certified_share": 1.0,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 1,
+      "p_frame": 0.05,
+      "rho": 0.0,
+      "cluster": "fixed-3",
+      "m": 3.0,
+      "alpha": 0.02,
+      "rule": "hb",
+      "DE": 1.0,
+      "predicted": 0.10000000000000009,
+      "predicted_ci": null,
+      "observed": 0.012,
+      "cp95": [
+        0.0077033433702185005,
+        0.017802731356322096
+      ],
+      "certified_share": 0.8475,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 1,
+      "p_frame": 0.05,
+      "rho": 0.0,
+      "cluster": "view-mix",
+      "m": 2.9984114376489277,
+      "alpha": 0.01,
+      "rule": "binom",
+      "DE": 1.0,
+      "predicted": 0.10000000000000009,
+      "predicted_ci": null,
+      "observed": 0.043,
+      "cp95": [
+        0.034535804359735967,
+        0.05283441782903165
+      ],
+      "certified_share": 0.9955,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 1,
+      "p_frame": 0.05,
+      "rho": 0.0,
+      "cluster": "view-mix",
+      "m": 2.9984114376489277,
+      "alpha": 0.01,
+      "rule": "hb",
+      "DE": 1.0,
+      "predicted": 0.10000000000000009,
+      "predicted_ci": null,
+      "observed": 0.003,
+      "cp95": [
+        0.0011017182250253473,
+        0.00651821860997453
+      ],
+      "certified_share": 0.388,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 1,
+      "p_frame": 0.05,
+      "rho": 0.0,
+      "cluster": "view-mix",
+      "m": 2.9984114376489277,
+      "alpha": 0.02,
+      "rule": "binom",
+      "DE": 1.0,
+      "predicted": 0.10000000000000009,
+      "predicted_ci": null,
+      "observed": 0.0825,
+      "cp95": [
+        0.07081116036844831,
+        0.09542916131269874
+      ],
+      "certified_share": 1.0,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 1,
+      "p_frame": 0.05,
+      "rho": 0.0,
+      "cluster": "view-mix",
+      "m": 2.9984114376489277,
+      "alpha": 0.02,
+      "rule": "hb",
+      "DE": 1.0,
+      "predicted": 0.10000000000000009,
+      "predicted_ci": null,
+      "observed": 0.0155,
+      "cp95": [
+        0.010555158919957628,
+        0.02192938918963121
+      ],
+      "certified_share": 0.8365,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 1,
+      "p_frame": 0.05,
+      "rho": 0.0,
+      "cluster": "fixed-30",
+      "m": 30.0,
+      "alpha": 0.01,
+      "rule": "binom",
+      "DE": 1.0,
+      "predicted": 0.10000000000000009,
+      "predicted_ci": null,
+      "observed": 0.0075,
+      "cp95": [
+        0.004203591756889189,
+        0.01233998373578594
+      ],
+      "certified_share": 1.0,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 1,
+      "p_frame": 0.05,
+      "rho": 0.0,
+      "cluster": "fixed-30",
+      "m": 30.0,
+      "alpha": 0.01,
+      "rule": "hb",
+      "DE": 1.0,
+      "predicted": 0.10000000000000009,
+      "predicted_ci": null,
+      "observed": 0.0005,
+      "cp95": [
+        1.2658823868557902e-05,
+        0.0027826398346589465
+      ],
+      "certified_share": 1.0,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 1,
+      "p_frame": 0.05,
+      "rho": 0.0,
+      "cluster": "fixed-30",
+      "m": 30.0,
+      "alpha": 0.02,
+      "rule": "binom",
+      "DE": 1.0,
+      "predicted": 0.10000000000000009,
+      "predicted_ci": null,
+      "observed": 0.0685,
+      "cp95": [
+        0.05781847640300085,
+        0.08046641554391681
+      ],
+      "certified_share": 1.0,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 1,
+      "p_frame": 0.05,
+      "rho": 0.0,
+      "cluster": "fixed-30",
+      "m": 30.0,
+      "alpha": 0.02,
+      "rule": "hb",
+      "DE": 1.0,
+      "predicted": 0.10000000000000009,
+      "predicted_ci": null,
+      "observed": 0.0125,
+      "cp95": [
+        0.008105230838877512,
+        0.018397493413938
+      ],
+      "certified_share": 1.0,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 1,
+      "p_frame": 0.05,
+      "rho": 0.3,
+      "cluster": "fixed-3",
+      "m": 3.0,
+      "alpha": 0.01,
+      "rule": "binom",
+      "DE": 1.6,
+      "predicted": 0.15549295285911996,
+      "predicted_ci": null,
+      "observed": 0.0675,
+      "cp95": [
+        0.05689513093346525,
+        0.07939298782934733
+      ],
+      "certified_share": 0.9915,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 1,
+      "p_frame": 0.05,
+      "rho": 0.3,
+      "cluster": "fixed-3",
+      "m": 3.0,
+      "alpha": 0.01,
+      "rule": "hb",
+      "DE": 1.6,
+      "predicted": 0.15549295285911996,
+      "predicted_ci": null,
+      "observed": 0.0065,
+      "cp95": [
+        0.003465381208667553,
+        0.011089549271656375
+      ],
+      "certified_share": 0.3825,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 1,
+      "p_frame": 0.05,
+      "rho": 0.3,
+      "cluster": "fixed-3",
+      "m": 3.0,
+      "alpha": 0.02,
+      "rule": "binom",
+      "DE": 1.6,
+      "predicted": 0.15549295285911996,
+      "predicted_ci": null,
+      "observed": 0.113,
+      "cp95": [
+        0.09944988877943874,
+        0.12769588541869464
+      ],
+      "certified_share": 1.0,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 1,
+      "p_frame": 0.05,
+      "rho": 0.3,
+      "cluster": "fixed-3",
+      "m": 3.0,
+      "alpha": 0.02,
+      "rule": "hb",
+      "DE": 1.6,
+      "predicted": 0.15549295285911996,
+      "predicted_ci": null,
+      "observed": 0.034,
+      "cp95": [
+        0.026497089656563604,
+        0.042905884883076235
+      ],
+      "certified_share": 0.8035,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 1,
+      "p_frame": 0.05,
+      "rho": 0.3,
+      "cluster": "view-mix",
+      "m": 2.9984114376489277,
+      "alpha": 0.01,
+      "rule": "binom",
+      "DE": 1.5995234312946782,
+      "predicted": 0.15545691762416847,
+      "predicted_ci": null,
+      "observed": 0.0605,
+      "cp95": [
+        0.050452015093383595,
+        0.07185889950201037
+      ],
+      "certified_share": 0.984,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 1,
+      "p_frame": 0.05,
+      "rho": 0.3,
+      "cluster": "view-mix",
+      "m": 2.9984114376489277,
+      "alpha": 0.01,
+      "rule": "hb",
+      "DE": 1.5995234312946782,
+      "predicted": 0.15545691762416847,
+      "predicted_ci": null,
+      "observed": 0.009,
+      "cp95": [
+        0.005342443023395429,
+        0.014186714471514504
+      ],
+      "certified_share": 0.422,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 1,
+      "p_frame": 0.05,
+      "rho": 0.3,
+      "cluster": "view-mix",
+      "m": 2.9984114376489277,
+      "alpha": 0.02,
+      "rule": "binom",
+      "DE": 1.5995234312946782,
+      "predicted": 0.15545691762416847,
+      "predicted_ci": null,
+      "observed": 0.1105,
+      "cp95": [
+        0.09708850463074892,
+        0.12506493002189206
+      ],
+      "certified_share": 1.0,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 1,
+      "p_frame": 0.05,
+      "rho": 0.3,
+      "cluster": "view-mix",
+      "m": 2.9984114376489277,
+      "alpha": 0.02,
+      "rule": "hb",
+      "DE": 1.5995234312946782,
+      "predicted": 0.15545691762416847,
+      "predicted_ci": null,
+      "observed": 0.0315,
+      "cp95": [
+        0.024288566203896703,
+        0.040123971659625404
+      ],
+      "certified_share": 0.81,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 1,
+      "p_frame": 0.05,
+      "rho": 0.3,
+      "cluster": "fixed-30",
+      "m": 30.0,
+      "alpha": 0.01,
+      "rule": "binom",
+      "DE": 9.7,
+      "predicted": 0.3403597852642612,
+      "predicted_ci": null,
+      "observed": 0.224,
+      "cp95": [
+        0.20589305930246207,
+        0.2429195771302673
+      ],
+      "certified_share": 1.0,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 1,
+      "p_frame": 0.05,
+      "rho": 0.3,
+      "cluster": "fixed-30",
+      "m": 30.0,
+      "alpha": 0.01,
+      "rule": "hb",
+      "DE": 9.7,
+      "predicted": 0.3403597852642612,
+      "predicted_ci": null,
+      "observed": 0.1565,
+      "cp95": [
+        0.14083908847625876,
+        0.17317490429732052
+      ],
+      "certified_share": 1.0,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 1,
+      "p_frame": 0.05,
+      "rho": 0.3,
+      "cluster": "fixed-30",
+      "m": 30.0,
+      "alpha": 0.02,
+      "rule": "binom",
+      "DE": 9.7,
+      "predicted": 0.3403597852642612,
+      "predicted_ci": null,
+      "observed": 0.3205,
+      "cp95": [
+        0.3000732275038165,
+        0.341454291288225
+      ],
+      "certified_share": 1.0,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 1,
+      "p_frame": 0.05,
+      "rho": 0.3,
+      "cluster": "fixed-30",
+      "m": 30.0,
+      "alpha": 0.02,
+      "rule": "hb",
+      "DE": 9.7,
+      "predicted": 0.3403597852642612,
+      "predicted_ci": null,
+      "observed": 0.247,
+      "cp95": [
+        0.22823117740308096,
+        0.2665133045171517
+      ],
+      "certified_share": 1.0,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 1,
+      "p_frame": 0.05,
+      "rho": 0.45,
+      "cluster": "fixed-3",
+      "m": 3.0,
+      "alpha": 0.01,
+      "rule": "binom",
+      "DE": 1.9,
+      "predicted": 0.1762540960158348,
+      "predicted_ci": null,
+      "observed": 0.0965,
+      "cp95": [
+        0.08390786673965057,
+        0.11028872648373825
+      ],
+      "certified_share": 0.975,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 1,
+      "p_frame": 0.05,
+      "rho": 0.45,
+      "cluster": "fixed-3",
+      "m": 3.0,
+      "alpha": 0.01,
+      "rule": "hb",
+      "DE": 1.9,
+      "predicted": 0.1762540960158348,
+      "predicted_ci": null,
+      "observed": 0.0215,
+      "cp95": [
+        0.015602297625726232,
+        0.028852041685322922
+      ],
+      "certified_share": 0.423,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 1,
+      "p_frame": 0.05,
+      "rho": 0.45,
+      "cluster": "fixed-3",
+      "m": 3.0,
+      "alpha": 0.02,
+      "rule": "binom",
+      "DE": 1.9,
+      "predicted": 0.1762540960158348,
+      "predicted_ci": null,
+      "observed": 0.1535,
+      "cp95": [
+        0.13796874274834017,
+        0.17005426835438534
+      ],
+      "certified_share": 0.9995,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 1,
+      "p_frame": 0.05,
+      "rho": 0.45,
+      "cluster": "fixed-3",
+      "m": 3.0,
+      "alpha": 0.02,
+      "rule": "hb",
+      "DE": 1.9,
+      "predicted": 0.1762540960158348,
+      "predicted_ci": null,
+      "observed": 0.0515,
+      "cp95": [
+        0.04222751211179243,
+        0.06211338604462719
+      ],
+      "certified_share": 0.796,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 1,
+      "p_frame": 0.05,
+      "rho": 0.45,
+      "cluster": "view-mix",
+      "m": 2.9984114376489277,
+      "alpha": 0.01,
+      "rule": "binom",
+      "DE": 1.8992851469420176,
+      "predicted": 0.17620879728247546,
+      "predicted_ci": null,
+      "observed": 0.083,
+      "cp95": [
+        0.07127725216847293,
+        0.09596149536242968
+      ],
+      "certified_share": 0.9785,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 1,
+      "p_frame": 0.05,
+      "rho": 0.45,
+      "cluster": "view-mix",
+      "m": 2.9984114376489277,
+      "alpha": 0.01,
+      "rule": "hb",
+      "DE": 1.8992851469420176,
+      "predicted": 0.17620879728247546,
+      "predicted_ci": null,
+      "observed": 0.0165,
+      "cp95": [
+        0.011384358380235151,
+        0.023094698323837825
+      ],
+      "certified_share": 0.441,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 1,
+      "p_frame": 0.05,
+      "rho": 0.45,
+      "cluster": "view-mix",
+      "m": 2.9984114376489277,
+      "alpha": 0.02,
+      "rule": "binom",
+      "DE": 1.8992851469420176,
+      "predicted": 0.17620879728247546,
+      "predicted_ci": null,
+      "observed": 0.1375,
+      "cp95": [
+        0.12269710453881,
+        0.15337415392685352
+      ],
+      "certified_share": 0.9995,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 1,
+      "p_frame": 0.05,
+      "rho": 0.45,
+      "cluster": "view-mix",
+      "m": 2.9984114376489277,
+      "alpha": 0.02,
+      "rule": "hb",
+      "DE": 1.8992851469420176,
+      "predicted": 0.17620879728247546,
+      "predicted_ci": null,
+      "observed": 0.0435,
+      "cp95": [
+        0.034985862846768585,
+        0.05338259889337252
+      ],
+      "certified_share": 0.7945,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 1,
+      "p_frame": 0.05,
+      "rho": 0.45,
+      "cluster": "fixed-30",
+      "m": 30.0,
+      "alpha": 0.01,
+      "rule": "binom",
+      "DE": 14.05,
+      "predicted": 0.3662134236148331,
+      "predicted_ci": null,
+      "observed": 0.2725,
+      "cp95": [
+        0.2530816636494501,
+        0.2925874245731735
+      ],
+      "certified_share": 1.0,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 1,
+      "p_frame": 0.05,
+      "rho": 0.45,
+      "cluster": "fixed-30",
+      "m": 30.0,
+      "alpha": 0.01,
+      "rule": "hb",
+      "DE": 14.05,
+      "predicted": 0.3662134236148331,
+      "predicted_ci": null,
+      "observed": 0.202,
+      "cp95": [
+        0.18460101726969647,
+        0.22027698589412983
+      ],
+      "certified_share": 1.0,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 1,
+      "p_frame": 0.05,
+      "rho": 0.45,
+      "cluster": "fixed-30",
+      "m": 30.0,
+      "alpha": 0.02,
+      "rule": "binom",
+      "DE": 14.05,
+      "predicted": 0.3662134236148331,
+      "predicted_ci": null,
+      "observed": 0.3745,
+      "cp95": [
+        0.35323547589012383,
+        0.39613313867759137
+      ],
+      "certified_share": 1.0,
+      "agree": true
+    },
+    {
+      "source": "Stage 2",
+      "level": 1,
+      "p_frame": 0.05,
+      "rho": 0.45,
+      "cluster": "fixed-30",
+      "m": 30.0,
+      "alpha": 0.02,
+      "rule": "hb",
+      "DE": 14.05,
+      "predicted": 0.3662134236148331,
+      "predicted_ci": null,
+      "observed": 0.2915,
+      "cp95": [
+        0.27165062774682436,
+        0.311962375989498
+      ],
+      "certified_share": 1.0,
+      "agree": true
+    },
+    {
+      "source": "GTSRB POC-2 Stage 3b",
+      "rho": 0.446,
+      "m": 30,
+      "alpha": 0.005,
+      "rule": "hb (POC-2)",
+      "DE": 13.9,
+      "predicted": 0.3655213261554491,
+      "predicted_ci": null,
+      "observed": 0.17,
+      "cp95": [
+        0.1537804234782941,
+        0.1871930788413427
+      ],
+      "certified_share": 0.6,
+      "agree": true
+    },
+    {
+      "source": "GTSRB POC-2 Stage 3b",
+      "rho": 0.446,
+      "m": 30,
+      "alpha": 0.01,
+      "rule": "hb (POC-2)",
+      "DE": 13.9,
+      "predicted": 0.3655213261554491,
+      "predicted_ci": null,
+      "observed": 0.2,
+      "cp95": [
+        0.18266929791844835,
+        0.21821465787129038
+      ],
+      "certified_share": 0.999,
+      "agree": true
+    },
+    {
+      "source": "GTSRB POC-2 Stage 3b",
+      "rho": 0.446,
+      "m": 30,
+      "alpha": 0.02,
+      "rule": "hb (POC-2)",
+      "DE": 13.9,
+      "predicted": 0.3655213261554491,
+      "predicted_ci": null,
+      "observed": 0.0,
+      "cp95": [
+        0.0,
+        0.0018427397934059364
+      ],
+      "certified_share": 1.0,
+      "agree": true
+    },
+    {
+      "source": "GTSRB POC-2 Stage 3b",
+      "rho": 0.446,
+      "m": 30,
+      "alpha": 0.03,
+      "rule": "hb (POC-2)",
+      "DE": 13.9,
+      "predicted": 0.3655213261554491,
+      "predicted_ci": null,
+      "observed": 0.0,
+      "cp95": [
+        0.0,
+        0.0018427397934059364
+      ],
+      "certified_share": 1.0,
+      "agree": true
+    },
+    {
+      "source": "GTSRB POC-2 Stage 3b",
+      "rho": 0.446,
+      "m": 30,
+      "alpha": 0.05,
+      "rule": "hb (POC-2)",
+      "DE": 13.9,
+      "predicted": 0.3655213261554491,
+      "predicted_ci": null,
+      "observed": 0.0,
+      "cp95": [
+        0.0,
+        0.0018427397934059364
+      ],
+      "certified_share": 1.0,
+      "agree": true
+    },
+    {
+      "source": "BelgiumTSC Stage 6",
+      "rho": 0.631,
+      "m": 2.96,
+      "alpha": 0.005,
+      "rule": "binom",
+      "DE": 2.24,
+      "predicted": 0.1959234907970993,
+      "predicted_ci": [
+        0.12584491786897367,
+        0.21940223925802943
+      ],
+      "observed": 0.14,
+      "cp95": [
+        0.12507900997674617,
+        0.15598469162951628
+      ],
+      "certified_share": 0.5415,
+      "agree": true
+    },
+    {
+      "source": "BelgiumTSC Stage 6",
+      "rho": 0.631,
+      "m": 2.96,
+      "alpha": 0.005,
+      "rule": "hb",
+      "DE": 2.24,
+      "predicted": 0.1959234907970993,
+      "predicted_ci": [
+        0.12584491786897367,
+        0.21940223925802943
+      ],
+      "observed": 0.04,
+      "cp95": [
+        0.03184255731109807,
+        0.04953834224746623
+      ],
+      "certified_share": 0.479,
+      "agree": true
+    },
+    {
+      "source": "BelgiumTSC Stage 6",
+      "rho": 0.631,
+      "m": 2.96,
+      "alpha": 0.01,
+      "rule": "binom",
+      "DE": 2.24,
+      "predicted": 0.1959234907970993,
+      "predicted_ci": [
+        0.12584491786897367,
+        0.21940223925802943
+      ],
+      "observed": 0.086,
+      "cp95": [
+        0.0740765070586859,
+        0.09915281681567538
+      ],
+      "certified_share": 0.821,
+      "agree": true
+    },
+    {
+      "source": "BelgiumTSC Stage 6",
+      "rho": 0.631,
+      "m": 2.96,
+      "alpha": 0.01,
+      "rule": "hb",
+      "DE": 2.24,
+      "predicted": 0.1959234907970993,
+      "predicted_ci": [
+        0.12584491786897367,
+        0.21940223925802943
+      ],
+      "observed": 0.0315,
+      "cp95": [
+        0.024288566203896703,
+        0.040123971659625404
+      ],
+      "certified_share": 0.473,
+      "agree": true
+    },
+    {
+      "source": "BelgiumTSC Stage 6",
+      "rho": 0.631,
+      "m": 2.96,
+      "alpha": 0.02,
+      "rule": "binom",
+      "DE": 2.24,
+      "predicted": 0.1959234907970993,
+      "predicted_ci": [
+        0.12584491786897367,
+        0.21940223925802943
+      ],
+      "observed": 0.0,
+      "cp95": [
+        0.0,
+        0.0018427397934059364
+      ],
+      "certified_share": 0.999,
+      "agree": true
+    },
+    {
+      "source": "BelgiumTSC Stage 6",
+      "rho": 0.631,
+      "m": 2.96,
+      "alpha": 0.02,
+      "rule": "hb",
+      "DE": 2.24,
+      "predicted": 0.1959234907970993,
+      "predicted_ci": [
+        0.12584491786897367,
+        0.21940223925802943
+      ],
+      "observed": 0.0,
+      "cp95": [
+        0.0,
+        0.0018427397934059364
+      ],
+      "certified_share": 0.823,
+      "agree": true
+    },
+    {
+      "source": "BelgiumTSC Stage 6",
+      "rho": 0.631,
+      "m": 2.96,
+      "alpha": 0.03,
+      "rule": "binom",
+      "DE": 2.24,
+      "predicted": 0.1959234907970993,
+      "predicted_ci": [
+        0.12584491786897367,
+        0.21940223925802943
+      ],
+      "observed": 0.0,
+      "cp95": [
+        0.0,
+        0.0018427397934059364
+      ],
+      "certified_share": 1.0,
+      "agree": true
+    },
+    {
+      "source": "BelgiumTSC Stage 6",
+      "rho": 0.631,
+      "m": 2.96,
+      "alpha": 0.03,
+      "rule": "hb",
+      "DE": 2.24,
+      "predicted": 0.1959234907970993,
+      "predicted_ci": [
+        0.12584491786897367,
+        0.21940223925802943
+      ],
+      "observed": 0.0,
+      "cp95": [
+        0.0,
+        0.0018427397934059364
+      ],
+      "certified_share": 0.928,
+      "agree": true
+    },
+    {
+      "source": "BelgiumTSC Stage 6",
+      "rho": 0.631,
+      "m": 2.96,
+      "alpha": 0.05,
+      "rule": "binom",
+      "DE": 2.24,
+      "predicted": 0.1959234907970993,
+      "predicted_ci": [
+        0.12584491786897367,
+        0.21940223925802943
+      ],
+      "observed": 0.0,
+      "cp95": [
+        0.0,
+        0.0018427397934059364
+      ],
+      "certified_share": 1.0,
+      "agree": true
+    },
+    {
+      "source": "BelgiumTSC Stage 6",
+      "rho": 0.631,
+      "m": 2.96,
+      "alpha": 0.05,
+      "rule": "hb",
+      "DE": 2.24,
+      "predicted": 0.1959234907970993,
+      "predicted_ci": [
+        0.12584491786897367,
+        0.21940223925802943
+      ],
+      "observed": 0.0,
+      "cp95": [
+        0.0,
+        0.0018427397934059364
+      ],
+      "certified_share": 1.0,
+      "agree": true
+    }
+  ],
+  "seconds": 124.7
+}

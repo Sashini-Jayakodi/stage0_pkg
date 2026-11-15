@@ -162,3 +162,83 @@ sign-level violation rate (exact binomial and HB) with CP interval; certificatio
   have the same marginal distribution for every rho and m in this model, so the B1 curves are almost the same in all
   9 pairs. Within-sign correlation changes how variable the Cert count is, not the curve. The summary over the subset
   in (e) therefore equals the summary over all 18; both are reported as Part A says.
+
+### Part B: results (filled from the printout after review)
+- Date: 2026-11-15 / Stage: R9 Stage 10 (declared addition) / Run tag: runs/20261003_stage1/poc3/stage10
+- Git commits: Part A a8d142f (definitions and table (c)); population-curve script a6ed1b3; boundary subset and curve
+  file fece72c; runner and tests 43df8eb. One run, on 43df8eb, tracked files clean (only the new outputs untracked).
+  Run command `py -3.12 -m src.r9_stage10`; 124.7 s; full suite before the run 560 passed.
+- Code SHA-256: `src/r9_stage10.py` 3cd142a7f6435c8ee435ee5ba34b9c2f3382c37b8150650a1fe53e23018353ee,
+  `src/r9_stage10_popcurves.py` 797aae0712ef69f2cbd1eb62968b8162c178423547d7ef5eb675fafa311bc72d, `src/r9_certify.py`
+  d2fd6fd63a0a65b22c73b08722bc1aa5583b51619b5720f99f6224b4fef98075 (frozen; `check_frozen()` passed first).
+- Inputs (SHA-256 checked before reading): `population_curves_stage10.json` ffa785ea...119f; `stage2_summary.json`
+  8c152579...729f; `stage3b_summary.json` 7591a438...7367; `stage6_summary.json` 71be7957...185f. Predictions (c)
+  recomputed within 0.005 pp. Curves recomputed from the seeds and equal to the curve file in all 9 pairs.
+- Outputs: `stage10_summary.json` SHA-256 4f7ce88317ce251ef6e0e2aad305cb3d5b46999b04a8927b307b2edbed7d5a15 (git blob
+  f342e8b3c82958fe3ac1730ac09c3d851ec48195); `stage10_printout.txt` SHA-256
+  8212b93d2df1baa7f7ee8eb8f707b6a79210db7fb8b92a0131abce7c837c901b.
+- Certified thresholds with no committed unit, all runs, both units, all rules: 0.
+
+#### Prospective result (frame-level B1, exact binomial; boundary subset = all 18 settings, fixed in step 2)
+| pair | rho | m | alpha | DE | predicted delta_eff | observed [95% CP] | gap (pp) |
+|---|---|---|---|---|---|---|---|
+| 0 | 0.1 | 5 | 1% | 1.40 | 13.94% | 4.50 [3.63, 5.50]% | -9.44 |
+| 0 | 0.1 | 5 | 2% | 1.40 | 13.94% | 2.40 [1.77, 3.17]% | -11.54 |
+| 1 | 0.1 | 10 | 1% | 1.90 | 17.63% | 3.45 [2.69, 4.35]% | -14.18 |
+| 1 | 0.1 | 10 | 2% | 1.90 | 17.63% | 1.40 [0.93, 2.02]% | -16.23 |
+| 2 | 0.1 | 15 | 1% | 2.40 | 20.41% | 4.10 [3.27, 5.06]% | -16.31 |
+| 2 | 0.1 | 15 | 2% | 2.40 | 20.41% | 1.25 [0.81, 1.84]% | -19.16 |
+| 3 | 0.2 | 5 | 1% | 1.80 | 16.97% | 6.20 [5.18, 7.35]% | -10.77 |
+| 3 | 0.2 | 5 | 2% | 1.80 | 16.97% | 3.85 [3.05, 4.79]% | -13.12 |
+| 4 | 0.2 | 10 | 1% | 2.80 | 22.19% | 6.90 [5.83, 8.10]% | -15.29 |
+| 4 | 0.2 | 10 | 2% | 2.80 | 22.19% | 3.55 [2.78, 4.46]% | -18.64 |
+| 5 | 0.2 | 15 | 1% | 3.80 | 25.55% | 6.15 [5.14, 7.29]% | -19.40 |
+| 5 | 0.2 | 15 | 2% | 3.80 | 25.55% | 3.50 [2.74, 4.40]% | -22.05 |
+| 6 | 0.6 | 5 | 1% | 3.40 | 24.35% | 15.35 [13.80, 17.01]% | -9.00 |
+| 6 | 0.6 | 5 | 2% | 3.40 | 24.35% | 11.80 [10.42, 13.30]% | -12.55 |
+| 7 | 0.6 | 10 | 1% | 6.40 | 30.62% | 20.60 [18.85, 22.44]% | -10.02 |
+| 7 | 0.6 | 10 | 2% | 6.40 | 30.62% | 14.65 [13.13, 16.28]% | -15.97 |
+| 8 | 0.6 | 15 | 1% | 9.40 | 33.80% | 20.35 [18.61, 22.18]% | -13.45 |
+| 8 | 0.6 | 15 | 2% | 9.40 | 33.80% | 13.40 [11.94, 14.97]% | -20.40 |
+- Summary, all 18 settings and boundary subset (identical, both 18): 18 of 18 within the bound by the Part A rule
+  (CP lower <= delta_eff); the observed point was also below delta_eff in all 18. Mean absolute gap 14.86 pp, mean
+  signed gap -14.86 pp; gaps from -9.00 to -22.05 pp.
+- In every run the B1 binomial start was grid point 29, the start used in the diagnostic (h).
+- B1 with HB (primary start): 0.10% to 12.45% (largest pair 8, 1%).
+- Sign level, exact binomial: 0.00% in all 6 rho 0.1 settings; 0.00% to 5.30% [4.36, 6.37]% at rho 0.2 (largest pair
+  3, 2%); 2.55% to 5.25% at rho 0.6. No sign-level CP upper bound above 0.12, so nothing at odds with Stage 2 V2. Sign
+  level with HB (primary start): at most 1.10%. Certification rates and the other two HB starts are in the printout.
+
+#### Retrospective (the formula was written after these results; not a test of it)
+- Stage 2, all 36 settings x 2 tests (72 rows): 72 of 72 within the bound by the Part A rule. The observed point is at
+  or below delta_eff in 71 of 72; the one exceedance is level 1, rho 0.45, fixed-30, alpha 2%, exact binomial:
+  37.45% [35.32, 39.61]% against 36.62%. That is the Stage 2 frame-level worst case, which was known when the formula
+  was written.
+- GTSRB POC-2 Stage 3b (HB, DE 13.9, predicted 36.55%): 17.00% at 0.5%, 20.00% [18.27, 21.82]% at 1%, 0.00% at 2, 3
+  and 5%. 5 of 5 within the bound.
+- BelgiumTSC Stage 6 (DE 2.24, predicted 19.59% [12.58, 21.94]%): exact binomial 14.00% [12.51, 15.60]% at 0.5% and
+  8.60% at 1%; HB 4.00% and 3.15%; 0.00% at 2, 3 and 5% for both (pool view error 1.45% below alpha). 10 of 10 within
+  the bound.
+
+#### Reading of the result
+- The formula behaved as a conservative ceiling, not as a predictor. It was not exceeded beyond the CP interval in
+  any of the 18 prospective settings, all of them in the boundary subset, but it overstated the observed rate by
+  14.86 pp on average and by at least 9.00 pp in every setting.
+- Observed rates fall with alpha, which the formula does not contain: in all 9 prospective pairs the rate at 2% is
+  below the rate at 1%, by a factor of up to about 3.3 (pair 2: 4.10% at 1%, 1.25% at 2%). This does not hold in
+  every retrospective setting (for example Stage 2 level 1 rises from 1% to 2%).
+- The observed rate depends on more than DE. At rho 0.1 it does not rise with m (alpha 2%: 2.40%, 1.40%, 1.25% for
+  m = 5, 10, 15, against predictions 13.94%, 17.63%, 20.41%; alpha 1%: 4.50%, 3.45%, 4.10%). A likely cause, not
+  tested here, is that the frame count (784 x m) and the start point on the grid also shape the rate.
+- Even with independent frames (DE = 1) the formula overstates: it gives 10%, while the Stage 2 rho 0 rows observed
+  0.00% to 8.25% (exact binomial). The walk seldom certifies a threshold whose true risk is only just above alpha.
+- Statement for the record: under the frozen engine and this simulator, delta_eff = Phi(Phi^-1(delta) / sqrt(DE)) is
+  a ceiling on the frame-level violation rate that held prospectively; it is not a prediction of that rate.
+
+- Checks: none scored (the outcome is reported, Part A (e)). check_frozen PASS; input hash checks PASS (4); curve
+  recomputation PASS; prediction recomputation PASS.
+- Decision taken and why: report as above. Nothing in Part A (a) to (h) was changed after the run.
+- Deviations: the formula was evaluated with scipy while Part A was drafted (no data, no simulator), accepted by the
+  author before the commit of Part A. The boundary diagnostic placed all 18 settings in the subset, so the subset
+  summary equals the full summary (recorded before the run in (h) values).
+- Next step: Stage 9 (idea text and gates), only when the author says so.

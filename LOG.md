@@ -1592,3 +1592,37 @@ apart.
 - Deviation from the plan? Yes: no Part A committed before the code (no new number exists in this stage); the
   optional adverse-cells table is not built; Stage 7 dropped (F-A3 failed), so there is no DITS table.
 - Next step: Stage 9 (idea text and gates), only when the author says so.
+
+## POC-3 (R9) Stage 10: prospective check of the effective-delta formula (declared addition, synthetic)
+
+- Date: 2026-11-15 / Stage: R9 Stage 10 / Run tag: runs/20261003_stage1/poc3/stage10
+- Config hash / checkpoint hash / git commit: Part A a8d142f (formula, settings, predicted delta_eff); population-curve
+  script a6ed1b3; boundary subset fece72c (population_curves_stage10.json SHA-256
+  ffa785eafc545a45b4a2d364b072111f5f8dd9440d4b0f308753e2dcce0b119f); runner 43df8eb (`src/r9_stage10.py` SHA-256
+  3cd142a7f6435c8ee435ee5ba34b9c2f3382c37b8150650a1fe53e23018353ee). Output stage10_summary.json SHA-256
+  4f7ce88317ce251ef6e0e2aad305cb3d5b46999b04a8927b307b2edbed7d5a15 (blob f342e8b3c82958fe3ac1730ac09c3d851ec48195);
+  printout SHA-256 8212b93d2df1baa7f7ee8eb8f707b6a79210db7fb8b92a0131abce7c837c901b. Synthetic data and committed
+  summaries only; no checkpoint, no dataset file. Frozen engine checked by blob ID first.
+- What was done: fixed delta_eff = Phi(Phi^-1(delta) / sqrt(1 + (m - 1) rho)) and its predictions for 18 new settings
+  (rho 0.1/0.2/0.6 x m 5/10/15 x alpha 1%/2%, P_FRAME 7.4%, Cert 784 / design 261) before any run; computed the
+  boundary subset from population curves before any Cert sample; ran the Stage 2 simulator and frozen engine once,
+  2,000 runs per setting; tabulated Stage 2, GTSRB POC-2 Stage 3b and BelgiumTSC Stage 6 retrospectively. Full record
+  in `LOG_r9_stage10_entry.md`.
+- Result numbers:
+  - Prospective (frame-level B1, exact binomial): 18 of 18 settings within the bound (CP lower <= delta_eff), all 18 in
+    the boundary subset; observed 1.25% to 20.60% against predicted 13.94% to 33.80%; mean gap -14.86 pp (absolute
+    14.86), from -9.00 to -22.05 pp.
+  - Observed rates fall with alpha in all 9 pairs (up to about 3.3 times lower at 2%) and do not rise with m at rho 0.1.
+  - Sign level, exact binomial: at most 5.30% [4.36, 6.37]%; no CP upper bound above 0.12.
+  - Retrospective: Stage 2 72 of 72 rows within the bound, point above prediction in 1 of 72 (level 1, rho 0.45,
+    fixed-30, alpha 2%: 37.45% against 36.62%, the worst case known when the formula was written); GTSRB 3b 5 of 5;
+    BelgiumTSC Stage 6 10 of 10.
+- Checks: none scored (reported outcome). check_frozen PASS | input hash checks PASS | curve and prediction
+  recomputation PASS.
+- Decision taken and why: the formula is reported as a conservative ceiling on the frame-level violation rate, not as
+  a predictor: it held in every prospective setting but overstated the rate by 14.86 pp on average, and the rate
+  depends on alpha and on more than DE.
+- Deviation from the plan? Yes: Stage 10 is not in plan R9 (declared addition; no frozen file or earlier result
+  changed). The formula was evaluated with scipy while drafting Part A (accepted by the author). The boundary subset
+  is all 18 settings, so its summary equals the full one.
+- Next step: Stage 9 (idea text and gates), only when the author says so.
