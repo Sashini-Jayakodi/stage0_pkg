@@ -13,12 +13,13 @@
   Part B commit; Stage 8: `fd60e28` (tables script, tests, `docs/poc3-results-tables.md`) and the record commit;
   Stage 10 (declared addition): `a8d142f`, `a6ed1b3`, `fece72c`, `43df8eb` and the Part B commit; exploratory
   additions after Stage 10: r11 `867db93` (Part A), `e327b3d` (code), `109ec7b` (Amendment 1), `9e8ca56` (Part B);
-  r12 `6491dc8` (Part A), `53f3da6` (code), `18d1f29` (Part B); r12b `daa19b0` (code), `97298c6` (fix, rerun, record).
+  r12 `6491dc8` (Part A), `53f3da6` (code), `18d1f29` (Part B); r12b `daa19b0` (code), `97298c6` (fix, rerun, record);
+  r13 `8c44fde` (Part A), `16085fd` (code), `2a78cc2` (Amendment 1), `e249ddf` (Part B).
 - **Stages 0 to 6, 8 and 10 done (Stage 7 dropped); the engine `src/r9_certify.py` and `configs/frozen_r9_btsc.yaml` are
   frozen (F3 closed).** Next step: **POC-3 Stage 9 (idea text and gates)**, only when the author says so. Read plan R9
   sections 2, 3, 9 Stage 9, 12 and 13 first; the final tables are in `docs/poc3-results-tables.md`. Full suite at
-  Stage 10: 560 passed; at r12: 616 passed (r12b's 10 tests were run on their own after that). The exploratory
-  forecast work (r11, r12, r12b) is in the status table below Stage 10. Since F3 the guard
+  Stage 10: 560 passed; at r12: 616 passed; at r13: 645 passed. The exploratory forecast work (r11, r12, r12b, r13)
+  is in the status table below Stage 10. Since F3 the guard
   `src/r9_btsc_guard.py` lets pool labels through; `check_frozen()` checks 4 files. Nothing in the frozen yaml changes.
   The POC-3 status table is below the POC-2 one.
 - **Environment (checked 14 Nov 2026):** `py -3.12` (Python 3.12.10) with torch 2.14.1+cu132 (CUDA available, RTX 5050),
@@ -100,6 +101,7 @@ finished record and is not updated further.
 | r11 Pilot upper-bound forecast (exploratory, synthetic) | **Done 16 Nov 2026** (Part A `867db93`, code `e327b3d`, Amendment 1 `109ec7b`, Part B `9e8ca56`; one run). Forecast of the B1 false-certificate rate from each run's pilot (one-sided upper 80% CP bound, j*, beta-binomial with pilot rho_I, computed exactly). Development (Stage 10, reproduced exactly), replication (new seeds), held-out (rho 0.3/0.5 x m 8/12 x alpha 1/2%). **Held-out check FAIL**: (a) MAE 3.18 > 3.00 pp; (b) 8/8 and (c) 8/8 pass. Post hoc descriptive: held-out MAE 0.56 pp at 1%, 5.81 pp at 2%. Output label corrected after the run (recorded). Details in `LOG_r11_entry.md`. Files use the `r11_` prefix (author's decision). |
 | r12 r11 forecast on the GTSRB audit (exploratory, development data) | **Done 16 Nov 2026** (Part A `6491dc8`, code `53f3da6`, Part B `18d1f29`; one run). Single pilot = 261 design tracks; audit = POC-2 Stage 3b draws; HB judged. **Overall FAIL** (all four judgments): forecast 6.61% vs observed 17.00% at 0.5%, 16.94% vs 20.00% at 1%; 2% both 0. Exact-binomial B1 on the same draws (new): 26.55% at 0.5%, 29.30% at 1%. Details in `LOG_r12_entry.md`, `README_r12.md`. |
 | r12b Post hoc diagnostic of r12 (no criteria) | **Done 16 Nov 2026** (code `daa19b0`; fix, rerun and record `97298c6`). Oracle forecast with pool inputs at the true first unsafe threshold: HB 16.83% vs 17.00% (0.5%), 21.80% vs 20.00% (1%). Beta-binomial fit and acceptance split reported. Run 1 chi-square pooling did not follow its stated rule; fixed, rerun once, all other numbers identical. Details in `LOG_r12b_entry.md`. |
+| r13 Forecast with a bootstrap upper bound on rho_I (exploratory) | **Done 16 Nov 2026; overall FAIL** (Part A `8c44fde`, code `16085fd`, Amendment 1 `2a78cc2`, Part B `e249ddf`; check-only pass, then one run). One change from r11: rho_I input = 80th percentile of a 1,000-resample cluster bootstrap. Criteria (exact binomial; a pass would mean "conservative within 5 points"): (a) simulated held-out 0 of 12 settings (need >= 10), FAIL; (b) BelgiumTSC forecast 2.69% vs observed 14.00% at 0.5% and 2.73% vs 8.60% at 1%, FAIL at both. GTSRB (c) and the pilot-size curve (d) reported only. Output labels corrected after the run (recorded). Details in `LOG_r13_entry.md` Part B. |
 
 **Stage 7 (BelgiumTSC) note:** BelgiumTSC's primary alpha is chosen by the Stage 2 D2 rule on BelgiumTSC's own design poles, at its own Cert size, and frozen before any BelgiumTSC Cert or Test pole is read; no GTSRB pool result is used.
 
