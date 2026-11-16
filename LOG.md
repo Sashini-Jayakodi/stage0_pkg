@@ -1626,3 +1626,23 @@ apart.
   changed). The formula was evaluated with scipy while drafting Part A (accepted by the author). The boundary subset
   is all 18 settings, so its summary equals the full one.
 - Next step: Stage 9 (idea text and gates), only when the author says so.
+
+## r11: pilot upper-bound forecast of the frame-level false-certificate rate (exploratory, synthetic)
+
+- Date: 2026-11-16 / Stage: r11 (exploratory addition after POC-3 Stage 10) / Run tag: runs/20261003_stage1/r11
+- Config hash / checkpoint hash / git commit: Part A 867db93; Amendment 1 and run code 109ec7b
+  (`src/r11_forecast_ucb.py` SHA-256 69293b526557a227e7dfbd065ecbdebc98aafe611bd8e85bc3369f096dc8f421). Output
+  r11_summary.json SHA-256 b11c81adf4ae9a7521b3e37934400f0044a3d2bfc2242acbc823630ccf534509 (after the label
+  correction; as written b6c9c5017b5300b78f3d7f70f3ec172613a6a3b0d060eab8f976d3644c824335). Synthetic data only.
+- What was done: forecast of the B1 false-certificate rate from each run's pilot (one-sided upper 80% CP bound, j*,
+  beta-binomial with pilot rho_I), against observed rates and the design-effect heuristic; development (Stage 10,
+  reproduced exactly), replication (new seeds) and held-out (rho 0.3/0.5 x m 8/12 x alpha 1/2%) sets, 2,000 runs each.
+  Full record in `LOG_r11_entry.md`.
+- Result numbers: held-out, exact binomial: MAE 3.18 pp (heuristic 15.48 pp); forecast closer than the heuristic in
+  8 of 8; forecast >= observed - 2 pp in 8 of 8.
+- Checks: held-out criteria (Part A (e)): (a) FAIL (MAE 3.18 > 3.00), (b) PASS, (c) PASS; **held-out check FAIL**.
+  check_frozen PASS | input hash checks PASS | Stage 10 reproduction PASS.
+- Decision taken and why: recorded as failed; no criterion changed, nothing rerun.
+- Deviation from the plan? Yes: not in plan R9 (exploratory addition; `r11_` names by the author's decision). Label
+  correction in the two output files after the run (Part B, Deviations).
+- Next step: none set; the author decides.

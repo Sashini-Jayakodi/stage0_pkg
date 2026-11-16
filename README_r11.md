@@ -1,7 +1,11 @@
 # r11: forecast of the frame-level false-certificate rate from a pilot upper bound
 
 Exploratory addition after POC-3 Stage 10; synthetic data only. Definitions, data sets, seeds and the held-out pass
-criteria are in `LOG_r11_entry.md` Part A, committed before any r11 code or number existed.
+criteria are in `LOG_r11_entry.md` Part A (867db93), committed before any r11 code or number existed, and Amendment 1
+(109ec7b: pilots with rho_I >= 1 use the rho = 1 limit of the beta-binomial instead of stopping the run).
+
+Status: run once on 16 Nov 2026 (code 109ec7b). Held-out check FAIL ((a) MAE 3.18 > 3.00; (b) and (c) pass). Results
+and the post-run label correction of the two output files are in `LOG_r11_entry.md` Part B.
 
 ## What it does
 For each run of each synthetic setting, the run's 261-sign pilot (design) sample gives, per B1 threshold, a one-sided

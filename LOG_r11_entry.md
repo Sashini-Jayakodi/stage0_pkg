@@ -128,3 +128,61 @@ folder; its output was not read). Changes (b) 4 and (d):
   number with rho_I <= 0 (the last two use the binomial model, as in (b) 4).
 - Added test: the rho = 1 limit agrees with the beta-binomial forecast at rho = 0.999 and 0.9999, and the difference
   shrinks as rho approaches 1.
+
+### Part B: results (filled from the printout after review)
+
+#### Run
+- 16 Nov 2026, one run: `py -3.12 -m src.r11_forecast_ucb` on commit 109ec7b (Part A 867db93 and Amendment 1 109ec7b;
+  `src/r11_forecast_ucb.py` SHA-256 69293b526557a227e7dfbd065ecbdebc98aafe611bd8e85bc3369f096dc8f421), 131.9 s,
+  exit code 0. Not rerun.
+- Integrity: `check_frozen()` passed; inputs hash-checked (population_curves_stage10.json
+  ffa785eafc545a45b4a2d364b072111f5f8dd9440d4b0f308753e2dcce0b119f, stage10_summary.json
+  4f7ce88317ce251ef6e0e2aad305cb3d5b46999b04a8927b307b2edbed7d5a15); held-out heuristic table recomputed; printout
+  line: "Development reproduces Stage 10 (B1 binom and hb violations and certified share, 36 cells): True".
+- Amendment 1 case occurred: pilots with rho_I >= 1 in the rho 0.6 settings (up to 30 of 2,000 per setting and test,
+  development and replication) and in held-out rho 0.5, alpha 1% (2 and 1 of 2,000); the run did not stop.
+- Outputs (`runs/20261003_stage1/r11/`): `r11_summary.json` SHA-256 as written by the run
+  b6c9c5017b5300b78f3d7f70f3ec172613a6a3b0d060eab8f976d3644c824335; `r11_report.md` as written
+  c21f6472fde4a6d820d43ce6bf90008a777368c2df1f98167cc7ed27b30e6f47. After the label correction below:
+  `r11_summary.json` b11c81adf4ae9a7521b3e37934400f0044a3d2bfc2242acbc823630ccf534509, `r11_report.md`
+  66acdd32fc19f8756adb2dbf79ab1beec0b2d29efa7e65dd8902e01e9e1a018f.
+
+#### Held-out result (Part A (e), exact binomial only)
+**Held-out check: FAIL.** (a) FAIL: MAE 3.18 > 3.00 points. (b) PASS: 8 of 8. (c) PASS: 8 of 8.
+
+Verbatim from the printout:
+```
+HELD-OUT PASS CRITERIA (Part A (e); exact binomial only; HB and replication not judged):
+  (a) MAE of the exact-binomial forecast vs observed <= 3 points: 3.18 -> FAIL
+  (b) forecast closer to observed than the heuristic in >= 7 of 8 settings: 8 of 8 -> PASS
+  (c) forecast >= observed - 2 points in >= 7 of 8 settings: 8 of 8 -> PASS
+  Held-out check: FAIL
+```
+
+Summary lines, verbatim (development and replication are reported, not judged; HB is reported, not judged):
+```
+--- DEVELOPMENT ---
+  summary binom: n 18; MAE forecast 4.36 pp, heuristic 14.86 pp; mean signed forecast +4.18, heuristic +14.86 pp; forecast closer 18/18; forecast >= observed - 2 pp 18/18; inside CP: forecast 4, heuristic 0
+  summary    hb: n 18; MAE forecast 1.96 pp, heuristic 19.71 pp; mean signed forecast +1.64, heuristic +19.71 pp; forecast closer 18/18; forecast >= observed - 2 pp 18/18; inside CP: forecast 5, heuristic 0
+--- REPLICATION ---
+  summary binom: n 18; MAE forecast 4.42 pp, heuristic 14.77 pp; mean signed forecast +4.17, heuristic +14.77 pp; forecast closer 18/18; forecast >= observed - 2 pp 18/18; inside CP: forecast 5, heuristic 0
+  summary    hb: n 18; MAE forecast 1.98 pp, heuristic 19.65 pp; mean signed forecast +1.61, heuristic +19.65 pp; forecast closer 18/18; forecast >= observed - 2 pp 18/18; inside CP: forecast 5, heuristic 0
+--- HELD-OUT ---
+  summary binom: n 8; MAE forecast 3.18 pp, heuristic 15.48 pp; mean signed forecast +2.90, heuristic +15.48 pp; forecast closer 8/8; forecast >= observed - 2 pp 8/8; inside CP: forecast 4, heuristic 0
+  summary    hb: n 8; MAE forecast 2.10 pp, heuristic 22.33 pp; mean signed forecast +1.00, heuristic +22.33 pp; forecast closer 8/8; forecast >= observed - 2 pp 7/8; inside CP: forecast 2, heuristic 0
+```
+The full per-setting table, with each observed rate and its 95% Clopper-Pearson interval, is in `r11_report.md`.
+
+#### POST HOC DESCRIPTIVE (written after the result was seen; not a test, no criteria)
+Computed from `r11_summary.json` (exact-binomial rows only):
+- Held-out MAE by alpha: alpha 1%, 4 settings: 0.56 pp; alpha 2%, 4 settings: 5.81 pp (the overall 3.18 pp is their
+  mean).
+- Rows with forecast < observed - 2 pp: development 0 of 18, replication 0 of 18, held-out 0 of 8 (0 of 44). The most
+  negative gaps are -1.36, -1.11 and -1.15 pp.
+
+#### Deviations
+- Label correction after the run: the printout header, the `r11_summary.json` label and `r11_report.md` cited only
+  Part A 867db93, although the run used Amendment 1 (109ec7b). Only those two label strings were changed in the two
+  output files; no number changed. The script was not edited, so its SHA-256 in the summary still matches the
+  committed 109ec7b file; the label it prints remains the old text.
+- The test suite's 2-run smoke test had executed the code before the run (Amendment 1); its output was not read.
