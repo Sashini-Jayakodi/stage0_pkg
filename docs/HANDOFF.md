@@ -11,11 +11,14 @@
   `ec85800` (design-pole values), `986a8e7` (freeze code), **F3 `e94e667`**, `1355c7d` (tests after F3) and `88e07f1`
   (Part B); Stage 6: `89a8c42` (Part A), `34c3492` (code), `2392433` (table rebuild script) and the
   Part B commit; Stage 8: `fd60e28` (tables script, tests, `docs/poc3-results-tables.md`) and the record commit;
-  Stage 10 (declared addition): `a8d142f`, `a6ed1b3`, `fece72c`, `43df8eb` and the Part B commit.
+  Stage 10 (declared addition): `a8d142f`, `a6ed1b3`, `fece72c`, `43df8eb` and the Part B commit; exploratory
+  additions after Stage 10: r11 `867db93` (Part A), `e327b3d` (code), `109ec7b` (Amendment 1), `9e8ca56` (Part B);
+  r12 `6491dc8` (Part A), `53f3da6` (code), `18d1f29` (Part B); r12b `daa19b0` (code), `97298c6` (fix, rerun, record).
 - **Stages 0 to 6, 8 and 10 done (Stage 7 dropped); the engine `src/r9_certify.py` and `configs/frozen_r9_btsc.yaml` are
   frozen (F3 closed).** Next step: **POC-3 Stage 9 (idea text and gates)**, only when the author says so. Read plan R9
   sections 2, 3, 9 Stage 9, 12 and 13 first; the final tables are in `docs/poc3-results-tables.md`. Full suite at
-  Stage 10: 560 passed. Since F3 the guard
+  Stage 10: 560 passed; at r12: 616 passed (r12b's 10 tests were run on their own after that). The exploratory
+  forecast work (r11, r12, r12b) is in the status table below Stage 10. Since F3 the guard
   `src/r9_btsc_guard.py` lets pool labels through; `check_frozen()` checks 4 files. Nothing in the frozen yaml changes.
   The POC-3 status table is below the POC-2 one.
 - **Environment (checked 14 Nov 2026):** `py -3.12` (Python 3.12.10) with torch 2.14.1+cu132 (CUDA available, RTX 5050),
@@ -94,6 +97,9 @@ finished record and is not updated further.
 | 8 Final tables | **Done 15 Nov 2026** (code `fd60e28`). `src/r9_stage8_tables.py` writes `docs/poc3-results-tables.md` from hash-checked committed summaries (no new numbers); `check_frozen()` first; 22 tests check every table against its source JSON. Tables: GTSRB comparison at 1% (exploratory; baseline columns are POC-2 records, marked in their headers and a "Source / test" row), BelgiumTSC at 3% (primary, with the Stage 6 statement) and 1% (not primary), RQ1 validity, exact binomial against HB, S2 against B6, Ringel gap against real error, limitations. Adverse-cells table not built. Details in `LOG_r9_stage8_entry.md`. |
 | 9 Idea text and gates | Not started. |
 | 10 Effective-delta check (declared addition, synthetic) | **Done 15 Nov 2026** (Part A `a8d142f`, curve script `a6ed1b3`, boundary subset `fece72c`, runner `43df8eb`; one run). Formula delta_eff = Phi(Phi^-1(0.1) / sqrt(1 + (m - 1) rho)), predictions committed before any run. **A conservative ceiling, not a predictor:** 18 of 18 prospective settings (rho 0.1/0.2/0.6 x m 5/10/15 x alpha 1/2%; all in the boundary subset) within the bound, mean gap -14.86 pp (-9.00 to -22.05); observed frame-level rate falls with alpha in all 9 pairs and does not rise with m at rho 0.1. Retrospective: Stage 2 72/72 within the bound, point above prediction in 1/72 (the worst case known when the formula was written); GTSRB 3b 5/5; BelgiumTSC Stage 6 10/10. Sign level at most 5.30%. Full suite 560 passed. Details in `LOG_r9_stage10_entry.md` Part B. |
+| r11 Pilot upper-bound forecast (exploratory, synthetic) | **Done 16 Nov 2026** (Part A `867db93`, code `e327b3d`, Amendment 1 `109ec7b`, Part B `9e8ca56`; one run). Forecast of the B1 false-certificate rate from each run's pilot (one-sided upper 80% CP bound, j*, beta-binomial with pilot rho_I, computed exactly). Development (Stage 10, reproduced exactly), replication (new seeds), held-out (rho 0.3/0.5 x m 8/12 x alpha 1/2%). **Held-out check FAIL**: (a) MAE 3.18 > 3.00 pp; (b) 8/8 and (c) 8/8 pass. Post hoc descriptive: held-out MAE 0.56 pp at 1%, 5.81 pp at 2%. Output label corrected after the run (recorded). Details in `LOG_r11_entry.md`. Files use the `r11_` prefix (author's decision). |
+| r12 r11 forecast on the GTSRB audit (exploratory, development data) | **Done 16 Nov 2026** (Part A `6491dc8`, code `53f3da6`, Part B `18d1f29`; one run). Single pilot = 261 design tracks; audit = POC-2 Stage 3b draws; HB judged. **Overall FAIL** (all four judgments): forecast 6.61% vs observed 17.00% at 0.5%, 16.94% vs 20.00% at 1%; 2% both 0. Exact-binomial B1 on the same draws (new): 26.55% at 0.5%, 29.30% at 1%. Details in `LOG_r12_entry.md`, `README_r12.md`. |
+| r12b Post hoc diagnostic of r12 (no criteria) | **Done 16 Nov 2026** (code `daa19b0`; fix, rerun and record `97298c6`). Oracle forecast with pool inputs at the true first unsafe threshold: HB 16.83% vs 17.00% (0.5%), 21.80% vs 20.00% (1%). Beta-binomial fit and acceptance split reported. Run 1 chi-square pooling did not follow its stated rule; fixed, rerun once, all other numbers identical. Details in `LOG_r12b_entry.md`. |
 
 **Stage 7 (BelgiumTSC) note:** BelgiumTSC's primary alpha is chosen by the Stage 2 D2 rule on BelgiumTSC's own design poles, at its own Cert size, and frozen before any BelgiumTSC Cert or Test pole is read; no GTSRB pool result is used.
 
