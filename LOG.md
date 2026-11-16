@@ -1726,3 +1726,36 @@ apart.
 - Decision taken and why: committed for traceability, because its numbers are cited; labelled exploratory.
 - Deviation from the plan? Yes: not in plan R9; no pre-registration; `r10_` names outside the POC-3 `r9_` rule.
 - Next step: none.
+
+## a0: silent-error check on the GTSRB pool — EXPLORATORY
+
+- Date: 2026-11-17 / Stage: a0, exploratory addition / Run tag: runs/20261003_stage1/a0
+- Status: EXPLORATORY (post hoc). No Part A, no pre-registration, no certificate claim and no criteria; this entry
+  was written after the run. GTSRB tracks had all been seen before. Nothing here is a test.
+- Config hash / checkpoint hash / git commit: `src/a0_silent_error_check.py` SHA-256
+  018d47c2e72d53a9a5b25c59d23e785f9c2e44a75525f65662868f7aa6c4baaf (equal to the code hash in the summary);
+  `tests/test_a0_silent_error_check.py` 9779a4b84e73dc6747842b94660faa709b448f87541ab632ed18c20220f2e710; outputs
+  `a0_summary.json` 4c4c907ee19a493ec0df0e188f6f34aa51f3e350af156985e235bfc4d8791928, `a0_printout.txt`
+  258cce4f116c6104c9aa02ce03d5f58c53665595c7bec688ad429d02dc0fff0d. Frozen blobs checked first (plan R9, engine,
+  engine tests, frozen_r9_btsc.yaml); inputs hash-checked through the POC-2 pool loader and the Stage 3 design file
+  (798585428c4c...e62b). Committed with this entry.
+- What was done: on the 1,046 pool tracks, consensus yhat_t = majority vote of the head's frame predictions over all
+  frames (gate-failing frames included; ties: larger summed pre-gate V1 margin, then smaller class id). For S1, S2-sum,
+  S2-min, S3, S4 and alpha 1/2/3/5%, the threshold certified by the frozen exact-binomial rule with the whole pool as
+  the Cert set (n = 1,046, power-aware start at n = 1,046; Stage 3 grids and design fractions). At that threshold:
+  committed error e, visible v (committed label != consensus), silent s (committed label = consensus != label);
+  q = E[s] per track with two-sided 95% CP; gap = alpha * CP_lower(round(E[c] 784), 784, delta/3) -
+  CP_upper(round(E[v] 784), 784, delta/3), one-sided bounds; n_A, n_A0 (search to 5,000) and n_full (exact binomial
+  at delta with rounded counts, search to 1,000,000), rounding half up. The certificate and the measurement use the
+  same tracks (in-sample).
+- Result numbers: consensus wrong on 41 of 1,046 tracks (3.92%); 4 tracks had a vote tie. e == v on
+  consensus-correct tracks in every row (0 mismatches). S1 and S3 at 1-3%: v = 0, so every committed error was silent
+  (S1 4/907 at 1%, 11/974 at 2-3%; S3 3/897, 12/953). n_A was larger than n_full in every row where both exist
+  (ratio 3.51 to 21.82); at 1% n_A was not found up to 5,000 for S1, S2-sum, S2-min, S3, and was impossible for S4
+  (gap -0.032%, commit rate 43.4%). S4 was impossible (gap <= q) at 1-3% and not found at 5%. n_full ranged 138 to 893.
+- Checks: 41 of 41 script checks PASS (frame top class equals the stored top1; committed tables agree with the
+  Stage 3 table code; mismatch zero in all 20 rows). 17 synthetic tests (brute-force references, tamper test) pass.
+- Decision taken and why: committed for traceability; labelled exploratory. No reading is attached.
+- Deviation from the plan? Yes: not in plan R9; no pre-registration; `a0_` names outside the POC-3 `r9_` rule
+  (author's naming); output folder beside `prelim_r10/` under runs/20261003_stage1/ (new folder, no POC-1 file changed).
+- Next step: none set; the author decides.
