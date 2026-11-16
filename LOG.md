@@ -1682,3 +1682,20 @@ apart.
   rerun once on the author's instruction; every non-chi-square number identical between runs.
 - Deviation from the plan? Yes: not in plan R9; post hoc diagnostic with no Part A, labelled as such.
 - Next step: none set; the author decides.
+
+## r13: pilot forecast with a bootstrap upper bound on rho_I (exploratory; simulated held-out and BelgiumTSC)
+
+- Date: 2026-11-16 / Stage: r13 (exploratory addition after r12b) / Run tag: runs/20261003_stage1/r13
+- Config hash / checkpoint hash / git commit: Part A 8c44fde; code 16085fd; Amendment 1 2a78cc2 (run on 2a78cc2).
+  Output r13_summary.json SHA-256 f51abd7d5a0a6f4643707dae6fb5ccb2ba918322fb07b4d0294f01a3938e269f (after the label
+  correction; as written 76cf350cd1e930c9e5e474c96c3b6b7497d5328d69352983ed21879e2d84305b).
+- What was done: the r11 forecast with one change (rho_I input = 80th percentile of a 1,000-resample cluster bootstrap)
+  on (a) 12 new simulated settings, (b) BelgiumTSC (pilot 133 design poles, Stage 6 RQ1 draws), (c) GTSRB (development
+  data, reported) and (d) a GTSRB pilot-size curve (descriptive). Full record in `LOG_r13_entry.md`.
+- Result numbers: (a) 0 of 12 settings met both (i) and (ii); (b) forecast 2.69% against observed 14.00% at 0.5%,
+  2.73% against 8.60% at 1% (exact binomial).
+- Checks: stop-checks all PASS. Criteria (Part A (d)): (a) FAIL, (b) FAIL at both alphas; **overall FAIL**.
+- Decision taken and why: recorded as failed; no criterion changed, nothing rerun.
+- Deviation from the plan? Yes: not in plan R9 (exploratory addition; `r13_` names by the author's decision). Label
+  correction in the two output files after the run (Part B, Deviations).
+- Next step: none set; the author decides.

@@ -115,3 +115,41 @@ bound; case counts (Amendment 1 limit, zero errors, rho_I <= 0); boundary diagno
 Set (b): the bootstrap of the 133 BelgiumTSC pilot poles uses `default_rng([20261120, 17]).integers(0, 133, (1000, 133))`,
 one array shared by all alphas and both tests. Part A named no key for set (b); the base 20261120 is the Part A base,
 and sub-key 17 is unused.
+
+### Part B: results (filled from the printout after review)
+
+#### Run
+- 16 Nov 2026: a check-only pass first (`--check-only`; all loads and stop-checks passed in 4.8 s; no forecast computed,
+  nothing written), then one run: `py -3.12 -m src.r13_forecast --run runs/20261003_stage1` on commit 2a78cc2 (code
+  16085fd; `src/r13_forecast.py` SHA-256 of the bytes on this machine, CRLF,
+  32d696903af2f9291152d549bcd838a8d26510c0377694b4430e57c4178725b2, unchanged against the 16085fd blob), 477.8 s, exit
+  code 0. Not rerun.
+- Every stop-check passed: BelgiumTSC design views 465, design poles 133, design f_d reproduces, Stage 6 RQ1 B1 rows
+  reproduce; GTSRB Stage 3b HB, r12 exact-binomial rates and r12 pilot forecasts reproduce; heuristic table recomputed.
+- Outputs (`runs/20261003_stage1/r13/`): `r13_summary.json` SHA-256 as written by the run
+  76cf350cd1e930c9e5e474c96c3b6b7497d5328d69352983ed21879e2d84305b; `r13_report.md` as written
+  60e03fd05258488a5ff98cc3d7e87a5cca5ad76613b329d06f9ee62b26992d7a. After the label correction below:
+  `r13_summary.json` f51abd7d5a0a6f4643707dae6fb5ccb2ba918322fb07b4d0294f01a3938e269f, `r13_report.md`
+  c03142cd57520e14ae1b4ef17fa164f9773bf3a77bc0185f7299e0113dabab8f.
+
+#### Result
+**Overall: FAIL.** Criterion (a): 0 of 12 settings (need >= 10). Criterion (b): FAIL at alpha 0.5% and at 1%.
+
+Verbatim from the printout:
+```
+  CRITERION (a): settings with (i) and (ii), exact binomial, r13: 0 of 12 (need >= 10) -> FAIL
+```
+```
+  CRITERION (b) alpha 0.5%: observed 14.00%, forecast 2.69%, gap -11.31 pp; window [12.00%, 19.00%] -> FAIL
+  CRITERION (b) alpha 1.0%: observed 8.60%, forecast 2.73%, gap -5.87 pp; window [6.60%, 13.60%] -> FAIL
+  CRITERION (b): FAIL
+```
+```
+OVERALL (Part A (d)): (a) FAIL, (b) FAIL -> FAIL (a pass means 'conservative within 5 points', not 'accurate')
+```
+The full printout (every setting and rule, sets (c) and (d)) is in `r13_report.md`.
+
+#### Deviations
+- Label correction after the run (as in r11): the printout header and the `r13_summary.json` label cited only Part A
+  8c44fde, although the run used Amendment 1 (2a78cc2). Only those two label strings were changed in the two output
+  files; no number changed. The script was not edited; the label it prints remains the old text.
