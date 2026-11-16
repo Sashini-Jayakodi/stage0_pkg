@@ -50,6 +50,37 @@ def test_chi_square_merging_against_hand():
     assert abs(cs["stat"] - stat) < 1e-12 and cs["df"] == 1 and abs(cs["p"] - chi2.sf(stat, 1)) < 1e-15
 
 
+def test_chi_square_merges_small_middle_bins():
+    """Small expected counts in the middle (3, 2 and 1, 1) must be merged with neighbours, not kept."""
+    obs = [495, 4, 3, 9, 2, 0, 7]
+    exp = [500.0, 3.0, 2.0, 8.0, 1.0, 1.0, 6.0]
+    cs = D.chi_square(obs, exp, 2)
+    # top down: [6] -> group at 6; 1 + 1 + 8 = 10 -> group at 3; 2 + 3 = 5 -> group at 1; 500 -> group at 0
+    assert cs["bins_lower_edges"] == [0, 1, 3, 6]
+    assert cs["exp"] == [500.0, 5.0, 10.0, 6.0] and cs["obs"] == [495, 7, 11, 7]
+    stat = 25 / 500 + 4 / 5 + 1 / 10 + 1 / 6
+    assert abs(cs["stat"] - stat) < 1e-12 and cs["df"] == 1
+
+
+def test_chi_square_bottom_leftover_joins_group_above():
+    cs = D.chi_square([2, 49, 3, 6], [3.0, 50.0, 2.0, 4.0], 0)
+    assert cs["bins_lower_edges"] == [0, 2] and cs["exp"] == [53.0, 6.0] and cs["obs"] == [51, 9]
+
+
+def test_chi_square_every_group_reaches_minimum_random():
+    rng = np.random.default_rng(13)
+    for _ in range(300):
+        n = int(rng.integers(2, 25))
+        exp = rng.exponential(3.0, n)
+        if exp.sum() < 5:
+            continue
+        obs = rng.poisson(exp)
+        cs = D.chi_square(obs, exp, 0)
+        assert all(e >= 5 - 1e-12 for e in cs["exp"])
+        assert abs(sum(cs["exp"]) - exp.sum()) < 1e-9 and sum(cs["obs"]) == obs.sum()
+        assert cs["bins_lower_edges"][0] == 0 and cs["bins_lower_edges"] == sorted(set(cs["bins_lower_edges"]))
+
+
 def test_categories_against_hand():
     k = np.array([0, 0, 1, 3, 12, 13, 25, 26])
     exp = np.full(27, 0.5)

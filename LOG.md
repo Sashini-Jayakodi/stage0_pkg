@@ -1664,3 +1664,21 @@ apart.
 - Deviation from the plan? Yes: not in plan R9 (exploratory addition; `r12_` names by the author's decision).
   `README_r12.md` not yet written.
 - Next step: a post hoc diagnostic (r12b), labelled as such, only as the author directs.
+
+## r12b: POST HOC DIAGNOSTIC of the r12 result (GTSRB development data)
+
+- Date: 2026-11-16 / Stage: r12b (post hoc diagnostic, no criteria) / Run tag: runs/20261003_stage1/r12b
+- Config hash / checkpoint hash / git commit: script daa19b0 (run 1) and the fixed script committed with this entry
+  (run 2; `src/r12b_diagnostic.py` SHA-256 8a93fda029ef3de94678086ca68d546590db481eafd488cd60cb81230a01e44d). Output
+  r12b_summary.json SHA-256 268464cd4bb5d8b8426f6509c4174b2df7dc962f05e4608415da0fc776ee0f61 (run 2; run 1
+  374935c37aacf7f45062b5b2095412b59d72de062adeb48a83d622ee4a79fcfd, not committed).
+- What was done: oracle forecast at the true first unsafe threshold with pool inputs; beta-binomial fit check of
+  per-track wrong counts; split of acceptance against errors at jt. Written after the r12 result; not a test.
+  Full record in `LOG_r12b_entry.md`.
+- Result numbers: HB oracle forecast (fixed N_g) 16.83% against observed 17.00% at alpha 0.5% and 21.80% against
+  20.00% at 1% (pilot forecasts 6.61% and 16.94%).
+- Checks: none scored (diagnostic). Input hash checks PASS; POC-2 pool checks PASS.
+- Decision taken and why: run 1 chi-square pooling did not match its stated rule (middle bins below 5 kept); fixed and
+  rerun once on the author's instruction; every non-chi-square number identical between runs.
+- Deviation from the plan? Yes: not in plan R9; post hoc diagnostic with no Part A, labelled as such.
+- Next step: none set; the author decides.

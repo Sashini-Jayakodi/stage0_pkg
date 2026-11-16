@@ -75,21 +75,27 @@ def mixture_expected(ns, p, rho, kmax):
 
 
 def chi_square(obs_hist, exp_hist, n_params, min_expected=MIN_EXPECTED):
-    """Pearson chi-square after merging bins from the top until every expected count is >= min_expected.
-    The last bin is open ('>= its lower edge'). df = bins - 1 - n_params. Returns stat, df, p, the merged bins."""
-    obs, exp = list(map(float, obs_hist)), list(map(float, exp_hist))
-    edges = list(range(len(exp)))
-    while len(exp) > 1 and exp[-1] < min_expected:
-        e, o = exp.pop(), obs.pop()                         # pop first, then add (a[-2] += a.pop() hits the wrong bin)
-        exp[-1] += e
-        obs[-1] += o
-        edges.pop()
-    while len(exp) > 1 and exp[0] < min_expected:          # merge a sparse first bin upwards (rare)
-        e, o = exp.pop(0), obs.pop(0)
-        exp[0] += e
-        obs[0] += o
-        edges.pop(1)
-    obs, exp = np.array(obs), np.array(exp)
+    """Pearson chi-square after merging ADJACENT bins anywhere until every expected count is >= min_expected.
+    Rule: walk from the top value down, adding bins into the current group until its expected count reaches
+    min_expected, then start a new group; a leftover group at the bottom below min_expected joins the group above it.
+    The top group is open ('>= its lower edge'). df = groups - 1 - n_params. Returns stat, df, p, the merged bins."""
+    o_in, e_in = np.asarray(obs_hist, float), np.asarray(exp_hist, float)
+    groups = []                                             # (lower edge, obs, exp), built from the top down
+    lo, o_acc, e_acc = None, 0.0, 0.0
+    for k in range(len(e_in) - 1, -1, -1):
+        o_acc, e_acc, lo = o_acc + o_in[k], e_acc + e_in[k], k
+        if e_acc >= min_expected:
+            groups.append((lo, o_acc, e_acc))
+            o_acc, e_acc = 0.0, 0.0
+    if e_acc > 0 or o_acc > 0:                              # bottom leftover below min_expected
+        if groups:
+            g_lo, g_o, g_e = groups.pop()
+            groups.append((lo, g_o + o_acc, g_e + e_acc))
+        else:
+            groups.append((lo, o_acc, e_acc))
+    groups.reverse()
+    edges = [g[0] for g in groups]
+    obs, exp = np.array([g[1] for g in groups]), np.array([g[2] for g in groups])
     stat = float(((obs - exp) ** 2 / exp).sum())
     df = len(exp) - 1 - n_params
     p = float(chi2.sf(stat, df)) if df > 0 else None
@@ -261,7 +267,7 @@ def main(argv=None):
                    f"{pct(ac['share_A_eq_30'], 1)}; wrong frames in tracks with A_g < N_g: "
                    f"{ac['wrong_frames_in_tracks_with_A_lt_N_g']} of {ac['wrong_frames_total']}")
         out.append("")
-    out.append("Notes: chi-square bins merged from the top (and bottom if needed) until every expected count >= 5; df = bins "
+    out.append("Notes: chi-square bins: adjacent bins merged (top value down) until every expected count >= 5; df = bins "
                "- 1 - 2 (rate and rho taken from the same pool tracks; rho by ANOVA, not maximum likelihood, so the df is "
                "approximate). The model gives every track 30 frames; the pool has one 29-frame track. Item 3 Monte Carlo "
                "uses HB over 784 x 30 frames, as r11. This is a POST HOC DIAGNOSTIC: no criterion, no revised method.")

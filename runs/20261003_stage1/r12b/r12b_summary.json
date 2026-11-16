@@ -1,0 +1,531 @@
+{
+  "label": "POST HOC DIAGNOSTIC (GTSRB development data; written after the r12 result; no criteria; not a revised method)",
+  "frozen_blobs": {
+    "docs/poc3-implementation-plan-r9.md": "0abe7fa51af3b499cd79218e46c83790dbfa2e99",
+    "src/r9_certify.py": "158a9c9e32ab8ec1f568f75b5c35c9992711db74",
+    "tests/test_r9_certify.py": "ecb6e04429883ddbf298b22b803cd3bc70c959ef",
+    "configs/frozen_r9_btsc.yaml": "f4d37e5d73ef230e91689be5303e5eac51b15450"
+  },
+  "code_sha256": {
+    "r12b_diagnostic.py": "8a93fda029ef3de94678086ca68d546590db481eafd488cd60cb81230a01e44d",
+    "r11_forecast_ucb.py": "69293b526557a227e7dfbd065ecbdebc98aafe611bd8e85bc3369f096dc8f421",
+    "r12_gtsrb_forecast.py": "615b6f537c78a4d3b229c34a02d38685ce7a0f65cc4668af61b9df235850d22d",
+    "r9_certify.py": "d2fd6fd63a0a65b22c73b08722bc1aa5583b51619b5720f99f6224b4fef98075"
+  },
+  "inputs_sha256": {
+    "checkpoint": "86527359bc61a5fbc4d48b7744e049b5ca3ff81cb016fb237298d0c007140bcc",
+    "train_release.npz": "228fe5b2ee29f59d5e3fac7e5b81ffd8b1a9b1f6b5747756f88711345034d380",
+    "head.npz": "5e85b1b0ca9ee45b86bcf20fcf4fce454128f8b292d454b84da42fe12ff0a5c2",
+    "seed0.npz": "397611c5538cc9ebe7a0be768ada29cb0afa7c89bdc53511df3a2403001fea49",
+    "track_table_pool.npz": "0afb7e89052c393d695a8cb7e5796e4e811b1ff9c3c6bd392bf3cd10742250db",
+    "frame_evidence.npz": "f79033e8cee5ba73a6b22d1d33b91227ff7cf628d95dc616a28824ad68a0e960",
+    "scores_train_release.npz": "0be15ed0b850e24ddc69a7395e954372f127ae6a2387369d0e812f082f3ceaac",
+    "b1_design.json": "8fb7e1c534ce1d923595e18794327afa70d654f033d4b55196a4dc2a169d22c9",
+    "r12_summary.json": "3d559b2fa5ec9de5d25b2d4e01079a083003ff45bee0c2f0b4c5f4a06d18488a",
+    "stage3b_summary.json": "7591a438b569e7231f3a40d8da6420a81b6f65791e707df4c0101338a0bf7367"
+  },
+  "config": {
+    "alphas": [
+      0.005,
+      0.01
+    ],
+    "tests": [
+      "hb",
+      "binom"
+    ],
+    "m": 30,
+    "n_cert": 784,
+    "mc_key": [
+      20261119,
+      13
+    ],
+    "mc_n": 20000,
+    "min_expected": 5.0
+  },
+  "pool_checks": {
+    "frozen_grid_matches_stage1_grid": true,
+    "gate_flags_reproduce": true,
+    "pool_commit_table_reproduces": true,
+    "b1_top_equals_stored_top1": true
+  },
+  "results": {
+    "0.005": {
+      "j_true": 12,
+      "pool_risk": 0.005310321938267508,
+      "pool_f": 0.7681570477070653,
+      "pool_p_frame": 0.0040791612224736285,
+      "pool_rho_I": 0.21735443549454322,
+      "pool_rho_accepted": 0.7490665187842857,
+      "N_g": 23,
+      "oracle": {
+        "hb": {
+          "p": 0.004079161222473629,
+          "N_g": 23,
+          "k_max": 70,
+          "clipped": 4.146416594018821e-05,
+          "forecast": 0.16826632819124782
+        },
+        "binom": {
+          "p": 0.004079161222473629,
+          "N_g": 23,
+          "k_max": 77,
+          "clipped": 4.146416594018821e-05,
+          "forecast": 0.25485828704265256
+        }
+      },
+      "fit_clipped": {
+        "categories": {
+          "k=0": [
+            1007,
+            1010.2763626740993
+          ],
+          "k>=1": [
+            39,
+            35.72363732588902
+          ],
+          "k>=N_g/2": [
+            2,
+            1.801279051937752
+          ],
+          "k=N_g": [
+            0,
+            0.06771693788391907
+          ],
+          "k>N_g (observed only; the clipped model puts this mass at N_g)": [
+            0,
+            0.0
+          ]
+        },
+        "chi_square": {
+          "stat": 5.3642591733380875,
+          "df": 2,
+          "p": 0.06841729833662887,
+          "bins_lower_edges": [
+            0,
+            1,
+            2,
+            4,
+            7
+          ],
+          "obs": [
+            1007.0,
+            20.0,
+            6.0,
+            8.0,
+            5.0
+          ],
+          "exp": [
+            1010.2763626740993,
+            13.661445611791665,
+            10.275786124576989,
+            6.144290488142247,
+            5.6421151013781214
+          ]
+        },
+        "k_max_observed": 16
+      },
+      "fit_conditional": {
+        "rho_I (all-frame ICC, as in the model)": {
+          "rho": 0.21735443549454322,
+          "categories": {
+            "k=0": [
+              1007,
+              1006.4852879360196
+            ],
+            "k>=1": [
+              39,
+              39.514712063982394
+            ],
+            "k>=N_g/2": [
+              2,
+              1.4526157699570086
+            ],
+            "k=N_g": [
+              0,
+              0.015615619675347948
+            ],
+            "k>N_g (observed only; the clipped model puts this mass at N_g)": [
+              0,
+              0.025767624506190467
+            ]
+          },
+          "chi_square": {
+            "stat": 3.9299489664970157,
+            "df": 2,
+            "p": 0.14015946298437273,
+            "bins_lower_edges": [
+              0,
+              1,
+              2,
+              4,
+              7
+            ],
+            "obs": [
+              1007.0,
+              20.0,
+              6.0,
+              8.0,
+              5.0
+            ],
+            "exp": [
+              1006.4852879360196,
+              16.274602296876687,
+              11.621659529386049,
+              6.48467111039348,
+              5.133779127326183
+            ]
+          }
+        },
+        "rho among accepted frames": {
+          "rho": 0.7490665187842857,
+          "categories": {
+            "k=0": [
+              1007,
+              1034.9507093137229
+            ],
+            "k>=1": [
+              39,
+              11.049290686272705
+            ],
+            "k>=N_g/2": [
+              2,
+              4.700062743363019
+            ],
+            "k=N_g": [
+              0,
+              0.22958343053219457
+            ],
+            "k>N_g (observed only; the clipped model puts this mass at N_g)": [
+              0,
+              2.0644096435050665
+            ]
+          },
+          "chi_square": {
+            "stat": 147.20572986463787,
+            "df": 0,
+            "p": null,
+            "bins_lower_edges": [
+              0,
+              1,
+              10
+            ],
+            "obs": [
+              1007.0,
+              35.0,
+              4.0
+            ],
+            "exp": [
+              1034.9507093137229,
+              5.823915259569528,
+              5.225375426703175
+            ]
+          }
+        }
+      },
+      "oracle_real_acceptance": {
+        "rho_I": {
+          "hb": 0.1529,
+          "binom": 0.2392
+        },
+        "rho_accepted": {
+          "hb": 0.3067,
+          "binom": 0.36145
+        }
+      },
+      "acceptance": {
+        "mean": 23.043977055449332,
+        "sd": 8.89470446485865,
+        "quantiles_10_25_50_75_90": [
+          8.0,
+          19.0,
+          27.0,
+          30.0,
+          30.0
+        ],
+        "share_A_eq_0": 0.028680688336520075,
+        "share_A_lt_N_g_half": 0.1367112810707457,
+        "share_A_lt_N_g": 0.3279158699808795,
+        "share_A_eq_30": 0.3632887189292543,
+        "wrong_frames_in_tracks_with_A_lt_N_g": 121,
+        "wrong_frames_total": 128
+      },
+      "observed": {
+        "hb": {
+          "violations": 340,
+          "violation_rate": 0.17,
+          "cp95": [
+            0.1537804234782941,
+            0.1871930788413427
+          ],
+          "certified_share": 0.6
+        },
+        "binom": {
+          "violations": 531,
+          "violation_rate": 0.2655,
+          "cp95": [
+            0.2462516077914786,
+            0.2854381615238336
+          ],
+          "certified_share": 0.731
+        }
+      },
+      "pilot_forecast": {
+        "hb": 0.06611843481191648,
+        "binom": 0.1333251753818698
+      }
+    },
+    "0.01": {
+      "j_true": 1,
+      "pool_risk": 0.010297260540120458,
+      "pool_f": 0.8201344848465534,
+      "pool_p_frame": 0.008445138468402434,
+      "pool_rho_I": 0.2318255490265238,
+      "pool_rho_accepted": 0.6369418661451861,
+      "N_g": 25,
+      "oracle": {
+        "hb": {
+          "p": 0.008445138468402434,
+          "N_g": 25,
+          "k_max": 167,
+          "clipped": 4.602762289545592e-05,
+          "forecast": 0.217990195073617
+        },
+        "binom": {
+          "p": 0.008445138468402434,
+          "N_g": 25,
+          "k_max": 177,
+          "clipped": 4.602762289545592e-05,
+          "forecast": 0.3070934879395842
+        }
+      },
+      "fit_clipped": {
+        "categories": {
+          "k=0": [
+            962,
+            976.5313240035766
+          ],
+          "k>=1": [
+            84,
+            69.46867599643097
+          ],
+          "k>=N_g/2": [
+            4,
+            3.3782235291723395
+          ],
+          "k=N_g": [
+            0,
+            0.0821076425421319
+          ],
+          "k>N_g (observed only; the clipped model puts this mass at N_g)": [
+            0,
+            0.0
+          ]
+        },
+        "chi_square": {
+          "stat": 23.433996995327536,
+          "df": 5,
+          "p": 0.00027880171297890553,
+          "bins_lower_edges": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            7,
+            11
+          ],
+          "obs": [
+            962.0,
+            46.0,
+            13.0,
+            5.0,
+            1.0,
+            5.0,
+            10.0,
+            4.0
+          ],
+          "exp": [
+            976.5313240035766,
+            25.39240550236798,
+            12.097998533537767,
+            7.560987456810955,
+            5.2769336000105715,
+            6.90781574273378,
+            7.007370929284731,
+            5.225164231685195
+          ]
+        },
+        "k_max_observed": 18
+      },
+      "fit_conditional": {
+        "rho_I (all-frame ICC, as in the model)": {
+          "rho": 0.2318255490265238,
+          "categories": {
+            "k=0": [
+              962,
+              970.5716342346961
+            ],
+            "k>=1": [
+              84,
+              75.42836576530917
+            ],
+            "k>=N_g/2": [
+              4,
+              2.8151696099416053
+            ],
+            "k=N_g": [
+              0,
+              0.022228066611679635
+            ],
+            "k>N_g (observed only; the clipped model puts this mass at N_g)": [
+              0,
+              0.029285615136243028
+            ]
+          },
+          "chi_square": {
+            "stat": 17.51286298849621,
+            "df": 5,
+            "p": 0.003623163630459316,
+            "bins_lower_edges": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              7,
+              10
+            ],
+            "obs": [
+              962.0,
+              46.0,
+              13.0,
+              5.0,
+              1.0,
+              5.0,
+              9.0,
+              5.0
+            ],
+            "exp": [
+              970.5716342346961,
+              29.211023241329677,
+              13.570893755505272,
+              8.296091098877417,
+              5.670155276200423,
+              7.214806003791826,
+              5.749267326765416,
+              5.7161290628391175
+            ]
+          }
+        },
+        "rho among accepted frames": {
+          "rho": 0.6369418661451861,
+          "categories": {
+            "k=0": [
+              962,
+              1017.3969978052005
+            ],
+            "k>=1": [
+              84,
+              28.60300219480134
+            ],
+            "k>=N_g/2": [
+              4,
+              8.703391710367061
+            ],
+            "k=N_g": [
+              0,
+              0.4330650323179202
+            ],
+            "k>N_g (observed only; the clipped model puts this mass at N_g)": [
+              0,
+              2.3224124848535617
+            ]
+          },
+          "chi_square": {
+            "stat": 309.04297303216157,
+            "df": 3,
+            "p": 1.097789566657536e-66,
+            "bins_lower_edges": [
+              0,
+              1,
+              2,
+              5,
+              10,
+              19
+            ],
+            "obs": [
+              962.0,
+              46.0,
+              19.0,
+              14.0,
+              5.0,
+              0.0
+            ],
+            "exp": [
+              1017.3969978052005,
+              6.070753207886227,
+              6.7903322942967,
+              5.030784396847004,
+              5.270644312496005,
+              5.440487983275405
+            ]
+          }
+        }
+      },
+      "oracle_real_acceptance": {
+        "rho_I": {
+          "hb": 0.1834,
+          "binom": 0.2772
+        },
+        "rho_accepted": {
+          "hb": 0.30465,
+          "binom": 0.36345
+        }
+      },
+      "acceptance": {
+        "mean": 24.60325047801147,
+        "sd": 7.778411354781025,
+        "quantiles_10_25_50_75_90": [
+          13.0,
+          22.0,
+          28.0,
+          30.0,
+          30.0
+        ],
+        "share_A_eq_0": 0.014340344168260038,
+        "share_A_lt_N_g_half": 0.09751434034416825,
+        "share_A_lt_N_g": 0.31835564053537285,
+        "share_A_eq_30": 0.4187380497131931,
+        "wrong_frames_in_tracks_with_A_lt_N_g": 245,
+        "wrong_frames_total": 265
+      },
+      "observed": {
+        "hb": {
+          "violations": 400,
+          "violation_rate": 0.2,
+          "cp95": [
+            0.18266929791844835,
+            0.21821465787129038
+          ],
+          "certified_share": 0.999
+        },
+        "binom": {
+          "violations": 586,
+          "violation_rate": 0.293,
+          "cp95": [
+            0.2731184254087478,
+            0.3134901534391012
+          ],
+          "certified_share": 0.9995
+        }
+      },
+      "pilot_forecast": {
+        "hb": 0.1694110033914425,
+        "binom": 0.2548279747013859
+      }
+    }
+  },
+  "seconds": 11.5
+}
