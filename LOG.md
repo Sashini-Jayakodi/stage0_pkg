@@ -1759,3 +1759,44 @@ apart.
 - Deviation from the plan? Yes: not in plan R9; no pre-registration; `a0_` names outside the POC-3 `r9_` rule
   (author's naming); output folder beside `prelim_r10/` under runs/20261003_stage1/ (new folder, no POC-1 file changed).
 - Next step: none set; the author decides.
+
+## c0: class-group view of the full-pool certified thresholds on GTSRB — EXPLORATORY
+
+- Date: 2026-11-17 / Stage: c0, exploratory addition / Run tag: runs/20261003_stage1/c0
+- Status: EXPLORATORY (post hoc). No Part A, no pre-registration, no certificate claim and no criteria; this entry
+  was written after the run. GTSRB tracks had all been seen before. Nothing here is a test.
+- Config hash / checkpoint hash / git commit: `src/c0_class_check.py` SHA-256
+  1e9eca889fa71b4aa4002cd45f4629403820f053f201fe3c7528bf3529604e90 (equal to the code hash in the summary);
+  `tests/test_c0_class_check.py` 889eff72b74de3e94ab62ec4097d84afb0fbb5f62d82a5055344f42dd28c177e; outputs
+  `c0_summary.json` ade431f022ed0cfe39bf91a2aedf0550098d2f186e286393ffe1a2773ab1ad44, `c0_printout.txt`
+  ade32fc90c7ce476a5674182234e8b87754aea5dbc0d3cea32e714d2b8c5dea5. Frozen blobs checked first; inputs hash-checked
+  through the POC-2 pool loader, the Stage 3 design file, `track_table_design.npz` (Stage 1 summary) and
+  `a0_summary.json` (4c4c907e...1928, a0 entry). Committed with this entry.
+- Class ids: GTSRB ships class ids only, no name file. The names in `src/head.py` were checked before the run by
+  viewing three cached crops per class: 0-5 speed limits 20/30/50/60/70/80, 6 end of speed limit 80, 7 and 8 speed
+  limits 100/120, 12 priority road, 13 yield, 14 stop, 17 no entry. Class 6 is a derestriction sign, so the
+  speed-limit group is {0-5, 7, 8} and class 6 is in "others" (author's decision; the request said 0-8). The crop
+  sheet is not part of the record (the image cache has no recorded hash).
+- What was done: thresholds as in a0 (frozen exact-binomial rule, whole pool as Cert, n = 1,046, Stage 3 grids and
+  design fractions); j, committed tracks and errors equal a0 in all 20 score x alpha cells. Two groupings:
+  (1) g1 stop, g2 yield, g3 no entry, g4 speed limits, g5 priority road, g6 others (G = 6); (2) r1 right-of-way
+  {14, 13, 17, 12}, r2 speed limits, r3 others (G = 3). Per group, score (S1, S2-sum, S2-min, S3, S4) and alpha
+  (1/2/3/5%): tracks in pool, design and per 784-track draw; committed tracks and errors on the pool; ratio of group
+  error to pooled committed error. Minimum committed tracks for a direct exact binomial test on the group's committed
+  tracks (no fixed-sequence walk), p = P(Binom(m, alpha) <= k), level 0.05 (scheme b) or 0.1/(2G) (scheme a,
+  Bonferroni): m0 with k = 0; with the observed group error, k = round half up(e_g m), the first rejecting m and the
+  smallest m from which every larger m up to 1,000,000 rejects (author's addition; used for feasibility).
+  "Impossible" when e_g >= alpha. Feasible = 784 n_g / 1,046 >= minimum.
+- Result numbers: pool / design tracks per group: stop 21/5, yield 57/15, no entry 30/7, speed limits 341/85, priority
+  road 56/14, others 541/135. m0 (scheme b) 299/149/99/59 at 1/2/3/5%; scheme a 477/237/158/94 (G = 6) and
+  408/203/135/80 (G = 3). The right-of-way classes had 0 committed errors in every score x alpha cell. The four
+  single-class groups are not feasible in any cell (expected committed per draw at most 42.7). r1 is feasible with
+  zero errors at 3% (scheme b) and 5% (both schemes). Others: group error 1.40 to 2.03 times the pooled committed
+  error, not feasible with its observed error in any cell; for S4 at 2/3/5% its error is at or above alpha
+  (impossible). Speed limits: ratio 0 to 0.88; S4 at 1% commits no speed-limit track.
+- Checks: 94 of 94 script checks PASS (13 class names, all 43 classes present, j and counts equal a0, group counts
+  sum to the pooled counts). 17 synthetic tests (brute-force references, tamper test) pass; full suite 679 passed.
+- Decision taken and why: committed for traceability; labelled exploratory. No reading is attached.
+- Deviation from the plan? Yes: not in plan R9; no pre-registration; `c0_` names outside the POC-3 `r9_` rule
+  (author's naming); output folder beside `a0/` under runs/20261003_stage1/ (new folder, no POC-1 file changed).
+- Next step: none set; the author decides.
