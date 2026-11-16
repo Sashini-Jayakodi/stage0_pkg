@@ -1699,3 +1699,30 @@ apart.
 - Deviation from the plan? Yes: not in plan R9 (exploratory addition; `r13_` names by the author's decision). Label
   correction in the two output files after the run (Part B, Deviations).
 - Next step: none set; the author decides.
+
+## r10 (preliminary): sign-level certificate of frame-weighted (micro) risk on GTSRB — EXPLORATORY
+
+- Date: 2026-11-16 (run; outputs written 14:12) / Stage: r10 preliminary, exploratory addition / Run tag:
+  runs/20261003_stage1/prelim_r10
+- Status: EXPLORATORY (post hoc). No Part A and no pre-registration: script, settings and reading were all written
+  without a prior record, and this entry was written after the run. GTSRB tracks had all been seen before. Nothing
+  here is a test.
+- Config hash / checkpoint hash / git commit: `src/r10_prelim_micro.py` SHA-256
+  8b397c213aa01f0e58b81492fe2747c8102eafa7a2f72f84182cf2747730385b (equal to the code hash recorded in the summary);
+  outputs `prelim_r10_summary.json` SHA-256 670a3e0702784d99988b688f1256d138ba994c8b4d085a621cec32146ad3d3f4,
+  `prelim_r10_report.md` SHA-256 d99ac9eace400b1156e39dd43822ff72ef669920466c68cdf07ae997fba2d234; checkpoint
+  86527359...0bcc (hash-checked through the POC-2 loaders, not reloaded). Committed with this entry.
+- What was done: Part 1, on the POC-2 Stage 3b draws: tests of the micro (frame-weighted) selective risk per track
+  (Hoeffding, empirical Bernstein, WSR betting, WSR hedged half) against the stored B1 and track-level rows. Part 2:
+  the same on the five POC-2 Stage 4 re-splits. Part 3: a first beta-binomial forecast of the B1 violation rate (j*
+  from the pool's true risk), the forecast later revised in r11.
+- Result numbers (alpha 1%, Part 1): micro-risk tests certified in 0.0% (Hoeffding), 0.0% (empirical Bernstein),
+  5.8% (WSR betting) and 0.0% (WSR hedged) of 2,000 draws, each with 0 violations; stored track-level certificate
+  certified in 19.8% with 1.40% violations; stored B1 20.00% violations. Part 3 forecast 16.60% (alpha 0.5%) and 47.30%
+  (alpha 1%) against observed 17.00% and 20.00%.
+- Checks: the script's own 14 integrity checks all PASS (Stage 3b draws and rows reproduce, Stage 4 splits
+  reproduce, scalar references for the vectorised tests). No pytest file exists for this script (the project rule
+  asks for one); not added.
+- Decision taken and why: committed for traceability, because its numbers are cited; labelled exploratory.
+- Deviation from the plan? Yes: not in plan R9; no pre-registration; `r10_` names outside the POC-3 `r9_` rule.
+- Next step: none.

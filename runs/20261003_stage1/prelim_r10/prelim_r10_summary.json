@@ -1,0 +1,1314 @@
+{
+  "label": "EXPLORATORY (post-hoc, preliminary; GTSRB tracks all seen before)",
+  "code_sha256": {
+    "r10_prelim_micro.py": "8b397c213aa01f0e58b81492fe2747c8102eafa7a2f72f84182cf2747730385b"
+  },
+  "inputs_sha256": {
+    "checkpoint": "86527359bc61a5fbc4d48b7744e049b5ca3ff81cb016fb237298d0c007140bcc",
+    "train_release.npz": "228fe5b2ee29f59d5e3fac7e5b81ffd8b1a9b1f6b5747756f88711345034d380",
+    "head.npz": "5e85b1b0ca9ee45b86bcf20fcf4fce454128f8b292d454b84da42fe12ff0a5c2",
+    "seed0.npz": "397611c5538cc9ebe7a0be768ada29cb0afa7c89bdc53511df3a2403001fea49",
+    "track_table_pool.npz": "0afb7e89052c393d695a8cb7e5796e4e811b1ff9c3c6bd392bf3cd10742250db",
+    "frame_evidence.npz": "f79033e8cee5ba73a6b22d1d33b91227ff7cf628d95dc616a28824ad68a0e960",
+    "scores_train_release.npz": "0be15ed0b850e24ddc69a7395e954372f127ae6a2387369d0e812f082f3ceaac",
+    "b1_design.json": "8fb7e1c534ce1d923595e18794327afa70d654f033d4b55196a4dc2a169d22c9",
+    "stage3b_summary.json": "7591a438b569e7231f3a40d8da6420a81b6f65791e707df4c0101338a0bf7367",
+    "stage4_summary.json": "e66e45f210ebae5e6d21a4d8247584e1affc2d9691a760427814c821b164d2cc",
+    "stage1_summary.json": "bfe2c26973727c5cc84cce61f150fbe8cbfb919cadb12ea6a5cc93a52c423882",
+    "head_summary.json": "eecfded822569f64a185fcfcefda5dd2ff6344e043fd0e136f655dd76f570e89",
+    "frozen_r8.yaml": "4f7a79156a4486b6b5f97515457513e6df2a2bfeed2a41b6fa05936bd1141d24",
+    "r8_stage4.py": "fae67390a488b44c57f1386c9b256cb0fbbcf2444282f5724c2580aa3e6445c2"
+  },
+  "config": {
+    "delta": 0.1,
+    "frames": 30,
+    "alphas_part1": [
+      0.005,
+      0.01,
+      0.02,
+      0.03,
+      0.05
+    ],
+    "alphas_part2": [
+      0.01,
+      0.02,
+      0.03,
+      0.05
+    ],
+    "alphas_part3": [
+      0.005,
+      0.01
+    ],
+    "wsr_c": 0.5,
+    "order_salt": 20261116,
+    "forecast_seed": 20261117,
+    "n_forecast": 20000,
+    "stage3b_seed": 20261115
+  },
+  "pool_micro_risk": [
+    0.010717325698367253,
+    0.010297260540120458,
+    0.009642410993129295,
+    0.00921966338420495,
+    0.008636327786103005,
+    0.008287730985803791,
+    0.007773259985649366,
+    0.007420480526252457,
+    0.007022075144275395,
+    0.006575475910216341,
+    0.006167544827022832,
+    0.005843621399176955,
+    0.005310321938267508,
+    0.004945100997401726,
+    0.004735729386892177,
+    0.004527012598761477,
+    0.0043200276481769485,
+    0.004151190736290146,
+    0.0038910505836575876,
+    0.003586800573888092
+  ],
+  "pool_frame_coverage": [
+    0.8236718824691672,
+    0.8201344848465534,
+    0.816342139647535,
+    0.812294846872112,
+    0.8081200803084866,
+    0.8036584977214061,
+    0.7994518627107301,
+    0.794512253417891,
+    0.7896682494662035,
+    0.7851429299850218,
+    0.7802351891392333,
+    0.774403263328978,
+    0.7681570477070653,
+    0.7604448835208261,
+    0.7536887727461041,
+    0.7461996876892188,
+    0.7376908123267153,
+    0.7293094107524141,
+    0.7207367984958093,
+    0.7107938430160299
+  ],
+  "part1": {
+    "0.005": {
+      "(i) Hoeffding": {
+        "runs": 2000,
+        "certified_share": 0.0,
+        "violations": 0,
+        "violation_rate": 0.0,
+        "cp95": [
+          0.0,
+          0.0018427397934059364
+        ],
+        "mean_true_risk_certified": null,
+        "mean_frame_coverage_certified": null,
+        "certified_position_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "(ii) Emp. Bernstein": {
+        "runs": 2000,
+        "certified_share": 0.0,
+        "violations": 0,
+        "violation_rate": 0.0,
+        "cp95": [
+          0.0,
+          0.0018427397934059364
+        ],
+        "mean_true_risk_certified": null,
+        "mean_frame_coverage_certified": null,
+        "certified_position_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "(iii) WSR betting": {
+        "runs": 2000,
+        "certified_share": 0.0,
+        "violations": 0,
+        "violation_rate": 0.0,
+        "cp95": [
+          0.0,
+          0.0018427397934059364
+        ],
+        "mean_true_risk_certified": null,
+        "mean_frame_coverage_certified": null,
+        "certified_position_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "(iii-h) WSR hedged half": {
+        "runs": 2000,
+        "certified_share": 0.0,
+        "violations": 0,
+        "violation_rate": 0.0,
+        "cp95": [
+          0.0,
+          0.0018427397934059364
+        ],
+        "mean_true_risk_certified": null,
+        "mean_frame_coverage_certified": null,
+        "certified_position_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "B1 frame-level HB (recomputed)": {
+        "runs": 2000,
+        "certified_share": 0.6,
+        "violations": 340,
+        "violation_rate": 0.17,
+        "cp95": [
+          0.1537804234782941,
+          0.1871930788413427
+        ],
+        "mean_true_risk_certified": 0.004734286243138741,
+        "mean_frame_coverage_certified": 0.7468208302792738,
+        "certified_position_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          4,
+          7,
+          13,
+          20,
+          38,
+          47,
+          63,
+          148,
+          154,
+          91,
+          111,
+          92,
+          86,
+          145,
+          181
+        ]
+      }
+    },
+    "0.01": {
+      "(i) Hoeffding": {
+        "runs": 2000,
+        "certified_share": 0.0,
+        "violations": 0,
+        "violation_rate": 0.0,
+        "cp95": [
+          0.0,
+          0.0018427397934059364
+        ],
+        "mean_true_risk_certified": null,
+        "mean_frame_coverage_certified": null,
+        "certified_position_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "(ii) Emp. Bernstein": {
+        "runs": 2000,
+        "certified_share": 0.0,
+        "violations": 0,
+        "violation_rate": 0.0,
+        "cp95": [
+          0.0,
+          0.0018427397934059364
+        ],
+        "mean_true_risk_certified": null,
+        "mean_frame_coverage_certified": null,
+        "certified_position_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "(iii) WSR betting": {
+        "runs": 2000,
+        "certified_share": 0.058,
+        "violations": 0,
+        "violation_rate": 0.0,
+        "cp95": [
+          0.0,
+          0.0018427397934059364
+        ],
+        "mean_true_risk_certified": 0.004342424035783943,
+        "mean_frame_coverage_certified": 0.7360083781048382,
+        "certified_position_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          4,
+          2,
+          1,
+          8,
+          15,
+          5,
+          10,
+          11,
+          8,
+          21,
+          31
+        ]
+      },
+      "(iii-h) WSR hedged half": {
+        "runs": 2000,
+        "certified_share": 0.0,
+        "violations": 0,
+        "violation_rate": 0.0,
+        "cp95": [
+          0.0,
+          0.0018427397934059364
+        ],
+        "mean_true_risk_certified": null,
+        "mean_frame_coverage_certified": null,
+        "certified_position_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "B1 frame-level HB (recomputed)": {
+        "runs": 2000,
+        "certified_share": 0.999,
+        "violations": 400,
+        "violation_rate": 0.2,
+        "cp95": [
+          0.18266929791844835,
+          0.21821465787129038
+        ],
+        "mean_true_risk_certified": 0.008361740829138428,
+        "mean_frame_coverage_certified": 0.8025336276714586,
+        "certified_position_counts": [
+          295,
+          105,
+          229,
+          137,
+          228,
+          150,
+          208,
+          141,
+          135,
+          106,
+          89,
+          60,
+          57,
+          28,
+          9,
+          7,
+          7,
+          2,
+          3,
+          2
+        ]
+      }
+    },
+    "0.02": {
+      "(i) Hoeffding": {
+        "runs": 2000,
+        "certified_share": 0.0,
+        "violations": 0,
+        "violation_rate": 0.0,
+        "cp95": [
+          0.0,
+          0.0018427397934059364
+        ],
+        "mean_true_risk_certified": null,
+        "mean_frame_coverage_certified": null,
+        "certified_position_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "(ii) Emp. Bernstein": {
+        "runs": 2000,
+        "certified_share": 0.6515,
+        "violations": 0,
+        "violation_rate": 0.0,
+        "cp95": [
+          0.0,
+          0.0018427397934059364
+        ],
+        "mean_true_risk_certified": 0.005789296145955378,
+        "mean_frame_coverage_certified": 0.7672418387365108,
+        "certified_position_counts": [
+          10,
+          9,
+          17,
+          14,
+          31,
+          28,
+          76,
+          50,
+          68,
+          106,
+          106,
+          100,
+          205,
+          130,
+          50,
+          47,
+          58,
+          22,
+          73,
+          103
+        ]
+      },
+      "(iii) WSR betting": {
+        "runs": 2000,
+        "certified_share": 1.0,
+        "violations": 0,
+        "violation_rate": 0.0,
+        "cp95": [
+          0.0,
+          0.0018427397934059364
+        ],
+        "mean_true_risk_certified": 0.01037765846864475,
+        "mean_frame_coverage_certified": 0.8209488192740367,
+        "certified_position_counts": [
+          1561,
+          96,
+          141,
+          61,
+          59,
+          18,
+          24,
+          13,
+          9,
+          7,
+          8,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      "(iii-h) WSR hedged half": {
+        "runs": 2000,
+        "certified_share": 0.999,
+        "violations": 0,
+        "violation_rate": 0.0,
+        "cp95": [
+          0.0,
+          0.0018427397934059364
+        ],
+        "mean_true_risk_certified": 0.009548518030089569,
+        "mean_frame_coverage_certified": 0.813755882782939,
+        "certified_position_counts": [
+          920,
+          114,
+          234,
+          136,
+          187,
+          68,
+          116,
+          53,
+          44,
+          45,
+          28,
+          21,
+          16,
+          7,
+          5,
+          2,
+          0,
+          0,
+          2,
+          0
+        ]
+      },
+      "B1 frame-level HB (recomputed)": {
+        "runs": 2000,
+        "certified_share": 1.0,
+        "violations": 0,
+        "violation_rate": 0.0,
+        "cp95": [
+          0.0,
+          0.0018427397934059364
+        ],
+        "mean_true_risk_certified": 0.010715619344699306,
+        "mean_frame_coverage_certified": 0.8236589916823353,
+        "certified_position_counts": [
+          1996,
+          2,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    "0.03": {
+      "(i) Hoeffding": {
+        "runs": 2000,
+        "certified_share": 0.0,
+        "violations": 0,
+        "violation_rate": 0.0,
+        "cp95": [
+          0.0,
+          0.0018427397934059364
+        ],
+        "mean_true_risk_certified": null,
+        "mean_frame_coverage_certified": null,
+        "certified_position_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "(ii) Emp. Bernstein": {
+        "runs": 2000,
+        "certified_share": 0.9995,
+        "violations": 0,
+        "violation_rate": 0.0,
+        "cp95": [
+          0.0,
+          0.0018427397934059364
+        ],
+        "mean_true_risk_certified": 0.010512544036883975,
+        "mean_frame_coverage_certified": 0.8220457467332729,
+        "certified_position_counts": [
+          1718,
+          77,
+          85,
+          35,
+          37,
+          8,
+          14,
+          8,
+          8,
+          4,
+          4,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "(iii) WSR betting": {
+        "runs": 2000,
+        "certified_share": 1.0,
+        "violations": 0,
+        "violation_rate": 0.0,
+        "cp95": [
+          0.0,
+          0.0018427397934059364
+        ],
+        "mean_true_risk_certified": 0.010717325698367253,
+        "mean_frame_coverage_certified": 0.8236718824691672,
+        "certified_position_counts": [
+          2000,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "(iii-h) WSR hedged half": {
+        "runs": 2000,
+        "certified_share": 1.0,
+        "violations": 0,
+        "violation_rate": 0.0,
+        "cp95": [
+          0.0,
+          0.0018427397934059364
+        ],
+        "mean_true_risk_certified": 0.010717115665788129,
+        "mean_frame_coverage_certified": 0.823670113770356,
+        "certified_position_counts": [
+          1999,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "B1 frame-level HB (recomputed)": {
+        "runs": 2000,
+        "certified_share": 1.0,
+        "violations": 0,
+        "violation_rate": 0.0,
+        "cp95": [
+          0.0,
+          0.0018427397934059364
+        ],
+        "mean_true_risk_certified": 0.010717325698367253,
+        "mean_frame_coverage_certified": 0.8236718824691672,
+        "certified_position_counts": [
+          2000,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    "0.05": {
+      "(i) Hoeffding": {
+        "runs": 2000,
+        "certified_share": 0.0,
+        "violations": 0,
+        "violation_rate": 0.0,
+        "cp95": [
+          0.0,
+          0.0018427397934059364
+        ],
+        "mean_true_risk_certified": null,
+        "mean_frame_coverage_certified": null,
+        "certified_position_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "(ii) Emp. Bernstein": {
+        "runs": 2000,
+        "certified_share": 1.0,
+        "violations": 0,
+        "violation_rate": 0.0,
+        "cp95": [
+          0.0,
+          0.0018427397934059364
+        ],
+        "mean_true_risk_certified": 0.010717325698367253,
+        "mean_frame_coverage_certified": 0.8236718824691672,
+        "certified_position_counts": [
+          2000,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "(iii) WSR betting": {
+        "runs": 2000,
+        "certified_share": 1.0,
+        "violations": 0,
+        "violation_rate": 0.0,
+        "cp95": [
+          0.0,
+          0.0018427397934059364
+        ],
+        "mean_true_risk_certified": 0.010717325698367253,
+        "mean_frame_coverage_certified": 0.8236718824691672,
+        "certified_position_counts": [
+          2000,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "(iii-h) WSR hedged half": {
+        "runs": 2000,
+        "certified_share": 1.0,
+        "violations": 0,
+        "violation_rate": 0.0,
+        "cp95": [
+          0.0,
+          0.0018427397934059364
+        ],
+        "mean_true_risk_certified": 0.010717325698367253,
+        "mean_frame_coverage_certified": 0.8236718824691672,
+        "certified_position_counts": [
+          2000,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "B1 frame-level HB (recomputed)": {
+        "runs": 2000,
+        "certified_share": 1.0,
+        "violations": 0,
+        "violation_rate": 0.0,
+        "cp95": [
+          0.0,
+          0.0018427397934059364
+        ],
+        "mean_true_risk_certified": 0.010717325698367253,
+        "mean_frame_coverage_certified": 0.8236718824691672,
+        "certified_position_counts": [
+          2000,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    }
+  },
+  "part2": {
+    "0.01": {
+      "(ii) Emp. Bernstein": {
+        "0": {
+          "position": null,
+          "threshold": null,
+          "test_micro_risk": null,
+          "test_frame_coverage": 0.0,
+          "cert_micro_risk": null
+        },
+        "1": {
+          "position": null,
+          "threshold": null,
+          "test_micro_risk": null,
+          "test_frame_coverage": 0.0,
+          "cert_micro_risk": null
+        },
+        "2": {
+          "position": null,
+          "threshold": null,
+          "test_micro_risk": null,
+          "test_frame_coverage": 0.0,
+          "cert_micro_risk": null
+        },
+        "3": {
+          "position": null,
+          "threshold": null,
+          "test_micro_risk": null,
+          "test_frame_coverage": 0.0,
+          "cert_micro_risk": null
+        },
+        "4": {
+          "position": null,
+          "threshold": null,
+          "test_micro_risk": null,
+          "test_frame_coverage": 0.0,
+          "cert_micro_risk": null
+        }
+      },
+      "(iii) WSR betting": {
+        "0": {
+          "position": null,
+          "threshold": null,
+          "test_micro_risk": null,
+          "test_frame_coverage": 0.0,
+          "cert_micro_risk": null
+        },
+        "1": {
+          "position": null,
+          "threshold": null,
+          "test_micro_risk": null,
+          "test_frame_coverage": 0.0,
+          "cert_micro_risk": null
+        },
+        "2": {
+          "position": null,
+          "threshold": null,
+          "test_micro_risk": null,
+          "test_frame_coverage": 0.0,
+          "cert_micro_risk": null
+        },
+        "3": {
+          "position": null,
+          "threshold": null,
+          "test_micro_risk": null,
+          "test_frame_coverage": 0.0,
+          "cert_micro_risk": null
+        },
+        "4": {
+          "position": null,
+          "threshold": null,
+          "test_micro_risk": null,
+          "test_frame_coverage": 0.0,
+          "cert_micro_risk": null
+        }
+      }
+    },
+    "0.02": {
+      "(ii) Emp. Bernstein": {
+        "0": {
+          "position": 12,
+          "threshold": 370.5456756090572,
+          "test_micro_risk": 0.007614633338851183,
+          "test_frame_coverage": 0.7686728591423845,
+          "cert_micro_risk": 0.004539666722028456
+        },
+        "1": {
+          "position": 15,
+          "threshold": 398.61847474941555,
+          "test_micro_risk": 0.004036326942482341,
+          "test_frame_coverage": 0.7564885496183206,
+          "cert_micro_risk": 0.004694029423550289
+        },
+        "2": {
+          "position": 14,
+          "threshold": 389.03218445257073,
+          "test_micro_risk": 0.005239141456819334,
+          "test_frame_coverage": 0.7527989821882952,
+          "cert_micro_risk": 0.004567755032989342
+        },
+        "3": {
+          "position": 19,
+          "threshold": 439.38475868130973,
+          "test_micro_risk": 0.003044957907934802,
+          "test_frame_coverage": 0.7103053435114504,
+          "cert_micro_risk": 0.0037677172417917588
+        },
+        "4": {
+          "position": 19,
+          "threshold": 439.38475868130973,
+          "test_micro_risk": 0.0035778175313059034,
+          "test_frame_coverage": 0.7111959287531806,
+          "cert_micro_risk": 0.0035898049539308365
+        }
+      },
+      "(iii) WSR betting": {
+        "0": {
+          "position": 0,
+          "threshold": 276.6808200078421,
+          "test_micro_risk": 0.011133446729550023,
+          "test_frame_coverage": 0.8228782287822878,
+          "cert_micro_risk": 0.010578461220909231
+        },
+        "1": {
+          "position": 0,
+          "threshold": 276.6808200078421,
+          "test_micro_risk": 0.007789827401863449,
+          "test_frame_coverage": 0.8329516539440204,
+          "cert_micro_risk": 0.011710451318721178
+        },
+        "2": {
+          "position": 0,
+          "threshold": 276.6808200078421,
+          "test_micro_risk": 0.009714726291441789,
+          "test_frame_coverage": 0.8250636132315522,
+          "cert_micro_risk": 0.011053148081194153
+        },
+        "3": {
+          "position": 0,
+          "threshold": 276.6808200078421,
+          "test_micro_risk": 0.011285648924813176,
+          "test_frame_coverage": 0.8342239185750636,
+          "cert_micro_risk": 0.010524132925501582
+        },
+        "4": {
+          "position": 0,
+          "threshold": 276.6808200078421,
+          "test_micro_risk": 0.01077752117013087,
+          "test_frame_coverage": 0.8263358778625954,
+          "cert_micro_risk": 0.010697121595783163
+        }
+      }
+    },
+    "0.03": {
+      "(ii) Emp. Bernstein": {
+        "0": {
+          "position": 0,
+          "threshold": 276.6808200078421,
+          "test_micro_risk": 0.011133446729550023,
+          "test_frame_coverage": 0.8228782287822878,
+          "cert_micro_risk": 0.010578461220909231
+        },
+        "1": {
+          "position": 0,
+          "threshold": 276.6808200078421,
+          "test_micro_risk": 0.007789827401863449,
+          "test_frame_coverage": 0.8329516539440204,
+          "cert_micro_risk": 0.011710451318721178
+        },
+        "2": {
+          "position": 0,
+          "threshold": 276.6808200078421,
+          "test_micro_risk": 0.009714726291441789,
+          "test_frame_coverage": 0.8250636132315522,
+          "cert_micro_risk": 0.011053148081194153
+        },
+        "3": {
+          "position": 0,
+          "threshold": 276.6808200078421,
+          "test_micro_risk": 0.011285648924813176,
+          "test_frame_coverage": 0.8342239185750636,
+          "cert_micro_risk": 0.010524132925501582
+        },
+        "4": {
+          "position": 0,
+          "threshold": 276.6808200078421,
+          "test_micro_risk": 0.01077752117013087,
+          "test_frame_coverage": 0.8263358778625954,
+          "cert_micro_risk": 0.010697121595783163
+        }
+      },
+      "(iii) WSR betting": {
+        "0": {
+          "position": 0,
+          "threshold": 276.6808200078421,
+          "test_micro_risk": 0.011133446729550023,
+          "test_frame_coverage": 0.8228782287822878,
+          "cert_micro_risk": 0.010578461220909231
+        },
+        "1": {
+          "position": 0,
+          "threshold": 276.6808200078421,
+          "test_micro_risk": 0.007789827401863449,
+          "test_frame_coverage": 0.8329516539440204,
+          "cert_micro_risk": 0.011710451318721178
+        },
+        "2": {
+          "position": 0,
+          "threshold": 276.6808200078421,
+          "test_micro_risk": 0.009714726291441789,
+          "test_frame_coverage": 0.8250636132315522,
+          "cert_micro_risk": 0.011053148081194153
+        },
+        "3": {
+          "position": 0,
+          "threshold": 276.6808200078421,
+          "test_micro_risk": 0.011285648924813176,
+          "test_frame_coverage": 0.8342239185750636,
+          "cert_micro_risk": 0.010524132925501582
+        },
+        "4": {
+          "position": 0,
+          "threshold": 276.6808200078421,
+          "test_micro_risk": 0.01077752117013087,
+          "test_frame_coverage": 0.8263358778625954,
+          "cert_micro_risk": 0.010697121595783163
+        }
+      }
+    },
+    "0.05": {
+      "(ii) Emp. Bernstein": {
+        "0": {
+          "position": 0,
+          "threshold": 276.6808200078421,
+          "test_micro_risk": 0.011133446729550023,
+          "test_frame_coverage": 0.8228782287822878,
+          "cert_micro_risk": 0.010578461220909231
+        },
+        "1": {
+          "position": 0,
+          "threshold": 276.6808200078421,
+          "test_micro_risk": 0.007789827401863449,
+          "test_frame_coverage": 0.8329516539440204,
+          "cert_micro_risk": 0.011710451318721178
+        },
+        "2": {
+          "position": 0,
+          "threshold": 276.6808200078421,
+          "test_micro_risk": 0.009714726291441789,
+          "test_frame_coverage": 0.8250636132315522,
+          "cert_micro_risk": 0.011053148081194153
+        },
+        "3": {
+          "position": 0,
+          "threshold": 276.6808200078421,
+          "test_micro_risk": 0.011285648924813176,
+          "test_frame_coverage": 0.8342239185750636,
+          "cert_micro_risk": 0.010524132925501582
+        },
+        "4": {
+          "position": 0,
+          "threshold": 276.6808200078421,
+          "test_micro_risk": 0.01077752117013087,
+          "test_frame_coverage": 0.8263358778625954,
+          "cert_micro_risk": 0.010697121595783163
+        }
+      },
+      "(iii) WSR betting": {
+        "0": {
+          "position": 0,
+          "threshold": 276.6808200078421,
+          "test_micro_risk": 0.011133446729550023,
+          "test_frame_coverage": 0.8228782287822878,
+          "cert_micro_risk": 0.010578461220909231
+        },
+        "1": {
+          "position": 0,
+          "threshold": 276.6808200078421,
+          "test_micro_risk": 0.007789827401863449,
+          "test_frame_coverage": 0.8329516539440204,
+          "cert_micro_risk": 0.011710451318721178
+        },
+        "2": {
+          "position": 0,
+          "threshold": 276.6808200078421,
+          "test_micro_risk": 0.009714726291441789,
+          "test_frame_coverage": 0.8250636132315522,
+          "cert_micro_risk": 0.011053148081194153
+        },
+        "3": {
+          "position": 0,
+          "threshold": 276.6808200078421,
+          "test_micro_risk": 0.011285648924813176,
+          "test_frame_coverage": 0.8342239185750636,
+          "cert_micro_risk": 0.010524132925501582
+        },
+        "4": {
+          "position": 0,
+          "threshold": 276.6808200078421,
+          "test_micro_risk": 0.01077752117013087,
+          "test_frame_coverage": 0.8263358778625954,
+          "cert_micro_risk": 0.010697121595783163
+        }
+      }
+    }
+  },
+  "part3": {
+    "0.005": {
+      "j_star": 12,
+      "threshold": 370.5456756090572,
+      "pool_micro_risk": 0.005310321938267508,
+      "pool_frame_coverage": 0.7681570477070653,
+      "design_acceptance": 0.7696040868454661,
+      "design_accepted_wrong_per_frame": 0.0038314176245210726,
+      "design_micro_risk": 0.004978426817125788,
+      "design_rho_I": 0.12359032282863884,
+      "N_g": 23,
+      "implied_sim_micro_risk": 0.004997501249375313,
+      "forecast_P_p_le_delta": 0.166,
+      "clipped_track_draws": 16,
+      "share_sims_micro_risk_above_alpha": 0.47325,
+      "observed_stage3b_B1_violation": 0.17,
+      "heuristic": 0.3655213261554491
+    },
+    "0.01": {
+      "j_star": 1,
+      "threshold": 283.49861752219556,
+      "pool_micro_risk": 0.010297260540120458,
+      "pool_frame_coverage": 0.8201344848465534,
+      "design_acceptance": 0.8286079182630907,
+      "design_accepted_wrong_per_frame": 0.0072796934865900385,
+      "design_micro_risk": 0.00878545006165228,
+      "design_rho_I": 0.19933705076579347,
+      "N_g": 25,
+      "implied_sim_micro_risk": 0.008735632183908047,
+      "forecast_P_p_le_delta": 0.47295,
+      "clipped_track_draws": 258,
+      "share_sims_micro_risk_above_alpha": 0.22295,
+      "observed_stage3b_B1_violation": 0.2,
+      "heuristic": 0.3655213261554491
+    }
+  },
+  "checks": {
+    "frozen_grid_matches_stage1_grid": true,
+    "gate_flags_reproduce": true,
+    "pool_commit_table_reproduces": true,
+    "b1_top_equals_stored_top1": true,
+    "design_tracks_261": true,
+    "design_frames_match_b1_design": true,
+    "design_work_e_reproduces": true,
+    "design_work_c_reproduces": true,
+    "draws_equal_stage3b_weights": true,
+    "stage3b_rows_reproduce": true,
+    "b1_true_risk_equals_micro_risk_side": true,
+    "wsr_eb_match_scalar_reference": true,
+    "Z_within_range_width_1": true,
+    "stage4_splits_reproduce": true
+  },
+  "all_pass": true,
+  "seconds": 7.8
+}
