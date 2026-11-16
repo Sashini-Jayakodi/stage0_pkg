@@ -1646,3 +1646,21 @@ apart.
 - Deviation from the plan? Yes: not in plan R9 (exploratory addition; `r11_` names by the author's decision). Label
   correction in the two output files after the run (Part B, Deviations).
 - Next step: none set; the author decides.
+
+## r12: the r11 forecast on the GTSRB frame-level audit (exploratory, development data)
+
+- Date: 2026-11-16 / Stage: r12 (exploratory addition after r11) / Run tag: runs/20261003_stage1/r12
+- Config hash / checkpoint hash / git commit: Part A 6491dc8; run code 53f3da6 (`src/r12_gtsrb_forecast.py` SHA-256
+  615b6f537c78a4d3b229c34a02d38685ce7a0f65cc4668af61b9df235850d22d). Output r12_summary.json SHA-256
+  3d559b2fa5ec9de5d25b2d4e01079a083003ff45bee0c2f0b4c5f4a06d18488a. POC-1/POC-2 inputs hash-checked by the POC-2
+  loaders; checkpoint 86527359...0bcc (unchanged, not reloaded).
+- What was done: the r11 forecast, unchanged, with the 261 design tracks as the single pilot, against the POC-2 Stage
+  3b B1 rates (HB, reproduced exactly) and a new exact-binomial B1 rate on the same 2,000 draws; 1,000-resample pilot
+  bootstrap. GTSRB is development data for the forecast (Part A (a)). Full record in `LOG_r12_entry.md`.
+- Result numbers: HB forecast 6.61% against observed 17.00% at alpha 0.5% (gap -10.39 pp); 16.94% against 20.00% at
+  1% (gap -3.06 pp); 2%: 0.00% and 0.00%.
+- Checks: Part A (h) stop-checks all PASS. Criteria (Part A (f)): (a) and (b) FAIL at 0.5% and at 1%; **overall FAIL**.
+- Decision taken and why: recorded as failed; no criterion changed, nothing rerun.
+- Deviation from the plan? Yes: not in plan R9 (exploratory addition; `r12_` names by the author's decision).
+  `README_r12.md` not yet written.
+- Next step: a post hoc diagnostic (r12b), labelled as such, only as the author directs.
