@@ -110,3 +110,8 @@ bound; case counts (Amendment 1 limit, zero errors, rho_I <= 0); boundary diagno
 - Order: Part A committed before any code; code and tests; full suite; one run after the author approves the tests;
   whole printout; Part B after review.
 - Deviation: `r13_` file names outside the POC-3 `r9_` rule, by the author's decision, as for r11 and r12.
+
+#### Amendment 1 (16 Nov 2026, before any r13 run)
+Set (b): the bootstrap of the 133 BelgiumTSC pilot poles uses `default_rng([20261120, 17]).integers(0, 133, (1000, 133))`,
+one array shared by all alphas and both tests. Part A named no key for set (b); the base 20261120 is the Part A base,
+and sub-key 17 is unused.
