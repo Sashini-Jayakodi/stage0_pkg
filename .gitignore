@@ -50,3 +50,6 @@ docs/papers/
 
 # Personal local settings (not shared)
 .claude/settings.local.json
+
+# d0 corruption package wheels (URLs and SHA-256 in src/d0_envelope_check.py)
+data/d0_wheels/

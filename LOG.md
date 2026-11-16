@@ -1835,3 +1835,52 @@ apart.
 - Deviation from the plan? Yes: not in plan R9; no pre-registration; `c1_` names outside the POC-3 `r9_` rule
   (author's naming); output folder beside `c0/` under runs/20261003_stage1/ (new folder, no POC-1 file changed).
 - Next step: none set; the author decides.
+
+## d0: corruption envelope of the sign-level and frame-level certificate on GTSRB — EXPLORATORY (definitions, before the run)
+
+- Date: 2026-11-17 / Stage: d0, exploratory addition / Run tag: runs/20261003_stage1/d0
+- Status: EXPLORATORY (post hoc). Not in plan R9; no criteria. This block records the definitions and the author's
+  choices before any d0 number exists; the results follow in a separate entry after the run. GTSRB tracks had all
+  been seen before.
+- Environment change (author's approval): imagecorruptions 1.1.2, scikit-image 0.26.0, opencv-python 5.0.0.93,
+  imageio 2.38.2, lazy-loader 0.6, tifffile 2026.11.12, installed from PyPI wheels (files.pythonhosted.org) pinned with
+  `--require-hashes`. Wheels kept in `data/d0_wheels/` (git-ignored); their SHA-256 values are in
+  `src/d0_envelope_check.py` (WHEELS_SHA256) and are checked at run time. No numpy or scikit-image downgrade. No
+  import was blocked by Windows Application Control.
+- Patch (`src/d0_corrupt_compat.py`): imagecorruptions 1.1.2 `fog` fails on numpy 2 (`np.float_` was removed). The
+  only change: `plasma_fractal` allocates its heightmap with `np.float64` instead of `np.float_` (the same dtype in
+  numpy < 2). Check: the patched fog equals the unmodified package fog (old alias restored for the call, same seed)
+  bit for bit at severities 1-5 on 3 images, as a synthetic test and again at run time on 3 pool cache images. The
+  other four corruptions run unmodified.
+- Definitions:
+  - Conditions: clean, plus fog, motion_blur, gaussian_noise, contrast and brightness at severity 1-5, applied to every
+    frame of each of the 1,046 pool tracks (same corruption and severity for the whole track). Images are the 112 x 112
+    cache (`train_112.npy`, SHA-256 checked): whole frames resized, no ROI crop. The package's severity constants were
+    set for 224 px ImageNet images, so severity k here is not ImageNet severity k. Seed:
+    `np.random.seed([20261117, track code])` once per track, frames in frame order, the same seed in every condition.
+  - Unchanged: the frozen POC-1 ResNet-18 (checkpoint 8652735...0bcc), the head, the gate tau (the gate is recomputed
+    on the corrupted frames), and the R9 Stage 3 design values (grids, design commit fractions, S2-sum model; all
+    fitted on clean design tracks). Scores S1, S2-sum, S3, S4; alpha 2, 3, 5%; delta 0.1.
+  - Cert sets (author's choice): the 5 POC-2 Stage 4 re-splits (Cert 784 tracks each), regenerated and checked as in
+    R9 Stage 3. Pool risk is measured on all 1,046 corrupted pool tracks, which include the 784 Cert tracks.
+  - Sign level: the frozen exact-binomial certificate (`src/r9_certify.py`, rule binom), n = 784.
+  - Frame level (author's choice: per score, frame units): same engine and grid. A frame of a Cert track is committed
+    at lambda when the running score value at that frame exists and is >= lambda; it is wrong when the running label
+    at that frame is not the track's class. n = frames of the Cert tracks. Start from the design frame commit fraction
+    on the 261 clean design tracks (design frames as n_design).
+  - Flags (author's choice, recorded before the run): primary = a frame-level certification whose pool frame risk
+    (wrong committed frames / committed frames) is above alpha; secondary = its pool sign risk (wrong committed tracks /
+    committed tracks at that threshold) above alpha. A sign-level certification is flagged when its pool sign risk is
+    above alpha.
+  - Frame error = top-1 head error over all pool frames (before the gate).
+  - Envelope boundary per corruption x score x alpha x level x re-split: the last severity s with severities 1..s all
+    certified (0 if severity 1 is not); the minimum over re-splits is also printed.
+  - Run-time checks: freeze blobs; hashes of every input; POC-2 pool reproduction; Stage 4 coverages reproduce; design
+    commit fractions reproduce; clean re-embedding of the pool frames within 1e-3 of the stored embeddings; clean
+    sign-level certified indices equal R9 Stage 3 (`stage3_summary.json`); fog patch reference.
+  - GPU time = wall time of the embedding forward passes, transfer included.
+- Code: `src/d0_envelope_check.py`, `src/d0_corrupt_compat.py`, `tests/test_d0_envelope_check.py` (17 synthetic tests:
+  brute-force references, fog patch reference, seed determinism, tamper test). Code hashes go in the results entry.
+- Deviation from the plan? Yes: not in plan R9; `d0_` names outside the POC-3 `r9_` rule (author's naming); output
+  folder `runs/20261003_stage1/d0/` (new folder, no POC-1 file changed).
+- Next step: one run; the whole printout goes to the author; then the results entry.
