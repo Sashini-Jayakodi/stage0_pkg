@@ -1,6 +1,7 @@
 """r11 (exploratory, synthetic): forecast of the frame-level (B1) false-certificate rate from a pilot upper bound.
 
-Definitions: LOG_r11_entry.md Part A (committed in 867db93 before this file existed).
+Definitions: LOG_r11_entry.md Part A (committed in 867db93 before this file existed) and Amendment 1 (rho_I >= 1
+uses the rho = 1 limit of the beta-binomial instead of stopping).
   Per run: pilot = the run's 261-sign design sample. U_j = one-sided upper 80% Clopper-Pearson bound of the pilot B1
   risk at threshold j; j* = first j in the engine's walk order (per test) with U_j > alpha. Beta-binomial model with
   the pilot ICC rho_I at j* and the risk set to U_j*; run forecast = P(test certifies at j*), computed exactly.
@@ -115,6 +116,8 @@ def clipped_pmf(m, p, rho, n_g):
         full = (ks == 0).astype(float)
     elif p >= 1:
         full = (ks == m).astype(float)
+    elif rho >= 1:                                   # Amendment 1: the rho = 1 limit, all m frames wrong or none
+        full = np.where(ks == m, p, 0.0) + np.where(ks == 0, 1.0 - p, 0.0)
     elif rho > 0:
         s = 1.0 / rho - 1.0
         full = betabinom.pmf(ks, m, p * s, (1.0 - p) * s)
@@ -155,7 +158,8 @@ def run_forecast(acc_g, wr_g, m, alpha, test, start, n_design, n_cert):
     A, W = acc_g.sum(0), wr_g.sum(0)
     U = cp_upper(W, A)
     js = j_star(U, start, alpha)
-    rec = {"j_star": js, "forecast": 0.0, "clipped": 0.0, "rho_I": None, "binomial_fallback": None, "N_g": None}
+    rec = {"j_star": js, "forecast": 0.0, "clipped": 0.0, "rho_I": None, "binomial_fallback": None, "N_g": None,
+           "case": None}
     if js < 0:
         return rec
     f = float(A[js] / (n_design * m))
@@ -163,12 +167,14 @@ def run_forecast(acc_g, wr_g, m, alpha, test, start, n_design, n_cert):
     n_g = int(round(m * f))
     if W[js] > 0:
         rho = icc_anova([(m, int(k)) for k in wr_g[:, js]])
-        if not np.isfinite(rho) or rho >= 1:
+        if not np.isfinite(rho):
             raise SystemExit(f"STOP: rho_I = {rho} at j* = {js}; Part A (b) 4 does not define this case")
+        case = "rho_ge_1" if rho >= 1 else ("rho_le_0" if rho <= 0 else "betabinom")
     else:
-        rho = 0.0
+        rho, case = 0.0, "zero_errors"
     fallback = rho <= 0
-    rec.update({"rho_I": rho, "binomial_fallback": bool(fallback), "N_g": n_g, "f": f, "p": p, "U": float(U[js])})
+    rec.update({"rho_I": rho, "binomial_fallback": bool(fallback), "N_g": n_g, "f": f, "p": p, "U": float(U[js]),
+                "case": case})
     if n_g == 0:
         return rec
     pmf, clip = clipped_pmf(m, p, 0.0 if fallback else rho, n_g)
@@ -249,7 +255,10 @@ def setting_rows(cert, fc, mu_true, alpha, heuristic):
                    "share_binomial_fallback": float(np.mean([bool(r["binomial_fallback"]) for r in fc[(alpha, t)]
                                                              if r["binomial_fallback"] is not None]))
                    if any(r["binomial_fallback"] is not None for r in fc[(alpha, t)]) else None,
-                   "rho_I_median": float(np.median(rhos)) if rhos else None}
+                   "rho_I_median": float(np.median(rhos)) if rhos else None,
+                   "n_rho_ge_1": sum(r["case"] == "rho_ge_1" for r in fc[(alpha, t)]),
+                   "n_zero_errors": sum(r["case"] == "zero_errors" for r in fc[(alpha, t)]),
+                   "n_rho_le_0": sum(r["case"] == "rho_le_0" for r in fc[(alpha, t)])}
     return rows
 
 
@@ -311,7 +320,7 @@ def pct(x, nd=2):
 def table(settings, lines):
     lines.append(f"  {'rho':>4} {'m':>3} {'alpha':>5} {'test':>5} | {'observed':>7} {'CP95':>18} | {'forecast':>8} "
                  f"{'median':>7} {'p10-p90':>17} | {'heur.':>7} | {'gap F':>6} {'gap H':>6} | F in CP | "
-                 f"{'zero':>5} {'j*<=jt':>6} {'clip':>8} {'binom fb':>8} {'rho_I med':>9}")
+                 f"{'zero':>5} {'j*<=jt':>6} {'clip':>8} {'binom fb':>8} {'rho_I med':>9} | rho>=1 W=0 rho<=0")
     for s in settings:
         for t in TESTS:
             r = s["rows"][t]
@@ -324,7 +333,8 @@ def table(settings, lines):
                 f"{pct(r['forecast_median'])} [{100 * r['forecast_p10']:5.2f}, {100 * r['forecast_p90']:5.2f}]% | "
                 f"{pct(r['heuristic'])} | {r['gap_forecast_pp']:+6.2f} {r['gap_heuristic_pp']:+6.2f} | "
                 f"{'yes' if r['forecast_inside_cp'] else 'no':>7} | {100 * r['share_forecast_zero']:4.1f}% {jt} "
-                f"{r['clipped_mass_mean']:8.2e} {fb} {rh}")
+                f"{r['clipped_mass_mean']:8.2e} {fb} {rh} | {r['n_rho_ge_1']:6d} {r['n_zero_errors']:4d} "
+                f"{r['n_rho_le_0']:6d}")
 
 
 def main(argv=None):
@@ -393,7 +403,8 @@ def main(argv=None):
     out.append("\nColumns: observed B1 false-certificate rate [95% CP]; forecast mean, median, 10-90% range over runs; "
                "heuristic; gaps (prediction - observed, pp); forecast inside CP; share of runs with forecast 0; share "
                "of runs (with a true risky threshold) where j* is at or before j_true; mean clipped mass per sign; "
-               "share of binomial fallback; median rho_I.")
+               "share of binomial fallback; median rho_I; pilots with rho_I >= 1 (Amendment 1 limit), with zero "
+               "errors at j*, with rho_I <= 0.")
     for name, st in sets.items():
         out.append(f"\n--- {name.upper()} ---")
         table(st, out)

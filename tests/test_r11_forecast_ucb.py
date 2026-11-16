@@ -171,6 +171,46 @@ def test_run_forecast_zero_cases():
     assert rec["j_star"] == 3 and rec["rho_I"] == 0.0 and rec["binomial_fallback"] is True
 
 
+# ------------------------------------------------------------------ Amendment 1: the rho = 1 limit
+@pytest.mark.parametrize("m,p,ng,n,alpha", [(5, 0.004, 4, 784, 0.01), (10, 0.003, 8, 784, 0.02),
+                                            (12, 0.002, 12, 784, 0.01)])
+def test_rho1_limit_matches_betabinomial_near_1(m, p, ng, n, alpha):
+    lim_pmf, lim_clip = F.clipped_pmf(m, p, 1.0, ng)
+    want = np.zeros(ng + 1)
+    want[0], want[ng] = 1 - p, p
+    assert np.allclose(lim_pmf, want, rtol=0, atol=1e-15) and abs(lim_clip - (p if ng < m else 0.0)) < 1e-15
+    km = F.k_max(n * ng, n * m, alpha, "binom")
+    f_lim = F.total_cdf(lim_pmf, n, km)
+    diffs = []
+    for rho in (0.999, 0.9999):
+        pmf, _ = F.clipped_pmf(m, p, rho, ng)
+        diffs.append(abs(F.total_cdf(pmf, n, km) - f_lim))
+    assert diffs[0] < 5e-3 and diffs[1] < 1e-3 and diffs[1] < diffs[0]
+
+
+def test_run_forecast_rho_ge_1_does_not_stop():
+    """Every pilot sign has all or none of its frames accepted-and-wrong at j*: ICC = 1, limit model used."""
+    m, nd, nc, a = 5, 200, 784, 0.01
+    acc = np.full((nd, 2), m)
+    wr = np.zeros((nd, 2), int)
+    wr[:3, 1] = m
+    rec = F.run_forecast(acc, wr, m, a, "binom", 1, nd, nc)
+    assert rec["j_star"] == 1 and rec["case"] == "rho_ge_1" and rec["rho_I"] >= 1 - 1e-12
+    pmf, clip = F.clipped_pmf(m, rec["p"], 1.0, rec["N_g"])
+    assert rec["forecast"] == F.total_cdf(pmf, nc, F.k_max(nc * rec["N_g"], nc * m, a, "binom"))
+    assert rec["clipped"] == clip
+
+
+def test_case_counts_in_setting_rows():
+    fc = {(0.01, t): [{"forecast": 0.0, "j_true": -1, "j_star": -1, "rho_I": None, "binomial_fallback": None,
+                       "clipped": 0.0, "case": c} for c in ("rho_ge_1", "zero_errors", "zero_errors", "rho_le_0", None)]
+          for t in F.TESTS}
+    cert = {(0.01, t): np.full(5, -1) for t in F.TESTS}
+    rows = F.setting_rows(cert, fc, np.zeros(3), 0.01, 0.2)
+    for t in F.TESTS:
+        assert (rows[t]["n_rho_ge_1"], rows[t]["n_zero_errors"], rows[t]["n_rho_le_0"]) == (1, 2, 1)
+
+
 # ------------------------------------------------------------------ criteria (Part A (e))
 def test_criteria_with_ties_and_edges():
     def mk(o, f, h):

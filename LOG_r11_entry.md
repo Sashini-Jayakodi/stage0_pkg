@@ -117,3 +117,14 @@ failed criterion is reported as failed.
 #### (h) Deviations from the project rules, declared
 - File names `src/r11_forecast_ucb.py`, `tests/test_r11_forecast_ucb.py`, `LOG_r11_entry.md`, `README_r11.md` and
   output folder `runs/20261003_stage1/r11/` are outside the POC-3 `r9_` naming rule, by the author's decision.
+
+#### Amendment 1 (16 Nov 2026, before the r11 run)
+Written before the real run. Only the test suite has executed the code (a 2-run smoke test writing to a temporary
+folder; its output was not read). Changes (b) 4 and (d):
+- If a pilot's rho_I >= 1, the rho = 1 limit of the beta-binomial is used instead of stopping the run: each Cert sign
+  has all m frames wrong with probability p (= U_j* x f, as in (b) 4), otherwise none; the count is then capped at
+  N_g = round(m x f) as in (b) 5. A non-finite rho_I still stops the run.
+- Reported per setting and test: the number of pilots with rho_I >= 1, the number with zero pilot errors at j*, and the
+  number with rho_I <= 0 (the last two use the binomial model, as in (b) 4).
+- Added test: the rho = 1 limit agrees with the beta-binomial forecast at rho = 0.999 and 0.9999, and the difference
+  shrinks as rho approaches 1.
