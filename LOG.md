@@ -1800,3 +1800,38 @@ apart.
 - Deviation from the plan? Yes: not in plan R9; no pre-registration; `c0_` names outside the POC-3 `r9_` rule
   (author's naming); output folder beside `a0/` under runs/20261003_stage1/ (new folder, no POC-1 file changed).
 - Next step: none set; the author decides.
+
+## c1: transfer bound from the pooled committed error to class groups on GTSRB — EXPLORATORY
+
+- Date: 2026-11-17 / Stage: c1, exploratory addition / Run tag: runs/20261003_stage1/c1
+- Status: EXPLORATORY (post hoc). No Part A, no pre-registration, no certificate claim and no criteria; this entry
+  was written after the run. GTSRB tracks had all been seen before. Nothing here is a test.
+- Config hash / checkpoint hash / git commit: `src/c1_transfer_check.py` SHA-256
+  f8d747b95b6345676e6d9f7bd2d71f36bd87aeedf784344698309ab1d9a56425 (equal to the code hash in the summary);
+  `tests/test_c1_transfer_check.py` 0af360146bc7a60e5281b1b6858f23d25acc394782901c188522804a3e9bcc72; outputs
+  `c1_summary.json` 25e13397af3d267efba8705420e59f181308a5149e7517d788607271e096f776, `c1_printout.txt`
+  cf9206a3b00ffc8c1613a20e6af2690d10a52a119a277b2e5e9041f9206fa993. Frozen blobs checked first; the only input is
+  `c0_summary.json` (ade431f0...ad44, c0 entry), hash-checked; nothing recomputed from the pool. Committed with this
+  entry.
+- What was done: c0 Grouping 2 (r1 right-of-way {14, 13, 17, 12}, r2 speed limits {0-5, 7, 8}, r3 others incl.
+  class 6), S1, S2-sum, S2-min, S3, S4, alpha 1/2/3/5%, at the full-pool certified thresholds (n = 1,046). Per group:
+  share of committed tracks n_g / n_c and pooled committed error k / n_c. Transfer bound U_g = CP_upper(k_N, 784, 0.025)
+  / CP_lower(w_N, 784, 0.025), one-sided Clopper-Pearson, with k_N = round half up(784 k / 1,046) and
+  w_N = round half up(784 n_g / 1,046); it uses only the pooled error mass (all errors placed in the group, worst
+  case), so a group's own observed error does not enter. Transfer certifies if U_g < alpha. Largest pooled committed
+  error the transfer accepts (commit fraction and w_N held fixed): x_max = largest error count at 784 with
+  CP_upper(x) < alpha CP_lower(w_N), by search, and the supremum e_max = (x_max + 0.5) / (784 n_c / 1,046). r2 only:
+  c0 direct test at its observed error, scheme b (level 0.05), expected committed per 784 draw against the stable
+  minimum m_all, printed FEASIBLE or NOT.
+- Result numbers: U_g >= alpha in all 60 rows (transfer certifies no group in any cell); smallest U_g / alpha 1.53
+  (r3, S1 at 3%: U_g 4.60%). At 1% no pooled error count is accepted for any group (x_max none, including 0 errors). r1 is accepted
+  only at 5% and only with 0 errors at 784 (e_max 0.066%); r2 e_max 0.068-0.070% at 2%, 0.203-0.210% at 3%,
+  0.595-0.598% at 5% (S4 at 2%: none); r3 e_max up to 1.262% (5%). Shares: r1 16.0-35.2%, r2 0.0-33.4%, r3
+  49.3-64.8%. r2 direct test FEASIBLE in 11 of 20 cells (S1 3, 5%; S2-sum 2, 3, 5%; S2-min 2, 3%; S3 3, 5%; S4 3, 5%),
+  NOT in 9 (all five scores at 1%; S1 2%, S2-min 5%, S3 2%, S4 2%).
+- Checks: 62 of 62 script checks PASS (c0 all_pass, Grouping 2 class lists, U_g < alpha exactly when k_N <= x_max in
+  every row). 14 synthetic tests (brute-force references, tamper test) pass; full suite 693 passed.
+- Decision taken and why: committed for traceability; labelled exploratory. No reading is attached.
+- Deviation from the plan? Yes: not in plan R9; no pre-registration; `c1_` names outside the POC-3 `r9_` rule
+  (author's naming); output folder beside `c0/` under runs/20261003_stage1/ (new folder, no POC-1 file changed).
+- Next step: none set; the author decides.
