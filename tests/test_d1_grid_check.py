@@ -68,6 +68,9 @@ def test_worker_reads_only_given_rows(tmp_path):
     G._worker_init(str(tmp_path / "x.npy"))
     out = G._worker(("contrast", 7, [(0, np.array([0, 1])), (1, np.array([2, 3, 4]))]))
     assert out.shape == (5, 40, 40, 3) and out.max() < 255
+    # the d0 worker runs in the same pool for the L6 check and must see the same cache
+    ref = G.D0._worker(("contrast", 1, [(0, np.array([0, 1]))]))
+    assert np.array_equal(ref, G._worker(("contrast", 6, [(0, np.array([0, 1]))])))
 
 
 def test_tampered_input_is_refused(tmp_path):

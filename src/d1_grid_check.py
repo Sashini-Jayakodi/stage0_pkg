@@ -22,6 +22,7 @@ Usage:  py -3.12 -m src.d1_grid_check --run runs/20261003_stage1 --config config
 import argparse
 import json
 import multiprocessing as mp
+import os
 import time
 from pathlib import Path
 
@@ -84,6 +85,7 @@ _X = None
 def _worker_init(path):
     global _X
     _X = np.load(path, mmap_mode="r")
+    D0._X = _X                                                   # the d0 worker (L6 check) runs in the same pool
     DC.install()
 
 
@@ -190,8 +192,12 @@ def main(argv=None):
     local = np.concatenate(rows)
     chunks = [items[i:i + CHUNK] for i in range(0, len(items), CHUNK)]
     l6_equals_sev1 = True
-    with mp.get_context("spawn").Pool(a.workers, initializer=D0._worker_init, initargs=(str(img_path),)) as pool_s1, \
-            mp.get_context("spawn").Pool(a.workers, initializer=_worker_init, initargs=(str(img_path),)) as pool:
+    # one pool only, one BLAS thread per worker: two pools of 12 spawned workers with full OpenBLAS thread buffers
+    # ran out of memory on the first attempt (no condition had finished; no number was produced)
+    for v in ("OPENBLAS_NUM_THREADS", "OMP_NUM_THREADS", "MKL_NUM_THREADS"):
+        os.environ[v] = "1"                                      # inherited by the spawned workers only
+    with mp.get_context("spawn").Pool(a.workers, initializer=_worker_init, initargs=(str(img_path),)) as pool:
+        pool_s1 = pool
         for name in DC.CORRUPTIONS:
             for lv in LEVELS:
                 tc = time.time()

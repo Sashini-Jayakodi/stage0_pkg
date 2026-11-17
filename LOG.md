@@ -1988,3 +1988,12 @@ apart.
 - Deviation from the plan? Yes: not in plan R9; `d1_` names (author's naming); output folder
   `runs/20261003_stage1/d1/`.
 - Next step: one run; the printout goes to the author; then the results entry.
+
+### d1 Amendment 1 (2026-11-17, before any d1 number) — EXPLORATORY
+
+- The first start on code 54417b3 stopped at worker start-up with OpenBLAS "memory allocation still failed" errors:
+  two pools of 12 spawned workers (the second only for the L6 check) each reserved OpenBLAS buffers for every thread.
+  No condition had finished, no number was printed, and no output folder was written.
+- Code change only (no definition changes): one worker pool, with OPENBLAS_NUM_THREADS, OMP_NUM_THREADS and
+  MKL_NUM_THREADS set to 1 for the spawned workers; the L6 check runs the d0 severity-1 path in the same pool. One
+  test added (11 in `tests/test_d1_grid_check.py`).
