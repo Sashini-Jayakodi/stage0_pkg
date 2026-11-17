@@ -1952,3 +1952,39 @@ apart.
   Per-corruption checkpoint files (`d0/partial/`) were deleted after the run (author's decision); they duplicate the
   summary.
 - Next step: d1 (design tracks only), as the author decides.
+
+## d1: corruption grid on the GTSRB design tracks — EXPLORATORY (definitions, before the run)
+
+- Date: 2026-11-17 / Stage: d1, exploratory addition / Run tag: runs/20261003_stage1/d1
+- Status: EXPLORATORY (post hoc). Not in plan R9; no criteria, no certificate. This block fixes the severity grid and
+  the definitions before any d1 number exists; the results follow in a separate entry. GTSRB tracks had all been
+  seen before.
+- Data: the 261 design tracks only (7,830 frames). No pool track is read: the POC-2 Stage 2 design loader refuses the
+  pool table, and the image cache `train_112.npy` (SHA-256 checked) is indexed at design-track rows only, asserted at
+  run time.
+- Severity grid (fixed): for each corruption (fog, motion_blur, gaussian_noise, contrast, brightness; imagecorruptions
+  1.1.2, fog through `src/d0_corrupt_compat.py` as in d0):
+  - L1-L6: x' = round(clip((1 - t) clean + t corrupt(clean, severity 1))) as uint8, t = 0.1, 0.2, 0.3, 0.5, 0.75, 1.0;
+  - L7-L10: corrupt(clean, severity 2, 3, 4, 5).
+  - Same corruption, level and seed for every frame of a track: the global numpy RNG is seeded once per track with
+    [20261117, track code] (the d0 rule), frames in frame order. L1-L6 therefore share one severity-1 draw per frame,
+    and L6 equals severity 1 exactly (checked at run time against the d0 corruption path).
+- Unchanged: frozen POC-1 ResNet-18 (checkpoint 8652735...0bcc), head, gate tau (gate recomputed on corrupted frames),
+  R9 Stage 3 design values (`stage3_design.json`).
+- Reported per corruption x level (and clean), on the design tracks:
+  - frame error = top-1 head error over all frames, before the gate; gate pass rate;
+  - track-consensus error = a0 rule (majority vote of frame predictions over all frames, ties to the larger summed
+    pre-gate margin, then the smaller class id), wrong if the vote is not the track's class;
+  - S1, S2-sum, S3, S4: commit rate (over all 261 tracks) and committed error at the design-fixed threshold = the
+    Stage 3 reference grid point per alpha (author's choice): the loosest grid point whose clean design committed error
+    is <= alpha, alpha 2, 3, 5% (author's choice, as d0).
+  - S2-sum's ICP/ECDF was fitted on these same design tracks (two halves), so its d1 numbers are in-sample for its
+    calibration.
+- Run-time checks: freeze blobs; input hashes; design-only image rows; clean re-embedding within 1e-3 of the stored
+  embeddings; clean design commit fractions reproduce `stage3_design.json`; clean committed error at each reference
+  point <= alpha; fog patch reference; L6 equals severity 1.
+- Code: `src/d1_grid_check.py`, `tests/test_d1_grid_check.py` (10 synthetic tests: levels, blend against a pixel
+  loop, shared severity-1 draw, threshold metrics against a loop, tamper test). Reuses d0 helpers without change.
+- Deviation from the plan? Yes: not in plan R9; `d1_` names (author's naming); output folder
+  `runs/20261003_stage1/d1/`.
+- Next step: one run; the printout goes to the author; then the results entry.
