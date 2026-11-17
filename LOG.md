@@ -1915,3 +1915,40 @@ apart.
   - Environment at the run: Python 3.12.10, numpy 2.5.2, scipy 1.18.1, Pillow 12.3.0, torch 2.14.1+cu132.
 - Code: rule, report and checkpoints added to `src/d0_envelope_check.py`; 9 new synthetic tests (26 in
   `tests/test_d0_envelope_check.py`).
+
+## d0 results: corruption envelope on GTSRB — EXPLORATORY
+
+- Date: 2026-11-17 / Stage: d0, exploratory addition / Run tag: runs/20261003_stage1/d0
+- Status: EXPLORATORY (post hoc). Definitions and choices in the d0 entry and d0 Amendment 1 above, both committed
+  before the run (647438c, 1d5b0d4). One run, on code 1d5b0d4. GTSRB tracks had all been seen before.
+- Config hash / checkpoint hash / git commit: `src/d0_envelope_check.py` SHA-256
+  a53e2f1995bb71285b97b7bbf762496d27d826018adf5b5f615244d0bb0ab7b2, `src/d0_corrupt_compat.py`
+  4a51ea884841fd3503e1164f31e92864a700a743aae129b10f07a41cfbf3d485 (both equal to the code hashes in the summary);
+  `tests/test_d0_envelope_check.py` 591ee1ebc980b89c4dd4b300de899a5e0e4293457e9b6647437435efa0862e32. Outputs
+  `d0_summary.json` 7beb0258e7958f3af705fcc0ccaf664322a426ec36215e9b491abb55a9827f89, `d0_printout.txt`
+  aa36fd72097732d01f0a7f2d2960d3ac7a7c359a7dc5577306b7c713d2e20abc. Frozen blobs checked first; POC-1 checkpoint
+  8652735...0bcc; every input hash-checked.
+- Result numbers:
+  - Checks 15 of 15 PASS: clean re-embedding max |difference| 8.17e-05 against the stored embeddings; 68 Stage 4 cells
+    reproduce; clean sign-level certified indices equal R9 Stage 3; fog patch equals the package on 3 cache images.
+  - Frame error (clean 7.67%) at severity 1 to 5: fog 39.80 to 84.37%, motion_blur 8.45 to 47.21%, gaussian_noise
+    46.75 to 92.79%, contrast 12.85 to 67.47%, brightness 8.59 to 26.47%.
+  - Sign level: 791 certifications over 26 conditions x 4 scores x 3 alphas x 5 re-splits; pool sign risk above alpha
+    in 1 (S4, motion_blur-3, 2%, re-split 0: 2.03%).
+  - Frame level: 1,058 certifications; pool frame risk above alpha in 13 (primary flag, largest 5.81% at 5%); pool sign
+    risk above alpha in 709 (secondary flag), largest 20.86%. The pool includes the 784 Cert tracks of each re-split,
+    so both flags are measured mostly in-sample.
+  - Decision rule (Amendment 1): MET. Corruptions with sign-level boundary (minimum over re-splits) in 1..4: S1 2 (3%),
+    4 (5%); S2-sum 3, 2; S3 2, 4; S4 2, 3.
+  - Reported, not a gate: frame-level boundary wider than sign-level in 32 of 60 score x alpha x corruption cells.
+  - GPU time 160.2 s (RTX 5050, embedding forward passes incl. transfer); corruption plus embedding wall time 263.7 s
+    with 12 CPU workers; total 300.6 s.
+- Reading (exploratory): at 112 px the package's severities hit the backbone hard (severity 1 of fog and
+  gaussian_noise already gives about 40 to 47% frame error), so most boundaries mark where the classifier fails
+  rather than a limit of the certificate. The wider frame-level envelope goes with a weaker promise: at its certified
+  thresholds the sign-level error was above alpha in 709 of 1,058 cases.
+- Deviation: the printed and stored label still reads "no pre-registration, no criteria"; it was written before
+  Amendment 1 added the decision rule and was not updated. Output left as produced; this entry is the correction.
+  Per-corruption checkpoint files (`d0/partial/`) were deleted after the run (author's decision); they duplicate the
+  summary.
+- Next step: d1 (design tracks only), as the author decides.
