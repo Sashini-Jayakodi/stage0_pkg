@@ -23,6 +23,11 @@ and checked as in R9 Stage 3; Cert = 784 tracks):
   Sign-level certifications are flagged when their sign risk > alpha.
 Envelope boundary (per corruption, score, alpha, level, re-split): the last severity s such that severities 1..s are
 all certified (0 if severity 1 is not); also the minimum over re-splits.
+Decision rule (LOG d0 Amendment 1, written before the run): met if, at alpha 3% or 5% for at least one score, at least
+2 of the 5 corruptions have a sign-level boundary (minimum over re-splits) in 1..4. Frame-level boundaries wider than
+sign-level ones are reported, not a gate.
+Each corruption's results are written to d0/partial/<corruption>.json when it finishes; a rerun reuses only
+checkpoints written by the same code (SHA-256 of both d0 files), so a stop does not lose finished corruptions.
 
 Usage:  py -3.12 -m src.d0_envelope_check --run runs/20261003_stage1 --config configs/poc.yaml
 """
@@ -117,6 +122,53 @@ def boundary(certified):
             break
         b += 1
     return b
+
+
+RULE_ALPHAS, RULE_RANGE, RULE_MIN_CORRUPTIONS = (0.03, 0.05), (1, 4), 2       # LOG d0 Amendment 1
+
+
+def decision_rule(env, scores=SCORES, alphas=RULE_ALPHAS, corruptions=None):
+    """Amendment 1: met if, at alpha 3% or 5% for at least one score, at least 2 of the 5 corruptions have a
+    sign-level boundary (minimum over re-splits) in 1..4 inclusive. Returns (met, {(score, alpha): count})."""
+    corruptions = corruptions or DC.CORRUPTIONS
+    cells = {(s, al): sum(RULE_RANGE[0] <= min(env[(s, al, c, "sign")]) <= RULE_RANGE[1] for c in corruptions)
+             for s in scores for al in alphas}
+    return any(n >= RULE_MIN_CORRUPTIONS for n in cells.values()), cells
+
+
+def frame_wider(env, scores=SCORES, alphas=ALPHAS, corruptions=None):
+    """Reported, not a gate: cells whose frame-level boundary (min over re-splits) exceeds the sign-level one."""
+    corruptions = corruptions or DC.CORRUPTIONS
+    return [(s, al, c) for s in scores for al in alphas for c in corruptions
+            if min(env[(s, al, c, "frame")]) > min(env[(s, al, c, "sign")])]
+
+
+# ------------------------------------------------------------------ per-corruption checkpoints (limit stops)
+def code_hashes():
+    return {f"{m}.py": sha256_file(Path(__file__).parent / f"{m}.py") for m in ("d0_envelope_check", "d0_corrupt_compat")}
+
+
+def save_partial(path, name, conds, gpu_s, wall_s, codes):
+    """One corruption's five severities, written as soon as they are done; tagged with the code hashes."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    js = {"corruption": name, "code_sha256": codes, "gpu_seconds": gpu_s, "wall_seconds": wall_s,
+          "conditions": {str(sev): c for sev, c in conds.items()}}
+    path.write_text(json.dumps(S2.jsonable(js)))
+
+
+def load_partial(path, name, codes):
+    """Reuse a checkpoint only if it exists, is for this corruption, and was written by exactly this code."""
+    if not path.exists():
+        return None
+    js = json.loads(path.read_text())
+    if js.get("corruption") != name or js.get("code_sha256") != codes:
+        return None
+    conds = {}
+    for sev, c in js["conditions"].items():
+        c["scores"] = {s: {float(al): v for al, v in cell.items()} for s, cell in c["scores"].items()}
+        conds[int(sev)] = c
+    assert sorted(conds) == list(DC.SEVERITIES), f"{path}: incomplete checkpoint"
+    return conds, float(js["gpu_seconds"]), float(js["wall_seconds"])
 
 
 # ------------------------------------------------------------------ corruption workers (CPU)
@@ -290,8 +342,22 @@ def main(argv=None):
     local = np.concatenate(rows)
     chunks = [items[i:i + CHUNK] for i in range(0, len(items), CHUNK)]
     cpu_wall = 0.0
+    codes_now = code_hashes()
+    pdir = run / "d0" / "partial"
+    resumed = []
     with mp.get_context("spawn").Pool(a.workers, initializer=_worker_init, initargs=(str(img_path),)) as pool:
         for name in DC.CORRUPTIONS:
+            p = load_partial(pdir / f"{name}.json", name, codes_now)
+            if p is not None:                                          # finished before a stop: reuse, do not rerun
+                conds, g_s, w_s = p
+                gpu[0] += g_s
+                cpu_wall += w_s
+                resumed.append(name)
+                for sev, c in conds.items():
+                    res[(name, sev)] = c
+                print(f"  {name}: reused checkpoint {pdir / (name + '.json')}", flush=True)
+                continue
+            g0, w0, conds = gpu[0], cpu_wall, {}
             for sev in DC.SEVERITIES:
                 tc = time.time()
                 parts = []
@@ -301,10 +367,11 @@ def main(argv=None):
                 emb_c[local] = np.concatenate(parts)
                 cpu_wall += time.time() - tc
                 passed_c = np.sqrt(mahal_sq(d["head"], emb_c).min(1)) <= d["tau"]
-                res[(name, sev)] = evaluate(emb_c, passed_c, d, y, models, des, f_frame, n_design, n_design_frames, tests)
-                r = res[(name, sev)]
-                print(f"  {name} {sev}: frame error {pc(r['frame_error'])}%, gate pass {pc(r['gate_pass'])}% "
-                      f"({time.time() - tc:.0f} s)", flush=True)
+                conds[sev] = evaluate(emb_c, passed_c, d, y, models, des, f_frame, n_design, n_design_frames, tests)
+                res[(name, sev)] = conds[sev]
+                print(f"  {name} {sev}: frame error {pc(conds[sev]['frame_error'])}%, gate pass "
+                      f"{pc(conds[sev]['gate_pass'])}% ({time.time() - tc:.0f} s)", flush=True)
+            save_partial(pdir / f"{name}.json", name, conds, gpu[0] - g0, cpu_wall - w0, codes_now)
 
     # envelope boundaries
     env = {}
@@ -372,6 +439,17 @@ def main(argv=None):
     out(f"\nTotals over {len(res)} conditions x {len(SCORES)} scores x {len(ALPHAS)} alphas x 5 re-splits: "
         f"sign level certified {n_sign_cert}, pool sign risk > alpha {n_flag_s}; frame level certified {n_frame_cert}, "
         f"pool frame risk > alpha {n_flag_f} (primary), pool sign risk > alpha {n_flag_fs} (secondary).")
+    met, rule_cells = decision_rule(env)
+    out("\nDecision rule (Amendment 1): proceed to a full POC only if, at alpha 3% or 5% for at least one score, at "
+        "least 2 of 5 corruptions have a sign-level boundary (minimum over re-splits) in severity 1..4.")
+    out("  corruptions with boundary in 1..4: " + "; ".join(f"{s} {100 * al:g}% {n}" for (s, al), n in rule_cells.items()))
+    out(f"  Rule met: {'YES' if met else 'NO'}")
+    wide = frame_wider(env)
+    out(f"Reported, not a gate: frame-level boundary wider than sign-level (minimum over re-splits) in {len(wide)} of "
+        f"{len(SCORES) * len(ALPHAS) * len(DC.CORRUPTIONS)} score x alpha x corruption cells"
+        + (": " + ", ".join(f"{s} {100 * al:g}% {c}" for s, al, c in wide) if wide else "."))
+    if resumed:
+        out(f"Reused per-corruption checkpoints (same code hashes): {', '.join(resumed)}")
     out(f"GPU time (embedding forward passes incl. transfer, {len(res) - 1} corrupted conditions + clean check): "
         f"{gpu[0]:.1f} s on {torch.cuda.get_device_name(0) if device.type == 'cuda' else 'cpu'} | corruption + "
         f"embedding wall time {cpu_wall:.1f} s ({a.workers} CPU workers) | total {secs} s")
@@ -380,8 +458,7 @@ def main(argv=None):
     od.mkdir(exist_ok=True)
     import imagecorruptions, skimage, cv2
     summary = {"label": LABEL, "frozen_blobs": blobs,
-               "code_sha256": {f"{m}.py": sha256_file(Path(__file__).parent / f"{m}.py")
-                               for m in ("d0_envelope_check", "d0_corrupt_compat")},
+               "code_sha256": codes_now,
                "inputs_sha256": {**d["inputs_sha256"], "stage3_design.json": R3.DESIGN_SHA256,
                                  "stage4_summary.json": R3.STAGE4_SUMMARY_SHA256, "train_meta.csv": R3.TRAIN_META_SHA256,
                                  "stage3_summary.json": STAGE3_SUMMARY_SHA256, "train_112.npy": TRAIN112_SHA256,
@@ -403,6 +480,10 @@ def main(argv=None):
                                                                  for s, c in r["scores"].items()}}
                            for (n, sv), r in res.items()},
                "envelope": {f"{s}|{al}|{n}|{l}": b for (s, al, n, l), b in env.items()},
+               "decision_rule": {"met": met, "counts": {f"{s}|{al}": n for (s, al), n in rule_cells.items()},
+                                 "alphas": RULE_ALPHAS, "range": RULE_RANGE, "min_corruptions": RULE_MIN_CORRUPTIONS,
+                                 "boundary": "minimum over re-splits"},
+               "frame_wider_than_sign": [f"{s}|{al}|{c}" for s, al, c in wide], "resumed": resumed,
                "totals": {"sign_certified": n_sign_cert, "sign_flag": n_flag_s, "frame_certified": n_frame_cert,
                           "frame_flag_primary": n_flag_f, "frame_flag_secondary": n_flag_fs},
                "gpu_seconds": round(gpu[0], 1), "corrupt_embed_wall_seconds": round(cpu_wall, 1), "seconds": secs}

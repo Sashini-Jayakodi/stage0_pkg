@@ -123,6 +123,64 @@ def test_worker_output_independent_of_chunking(tmp_path):
     assert np.array_equal(whole, split)
 
 
+def fake_env(sign_min, frame_min=None):
+    """env with every seed equal to the given minimum per corruption, for every score and alpha."""
+    env = {}
+    for s in D.SCORES:
+        for al in D.ALPHAS:
+            for c, b in zip(DC.CORRUPTIONS, sign_min):
+                env[(s, al, c, "sign")] = [b, 5, 5, 5, 5]
+                env[(s, al, c, "frame")] = [(frame_min or sign_min)[DC.CORRUPTIONS.index(c)]] + [5] * 4
+    return env
+
+
+def brute_rule(env):
+    for s in D.SCORES:
+        for al in (0.03, 0.05):
+            if sum(1 <= min(env[(s, al, c, "sign")]) <= 4 for c in DC.CORRUPTIONS) >= 2:
+                return True
+    return False
+
+
+@pytest.mark.parametrize("bounds, met", [([5, 5, 5, 5, 5], False), ([0, 0, 0, 0, 0], False), ([1, 5, 5, 5, 5], False),
+                                         ([1, 4, 5, 0, 5], True), ([2, 3, 4, 1, 0], True), ([5, 0, 4, 5, 0], False)])
+def test_decision_rule_uses_min_boundary_in_one_to_four(bounds, met):
+    env = fake_env(bounds)
+    got, cells = D.decision_rule(env)
+    assert got == met == brute_rule(env)
+    assert set(cells) == {(s, al) for s in D.SCORES for al in (0.03, 0.05)}
+
+
+def test_decision_rule_only_one_score_and_alpha_needed():
+    env = fake_env([5, 5, 5, 5, 5])
+    env[("S3", 0.05, "fog", "sign")] = [5, 2, 5, 5, 5]                # min 2
+    env[("S3", 0.05, "contrast", "sign")] = [4, 4, 4, 4, 4]
+    env[("S1", 0.02, "fog", "sign")] = [1] * 5                        # 2% does not count
+    assert D.decision_rule(env)[0] and D.decision_rule(env)[1][("S3", 0.05)] == 2
+
+
+def test_frame_wider_compares_minimum_boundaries():
+    env = fake_env([2, 5, 0, 3, 3], frame_min=[3, 5, 0, 3, 1])
+    wide = D.frame_wider(env)
+    assert wide == [(s, al, "fog") for s in D.SCORES for al in D.ALPHAS]
+
+
+def test_partial_roundtrip_and_code_hash_guard(tmp_path):
+    cond = {"frame_error": 0.1, "gate_pass": 0.9,
+            "scores": {"S1": {0.02: [{"seed": 0, "sign": None,
+                                      "frame": {"j": 3, "commit_rate": 0.5, "n_c": 5, "k": 0, "sign_risk": 0.0,
+                                                "frame_commit_rate": 0.25, "frame_risk": 1 / 3}}]}}}
+    conds = {s: cond for s in DC.SEVERITIES}
+    codes = {"a.py": "x"}
+    p = tmp_path / "partial" / "fog.json"
+    D.save_partial(p, "fog", conds, 1.5, 2.5, codes)
+    back, g, w = D.load_partial(p, "fog", codes)
+    assert back == conds and (g, w) == (1.5, 2.5)
+    assert D.load_partial(p, "fog", {"a.py": "y"}) is None           # other code: recompute
+    assert D.load_partial(p, "contrast", codes) is None               # other corruption
+    assert D.load_partial(tmp_path / "none.json", "fog", codes) is None
+
+
 def test_tampered_input_is_refused(tmp_path):
     f = tmp_path / "x.json"
     f.write_text("{}")

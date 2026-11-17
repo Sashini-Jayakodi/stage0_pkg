@@ -1884,3 +1884,34 @@ apart.
 - Deviation from the plan? Yes: not in plan R9; `d0_` names outside the POC-3 `r9_` rule (author's naming); output
   folder `runs/20261003_stage1/d0/` (new folder, no POC-1 file changed).
 - Next step: one run; the whole printout goes to the author; then the results entry.
+
+### d0 Amendment 1 (2026-11-17, before the run; no d0 number exists yet) — EXPLORATORY
+
+- Changes the d0 entry above from "no criteria" to one decision rule. Everything else in that entry is unchanged.
+- Decision rule (author's rule; definitions are the author's choices): proceed to a full POC only if, at alpha = 3% or
+  5% for at least one score, at least 2 of 5 corruptions have a sign-level boundary between severity 1 and 4. Boundary
+  for a corruption = the minimum over the 5 re-splits of the per-re-split boundary; "between 1 and 4" = 1..4
+  inclusive (0, i.e. not certified at severity 1, and 5, i.e. still certified at severity 5, do not count). Scores
+  S1, S2-sum, S3, S4.
+- Reported, not a gate: cells (score x alpha x corruption) where the frame-level boundary is wider than the sign-level
+  boundary (minimum over re-splits on both sides).
+- Run safety: each corruption's results are written to `runs/20261003_stage1/d0/partial/<corruption>.json` when its
+  five severities finish, tagged with the SHA-256 of `src/d0_envelope_check.py` and `src/d0_corrupt_compat.py`. A
+  rerun after a stop reuses only checkpoints written by the same code and computes the rest; reused corruptions are
+  named in the printout.
+- Install record, full wheel URLs (SHA-256 as in `WHEELS_SHA256`, checked at run time):
+  - https://files.pythonhosted.org/packages/3e/40/ff4a79ad7ab6463fe2fde7912b71084a6606e33676078a50b40a3377112b/imagecorruptions-1.1.2-py3-none-any.whl
+    d0e4bf529ba6fbb27d8aba1bde7c5db43bf2b969b2c767c11419e939e3e365b8
+  - https://files.pythonhosted.org/packages/21/f0/9fa6e85cb10c8eb36a0222d27e50fe381b86ce49a55446bf39f491727564/opencv_python-5.0.0.93-cp37-abi3-win_amd64.whl
+    f90ba04b8f73bc5c3814037699739f0156f597338a98f05956c684e7c3ca10d2
+  - https://files.pythonhosted.org/packages/23/4d/a3cc1e96f080e253dad2251bfae7587cf2b7912bcd76fd43fd366ff35a87/scikit_image-0.26.0-cp312-cp312-win_amd64.whl
+    abed017474593cd3056ae0fe948d07d0747b27a085e92df5474f4955dd65aec0
+  - https://files.pythonhosted.org/packages/30/34/7fb055831d4dd5aa9994cc296b61e341f4cd5221c8119b15b0617c721c61/imageio-2.38.2-py3-none-any.whl
+    d71174e7af8369a4f73525c5b1c0d2621eb2827ed3cfd7327560be02ac1b4084
+  - https://files.pythonhosted.org/packages/23/93/4e45e37f26c820216704b36b8e67cc55c490a7abd287a78a26a2c0e21386/lazy_loader-0.6-py3-none-any.whl
+    77253be3391b06124a0e16105bd663b6c54470af1a9ca8e1cf026f38d58ed056
+  - https://files.pythonhosted.org/packages/ec/d4/6d662a26635f8eaae745437d1f662a455d635a16a5055dba0314d8b30b68/tifffile-2026.11.12-py3-none-any.whl
+    f7d46b81f8e55e607d0ad3d18c82acac6f791828fc0329d9263a664f12b6e32d
+  - Environment at the run: Python 3.12.10, numpy 2.5.2, scipy 1.18.1, Pillow 12.3.0, torch 2.14.1+cu132.
+- Code: rule, report and checkpoints added to `src/d0_envelope_check.py`; 9 new synthetic tests (26 in
+  `tests/test_d0_envelope_check.py`).
