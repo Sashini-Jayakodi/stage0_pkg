@@ -1,7 +1,13 @@
 {
-  "includeCoAuthoredBy": false,
   "attribution": {
     "commit": "",
     "pr": ""
+  },
+  "includeCoAuthoredBy": false,
+  "permissions": {
+    "allow": [
+      "PowerShell(py -3.12 -c \"import imagecorruptions, sys; print\\(imagecorruptions.__file__\\)\")",
+      "PowerShell(py -3.12 -m pip show imagecorruptions scikit-image wand opencv-python)"
+    ]
   }
 }
