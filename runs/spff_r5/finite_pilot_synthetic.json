@@ -1,0 +1,45 @@
+{
+  "setting": {
+    "seed": 20261119,
+    "calibration_signs": 8,
+    "alpha": 0.3,
+    "delta": 0.3,
+    "bootstrap_replicates": 40,
+    "signature_probabilities": [
+      0.5,
+      0.2,
+      0.3
+    ]
+  },
+  "exact_population_severity": 0.0017718750000000004,
+  "rows": [
+    {
+      "pilot_signs": 200,
+      "replicates": 30,
+      "absolute_error_mean": 0.0006868124693592653,
+      "honest_interval_coverage": 1,
+      "honest_interval_mean_width": 1,
+      "percentile_bootstrap_coverage": 0.9666666666666667,
+      "percentile_bootstrap_mean_width": 0.003700493237557583
+    },
+    {
+      "pilot_signs": 1000,
+      "replicates": 30,
+      "absolute_error_mean": 0.00022397861701031584,
+      "honest_interval_coverage": 1,
+      "honest_interval_mean_width": 0.6623157836559351,
+      "percentile_bootstrap_coverage": 0.8333333333333334,
+      "percentile_bootstrap_mean_width": 0.001526385299539345
+    },
+    {
+      "pilot_signs": 3000,
+      "replicates": 30,
+      "absolute_error_mean": 0.00007026003154589949,
+      "honest_interval_coverage": 1,
+      "honest_interval_mean_width": 0.38312992488400405,
+      "percentile_bootstrap_coverage": 0.9333333333333333,
+      "percentile_bootstrap_mean_width": 0.000723162842555129
+    }
+  ],
+  "caveat": "Synthetic fixed three-pattern case. Percentile intervals are not finite-sample guarantees. Broad interval covers by construction but may not resolve risk."
+}
