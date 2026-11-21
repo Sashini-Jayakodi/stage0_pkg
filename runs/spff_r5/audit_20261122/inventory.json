@@ -1,0 +1,443 @@
+{
+  "files": [
+    {
+      "path": "docs/spff-r5-conditional-pilot-findings.md",
+      "bytes": 7927,
+      "sha256": "2f0c37c88b84f4f929ff0e6f3ee3bcdaf705c53ab77dae5166220db6aaa7a6d8",
+      "tracked": false,
+      "ignored": false
+    },
+    {
+      "path": "docs/spff-r5-fft-findings.md",
+      "bytes": 3613,
+      "sha256": "0ca8a7b6bf7df47686fbefa393191b412bc3acb4d2ef4717755f6d7bdc73ed9a",
+      "tracked": false,
+      "ignored": false
+    },
+    {
+      "path": "docs/spff-r5-handoff.md",
+      "bytes": 13255,
+      "sha256": "58fe52d60330f4d79d45aa8581dd0b9dbd5456878848091a4357d73ce199bda8",
+      "tracked": true,
+      "ignored": false
+    },
+    {
+      "path": "docs/spff-r5-mathematical-audit.md",
+      "bytes": 30908,
+      "sha256": "db5d3f5a40ce0f763ff509b4295690c1c3c02fd8b420aae213dbbfa124926860",
+      "tracked": false,
+      "ignored": false
+    },
+    {
+      "path": "docs/spff-r5-phase-b-research-note.md",
+      "bytes": 14195,
+      "sha256": "fd448938fcecf6725fec9adff4742f4896367734853048d32720b2563a5100a0",
+      "tracked": false,
+      "ignored": false
+    },
+    {
+      "path": "docs/spff-r5-pivotality-findings.md",
+      "bytes": 4999,
+      "sha256": "b4986bab85dcbf3674ae2b8d22b401d496ec1790168fcf46430bd1d90dff8312",
+      "tracked": false,
+      "ignored": false
+    },
+    {
+      "path": "docs/spff-r5-results.md",
+      "bytes": 3074,
+      "sha256": "992853b4da7d699b8f76019735bd5c7ae5364ad884de5c01337dcc7b893bbf82",
+      "tracked": true,
+      "ignored": false
+    },
+    {
+      "path": "experiments/spff_r5_conditional_pilot_prototype.py",
+      "bytes": 3434,
+      "sha256": "9d647570eda5a893be09a4ddfd1be2aad11f8c90fb188ee85b1fcaaf7bee9a64",
+      "tracked": false,
+      "ignored": false
+    },
+    {
+      "path": "experiments/spff_r5_conditional_pilot_results.json",
+      "bytes": 999,
+      "sha256": "0c1c378c6b12e08b2278d0184955cc01798f6476168f35240f150e0aeac735f9",
+      "tracked": false,
+      "ignored": false
+    },
+    {
+      "path": "experiments/spff_r5_conditional_pilot_verify.py",
+      "bytes": 1935,
+      "sha256": "195d098836c7f1b9908a987d3b3239be1a0fbff6a7e623ad1242735b7251116b",
+      "tracked": false,
+      "ignored": false
+    },
+    {
+      "path": "experiments/spff_r5_fft_path_experiment.py",
+      "bytes": 1242,
+      "sha256": "47e5729aa89505097ca4d2f44852e34a543fd3df4033f829b356e773212dc82a",
+      "tracked": false,
+      "ignored": false
+    },
+    {
+      "path": "experiments/spff_r5_fft_verify.py",
+      "bytes": 585,
+      "sha256": "c6ddf055dd4163a053855d6b9365395af00a9afd379e22389777dd3ffc7934ad",
+      "tracked": false,
+      "ignored": false
+    },
+    {
+      "path": "experiments/spff_r5_pivotality_audit.py",
+      "bytes": 1536,
+      "sha256": "4d50a58b47e19bcdf83c0aaee1da57eb341f4fc8ecf52290ca912d9e833d5bdd",
+      "tracked": false,
+      "ignored": false
+    },
+    {
+      "path": "src/spff_r5_benchmark.py",
+      "bytes": 3022,
+      "sha256": "9f1005278cf9e5b886455b0fb6b90741e73f2c0fd2568fd660885456ffa0b73c",
+      "tracked": true,
+      "ignored": false
+    },
+    {
+      "path": "src/spff_r5_cluster_path.py",
+      "bytes": 8258,
+      "sha256": "0e0f3a7af2ad07683a23e1df1aaf5afdfce8d2e9382990d5a1a8b2eae56690be",
+      "tracked": false,
+      "ignored": false
+    },
+    {
+      "path": "src/spff_r5_path.py",
+      "bytes": 6950,
+      "sha256": "36017217283e3c7846c09da0d4a67f967053e15caf689c5cd300638275488d27",
+      "tracked": true,
+      "ignored": false
+    },
+    {
+      "path": "tests/test_spff_r5_cluster_path.py",
+      "bytes": 6074,
+      "sha256": "03fdfe134ecc37f2b77c20bb4cd8549bde08eb81445af8ed8eaa276039ab61e5",
+      "tracked": false,
+      "ignored": false
+    },
+    {
+      "path": "tests/test_spff_r5_path.py",
+      "bytes": 8841,
+      "sha256": "f9e1d492b5d1060761ceb31ad861825d1abcecd340e93cc9167c790b3e0e6802",
+      "tracked": true,
+      "ignored": false
+    }
+  ],
+  "archive_members": [
+    {
+      "archive": "spff_r5_conditional_pilot_package.zip",
+      "member": "spff_r5_conditional_pilot_prototype.py",
+      "bytes": 3434,
+      "sha256": "9d647570eda5a893be09a4ddfd1be2aad11f8c90fb188ee85b1fcaaf7bee9a64",
+      "matches": [
+        {
+          "path": "experiments/spff_r5_conditional_pilot_prototype.py",
+          "identical_bytes": true,
+          "identical_text": true
+        }
+      ]
+    },
+    {
+      "archive": "spff_r5_conditional_pilot_package.zip",
+      "member": "spff_r5_conditional_pilot_verify.py",
+      "bytes": 1935,
+      "sha256": "195d098836c7f1b9908a987d3b3239be1a0fbff6a7e623ad1242735b7251116b",
+      "matches": [
+        {
+          "path": "experiments/spff_r5_conditional_pilot_verify.py",
+          "identical_bytes": true,
+          "identical_text": true
+        }
+      ]
+    },
+    {
+      "archive": "spff_r5_conditional_pilot_package.zip",
+      "member": "spff_r5_conditional_pilot_findings.md",
+      "bytes": 7927,
+      "sha256": "2f0c37c88b84f4f929ff0e6f3ee3bcdaf705c53ab77dae5166220db6aaa7a6d8",
+      "matches": [
+        {
+          "path": "docs/spff-r5-conditional-pilot-findings.md",
+          "identical_bytes": true,
+          "identical_text": true
+        }
+      ]
+    },
+    {
+      "archive": "spff_r5_conditional_pilot_package.zip",
+      "member": "spff_r5_conditional_pilot_results.json",
+      "bytes": 999,
+      "sha256": "0c1c378c6b12e08b2278d0184955cc01798f6476168f35240f150e0aeac735f9",
+      "matches": [
+        {
+          "path": "experiments/spff_r5_conditional_pilot_results.json",
+          "identical_bytes": true,
+          "identical_text": true
+        }
+      ]
+    },
+    {
+      "archive": "spff_r5_hardening_patch.zip",
+      "member": "spff_r5_hardening_patch/tests/.pytest_cache/.gitignore",
+      "bytes": 37,
+      "sha256": "3ed731b65d06150c138e2dadb0be0697550888a6b47eb8c45ecc9adba8b8e9bd",
+      "matches": []
+    },
+    {
+      "archive": "spff_r5_hardening_patch.zip",
+      "member": "spff_r5_hardening_patch/tests/.pytest_cache/v/cache/nodeids",
+      "bytes": 2676,
+      "sha256": "f53725928448aa76db0c5856120d8f2e95801bc2e73d358b98057e357e09b397",
+      "matches": []
+    },
+    {
+      "archive": "spff_r5_hardening_patch.zip",
+      "member": "spff_r5_hardening_patch/tests/.pytest_cache/CACHEDIR.TAG",
+      "bytes": 191,
+      "sha256": "37dc88ef9a0abeddbe81053a6dd8fdfb13afb613045ea1eb4a5c815a74a3bde4",
+      "matches": []
+    },
+    {
+      "archive": "spff_r5_hardening_patch.zip",
+      "member": "spff_r5_hardening_patch/tests/.pytest_cache/README.md",
+      "bytes": 302,
+      "sha256": "73fd6fccdd802c419a6b2d983d6c3173b7da97558ac4b589edec2dfe443db9ad",
+      "matches": []
+    },
+    {
+      "archive": "spff_r5_hardening_patch.zip",
+      "member": "spff_r5_hardening_patch/tests/__pycache__/test_spff_r5_cluster_path.cpython-313-pytest-9.0.2.pyc",
+      "bytes": 27945,
+      "sha256": "bb85f036d455aa776b2b8020c950be3190e9238f498cfa201886157b93795a72",
+      "matches": []
+    },
+    {
+      "archive": "spff_r5_hardening_patch.zip",
+      "member": "spff_r5_hardening_patch/tests/test_spff_r5_cluster_path.py",
+      "bytes": 6074,
+      "sha256": "03fdfe134ecc37f2b77c20bb4cd8549bde08eb81445af8ed8eaa276039ab61e5",
+      "matches": [
+        {
+          "path": "tests/test_spff_r5_cluster_path.py",
+          "identical_bytes": true,
+          "identical_text": true
+        }
+      ]
+    },
+    {
+      "archive": "spff_r5_hardening_patch.zip",
+      "member": "spff_r5_hardening_patch/README.txt",
+      "bytes": 725,
+      "sha256": "8c5a0b103a96729742e440c8e6aa14e7885fb424188250776c5d895524c1a276",
+      "matches": []
+    },
+    {
+      "archive": "spff_r5_hardening_patch.zip",
+      "member": "spff_r5_hardening_patch/src/__pycache__/spff_r5_cluster_path.cpython-313.pyc",
+      "bytes": 12570,
+      "sha256": "c31e7c412bde57a985d3b4f44d78de86b687fa460803e3a59109db650dd1ca9d",
+      "matches": []
+    },
+    {
+      "archive": "spff_r5_hardening_patch.zip",
+      "member": "spff_r5_hardening_patch/src/spff_r5_cluster_path.py",
+      "bytes": 8258,
+      "sha256": "0e0f3a7af2ad07683a23e1df1aaf5afdfce8d2e9382990d5a1a8b2eae56690be",
+      "matches": [
+        {
+          "path": "src/spff_r5_cluster_path.py",
+          "identical_bytes": true,
+          "identical_text": true
+        }
+      ]
+    },
+    {
+      "archive": "spff_r5_phase_b_c_research_bundle.zip",
+      "member": "spff_r5_research_bundle/tests/test_spff_r5_cluster_path.py",
+      "bytes": 5023,
+      "sha256": "0c8e170ddc1172d465836759c94d938e369e998b3aa3e3081e5a4678937b46c4",
+      "matches": [
+        {
+          "path": "tests/test_spff_r5_cluster_path.py",
+          "identical_bytes": false,
+          "identical_text": false
+        }
+      ]
+    },
+    {
+      "archive": "spff_r5_phase_b_c_research_bundle.zip",
+      "member": "spff_r5_research_bundle/src/spff_r5_cluster_path.py",
+      "bytes": 7036,
+      "sha256": "f7f16cd26ba1556ef3a83182599b41e1a50ece317fdd88bd5b2e859e032fc67b",
+      "matches": [
+        {
+          "path": "src/spff_r5_cluster_path.py",
+          "identical_bytes": false,
+          "identical_text": false
+        }
+      ]
+    },
+    {
+      "archive": "spff_r5_phase_b_c_research_bundle.zip",
+      "member": "spff_r5_research_bundle/phase_b/spff_r5_phase_b_research_note.md",
+      "bytes": 14195,
+      "sha256": "fd448938fcecf6725fec9adff4742f4896367734853048d32720b2563a5100a0",
+      "matches": [
+        {
+          "path": "docs/spff-r5-phase-b-research-note.md",
+          "identical_bytes": true,
+          "identical_text": true
+        }
+      ]
+    },
+    {
+      "archive": "spff_r5_phase_b_c_research_bundle.zip",
+      "member": "spff_r5_research_bundle/phase_b/spff_r5_phase_b_prototype.py",
+      "bytes": 9843,
+      "sha256": "670e5e366bff2b4c43ccf89eb02acbc19bf4f9888568c7f42f78b091fbcb8fde",
+      "matches": []
+    },
+    {
+      "archive": "spff_r5_pivotality_package.zip",
+      "member": "spff_r5_pivotality_findings.md",
+      "bytes": 4999,
+      "sha256": "b4986bab85dcbf3674ae2b8d22b401d496ec1790168fcf46430bd1d90dff8312",
+      "matches": [
+        {
+          "path": "docs/spff-r5-pivotality-findings.md",
+          "identical_bytes": true,
+          "identical_text": true
+        }
+      ]
+    },
+    {
+      "archive": "spff_r5_pivotality_package.zip",
+      "member": "spff_r5_pivotality_audit.py",
+      "bytes": 1536,
+      "sha256": "4d50a58b47e19bcdf83c0aaee1da57eb341f4fc8ecf52290ca912d9e833d5bdd",
+      "matches": [
+        {
+          "path": "experiments/spff_r5_pivotality_audit.py",
+          "identical_bytes": true,
+          "identical_text": true
+        }
+      ]
+    },
+    {
+      "archive": "spff_r5_pivotality_package.zip",
+      "member": "spff_r5_pivotality_results.txt",
+      "bytes": 1302,
+      "sha256": "27912aea4e19b726e36c7219540ba0a44ab2cc2e4c2e332a28f88baa80fcdb25",
+      "matches": []
+    }
+  ],
+  "security_flags": [
+    {
+      "path": "docs/spff-r5-handoff.md",
+      "line": 7,
+      "category": "absolute_path"
+    },
+    {
+      "path": "docs/spff-r5-mathematical-audit.md",
+      "line": 9,
+      "category": "absolute_path"
+    },
+    {
+      "path": "docs/spff-r5-mathematical-audit.md",
+      "line": 16,
+      "category": "absolute_path"
+    },
+    {
+      "path": "docs/spff-r5-mathematical-audit.md",
+      "line": 38,
+      "category": "absolute_path"
+    },
+    {
+      "path": "docs/spff-r5-mathematical-audit.md",
+      "line": 236,
+      "category": "absolute_path"
+    },
+    {
+      "path": "docs/spff-r5-phase-b-research-note.md",
+      "line": 108,
+      "category": "absolute_path"
+    },
+    {
+      "path": "docs/spff-r5-phase-b-research-note.md",
+      "line": 109,
+      "category": "absolute_path"
+    },
+    {
+      "path": "docs/spff-r5-phase-b-research-note.md",
+      "line": 110,
+      "category": "absolute_path"
+    },
+    {
+      "path": "docs/spff-r5-phase-b-research-note.md",
+      "line": 111,
+      "category": "absolute_path"
+    },
+    {
+      "path": "docs/spff-r5-phase-b-research-note.md",
+      "line": 112,
+      "category": "absolute_path"
+    },
+    {
+      "path": "docs/spff-r5-phase-b-research-note.md",
+      "line": 113,
+      "category": "absolute_path"
+    }
+  ],
+  "environment": {
+    "python": "3.13.14 (tags/v3.13.14:fd17997, Jun 10 2026, 13:03:48) [MSC v.1944 64 bit (AMD64)]",
+    "executable": "C:\\Program Files\\Python313\\python.exe",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "logical_processors": 20,
+    "dependencies": {
+      "numpy": "2.5.3",
+      "scipy": "1.18.1",
+      "pytest": null,
+      "torch": null,
+      "psutil": null
+    },
+    "processor_model": "13th Gen Intel(R) Core(TM) i7-13650HX",
+    "physical_memory_bytes": 16873545728,
+    "gpu": "Not verified; nvidia-smi unavailable; no GPU used for audit calculations",
+    "isolated_test_dependencies": {
+      "pytest": "9.2.0",
+      "pluggy": "1.7.0",
+      "iniconfig": "2.3.1",
+      "packaging": "26.3",
+      "pygments": "2.21.0",
+      "colorama": "0.4.6"
+    }
+  },
+  "archives": [
+    {
+      "path": "spff_r5_conditional_pilot_package.zip",
+      "sha256": "144c277607a009f4772c2390b10ea44da726d4d19021d37da4c04914af293c1a",
+      "bytes": 7044
+    },
+    {
+      "path": "spff_r5_hardening_patch.zip",
+      "sha256": "5cb0373fed1f90706b2e411b48cfffec429a7097821be3db11e951f82325a8a8",
+      "bytes": 24669
+    },
+    {
+      "path": "spff_r5_phase_b_c_research_bundle.zip",
+      "sha256": "8a9773b2c4a52ad4a9f205edab3dedd59215fdc1696dd46a94695727b2d2ed4e",
+      "bytes": 15686
+    },
+    {
+      "path": "spff_r5_pivotality_package.zip",
+      "sha256": "e98d87b7609fe05db26a516f97361ca933b74eb5696659f14f49c770de4a132f",
+      "bytes": 4207
+    }
+  ],
+  "archive_secret_pattern_flags": []
+}

@@ -1,0 +1,6 @@
+A {'n': 7, 'average_replacement_selection_change': np.float64(0.05983209014081182), 'worst_case_possible_pivotal_context_probability': np.float64(0.12810028392100006), 'total_probability': np.float64(1.0)}
+B {'n': 7, 'average_replacement_selection_change': np.float64(0.06110692253709984), 'worst_case_possible_pivotal_context_probability': np.float64(0.12810028392100006), 'total_probability': np.float64(1.0000000000000002)}
+A {'n': 12, 'average_replacement_selection_change': np.float64(0.04886198184039461), 'worst_case_possible_pivotal_context_probability': np.float64(0.11069496502506153), 'total_probability': np.float64(1.0)}
+B {'n': 12, 'average_replacement_selection_change': np.float64(0.05289146947444835), 'worst_case_possible_pivotal_context_probability': np.float64(0.1170350967400435), 'total_probability': np.float64(1.0000000000000002)}
+A {'n': 20, 'average_replacement_selection_change': np.float64(0.020325495736564638), 'worst_case_possible_pivotal_context_probability': np.float64(0.046099164203986576), 'total_probability': np.float64(0.9999999999999979)}
+B {'n': 20, 'average_replacement_selection_change': np.float64(0.01961894048681038), 'worst_case_possible_pivotal_context_probability': np.float64(0.045619975728074136), 'total_probability': np.float64(1.0000000000000007)}

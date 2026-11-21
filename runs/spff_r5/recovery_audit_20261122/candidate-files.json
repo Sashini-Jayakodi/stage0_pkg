@@ -1,0 +1,240 @@
+{
+  "files": [
+    {
+      "path": "configs/spff_r5_audit_requirements.txt",
+      "bytes": 192,
+      "sha256": "4a99fc997e2561e28a00f79b0cbc659df00f31f086ff8a8e24bb49e070d39649"
+    },
+    {
+      "path": "docs/spff-r5-reproducibility-audit.md",
+      "bytes": 39096,
+      "sha256": "88ff841f1c28a86e5337ef3b3612e5d37eddcad1f851bf1c42f82ac6e3262d33"
+    },
+    {
+      "path": "docs/spff-r5-conditional-pilot-findings.md",
+      "bytes": 7927,
+      "sha256": "2f0c37c88b84f4f929ff0e6f3ee3bcdaf705c53ab77dae5166220db6aaa7a6d8"
+    },
+    {
+      "path": "docs/spff-r5-fft-findings.md",
+      "bytes": 3613,
+      "sha256": "0ca8a7b6bf7df47686fbefa393191b412bc3acb4d2ef4717755f6d7bdc73ed9a"
+    },
+    {
+      "path": "docs/spff-r5-phase-b-research-note.md",
+      "bytes": 14195,
+      "sha256": "fd448938fcecf6725fec9adff4742f4896367734853048d32720b2563a5100a0"
+    },
+    {
+      "path": "docs/spff-r5-pivotality-findings.md",
+      "bytes": 4999,
+      "sha256": "b4986bab85dcbf3674ae2b8d22b401d496ec1790168fcf46430bd1d90dff8312"
+    },
+    {
+      "path": "src/spff_r5_path.py",
+      "bytes": 6950,
+      "sha256": "36017217283e3c7846c09da0d4a67f967053e15caf689c5cd300638275488d27"
+    },
+    {
+      "path": "src/spff_r5_cluster_path.py",
+      "bytes": 8258,
+      "sha256": "0e0f3a7af2ad07683a23e1df1aaf5afdfce8d2e9382990d5a1a8b2eae56690be"
+    },
+    {
+      "path": "tests/test_spff_r5_path.py",
+      "bytes": 8841,
+      "sha256": "f9e1d492b5d1060761ceb31ad861825d1abcecd340e93cc9167c790b3e0e6802"
+    },
+    {
+      "path": "tests/test_spff_r5_cluster_path.py",
+      "bytes": 6074,
+      "sha256": "03fdfe134ecc37f2b77c20bb4cd8549bde08eb81445af8ed8eaa276039ab61e5"
+    },
+    {
+      "path": "experiments/spff_r5_conditional_pilot_prototype.py",
+      "bytes": 3434,
+      "sha256": "9d647570eda5a893be09a4ddfd1be2aad11f8c90fb188ee85b1fcaaf7bee9a64"
+    },
+    {
+      "path": "experiments/spff_r5_conditional_pilot_results.json",
+      "bytes": 999,
+      "sha256": "0c1c378c6b12e08b2278d0184955cc01798f6476168f35240f150e0aeac735f9"
+    },
+    {
+      "path": "experiments/spff_r5_conditional_pilot_verify.py",
+      "bytes": 1935,
+      "sha256": "195d098836c7f1b9908a987d3b3239be1a0fbff6a7e623ad1242735b7251116b"
+    },
+    {
+      "path": "experiments/spff_r5_fft_path_experiment.py",
+      "bytes": 1242,
+      "sha256": "47e5729aa89505097ca4d2f44852e34a543fd3df4033f829b356e773212dc82a"
+    },
+    {
+      "path": "experiments/spff_r5_fft_verify.py",
+      "bytes": 585,
+      "sha256": "c6ddf055dd4163a053855d6b9365395af00a9afd379e22389777dd3ffc7934ad"
+    },
+    {
+      "path": "experiments/spff_r5_generality_probe.py",
+      "bytes": 2919,
+      "sha256": "44082a919551db3333c30b3cdd97549afb3b630980d98d96062e9c25784a5a4e"
+    },
+    {
+      "path": "experiments/spff_r5_manuscript_checks.py",
+      "bytes": 8195,
+      "sha256": "55823c94b5f74fb88995d25153a8b7d4653936a3eab11dc7def6bc5e8246d599"
+    },
+    {
+      "path": "experiments/spff_r5_nonfft_recurrence_check.py",
+      "bytes": 2485,
+      "sha256": "5a89c136f8ee58c1d1c60bc5b8599b0af4a77da70edec2769842dba0586ce0ba"
+    },
+    {
+      "path": "experiments/spff_r5_phase_b_prototype.py",
+      "bytes": 9843,
+      "sha256": "670e5e366bff2b4c43ccf89eb02acbc19bf4f9888568c7f42f78b091fbcb8fde"
+    },
+    {
+      "path": "experiments/spff_r5_pivotality_audit.py",
+      "bytes": 1536,
+      "sha256": "4d50a58b47e19bcdf83c0aaee1da57eb341f4fc8ecf52290ca912d9e833d5bdd"
+    },
+    {
+      "path": "runs/spff_r5/pivotality_archived_results.txt",
+      "bytes": 1302,
+      "sha256": "27912aea4e19b726e36c7219540ba0a44ab2cc2e4c2e332a28f88baa80fcdb25"
+    },
+    {
+      "path": "runs/spff_r5/audit_20261122/inventory.json",
+      "bytes": 14242,
+      "sha256": "2d3bab14f0f6cb8b050472a8b5a4249d5655ca7c29bf92713bfa355aa4a09c85"
+    },
+    {
+      "path": "runs/spff_r5/audit_20261122/fft.txt",
+      "bytes": 3798,
+      "sha256": "1cce62d6c3aee1355fe54289d6becf9e40210b5dfe3b4c6b478cc58f473248bd"
+    },
+    {
+      "path": "runs/spff_r5/audit_20261122/exact-n7.txt",
+      "bytes": 412,
+      "sha256": "80c902abbb64680070d61238e0663b18176def63a8d7113e54f561836ba4af96"
+    },
+    {
+      "path": "runs/spff_r5/audit_20261122/monte-carlo.txt",
+      "bytes": 538,
+      "sha256": "472afae3e1e7daa7aa8104e0f3f76901a14cb9f81308e21dc1d866570e7f674e"
+    },
+    {
+      "path": "runs/spff_r5/audit_20261122/conditional-verify.txt",
+      "bytes": 368,
+      "sha256": "dda67c2629f140321a0210498b40613adf7e8ecc46e4cfd8ff8922a7bffb4629"
+    },
+    {
+      "path": "runs/spff_r5/audit_20261122/conditional-pilot-rerun.json",
+      "bytes": 1071,
+      "sha256": "a5b22a683fc811d21a983dceb42208b4f6686ca9e53cd0a6fbf21894cd8c7e5f"
+    },
+    {
+      "path": "runs/spff_r5/audit_20261122/conditional-pilot-comparison.txt",
+      "bytes": 624,
+      "sha256": "c931c232bf60f27e8c085e91b4cabb35218d366168e8f5ed2d7d28a21e484c8b"
+    },
+    {
+      "path": "runs/spff_r5/audit_20261122/pytest-isolated-authorized.txt",
+      "bytes": 368,
+      "sha256": "ae646fb8687b15d5ce281abcae9737291066f4d43dab5bc19983df97d545c02a"
+    },
+    {
+      "path": "runs/spff_r5/recovery_audit_20261122/initial-audit-report.md",
+      "bytes": 20115,
+      "sha256": "8bf701b52d5cfdd7cc16cc3206f995de2f107c461c839c0b707624ad2ae78890"
+    },
+    {
+      "path": "runs/spff_r5/recovery_audit_20261122/recovery_manifest.json",
+      "bytes": 2880,
+      "sha256": "ac7427822d578f9d50cf1ef43600d170e2d88ed5aecab48671e7695d3e42d003"
+    },
+    {
+      "path": "runs/spff_r5/recovery_audit_20261122/generality-local.txt",
+      "bytes": 848,
+      "sha256": "748b81a501c9e6f3e2232d1857ea12b03cc5f876d1e4bb4e13e7fae42d66b9a5"
+    },
+    {
+      "path": "runs/spff_r5/recovery_audit_20261122/generality-runtime.json",
+      "bytes": 63,
+      "sha256": "d7f9452a6b96a886bb4da72e23350e81d46e8f6e6679223e8e01647d6dad3711"
+    },
+    {
+      "path": "runs/spff_r5/recovery_audit_20261122/nonfft-local.txt",
+      "bytes": 1503,
+      "sha256": "392e98e5ca4ce1da5d501a08984cade706752d31f6a9b985ee185aa64ed9c2de"
+    },
+    {
+      "path": "runs/spff_r5/recovery_audit_20261122/nonfft-runtime.json",
+      "bytes": 63,
+      "sha256": "5f0003a0611725ff2477ead1cf8b53a417aa6bc34f4b22b1159a037264c51428"
+    },
+    {
+      "path": "runs/spff_r5/recovery_audit_20261122/execution/nonfft_reproduction_results.json",
+      "bytes": 2192,
+      "sha256": "a8f6cb2de2b0804c9373eb287965a3627e8c96dd332c82c6c10dd5761e9d3b0f"
+    },
+    {
+      "path": "runs/spff_r5/recovery_audit_20261122/focused-tests.txt",
+      "bytes": 368,
+      "sha256": "4cd05315308afcce1a67177599b157c5505367635319d4e7c6e0d5f4978e7ff6"
+    },
+    {
+      "path": "runs/spff_r5/recovery_audit_20261122/full-suite.txt",
+      "bytes": 59576,
+      "sha256": "50d7fce4030892466c61fe8a4a2ceb975efae29d0f6c2c345f50aa643033cddf"
+    },
+    {
+      "path": "runs/spff_r5/recovery_audit_20261122/conditional-verify-local.txt",
+      "bytes": 183,
+      "sha256": "a437ba786f2cab9e004e5ac29de7c4df61e4cb882bb1846cf9ae5a3a20c64fe0"
+    },
+    {
+      "path": "runs/spff_r5/recovery_audit_20261122/conditional-pilot-local.json",
+      "bytes": 1064,
+      "sha256": "f6d0dc0e248bd0e1f4d3ab41270c40107e2553b90823a333435d4816208efdd9"
+    },
+    {
+      "path": "runs/spff_r5/recovery_audit_20261122/manuscript-checks.json",
+      "bytes": 5189,
+      "sha256": "a93c0cce152b50fbc213d68fcabcc137d4432c55e69bc37a73166be063218db6"
+    },
+    {
+      "path": "runs/spff_r5/recovery_audit_20261122/security-review.json",
+      "bytes": 394,
+      "sha256": "06e017c3db2890d1eef5e01c087ca1cc5c4b6c05ad040c0168dfaf887d2f4b24"
+    },
+    {
+      "path": "runs/spff_r5/recovery_audit_20261122/supplied/README_RECOVERY.md",
+      "bytes": 4101,
+      "sha256": "be5a1f34af60421e262952e416050b87b2758f9448773212de09a281495d1694"
+    },
+    {
+      "path": "runs/spff_r5/recovery_audit_20261122/supplied/SHA256SUMS.txt",
+      "bytes": 676,
+      "sha256": "907e6d945ab1e9091a0d412ac6b723a64c8fdadd3936080d72a217e8766c9d91"
+    },
+    {
+      "path": "runs/spff_r5/recovery_audit_20261122/supplied/nonfft_reproduction_results.json",
+      "bytes": 2127,
+      "sha256": "b0d2789ae95486b4e3363c3f9c0763aada6fe014777199789005086c71d4cdf5"
+    },
+    {
+      "path": "runs/spff_r5/recovery_audit_20261122/supplied/generality_reproduction_log.txt",
+      "bytes": 841,
+      "sha256": "a4ccbe0828864c4d44ace36d2de4f2384311093dcd966149542c99afef8149d7"
+    },
+    {
+      "path": "runs/spff_r5/recovery_audit_20261122/supplied/nonfft_reproduction_log.txt",
+      "bytes": 1500,
+      "sha256": "1055e3cade99db737e1074c5236ca1563262de36ca91e6ee1b74fd1e13dbe96e"
+    }
+  ],
+  "note": "This manifest excludes its own hash; staged content is checked separately"
+}

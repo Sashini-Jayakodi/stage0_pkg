@@ -1,0 +1,5 @@
+# Measured reproduction environment, 2026-11-22: Python 3.13.14, Windows 11.
+# This is not a manifest of the original historical research environment.
+numpy==2.5.3
+scipy==1.18.1
+pytest==9.2.0

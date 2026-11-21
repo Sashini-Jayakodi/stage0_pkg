@@ -1,0 +1,7 @@
+Three-threshold variable-acceptance nested example:
+ n= 7 risk= [0.08333333 0.21428571 0.33333333] no/j1/j2/j3= [0.98477565 0.01001385 0.00269545 0.00251505] unsafe-selection= 0.002515049999999998 probability-sum= 0.9999999999999969
+ n= 10 risk= [0.08333333 0.21428571 0.33333333] no/j1/j2/j3= [0.80183412 0.13610301 0.04566786 0.01639501] unsafe-selection= 0.01639500952499995 probability-sum= 0.9999999999999963
+Uniform 95% CI width lower bound near risk alpha, one test:
+ n= 7 k= 0 boundary selection probability= 0.08235429999999999 minimum expected length lower bound= 0.07411886999999999
+ n= 120 k= 29 boundary selection probability= 0.09590444379416135 minimum expected length lower bound= 0.08631399941474523
+ n= 784 k= 218 boundary selection probability= 0.09588941721833312 minimum expected length lower bound= 0.08630047549649981

@@ -1,0 +1,16 @@
+{
+  "files_scanned": 60,
+  "flags": [
+    {
+      "path": "docs/spff-r5-mathematical-audit.md",
+      "line": 38,
+      "category": "personal_profile_path"
+    },
+    {
+      "path": "docs/spff-r5-mathematical-audit.md",
+      "line": 236,
+      "category": "personal_profile_path"
+    }
+  ],
+  "scope": "SPFF research source, notes, and audit text artifacts; values omitted"
+}

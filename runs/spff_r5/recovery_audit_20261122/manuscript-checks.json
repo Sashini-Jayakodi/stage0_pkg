@@ -1,0 +1,171 @@
+{
+  "provenance": "New manuscript verification; not recovered historical logs",
+  "python": "3.13.14",
+  "numpy": "2.5.3",
+  "scipy": "1.18.1",
+  "source_sha256": {
+    "experiments\\spff_r5_manuscript_checks.py": "55823c94b5f74fb88995d25153a8b7d4653936a3eab11dc7def6bc5e8246d599",
+    "src\\r9_certify.py": "ed1c7ae618072bca4d89a12ff781c3040f3bb4c8015f69b01d1642d12c651ffa",
+    "src\\certify.py": "047867b85e5006577e0e01d871f59b6fe20d232fb413897065fdaa08ed346e90",
+    "src\\spff_r5_cluster_path.py": "0e0f3a7af2ad07683a23e1df1aaf5afdfce8d2e9382990d5a1a8b2eae56690be",
+    "experiments\\spff_r5_conditional_pilot_prototype.py": "9d647570eda5a893be09a4ddfd1be2aad11f8c90fb188ee85b1fcaaf7bee9a64"
+  },
+  "small_n": {
+    "rational_grid": [
+      {
+        "t": 0,
+        "F_exact": "1001927553/48828125000",
+        "F": 0.02051947628544,
+        "derivative_exact": "102384513/2441406250",
+        "derivative": 0.0419366965248,
+        "F_fft_difference": 4.163336342344337e-17,
+        "derivative_fft_difference": 6.938893903907228e-18
+      },
+      {
+        "t": 0.25,
+        "F_exact": "148064433/4882812500",
+        "F": 0.0303235958784,
+        "derivative_exact": "229673367/6103515625",
+        "derivative": 0.03762968444928,
+        "F_fft_difference": 2.0816681711721685e-17,
+        "derivative_fft_difference": 6.938893903907228e-18
+      },
+      {
+        "t": 0.5,
+        "F_exact": "1948292511/48828125000",
+        "F": 0.03990103062528,
+        "derivative_exact": "489785373/12207031250",
+        "derivative": 0.04012321775616,
+        "F_fft_difference": 2.7755575615628914e-17,
+        "derivative_fft_difference": 6.938893903907228e-18
+      },
+      {
+        "t": 0.75,
+        "F_exact": "1243943283/24414062500",
+        "F": 0.05095191687168,
+        "derivative_exact": "301619241/6103515625",
+        "derivative": 0.04941729644544,
+        "F_fft_difference": 2.0816681711721685e-17,
+        "derivative_fft_difference": 0.0
+      },
+      {
+        "t": 1,
+        "F_exact": "636488193/9765625000",
+        "F": 0.0651763909632,
+        "derivative_exact": "799706061/12207031250",
+        "derivative": 0.06551192051712,
+        "F_fft_difference": 5.551115123125783e-17,
+        "derivative_fft_difference": 1.3877787807814457e-17
+      }
+    ],
+    "ordered_endpoints": [
+      {
+        "t": 0,
+        "ordered_paths": 78125,
+        "selector_mismatches": 0,
+        "exact_selection": [
+          0.90904879841609,
+          0.02051947628544,
+          0.07043172529847
+        ],
+        "fft_max_difference": 4.163336342344337e-17,
+        "cluster_max_difference": 4.440892098500626e-16
+      },
+      {
+        "t": 1,
+        "ordered_paths": 78125,
+        "selector_mismatches": 0,
+        "exact_selection": [
+          0.90904879841609,
+          0.0651763909632,
+          0.02577481062071
+        ],
+        "fft_max_difference": 6.245004513516506e-17,
+        "cluster_max_difference": 3.3306690738754696e-16
+      }
+    ],
+    "max_rational_fft_difference": 5.551115123125783e-17
+  },
+  "conditional_binomial": {
+    "provenance": "Reconstructed grid; original grid specification/log not recovered",
+    "N_range": [
+      0,
+      261
+    ],
+    "t_grid": "numpy.linspace(0,1,101)",
+    "cases": 26462,
+    "minimum": {
+      "coverage": 0.9500480881074119,
+      "N": 248,
+      "t": 0.67
+    },
+    "interval_endpoint_checks": 34453,
+    "max_tail_inversion_residual": 1.6795592694407446e-14
+  },
+  "monte_carlo": {
+    "seed": 20261119,
+    "order": "t=0 then t=1, same RNG",
+    "rows": [
+      {
+        "t": 0,
+        "draws": 350000,
+        "observed": [
+          0.7552542857142858,
+          0.035422857142857145,
+          0.20932285714285714
+        ],
+        "fft": [
+          0.7563083849888659,
+          0.03534070997642254,
+          0.2083509050347116
+        ],
+        "wilson_low": [
+          0.7538271343320578,
+          0.03481555351100818,
+          0.2079782618337891
+        ],
+        "wilson_high": [
+          0.7566758340218543,
+          0.0360403586854255,
+          0.21067383309203325
+        ],
+        "standardized_discrepancy": [
+          -1.4525991506522342,
+          0.2632097660785893,
+          1.415842135520955
+        ]
+      },
+      {
+        "t": 1,
+        "draws": 350000,
+        "observed": [
+          0.7562685714285714,
+          0.07443714285714285,
+          0.1692942857142857
+        ],
+        "fft": [
+          0.7563083849888446,
+          0.07456656990593194,
+          0.1691250451052235
+        ],
+        "wilson_low": [
+          0.7548434092473282,
+          0.07357222116931714,
+          0.16805552439294372
+        ],
+        "wilson_high": [
+          0.7576881082706179,
+          0.07531140605496178,
+          0.1705403063409993
+        ],
+        "standardized_discrepancy": [
+          -0.054864987797539705,
+          -0.29148378198122993,
+          0.2670956438049363
+        ]
+      }
+    ],
+    "max_abs_z": 1.4525991506522342
+  },
+  "seconds": 4.724536499998067
+}

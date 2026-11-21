@@ -1,0 +1,70 @@
+{
+  "zip_name": "SPFF_R5_Missing_Evidence_Recovery.zip",
+  "zip_sha256": "3281cdee2cb857f69aaa064ee6b1418321fb743a1b2a1665fc383f978d057a46",
+  "checks": [
+    {
+      "file": "spff_r5_conditional_pilot_prototype.py",
+      "expected": "9d647570eda5a893be09a4ddfd1be2aad11f8c90fb188ee85b1fcaaf7bee9a64",
+      "actual": "9d647570eda5a893be09a4ddfd1be2aad11f8c90fb188ee85b1fcaaf7bee9a64",
+      "passed": true,
+      "existing_copy": "experiments/spff_r5_conditional_pilot_prototype.py",
+      "identical": true
+    },
+    {
+      "file": "spff_r5_generality_probe.py",
+      "expected": "44082a919551db3333c30b3cdd97549afb3b630980d98d96062e9c25784a5a4e",
+      "actual": "44082a919551db3333c30b3cdd97549afb3b630980d98d96062e9c25784a5a4e",
+      "passed": true,
+      "existing_copy": null,
+      "identical": null
+    },
+    {
+      "file": "spff_r5_nonfft_recurrence_check.py",
+      "expected": "5a89c136f8ee58c1d1c60bc5b8599b0af4a77da70edec2769842dba0586ce0ba",
+      "actual": "5a89c136f8ee58c1d1c60bc5b8599b0af4a77da70edec2769842dba0586ce0ba",
+      "passed": true,
+      "existing_copy": null,
+      "identical": null
+    },
+    {
+      "file": "nonfft_reproduction_results.json",
+      "expected": "b0d2789ae95486b4e3363c3f9c0763aada6fe014777199789005086c71d4cdf5",
+      "actual": "b0d2789ae95486b4e3363c3f9c0763aada6fe014777199789005086c71d4cdf5",
+      "passed": true,
+      "existing_copy": null,
+      "identical": null
+    },
+    {
+      "file": "generality_reproduction_log.txt",
+      "expected": "a4ccbe0828864c4d44ace36d2de4f2384311093dcd966149542c99afef8149d7",
+      "actual": "a4ccbe0828864c4d44ace36d2de4f2384311093dcd966149542c99afef8149d7",
+      "passed": true,
+      "existing_copy": null,
+      "identical": null
+    },
+    {
+      "file": "nonfft_reproduction_log.txt",
+      "expected": "1055e3cade99db737e1074c5236ca1563262de36ca91e6ee1b74fd1e13dbe96e",
+      "actual": "1055e3cade99db737e1074c5236ca1563262de36ca91e6ee1b74fd1e13dbe96e",
+      "passed": true,
+      "existing_copy": null,
+      "identical": null
+    },
+    {
+      "file": "README_RECOVERY.md",
+      "expected": "be5a1f34af60421e262952e416050b87b2758f9448773212de09a281495d1694",
+      "actual": "be5a1f34af60421e262952e416050b87b2758f9448773212de09a281495d1694",
+      "passed": true,
+      "existing_copy": null,
+      "identical": null
+    }
+  ],
+  "manuscript_name": "SPFF_R5_IEEE_Revised_Source.tex",
+  "manuscript_sha256": "28201ee5725c148b2fffc083f97d7f7a80ea75770a99cfaa3a8962647ea830b6",
+  "python": "3.13.14 (tags/v3.13.14:fd17997, Jun 10 2026, 13:03:48) [MSC v.1944 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "numpy": "2.5.3",
+  "scipy": "1.18.1",
+  "extraction": "New sibling folder SPFF_R5_Missing_Evidence_Recovery/SPFF_R5_Recovery_Checks",
+  "extracted_matches_snapshot": true
+}

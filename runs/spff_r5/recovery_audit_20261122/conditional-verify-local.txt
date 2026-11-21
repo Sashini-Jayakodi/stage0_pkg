@@ -1,0 +1,3 @@
+PASS both threshold-wise marginal distributions constant
+PASS derivative finite-difference comparisons (12 settings)
+PASS exact Clopper-Pearson conditional coverage (126 settings)

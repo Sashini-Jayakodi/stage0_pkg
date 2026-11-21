@@ -1,0 +1,67 @@
+{
+  "provenance": "New reproduction check in assistant container; not original historical run",
+  "python": "3.13.5",
+  "numpy": "2.3.5",
+  "scipy": "1.17.0",
+  "n": 784,
+  "alpha": 0.3,
+  "delta": 0.1,
+  "a": 676,
+  "b": 218,
+  "rows": [
+    {
+      "t": 0.0,
+      "F_nonfft": 0.035340709976372696,
+      "F_fft": 0.03534070997642255,
+      "F_abs_difference": 4.9855952699573436e-14,
+      "derivative_nonfft": 0.032986245174309155,
+      "derivative_fft": 0.032986245174310584,
+      "derivative_abs_difference": 1.429412144204889e-15,
+      "seconds": 0.6882093479999867
+    },
+    {
+      "t": 0.25,
+      "F_nonfft": 0.0440257643253362,
+      "F_fft": 0.04402576432537115,
+      "F_abs_difference": 3.495120859398071e-14,
+      "derivative_nonfft": 0.03650799854493074,
+      "derivative_fft": 0.036507998544932245,
+      "derivative_abs_difference": 1.5057399771478686e-15,
+      "seconds": 0.7901172870000437
+    },
+    {
+      "t": 0.5,
+      "F_nonfft": 0.05359840725748673,
+      "F_fft": 0.05359840725753683,
+      "F_abs_difference": 5.0105752880114096e-14,
+      "derivative_nonfft": 0.04005749991085812,
+      "derivative_fft": 0.04005749991085989,
+      "derivative_abs_difference": 1.7694179454963432e-15,
+      "seconds": 0.773776071000043
+    },
+    {
+      "t": 0.75,
+      "F_nonfft": 0.06400354685916544,
+      "F_fft": 0.06400354685919533,
+      "F_abs_difference": 2.989275493803234e-14,
+      "derivative_nonfft": 0.042894292103649055,
+      "derivative_fft": 0.042894292103651206,
+      "derivative_abs_difference": 2.1510571102112408e-15,
+      "seconds": 0.7556237129999772
+    },
+    {
+      "t": 1.0,
+      "F_nonfft": 0.07456656990588575,
+      "F_fft": 0.07456656990593194,
+      "F_abs_difference": 4.618527782440651e-14,
+      "derivative_nonfft": 0.03903029845642334,
+      "derivative_fft": 0.03903029845642578,
+      "derivative_abs_difference": 2.435551760271437e-15,
+      "seconds": 0.7104404949999434
+    }
+  ],
+  "width": 0.03922585992951306,
+  "minimax_error": 0.01961292996475653,
+  "max_F_difference": 5.0105752880114096e-14,
+  "max_derivative_difference": 2.435551760271437e-15
+}
